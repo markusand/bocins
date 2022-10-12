@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "noImplicitAny": true,
+    "declaration": true,
+    "declarationDir": "./types",
+    "importHelpers": true,
+    "importsNotUsedAsValues": "error",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "/@/*": ["src/*"]
+    },
+    "lib": [
+      "esnext",
+      "dom",
+    ]
+  },
+  "include": [
+    "src/env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "vite.config.*",
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

@@ -1,0 +1,95 @@
+/* Global input styles */
+.input {
+  --padding: var(--input-padding, 0.5rem);
+  --margin: var(--input-margin, 1px);
+  --border-radius: var(--input-border-radius, 4px);
+  --background: var(--input-background, #fff);
+  --border: var(--input-border, 1px solid #c8c8cf);
+
+  display: inline-flex;
+  gap: var(--padding);
+  align-items: center;
+  margin: var(--margin);
+  vertical-align: middle;
+  color: var(--font-color);
+  background: var(--background);
+  border: var(--border);
+  border-radius: var(--border-radius);
+  position: relative;
+  line-height: 1;
+  overflow: hidden;
+  text-align: left;
+  outline: 0;
+  padding: var(--padding);
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  width: calc(var(--width) - 2 * var(--margin));
+
+  :focus-within > & {
+    border-color: var(--inpt-color-focus, var(--color-primary, #39f));
+  }
+
+  input {
+    all: unset;
+    min-width: 0;
+    height: 1rem;
+    flex: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: calc(-1 * var(--padding)) 0;
+    padding: var(--padding) 0;
+
+    &[type="number"] {
+      appearance: textfield;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        appearance: none;
+        margin: 0;
+      }
+    }
+  }
+
+  // &__prefix { padding-right: var(--padding); }
+  // &__suffix { padding-left: var(--padding); }
+
+  &__prefix,
+  &__suffix {
+    flex: 0 0 content;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+
+    .disabled > & { pointer-events: none; }
+  }
+
+  &__clear { cursor: pointer; }
+
+  &.block { width: calc(100% - 2 * var(--margin)); }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.input-group {
+  border: 0;
+  margin: var(--input-margin, 1px);
+  padding: 0;
+
+  & > * { margin: 0 !important; }
+
+  .input:not(:first-child),
+  & > :not(:first-child) .input {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    margin-left: -1px !important;
+  }
+
+  .input:not(:last-child),
+  & > :not(:last-child) .input {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+}

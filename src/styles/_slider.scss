@@ -1,0 +1,72 @@
+/* Custom theme for slider */
+.vue-slider {
+  --color: var(--slider-color, var(--color-primary, #39f));
+
+  min-width: var(--slider-size, 150px);
+  margin: 0.5rem 0;
+
+  &-rail {
+    background-color: var(--slider-rail, #8883);
+    border-radius: 4px;
+  }
+
+  &-process {
+    background-color: var(--color);
+    border-radius: 4px;
+  }
+
+  &-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &-dot {
+    &-handle {
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: var(--slider-handle, #fff);
+      outline: 3px solid var(--color);
+      box-sizing: border-box;
+
+      &-disabled { display: none; }
+
+      &-focus,
+      &:hover {
+        background: var(--color);
+        border: 4px solid #fff;
+      }
+    }
+
+    &-tooltip-inner {
+      font-size: 0.9rem;
+      white-space: nowrap;
+      padding: 0.125rem 0.25rem;
+      text-align: center;
+      color: #fff;
+      border-radius: 0.25rem;
+      background-color: var(--color);
+    }
+  }
+
+  &-mark {
+    z-index: 1;
+
+    &-step {
+      width: 50%;
+      height: 100%;
+      background: #0002;
+    }
+
+    &-label {
+      font-size: 0.75em;
+      white-space: nowrap;
+      margin-top: 0.5em !important;
+      opacity: 0.4;
+    }
+
+    &:first-child &-step,
+    &:last-child &-step { display: none; }
+  }
+}

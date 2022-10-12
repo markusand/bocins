@@ -1,0 +1,128 @@
+<template>
+  <button
+    :class="['button', { primary, alert, outline, flat, loading, block }]"
+    :type="props.submit ? 'submit' : props.reset ? 'reset' : 'button'"
+    :disabled="props.disabled">
+    <span class="button__label"><slot /></span>
+  </button>
+</template>
+
+<script setup lang="ts">
+const props = defineProps<{
+  primary?: boolean;
+  alert?: boolean;
+  outline?: boolean;
+  flat?: boolean;
+  block?: boolean;
+  loading?: boolean;
+  disabled?: boolean;
+  submit?: boolean;
+  reset?: boolean;
+}>();
+</script>
+
+<style lang="scss" scoped>
+.button {
+  --padding: var(--button-padding, 0.5rem);
+  --margin: var(--button-margin, 1px);
+  --border-radius: var(--button-border-radius, 4px);
+  --color: var(--button-color);
+  --font-color: var(--button-font-color, #606068);
+  --border: var(--button-border, 1px solid #c8c8cf);
+
+  all: unset;
+  padding: var(--padding) calc(2 * var(--padding));
+  margin: 1px;
+  vertical-align: middle;
+  text-align: center;
+  color: var(--font-color);
+  background: var(--color, #f8f8f8);
+  border: var(--border);
+  border-radius: var(--border-radius);
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+  line-height: 1;
+  transition: all 0.3 ease;
+
+  &__label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--padding);
+  }
+
+  &.primary {
+    --color: var(--color-primary);
+
+    border-color: var(--color-primary);
+    color: #fff;
+  }
+
+  &.alert {
+    --color: var(--color-alert);
+
+    border-color: var(--color-alert);
+    color: #fff;
+  }
+
+  &.outline {
+    color: var(--color, var(--font-color));
+    background: transparent;
+  }
+
+  &.flat {
+    color: var(--color, var(--font-color));
+    background: transparent;
+    border-color: transparent;
+  }
+
+  &.block {
+    width: calc(100% - 2 * var(--margin));
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .button-group & {
+    margin: 0;
+
+    &:active { z-index: 1; }
+
+    &:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: none;
+    }
+
+    &:not(:last-child) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  &:not(:disabled):hover { filter: brightness(95%); }
+  &:not(:disabled):active &__label { transform: scale(0.95); }
+
+  .input-group .dropdown__dropdown &,
+  .button-group .dropdown__toggler & {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+  }
+}
+</style>
+
+<style>
+.button-group {
+  --margin: var(--button-margin, 1px);
+
+  display: inline-flex;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  margin: var(--margin);
+  vertical-align: middle;
+}
+</style>
