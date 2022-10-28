@@ -77,6 +77,8 @@ export default { inheritAttrs: false };
   color: inherit;
   border: var(--modal-border, none);
   border-radius: var(--modal-border-radius, 0);
+  max-width: 90%;
+  max-height: 90%;
 
   &__close {
     position: absolute;
