@@ -49,8 +49,8 @@ withDefaults(defineProps<Props>(), {
     &:hover { display: block; }
   }
 
-  &.top &__container { bottom: 100%; }
-  &.right &__container { right: 0; }
+  &.top > &__container { bottom: 100%; }
+  &.right > &__container { right: 0; }
 
   &.block { width: 100%; }
 
