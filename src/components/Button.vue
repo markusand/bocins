@@ -3,7 +3,7 @@
     :class="['button', { primary, alert, outline, flat, loading, block }]"
     :type="props.submit ? 'submit' : props.reset ? 'reset' : 'button'"
     :disabled="props.disabled">
-    <span class="button__label"><slot /></span>
+    <slot />
   </button>
 </template>
 
@@ -31,6 +31,10 @@ const props = defineProps<{
   --border: var(--button-border, 1px solid #c8c8cf);
 
   all: unset;
+  display: inline-flex;
+  align-items: middle;
+  justify-content: center;
+  gap: var(--padding);
   padding: var(--padding) calc(2 * var(--padding));
   margin: 1px;
   vertical-align: middle;
@@ -43,14 +47,9 @@ const props = defineProps<{
   cursor: pointer;
   position: relative;
   line-height: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   transition: all 0.3 ease;
-
-  &__label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--padding);
-  }
 
   &.primary {
     --color: var(--color-primary);

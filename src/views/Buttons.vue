@@ -51,6 +51,8 @@
     </div>
 
     <Button disabled>Disabled</Button>
+
+    <Button block>Block</Button>
   </section>
 </template>
 
