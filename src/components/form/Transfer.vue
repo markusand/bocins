@@ -3,6 +3,7 @@
     <ListBox
       v-model="addList"
       :options="fromList"
+      :as-key="props.asKey"
       :searchable="props.searchable"
       :empty-text="props.emptyText"
       :multiple="multiple">
@@ -21,6 +22,7 @@
     <ListBox
       v-model="removeList"
       :options="toList"
+      :as-key="props.asKey"
       :searchable="props.searchable"
       :empty-text="props.emptyText"
       :multiple="multiple">
@@ -43,14 +45,14 @@ type Item = any;
 type Props = {
   options: Item[];
   modelValue: Item[];
-  extract?: (item: Item) => any;
+  asKey?: (options: any) => string | number;
   searchable?: boolean | ((options: any) => string);
   emptyText?: string;
   multiple?: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
-  extract: (item: Item) => item.id,
+  asKey: (item: Item) => item.id,
   searchable: undefined,
   emptyText: 'Empty list',
 });
@@ -66,8 +68,8 @@ const toList = computed<Item[]>({
 });
 
 const inList = (item: Item, list: Item[]) => {
-  const search = props.extract(item);
-  return !!list.find(listItem => props.extract(listItem) === search);
+  const search = props.asKey(item);
+  return !!list.find(listItem => props.asKey(listItem) === search);
 };
 
 const add = (list = addList) => {

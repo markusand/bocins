@@ -17,7 +17,7 @@
         </button>
       </div>
     </slot>
-    <label v-for="option in options" :key="option">
+    <label v-for="option in options" :key="props.asKey(option)">
       <input
         v-model="selected"
         :value="option"
@@ -42,8 +42,9 @@ import { normalize } from '/@/utils/string';
 
 type Props = {
   modelValue: any;
-  options: any[] | Readonly<any[]>;
+  options: any[];
   formatter?: (option: any) => string;
+  asKey?: (option: any) => string | number;
   emptyText?: string;
   multiple?: boolean;
   searchable?: boolean | ((options: any) => string);
@@ -52,6 +53,7 @@ type Props = {
 };
 
 const props = withDefaults(defineProps<Props>(), {
+  asKey: (option: any) => option,
   formatter: undefined,
   searchable: undefined,
   emptyText: 'No items',

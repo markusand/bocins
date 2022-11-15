@@ -8,6 +8,7 @@
         <ListBox
           v-model="data.user"
           :options="users"
+          :as-key="user => user.id"
           clearable="Clear selection">
           <template #default="{ item: user }">
             <Avatar

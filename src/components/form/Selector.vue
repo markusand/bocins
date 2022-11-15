@@ -33,6 +33,7 @@
         :formatter="props.formatter"
         :searchable="searchable"
         :multiple="props.multiple"
+        :as-key="props.asKey"
         :empty-text="props.notFoundText"
         class="selector__options">
         <template #default="{ item: option }">
@@ -56,7 +57,8 @@ import Icon from '../Icon.vue';
 
 type Props = {
   modelValue: any;
-  options: any[] | Readonly<any[]>;
+  options: any[];
+  asKey?: (option: any) => string | number;
   formatter?: (option: any) => string;
   placeholder?: string;
   searchable?: boolean | ((options: any) => string);
@@ -68,6 +70,7 @@ type Props = {
 };
 
 const props = withDefaults(defineProps<Props>(), {
+  asKey: (option: any) => option,
   formatter: undefined,
   placeholder: 'Select one',
   searchable: false,
