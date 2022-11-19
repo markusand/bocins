@@ -66,12 +66,12 @@ const props = defineProps<{
   }
 
   &.outline {
-    color: var(--color, var(--font-color));
+    color: var(--font-color, --color);
     background: transparent;
   }
 
   &.flat {
-    color: var(--color, var(--font-color));
+    color: var(--font-color, --color);
     background: transparent;
     border-color: transparent;
   }
