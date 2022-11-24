@@ -1,6 +1,9 @@
 <template>
   <InputField
     v-model="number"
+    :step="props.step"
+    :min="props.min"
+    :max="props.max"
     type="number"
     class="input--number">
     <template #prefix>
