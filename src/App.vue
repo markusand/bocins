@@ -1,29 +1,32 @@
 <template>
   <h2>Vue UI components</h2>
-  <Collapser>
+  <Collapser open>
     <template #title>Buttons</template>
     <Buttons />
   </Collapser>
-  <Collapser>
+  <Collapser v-model:accordion="accordion">
     <template #title>Forms</template>
     <Forms />
   </Collapser>
-  <Collapser>
+  <Collapser v-model:accordion="accordion">
     <template #title>Lists</template>
     <Lists />
   </Collapser>
-  <Collapser>
+  <Collapser v-model:accordion="accordion" main>
     <template #title>Modals</template>
     <Modals />
   </Collapser>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import { Collapser } from './components';
 import Buttons from './views/Buttons.vue';
 import Forms from './views/forms/Forms.vue';
 import Lists from './views/Lists.vue';
 import Modals from './views/Modals.vue';
+
+const accordion = ref('buttons');
 </script>
 
 <style lang="scss">
