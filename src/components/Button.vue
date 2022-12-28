@@ -28,7 +28,7 @@ const props = defineProps<{
   --border-radius: var(--button-border-radius, 4px);
   --color: var(--button-color);
   --font-color: var(--button-font-color, #606068);
-  --border: var(--button-border, 1px solid #c8c8cf);
+  --border: var(--button-border, 1px solid var(--color, rgba(0 0 0 / 20%)));
 
   all: unset;
   display: inline-flex;
@@ -40,7 +40,7 @@ const props = defineProps<{
   vertical-align: middle;
   text-align: center;
   color: var(--font-color);
-  background: var(--color, #f8f8f8);
+  background: var(--color, rgba(0 0 0 / 5%));
   border: var(--border);
   border-radius: var(--border-radius);
   box-sizing: border-box;
@@ -53,25 +53,21 @@ const props = defineProps<{
 
   &.primary {
     --color: var(--color-primary);
-
-    border-color: var(--color-primary);
-    color: #fff;
+    --font-color: #fff;
   }
 
   &.alert {
     --color: var(--color-alert);
-
-    border-color: var(--color-alert);
-    color: #fff;
+    --font-color: #fff;
   }
 
   &.outline {
-    color: var(--font-color, --color);
+    color: var(--color);
     background: transparent;
   }
 
   &.flat {
-    color: var(--font-color, --color);
+    color: var(--color);
     background: transparent;
     border-color: transparent;
   }
@@ -81,7 +77,7 @@ const props = defineProps<{
   }
 
   &:disabled {
-    opacity: 0.5;
+    opacity: 0.25;
     cursor: not-allowed;
   }
 
@@ -103,7 +99,6 @@ const props = defineProps<{
   }
 
   &:not(:disabled):hover { filter: brightness(95%); }
-  &:not(:disabled):active &__label { transform: scale(0.95); }
 
   .input-group .dropdown__dropdown &,
   .button-group .dropdown__toggler & {

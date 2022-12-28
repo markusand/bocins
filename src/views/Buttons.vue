@@ -19,6 +19,11 @@
       Close
     </Button>
 
+    <!-- Custom buttons -->
+    <Button class="custom">Bla bla bla</Button>
+    <Button class="custom" outline>Bla bla bla</Button>
+    <Button class="custom" flat>Bla bla bla</Button>
+
     <!-- Button groups -->
     <span class="button-group">
       <Button>Group</Button>
@@ -62,3 +67,10 @@ import { Icon, Button, Dropdown } from '/@/components';
 
 const action = ref('Section');
 </script>
+
+<style>
+.custom {
+  --button-color: green;
+  --button-font-color: #fff;
+}
+</style>
