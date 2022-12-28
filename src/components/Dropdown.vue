@@ -41,12 +41,20 @@ withDefaults(defineProps<Props>(), {
     position: absolute;
     z-index: 2;
     margin: 2px 0;
-    display: none;
+    visibility: hidden;
     box-sizing: border-box;
     min-width: 100%;
+    opacity: 0;
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: all 0.3s ease;
 
     :focus-within > &,
-    &:hover { display: block; }
+    &:hover {
+      opacity: 1;
+      transform: none;
+      visibility: visible;
+    }
   }
 
   &.top > &__container { bottom: 100%; }
