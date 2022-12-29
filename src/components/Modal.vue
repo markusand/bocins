@@ -1,11 +1,9 @@
 <template>
-  <div v-if="isOpen" class="modal-fade" />
   <dialog
-    v-if="isOpen"
+    ref="modal"
     v-bind="$attrs"
     :style="`width:${props.size}${isNumber(props.size) ? 'rem' : ''}`"
-    class="modal"
-    open>
+    class="modal">
     <slot name="close" :close="close">
       <button
         v-if="props.closeable"
@@ -29,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, useSlots } from 'vue';
+import { ref, watch, useSlots, onMounted } from 'vue';
 import { isNumber } from '/@/utils/number';
 
 type Props = {
@@ -46,17 +44,35 @@ const emit = defineEmits(['update:open', 'open', 'close', 'toggle']);
 
 const slots = useSlots();
 
-const isOpen = ref(props.open);
-watch(isOpen, open => {
-  emit(open ? 'open' : 'close');
-  emit('toggle', open);
-  emit('update:open');
-});
-watch(() => props.open, open => { isOpen.value = open; });
+const modal = ref<HTMLDialogElement>();
 
-const open = () => { isOpen.value = true; };
-const close = () => { isOpen.value = false; };
-const toggle = () => { isOpen.value = !isOpen.value; };
+const open = () => {
+  if (modal.value) {
+    modal.value.showModal();
+    emit('open');
+    emit('toggle', true);
+    emit('update:open', true);
+
+    const { clientHeight } = document.body;
+    modal.value.classList.toggle('constrained', modal.value.offsetHeight > clientHeight * 0.9);
+  }
+};
+
+const close = () => {
+  modal.value?.close();
+  emit('close');
+  emit('toggle', false);
+  emit('update:open', false);
+};
+
+const toggle = (toOpen = !modal.value?.open) => {
+  if (toOpen) open();
+  else close();
+};
+
+watch(() => props.open, toggle, { immediate: true });
+
+onMounted(() => toggle(props.open));
 </script>
 
 <script lang="ts">
@@ -72,13 +88,18 @@ export default { inheritAttrs: false };
   z-index: 5;
   margin: 0;
   padding: 0;
-  overflow: auto;
   background: var(--modal-background, #fff);
   color: inherit;
   border: var(--modal-border, none);
   border-radius: var(--modal-border-radius, 0);
   max-width: 90%;
-  max-height: 90%;
+  max-height: none;
+  overflow: visible;
+
+  &.constrained {
+    overflow: auto;
+    max-height: 90%;
+  }
 
   &__close {
     position: absolute;
@@ -86,14 +107,6 @@ export default { inheritAttrs: false };
     right: 0;
   }
 
-  &-fade {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 5;
-    background: var(--modal-fade, #0006);
-  }
+  &::backdrop { background: var(--modal-fade, #0006); }
 }
 </style>
