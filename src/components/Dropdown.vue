@@ -57,7 +57,11 @@ withDefaults(defineProps<Props>(), {
     }
   }
 
-  &.top > &__container { bottom: 100%; }
+  &.top > &__container {
+    bottom: 100%;
+    transform-origin: bottom;
+  }
+
   &.right > &__container { right: 0; }
 
   &.block { width: 100%; }
