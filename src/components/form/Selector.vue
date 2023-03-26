@@ -34,6 +34,7 @@
         :searchable="searchable"
         :multiple="props.multiple"
         :as-key="props.asKey"
+        :placeholder="props.searchText"
         :empty-text="props.notFoundText"
         class="selector__options">
         <template #default="{ item: option }">
@@ -64,6 +65,7 @@ type Props = {
   searchable?: boolean | ((options: any) => string);
   clearable?: boolean;
   disabled?: boolean;
+  searchText?: string;
   notFoundText?: string;
   multiple?: boolean;
   size?: number | string;
@@ -74,6 +76,7 @@ const props = withDefaults(defineProps<Props>(), {
   formatter: undefined,
   placeholder: 'Select one',
   searchable: false,
+  searchText: 'Search',
   notFoundText: 'Nothing found',
   size: 'calc(100% - 2 * var(--margin))',
 });
