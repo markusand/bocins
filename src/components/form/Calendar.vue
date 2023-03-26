@@ -214,6 +214,7 @@ const select = (day: Day) => {
     justify-content: center;
     position: relative;
     cursor: pointer;
+    transition: all 0.3s ease;
 
     &--disabled { cursor: not-allowed; }
   }

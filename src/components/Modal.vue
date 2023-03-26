@@ -84,7 +84,6 @@ export default { inheritAttrs: false };
   position: fixed;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
   z-index: 5;
   margin: 0;
   padding: 0;
@@ -95,6 +94,8 @@ export default { inheritAttrs: false };
   max-width: 90%;
   max-height: none;
   overflow: visible;
+
+  &[open] { animation: fadein 0.5s ease forwards; }
 
   &.constrained {
     overflow: auto;
@@ -108,5 +109,14 @@ export default { inheritAttrs: false };
   }
 
   &::backdrop { background: var(--modal-fade, #0006); }
+}
+
+@keyframes fadein {
+  0% {
+    transform: translate(-50%, calc(-50% - 0.5rem));
+    opacity: 0;
+  }
+
+  100% { transform: translate(-50%, -50%); }
 }
 </style>

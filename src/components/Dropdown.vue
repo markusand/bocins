@@ -45,21 +45,20 @@ withDefaults(defineProps<Props>(), {
     box-sizing: border-box;
     min-width: 100%;
     opacity: 0;
-    transform-origin: top;
-    transform: scaleY(0);
+    transform: translateY(-0.5rem);
     transition: all 0.3s ease;
 
     :focus-within > &,
     &:hover {
       opacity: 1;
-      transform: none;
+      transform: none !important;
       visibility: visible;
     }
   }
 
   &.top > &__container {
     bottom: 100%;
-    transform-origin: bottom;
+    transform: translateY(0.5rem);
   }
 
   &.right > &__container { right: 0; }
