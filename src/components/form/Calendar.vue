@@ -175,6 +175,7 @@ const select = (day: Day) => {
     a {
       color: inherit;
       margin: 0 0.25rem;
+      padding: 0.5rem;
 
       &::before {
         display: block;
