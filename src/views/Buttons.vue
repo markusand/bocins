@@ -55,6 +55,15 @@
       </Dropdown>
     </div>
 
+    <!-- Expandable button -->
+    <Dropdown right>
+      <Button><Icon src="/icons/more.svg" class="unique" /></Button>
+      <template #dropdown="{ close }">
+        <Button primary block @click="consoleMessage(); close()">Console</Button>
+        <Button alert block @click="alertMessage(); close()">Alert</Button>
+      </template>
+    </Dropdown>
+
     <Button disabled>Disabled</Button>
 
     <Button block>Block</Button>
@@ -66,6 +75,9 @@ import { ref } from 'vue';
 import { Icon, Button, Dropdown } from '/@/components';
 
 const action = ref('Section');
+
+const alertMessage = () => alert('Alert button clicked');
+const consoleMessage = () => console.log('Console button clicked');
 </script>
 
 <style>

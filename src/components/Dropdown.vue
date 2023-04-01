@@ -1,18 +1,19 @@
 <template>
-  <div :class="['dropdown', { disabled, top, right, block }]">
+  <div ref="dropdown" :class="['dropdown', { disabled, top, right, block }]">
     <div class="dropdown__toggler" tabindex="0">
-      <slot>
+      <slot :close="close">
         {{ toggleText }}
         <icon src="/icons/chevron.svg" class="dropdown__chevron" />
       </slot>
     </div>
-    <div v-if="!disabled" class="dropdown__container" tabindex="-1">
-      <slot name="dropdown" />
+    <div v-if="!disabled" class="dropdown__container">
+      <slot name="dropdown" :close="close" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import Icon from './Icon.vue';
 
 type Props = {
@@ -26,6 +27,13 @@ type Props = {
 withDefaults(defineProps<Props>(), {
   toggleText: 'dropdown',
 });
+
+const dropdown = ref<HTMLDivElement | null>(null);
+
+const close = () => {
+  const focused = dropdown.value?.querySelector(':focus') as HTMLElement;
+  focused?.blur();
+};
 </script>
 
 <style lang="scss" scoped>
