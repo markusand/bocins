@@ -23,7 +23,7 @@
     },
     "surname": "Graham",
     "avatar": "https://i.pravatar.cc/100?u=1",
-    "area": "development",
+    "area": "Development",
     "team": "frontend"
   },
   {
@@ -50,7 +50,7 @@
     },
     "surname": "Howell",
     "avatar": "https://i.pravatar.cc/100?u=2",
-    "area": "development",
+    "area": "Development",
     "team": "frontend"
   },
   {
@@ -77,7 +77,7 @@
     },
     "surname": "Bauch",
     "avatar": "https://i.pravatar.cc/100?u=3",
-    "area": "development",
+    "area": "Development",
     "team": "backend"
   },
   {
@@ -104,7 +104,7 @@
     },
     "surname": "Lebsack",
     "avatar": "https://i.pravatar.cc/100?u=4",
-    "area": "hr"
+    "area": "HR"
   },
   {
     "id": 5,
@@ -130,7 +130,7 @@
     },
     "surname": "Dietrich",
     "avatar": "https://i.pravatar.cc/100?u=5",
-    "area": "hr"
+    "area": "HR"
   },
   {
     "id": 6,
@@ -156,7 +156,7 @@
     },
     "surname": "Dennis",
     "avatar": "https://i.pravatar.cc/100?u=6",
-    "area": "business"
+    "area": "Business"
   },
   {
     "id": 7,
@@ -182,7 +182,7 @@
     },
     "surname": "Weissnat",
     "avatar": "https://i.pravatar.cc/100?u=7",
-    "area": "business"
+    "area": "Business"
   },
   {
     "id": 8,
@@ -208,7 +208,7 @@
     },
     "surname": "Runolfsdottir",
     "avatar": "https://i.pravatar.cc/100?u=8",
-    "area": "administration"
+    "area": "Administration"
   },
   {
     "id": 9,
@@ -233,7 +233,7 @@
       "bs": "synergize scalable supply-chains"
     },
     "surname": "Reichert",
-    "area": "development",
+    "area": "Development",
     "team": "devops"
   },
   {
@@ -260,6 +260,6 @@
     },
     "surname": "DuBuque",
     "avatar": "https://i.pravatar.cc/100?u=10",
-    "area": "administration"
+    "area": "Administration"
   }
 ]

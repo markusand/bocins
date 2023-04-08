@@ -20,9 +20,9 @@
     </Button>
 
     <!-- Custom buttons -->
-    <Button class="custom">Bla bla bla</Button>
-    <Button class="custom" outline>Bla bla bla</Button>
-    <Button class="custom" flat>Bla bla bla</Button>
+    <Button class="custom">Custom</Button>
+    <Button class="custom" outline>Custom</Button>
+    <Button class="custom" flat>Custom</Button>
 
     <!-- Button groups -->
     <span class="button-group">
@@ -82,7 +82,13 @@ const alertMessage = () => alert('Alert button clicked');
 const consoleMessage = () => console.log('Console button clicked');
 </script>
 
-<style>
+<style scoped>
+.section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
 .custom {
   --button-color: green;
   --button-font-color: #fff;

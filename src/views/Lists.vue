@@ -49,7 +49,7 @@ type Team = {
 };
 
 const teams = [{
-  name: 'company',
+  name: 'Company',
   members: Object.values(users.reduce((acc, member) => {
     if (!acc[member.area]) acc[member.area] = { name: member.area, members: [] };
     acc[member.area].members.push(member as Member);
