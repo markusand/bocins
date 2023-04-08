@@ -7,7 +7,7 @@
     "declaration": true,
     "declarationDir": "./types",
     "importHelpers": true,
-    "importsNotUsedAsValues": "error",
+    "verbatimModuleSyntax": true,
     "moduleResolution": "node",
     "skipLibCheck": true,
     "jsx": "preserve",
