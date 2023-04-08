@@ -66,6 +66,8 @@
 
     <Button disabled>Disabled</Button>
 
+    <Button size="10">Fixed width</Button>
+
     <Button block>Block</Button>
   </section>
 </template>

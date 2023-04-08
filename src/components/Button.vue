@@ -1,6 +1,7 @@
 <template>
   <button
     :class="['button', { primary, alert, outline, flat, loading, block }]"
+    :style="`--width:${props.size}${isNumber(props.size) ? 'rem' : ''}`"
     :type="props.submit ? 'submit' : props.reset ? 'reset' : 'button'"
     :disabled="props.disabled">
     <slot />
@@ -8,6 +9,7 @@
 </template>
 
 <script setup lang="ts">
+import { isNumber } from '/@/utils/number';
 const props = defineProps<{
   primary?: boolean;
   alert?: boolean;
@@ -18,6 +20,7 @@ const props = defineProps<{
   disabled?: boolean;
   submit?: boolean;
   reset?: boolean;
+  size?: number | string;
 }>();
 </script>
 
@@ -42,6 +45,7 @@ const props = defineProps<{
   color: var(--font-color);
   background: var(--color, rgba(0 0 0 / 5%));
   border: var(--border);
+  width: calc(var(--width) - 2 * var(--margin));
   border-radius: var(--border-radius);
   box-sizing: border-box;
   cursor: pointer;
