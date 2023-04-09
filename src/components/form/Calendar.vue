@@ -79,7 +79,7 @@ const props = withDefaults(defineProps<Props>(), {
   yearRange: '-10:+10',
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'select']);
 
 const today = new Date();
 const weekdayFormatter = new Intl.DateTimeFormat(props.locale, { weekday: 'short' });
@@ -154,10 +154,11 @@ const days = computed<Day[]>(() => {
 
 const select = (day: Day) => {
   if (!day.disabled) {
-    if (Array.isArray(props.modelValue)) {
-      const [, last] = props.modelValue;
-      emit('update:modelValue', [last, day.date]);
-    } else emit('update:modelValue', day.date);
+    const value = Array.isArray(props.modelValue)
+      ? [props.modelValue[1], day.date]
+      : day.date;
+    emit('update:modelValue', value);
+    emit('select', value);
   }
 };
 </script>

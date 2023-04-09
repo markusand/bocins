@@ -7,6 +7,11 @@
       :not-after="new Date()"
       :invalid="invalidDates" />
     
+    <Calendar
+      :not-after="new Date()"
+      :invalid="invalidDates"
+      @select="warn" />
+    
     <fieldset class="label">
       <legend>Date</legend>
       <Datepicker
@@ -26,4 +31,6 @@ const invalidDates = ['2022-08-04', '2022-08-05', ['2022-07-08', '2022-07-14']];
 const data = reactive({
   date: undefined,
 });
+
+const warn = (date: Date) => alert(date.toLocaleDateString());
 </script>
