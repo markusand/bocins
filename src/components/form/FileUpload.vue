@@ -73,7 +73,9 @@ const emit = defineEmits<{
 }>();
 
 const files = ref(props.modelValue || []);
-watch(() => props.modelValue, value => files.value = value);
+
+watch(() => props.modelValue, value => files.value = value || []);
+
 watch(files, value => {
   emit('update:modelValue', value);
   emit('change', { files: files.value });

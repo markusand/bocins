@@ -79,7 +79,7 @@ const options = computed(() => {
     ? props.searchable
     : props.formatter;
   return props.options.filter(option => {
-    const formatted = formatter(option);
+    const formatted = formatter?.(option);
     return normalize(formatted).includes(needle);
   });
 });
