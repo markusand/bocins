@@ -35,7 +35,7 @@ const props = defineProps<{
 
   all: unset;
   display: inline-flex;
-  align-items: middle;
+  align-items: center;
   justify-content: center;
   gap: var(--padding);
   padding: var(--padding) calc(2 * var(--padding));
