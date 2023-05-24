@@ -91,6 +91,24 @@
             size="5" />
         </fieldset>
       </fieldset>
+
+      <fieldset class="label">
+        <em>With button</em>
+        <InputField v-model="data.website" size="10" />
+        <Button>
+          <Icon src="/icons/search.svg" class="unique" />
+        </Button>
+      </fieldset>
+
+      <fieldset class="label">
+        <em>Grouped</em>
+        <span class="input-group">
+          <InputField v-model="data.website" size="10" />
+          <Button>
+            <Icon src="/icons/search.svg" class="unique" />
+          </Button>
+        </span>
+      </fieldset>
     </article>
     
     <article>
@@ -161,6 +179,7 @@ import {
   Icon,
   Selector,
   ChipsField,
+  Button,
 } from '/@/components';
 
 const data = reactive({

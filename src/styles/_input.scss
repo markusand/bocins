@@ -82,6 +82,7 @@
   & > * { margin: 0 !important; }
 
   .input:not(:first-child),
+  .button:not(:first-child),
   & > :not(:first-child) .input {
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
@@ -89,6 +90,7 @@
   }
 
   .input:not(:last-child),
+  .button:not(:last-child),
   & > :not(:last-child) .input {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
