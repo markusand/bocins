@@ -1,32 +1,38 @@
 <template>
-  <h2>Vue UI components</h2>
-  <Collapser open>
-    <template #title>Buttons</template>
-    <Buttons />
-  </Collapser>
-  <Collapser v-model:accordion="accordion">
-    <template #title>Forms</template>
-    <Forms />
-  </Collapser>
-  <Collapser v-model:accordion="accordion">
-    <template #title>Lists</template>
-    <Lists />
-  </Collapser>
-  <Collapser v-model:accordion="accordion" main>
-    <template #title>Modals</template>
-    <Modals />
-  </Collapser>
+  <main id="layout" :class="{ dark }">
+    <h2>Vue UI components</h2>
+    <p class="switcher">
+      <Toggler v-model="dark" switch>Dark mode</Toggler>
+    </p>
+    <Collapser open>
+      <template #title>Buttons</template>
+      <Buttons />
+    </Collapser>
+    <Collapser v-model:accordion="accordion">
+      <template #title>Forms</template>
+      <Forms />
+    </Collapser>
+    <Collapser v-model:accordion="accordion">
+      <template #title>Lists</template>
+      <Lists />
+    </Collapser>
+    <Collapser v-model:accordion="accordion" main>
+      <template #title>Modals</template>
+      <Modals />
+    </Collapser>
+  </main>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Collapser } from './components';
+import { Collapser, Toggler } from './components';
 import Buttons from './views/Buttons.vue';
 import Forms from './views/forms/Forms.vue';
 import Lists from './views/Lists.vue';
 import Modals from './views/Modals.vue';
 
 const accordion = ref('buttons');
+const dark = ref(false);
 </script>
 
 <style lang="scss">
@@ -38,17 +44,30 @@ const accordion = ref('buttons');
   --color-primary: #39f;
   --color-alert: #cd574c;
   --color-text: #20262e;
-  --color-border: #d0d0d0;
+  --color-bg: #fff;
   --border-radius: 4px;
-  --input-border: 1px solid var(--color-border);
   --input-border-radius: var(--border-radius);
-  --dropzone-background: #8881;
   --modal-border-radius: var(--border-radius);
 }
 
-#app {
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#layout {
   color: #20262e; // #596b76
   font: 1rem / 1 Rubik, sans-serif;
+  height: 100vh;
+  overflow: auto;
+  transition: background 0.3s ease;
+
+  &.dark {
+    --color-bg: #23242e;
+
+    background: var(--color-bg);
+    color: #ddd;
+  }
 }
 
 .calendar {
@@ -101,6 +120,8 @@ h3 {
   }
 }
 
+p { margin: 1rem 0; }
+
 .columns { display: flex; }
 
 fieldset { all: unset; }
@@ -131,16 +152,6 @@ fieldset { all: unset; }
   flex-direction: column;
 }
 
-.chip {
-  font-size: 0.75em;
-  padding: 0.125rem 0.25rem;
-  border-radius: 3px;
-  background: #0002;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex: 0 0 auto;
-}
-
 .chip-group {
   display: flex;
   flex-wrap: wrap;
@@ -152,7 +163,6 @@ fieldset { all: unset; }
 }
 
 .modal {
-  background: #fff;
   color: var(--color-text);
   max-width: 90%;
   max-height: 80%;
@@ -172,8 +182,13 @@ fieldset { all: unset; }
   &__footer {
     padding: 0.5rem;
     border-top: 1px solid var(--color-border);
-    background: #f8f8f8;
+    background: #8881;
     text-align: right;
   }
+}
+
+.switcher {
+  margin: 1rem;
+  text-align: right;
 }
 </style>
