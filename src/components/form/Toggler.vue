@@ -39,7 +39,7 @@ const type = computed(() => (
 
 <style lang="scss" scoped>
 .toggler {
-  --background: var(--toggler-background, #d0d0d0);
+  --background: var(--toggler-background, #aaa);
   --color: var(--toggler-color, var(--color-primary, #39f));
   --size: var(--toggler-size, 1em);
   --speed: var(--transition-speed, 0.3s);
@@ -83,16 +83,16 @@ const type = computed(() => (
   }
 
   input:disabled ~ * {
-    opacity: 0.5;
+    opacity: 0.25;
     cursor: not-allowed;
   }
 }
 
 .switch {
   --size: var(--switch-size, 1.25em);
-  --background: var(--switch-background, #f0f0f0);
+  --background: var(--switch-background, #8883);
   --color: var(--switch-color, var(--color-primary, #39f));
-  --border: var(--switch-border, 1px solid #d0d0d0);
+  --border: var(--switch-border, 1px solid #8886);
   --thumb: var(--switch-thumb, #fff);
 
   &__toggle {

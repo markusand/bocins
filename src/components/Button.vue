@@ -30,8 +30,8 @@ const props = defineProps<{
   --margin: var(--button-margin, 1px);
   --border-radius: var(--button-border-radius, 4px);
   --color: var(--button-color);
-  --font-color: var(--button-font-color, #606068);
-  --border: var(--button-border, 1px solid var(--color, rgba(0 0 0 / 20%)));
+  --font-color: var(--button-font-color, inherit);
+  --border: var(--button-border, 1px solid var(--color, #8886));
 
   all: unset;
   display: inline-flex;
@@ -43,7 +43,7 @@ const props = defineProps<{
   vertical-align: middle;
   text-align: center;
   color: var(--font-color);
-  background: var(--color, rgba(0 0 0 / 5%));
+  background: var(--color, #8882);
   border: var(--border);
   width: calc(var(--width) - 2 * var(--margin));
   border-radius: var(--border-radius);

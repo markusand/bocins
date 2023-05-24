@@ -58,7 +58,7 @@ const toggle = (event: Event) => {
 .collapser {
   --padding: var(--collapser-padding, 0.75rem);
 
-  border: var(--collapser-border, 1px solid #0001);
+  border: var(--collapser-border, 1px solid #8883);
   border-width: 1px 0;
 
   & + & { border-top: 0; }

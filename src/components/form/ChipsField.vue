@@ -62,7 +62,7 @@ const handleKey = (event: KeyboardEvent) => {
     gap: 0.5em 2px;
 
     .chip {
-      background: var(--chip-color, #0002);
+      background: var(--chip-color, #8884);
       color: var(--chip-textcolor, inherit);
       font-size: 0.75em;
       padding: 0.25em 0.5em;

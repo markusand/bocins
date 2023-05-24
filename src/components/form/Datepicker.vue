@@ -67,9 +67,9 @@ const clear = () => emit('update:modelValue', undefined);
   &__placeholder { opacity: 0.5; }
 
   &__calendar {
-    border: var(--input-border, 1px solid #c8c8cf);
+    border: var(--input-border, 1px solid #8886);
     border-radius: var(--input-border-radius, 4px);
-    background: var(--input-background, #fff);
+    background: var(--input-background, var(--color-bg, inherit));
   }
 }
 </style>

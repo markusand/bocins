@@ -87,7 +87,7 @@ export default { inheritAttrs: false };
   z-index: 5;
   margin: 0;
   padding: 0;
-  background: var(--modal-background, #fff);
+  background: var(--modal-background, var(--color-bg, inherit));
   color: inherit;
   border: var(--modal-border, none);
   border-radius: var(--modal-border-radius, 0);

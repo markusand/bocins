@@ -54,7 +54,7 @@ const rating = computed({
   label::before {
     content: "";
     display: block;
-    background: #8884;
+    background: #8885;
     border-radius: 50%;
     line-height: 1;
     font-size: var(--size);

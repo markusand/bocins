@@ -94,9 +94,9 @@ const clear = () => {
   --speed: var(--transition-speed, 0.3s);
   --border-radius: var(--listbox-border-radius, var(--input-border-radius, 4px));
 
-  border: var(--listbox-border, var(--input-border, 1px solid #c8c8cf));
+  border: var(--listbox-border, var(--input-border, 1px solid #8886));
   border-radius: var(--border-radius);
-  background: var(--listbox-background, var(--input-background, #fff));
+  background: var(--listbox-background, var(--input-background, var(--color-bg, inherit)));
   padding: var(--listbox-padding, 0.125rem);
   max-height: var(--listbox-max-height, 175px);
   min-width: var(--listbox-width, 150px);

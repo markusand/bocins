@@ -132,7 +132,7 @@ const remove = (file: File) => {
   --hover: var(--dropzone-hover-color, var(--color-primary, #39f));
   --margin: var(--input-margin, 1px);
 
-  border: var(--input-border, 1px dashed #c8c8cf);
+  border: var(--input-border, 1px dashed #8886);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -143,7 +143,7 @@ const remove = (file: File) => {
   border-radius: var(--input-border-radius, 4px);
   box-sizing: border-box;
   font-size: 0.85rem;
-  background: var(--dropzone-background);
+  background: var(--dropzone-background, #8881);
 
   &--active:not(.disabled) {
     border-color: var(--hover);
