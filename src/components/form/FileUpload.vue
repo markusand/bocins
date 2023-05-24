@@ -158,6 +158,7 @@ const remove = (file: File) => {
   &__label {
     text-align: center;
     opacity: 0.75;
+    pointer-events: none;
   }
 
   &__constraints {
