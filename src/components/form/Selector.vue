@@ -27,24 +27,26 @@
         class="selector__chevron" />
     </div>
     <template #dropdown>
-      <ListBox
-        v-model="selected"
-        :options="options"
-        :formatter="props.formatter"
-        :searchable="searchable"
-        :multiple="props.multiple"
-        :as-key="props.asKey"
-        :placeholder="props.searchText"
-        :empty-text="props.notFoundText"
-        class="selector__options">
-        <template #default="{ item: option }">
-          <slot :option="option" name="option">
-            <slot :item="option">
-              {{ props.formatter?.(option) || option }}
+      <slot name="panel" :options="options" :select="select">
+        <ListBox
+          v-model="selected"
+          :options="options"
+          :formatter="props.formatter"
+          :searchable="searchable"
+          :multiple="props.multiple"
+          :as-key="props.asKey"
+          :placeholder="props.searchText"
+          :empty-text="props.notFoundText"
+          class="selector__options">
+          <template #default="{ item: option }">
+            <slot :option="option" name="option">
+              <slot :item="option">
+                {{ props.formatter?.(option) || option }}
+              </slot>
             </slot>
-          </slot>
-        </template>
-      </ListBox>
+          </template>
+        </ListBox>
+      </slot>
     </template>
   </dropdown>
 </template>
@@ -81,11 +83,16 @@ const props = withDefaults(defineProps<Props>(), {
   size: 'calc(100% - 2 * var(--margin))',
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'select']);
+
+const select = (value: any) => {
+  emit('update:modelValue', value);
+  emit('select', value);
+};
 
 const selected = computed({
   get: () => props.modelValue,
-  set: value => emit('update:modelValue', value),
+  set: select,
 });
 
 const isSelected = computed(() => props.multiple
@@ -96,7 +103,7 @@ const isSelected = computed(() => props.multiple
 const clear = () => {
   if (!props.disabled && props.clearable && isSelected.value) {
     const value = props.multiple ? [] : undefined;
-    emit('update:modelValue', value);
+    select(value);
   }
 };
 </script>
