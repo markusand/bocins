@@ -13,6 +13,9 @@
           :name-node="props.nameNode"
           :children-node="props.childrenNode"
           :open="props.open">
+          <template #title="{ item: title }">
+            <slot name="title" :item="title" />
+          </template>
           <template #default="{ item: nested }">
             <slot :item="nested" />
           </template>
