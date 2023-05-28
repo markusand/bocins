@@ -10,8 +10,9 @@
   gap: var(--padding);
   align-items: center;
   margin: var(--margin);
+  padding: 0 var(--padding);
   vertical-align: middle;
-  color: var(--font-color);
+  color: inherit;
   background: var(--background);
   border: var(--border);
   border-radius: var(--border-radius);
@@ -20,7 +21,6 @@
   overflow: hidden;
   text-align: left;
   outline: 0;
-  padding: var(--padding);
   box-sizing: border-box;
   transition: all 0.3s ease;
   width: calc(var(--width) - 2 * var(--margin));
@@ -32,11 +32,11 @@
   input {
     all: unset;
     min-width: 0;
-    height: 1rem;
+    height: 1em;
     flex: 1;
     white-space: nowrap;
     text-overflow: ellipsis;
-    margin: calc(-1 * var(--padding)) 0;
+    overflow: hidden;
     padding: var(--padding) 0;
 
     &[type="number"] {
@@ -49,9 +49,6 @@
       }
     }
   }
-
-  // &__prefix { padding-right: var(--padding); }
-  // &__suffix { padding-left: var(--padding); }
 
   &__prefix,
   &__suffix {
@@ -66,7 +63,10 @@
   &__clear { cursor: pointer; }
 
   .block &,
-  &.block { width: calc(100% - 2 * var(--margin)); }
+  &.block {
+    margin: 0;
+    width: 100%;
+  }
 
   &.disabled {
     opacity: 0.5;
