@@ -36,7 +36,8 @@
           :as-key="props.asKey"
           :search-text="props.searchText"
           :empty-text="props.emptyText"
-          class="selector__options">
+          class="selector__options"
+          tabindex="-1">
           <template #default="{ item: option }">
             <slot :option="option" name="option">
               <slot :item="option">
@@ -130,6 +131,8 @@ const clear = () => {
 
   &__panel {
     padding: 0;
+
+    &:focus-within { border: var(--border); }
 
     & * {
       border: 0;

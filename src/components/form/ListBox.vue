@@ -127,6 +127,7 @@ const clear = () => { selected.value = props.multiple ? [] : undefined; };
     transition: var(--speed) ease;
     transition-property: background, color;
 
+    input:focus + &,
     &:hover {
       background: var(--color-hover);
       cursor: pointer;
@@ -153,10 +154,9 @@ const clear = () => { selected.value = props.multiple ? [] : undefined; };
       padding: 0.5em;
       opacity: 0.5;
       cursor: pointer;
+
+      &:focus { opacity: 0.75; }
     }
   }
-
-  input[type="checkbox"],
-  input[type="radio"] { display: none; }
 }
 </style>
