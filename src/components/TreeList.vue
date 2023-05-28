@@ -46,6 +46,7 @@ type Props = {
 
 const props = withDefaults(defineProps<Props>(), {
   nameNode: 'name',
+  parent: undefined,
   childrenNode: 'children',
   open: false,
 });
