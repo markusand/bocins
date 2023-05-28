@@ -29,7 +29,7 @@
         </slot>
       </div>
     </label>
-    <slot v-if="!options.length" name="empty">
+    <slot v-if="!filteredOptions.length" name="empty">
       <div class="listbox__empty">
         {{ props.emptyText }}
       </div>
