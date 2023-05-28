@@ -1,23 +1,23 @@
 <template>
   <Dropdown class="datepicker">
-    <div class="input" :style="`width:${props.size}${isNumber(props.size) ? 'rem' : ''}`">
-      <div class="datepicker__label">
-        <span v-if="date">{{ props.formatter(date) }}</span>
-        <span v-else class="datepicker__placeholder">{{ props.placeholder }}</span>
+    <template #toggler>
+      <div class="input" :style="`width:${props.size}${isNumber(props.size) ? 'rem' : ''}`">
+        <div class="datepicker__label">
+          <span v-if="date">{{ props.formatter(date) }}</span>
+          <span v-else class="datepicker__placeholder">{{ props.placeholder }}</span>
+        </div>
+        <Icon
+          v-if="clearable && date"
+          src="/icons/close.svg"
+          class="datepicker__clear"
+          @click="clear" />
+        <Icon
+          v-else
+          src="/icons/chevron-down.svg"
+          class="datepicker__chevron" />
       </div>
-      <Icon
-        v-if="clearable && date"
-        src="/icons/close.svg"
-        class="datepicker__clear"
-        @click="clear" />
-      <Icon
-        v-else
-        src="/icons/chevron-down.svg"
-        class="datepicker__chevron" />
-    </div>
-    <template #dropdown>
-      <Calendar v-model="date" v-bind="$attrs" class="datepicker__calendar" />
     </template>
+    <Calendar v-model="date" v-bind="$attrs" class="datepicker__calendar" />
   </Dropdown>
 </template>
 

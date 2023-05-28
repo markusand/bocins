@@ -1,54 +1,54 @@
 <template>
-  <dropdown
+  <Dropdown
     :class="['selector', { multiple }]"
     :disabled="disabled">
-    <div
-      :class="['input', { disabled }]"
-      v-bind="$attrs"
-      :style="`width:${props.size}${isNumber(props.size) ? 'rem' : ''}`">
-      <div class="selector__label">
-        <slot v-if="isSelected" :selected="selected" name="selected">
-          <slot :item="selected">
-            {{ props.formatter?.(selected) || selected }}
-          </slot>
-        </slot>
-        <div v-else class="selector__placeholder">
-          {{ props.placeholder }}
-        </div>
-      </div> 
-      <Icon
-        v-if="props.clearable && isSelected"
-        src="/icons/close.svg"
-        class="selector__clear"
-        @click="clear" />
-      <Icon
-        v-else
-        src="/icons/chevron-down.svg"
-        class="selector__chevron" />
-    </div>
-    <template #dropdown>
-      <slot name="panel" :options="options" :select="select">
-        <ListBox
-          v-model="selected"
-          :options="options"
-          :formatter="props.formatter"
-          :searchable="searchable"
-          :multiple="props.multiple"
-          :as-key="props.asKey"
-          :placeholder="props.searchText"
-          :empty-text="props.notFoundText"
-          class="selector__options">
-          <template #default="{ item: option }">
-            <slot :option="option" name="option">
-              <slot :item="option">
-                {{ props.formatter?.(option) || option }}
-              </slot>
+    <template #toggler>
+      <div
+        :class="['input', { disabled }]"
+        v-bind="$attrs"
+        :style="`width:${props.size}${isNumber(props.size) ? 'rem' : ''}`">
+        <div class="selector__label">
+          <slot v-if="isSelected" :selected="selected" name="selected">
+            <slot :item="selected">
+              {{ props.formatter?.(selected) || selected }}
             </slot>
-          </template>
-        </ListBox>
-      </slot>
+          </slot>
+          <div v-else class="selector__placeholder">
+            {{ props.placeholder }}
+          </div>
+        </div> 
+        <Icon
+          v-if="props.clearable && isSelected"
+          src="/icons/close.svg"
+          class="selector__clear"
+          @click="clear" />
+        <Icon
+          v-else
+          src="/icons/chevron-down.svg"
+          class="selector__chevron" />
+      </div>
     </template>
-  </dropdown>
+    <slot name="panel" :options="options" :select="select">
+      <ListBox
+        v-model="selected"
+        :options="options"
+        :formatter="props.formatter"
+        :searchable="searchable"
+        :multiple="props.multiple"
+        :as-key="props.asKey"
+        :placeholder="props.searchText"
+        :empty-text="props.notFoundText"
+        class="selector__options">
+        <template #default="{ item: option }">
+          <slot :option="option" name="option">
+            <slot :item="option">
+              {{ props.formatter?.(option) || option }}
+            </slot>
+          </slot>
+        </template>
+      </ListBox>
+    </slot>
+  </Dropdown>
 </template>
 
 <script setup lang="ts">

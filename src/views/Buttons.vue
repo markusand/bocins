@@ -46,19 +46,21 @@
     <div class="button-group">
       <Button>{{ action }}</Button>
       <Dropdown right>
-        <Button><Icon src="/icons/chevron-down.svg" class="unique" /></Button>
-        <template #dropdown>
-          <label><input v-model="action" value="Section" type="radio"> Section</label>
-          <label><input v-model="action" value="Slope" type="radio"> Slope</label>
-          <label><input v-model="action" value="Resort" type="radio"> Resort</label>
+        <template #toggler>
+          <Button><Icon src="/icons/chevron-down.svg" class="unique" /></Button>
         </template>
+        <label><input v-model="action" value="Section" type="radio"> Section</label>
+        <label><input v-model="action" value="Slope" type="radio"> Slope</label>
+        <label><input v-model="action" value="Resort" type="radio"> Resort</label>
       </Dropdown>
     </div>
 
     <!-- Expandable button -->
     <Dropdown right>
-      <Button><Icon src="/icons/more.svg" class="unique" /></Button>
-      <template #dropdown="{ close }">
+      <template #toggler>
+        <Button><Icon src="/icons/more.svg" class="unique" /></Button>
+      </template>
+      <template #default="{ close }">
         <Button primary block @click="consoleMessage(); close()">Console</Button>
         <Button alert block @click="alertMessage(); close()">Alert</Button>
       </template>
