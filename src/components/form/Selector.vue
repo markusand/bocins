@@ -1,53 +1,52 @@
 <template>
   <Dropdown
-    :class="['selector', { multiple }]"
-    :disabled="disabled">
+    :class="['selector input', { multiple, disabled }]"
+    :style="`width:${props.size}${isNumber(props.size) ? 'rem' : ''}`"
+    :disabled="disabled"
+    v-bind="$attrs">
     <template #toggler>
-      <div
-        :class="['input', { disabled }]"
-        v-bind="$attrs"
-        :style="`width:${props.size}${isNumber(props.size) ? 'rem' : ''}`">
-        <div class="selector__label">
-          <slot v-if="isSelected" :selected="selected" name="selected">
-            <slot :item="selected">
-              {{ props.formatter?.(selected) || selected }}
-            </slot>
+      <div class="selector__label">
+        <slot v-if="isSelected" :selected="selected" name="selected">
+          <slot :item="selected">
+            {{ props.formatter?.(selected) || selected }}
           </slot>
-          <div v-else class="selector__placeholder">
-            {{ props.placeholder }}
-          </div>
-        </div> 
-        <Icon
-          v-if="props.clearable && isSelected"
-          src="/icons/close.svg"
-          class="selector__clear"
-          @click="clear" />
-        <Icon
-          v-else
-          src="/icons/chevron-down.svg"
-          class="selector__chevron" />
-      </div>
+        </slot>
+        <div v-else class="selector__placeholder">
+          {{ props.placeholder }}
+        </div>
+      </div> 
+      <Icon
+        v-if="props.clearable && isSelected"
+        src="/icons/close.svg"
+        class="selector__clear"
+        @click="clear" />
+      <Icon
+        v-else
+        src="/icons/chevron-down.svg"
+        class="selector__chevron" />
     </template>
-    <slot name="panel" :options="options" :select="select">
-      <ListBox
-        v-model="selected"
-        :options="options"
-        :formatter="props.formatter"
-        :searchable="searchable"
-        :multiple="props.multiple"
-        :as-key="props.asKey"
-        :placeholder="props.searchText"
-        :empty-text="props.notFoundText"
-        class="selector__options">
-        <template #default="{ item: option }">
-          <slot :option="option" name="option">
-            <slot :item="option">
-              {{ props.formatter?.(option) || option }}
+    <div class="input selector__panel">
+      <slot name="panel" :options="options" :select="select">
+        <ListBox
+          v-model="selected"
+          :options="options"
+          :formatter="props.formatter"
+          :searchable="searchable"
+          :multiple="props.multiple"
+          :as-key="props.asKey"
+          :placeholder="props.searchText"
+          :empty-text="props.notFoundText"
+          class="selector__options">
+          <template #default="{ item: option }">
+            <slot :option="option" name="option">
+              <slot :item="option">
+                {{ props.formatter?.(option) || option }}
+              </slot>
             </slot>
-          </slot>
-        </template>
-      </ListBox>
-    </slot>
+          </template>
+        </ListBox>
+      </slot>
+    </div>
   </Dropdown>
 </template>
 
@@ -110,25 +109,33 @@ const clear = () => {
 
 <style lang="scss" scoped>
 .selector {
-  --margin: var(--input-margin, 1px);
-
-  margin: var(--margin);
   cursor: pointer;
 
-  .input { margin: 0; }
-
-  &__label {
-    flex: 1;
+  &__label,
+  &__placeholder {
+    display: flex;
+    align-items: center;
+    gap: var(--padding);
+    padding: var(--padding) 0;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    margin: calc(-1 * var(--input-padding, 0.5rem)) 0;
-    padding: var(--input-padding, 0.5rem) 0;
+    flex: 1;
   }
 
-  &__clear,
-  &__chevron { margin-left: 0.5em; }
-  &__placeholder { opacity: 0.5; }
+  &__placeholder {
+    margin: calc(-1 * var(--padding)) 0;
+    opacity: 0.5;
+  }
+
+  &__panel {
+    padding: 0;
+
+    & * {
+      border: 0;
+      margin: 0;
+    }
+  }
 }
 </style>
 

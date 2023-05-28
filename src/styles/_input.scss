@@ -23,6 +23,7 @@
   outline: 0;
   box-sizing: border-box;
   transition: all 0.3s ease;
+  min-height: calc(1rem + 2 * var(--padding));
   width: calc(var(--width) - 2 * var(--margin));
 
   :focus-within > & {

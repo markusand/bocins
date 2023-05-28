@@ -224,13 +224,10 @@ const select = (day: Day) => {
 
 <style lang="scss">
 .calendar .selector {
-  .input {
-    --border: none;
-    --background: transparent;
-    --padding: 0.125em;
-  }
+  --border: none;
+  --background: transparent;
+  --padding: 0.125em;
 
   &__chevron { display: none; }
-  &__options { min-width: 100%; }
 }
 </style>

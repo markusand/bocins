@@ -135,8 +135,6 @@ const data = reactive({
 
 <style lang="scss" scoped>
 .avatar {
-  margin-right: 0.25rem;
-
   &--s { --size: 1.5rem; }
   &--xs { --size: 1rem; }
 }
