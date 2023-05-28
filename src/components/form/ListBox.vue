@@ -1,23 +1,24 @@
 <template>
-  <div class="listbox">
-    <InputField
-      v-if="searchable"
-      v-model="search"
-      :placeholder="props.placeholder"
-      class="listbox__search"
-      size="100%">
-      <template #prefix>
-        <Icon src="/icons/search.svg" class="icon" />
-      </template>
-    </InputField>
-    <slot v-if="selected && (clearable || slots.clear)" name="clear" :clear="clear">
+  <div class="input listbox" :style="`--width:${width}`">
+    <div class="listbox__search">
+      <InputField
+        v-if="searchable"
+        v-model="search"
+        :placeholder="props.searchText"
+        block>
+        <template #prefix>
+          <Icon src="/icons/search.svg" class="icon" />
+        </template>
+      </InputField>
+    </div>
+    <slot v-if="selected && (props.clearable || slots.clear)" name="clear" :clear="clear">
       <div class="listbox__clear">
         <button @click="clear">
           {{ typeof props.clearable === 'boolean' ? 'Clear' : props.clearable }}
         </button>
       </div>
     </slot>
-    <label v-for="option in options" :key="props.asKey(option)">
+    <label v-for="option in filteredOptions" :key="props.asKey(option)">
       <input
         v-model="selected"
         :value="option"
@@ -28,9 +29,11 @@
         </slot>
       </div>
     </label>
-    <p v-if="!options.length" class="listbox__empty">
-      {{ props.emptyText }}
-    </p>
+    <slot v-if="!options.length" name="empty">
+      <div class="listbox__empty">
+        {{ props.emptyText }}
+      </div>
+    </slot>
   </div>
 </template>
 
@@ -38,7 +41,7 @@
 import { ref, computed, useSlots } from 'vue';
 import InputField from './InputField.vue';
 import Icon from '../Icon.vue';
-import { normalize } from '/@/utils/string';
+import { isNumber, normalize } from '/@/utils';
 
 type Props = {
   modelValue: any;
@@ -48,31 +51,38 @@ type Props = {
   emptyText?: string;
   multiple?: boolean;
   searchable?: boolean | ((options: any) => string);
+  searchText?: string;
   clearable?: string | boolean;
-  placeholder?: string;
+  size?: string | number;
 };
 
 const props = withDefaults(defineProps<Props>(), {
   asKey: (option: any) => option,
   formatter: undefined,
   searchable: undefined,
+  searchText: 'Search',
   emptyText: 'No items',
-  placeholder: 'Search',
   clearable: false,
+  size: undefined,
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'select']);
 
 const slots = useSlots();
 
 const selected = computed({
   get: () => props.modelValue,
-  set: value => emit('update:modelValue', value),
+  set: value => {
+    emit('update:modelValue', value);
+    emit('select', value);
+  },
 });
+
+const width = computed(() => `${props.size}${isNumber(props.size) ? 'rem' : ''}`);
 
 const search = ref('');
 
-const options = computed(() => {
+const filteredOptions = computed(() => {
   if (!props.searchable) return props.options;
   const needle = normalize(search.value);
   const formatter = typeof props.searchable === 'function'
@@ -84,29 +94,25 @@ const options = computed(() => {
   });
 });
 
-const clear = () => {
-  selected.value = props.multiple ? [] : undefined;
-};
+const clear = () => { selected.value = props.multiple ? [] : undefined; };
 </script>
 
 <style lang="scss" scoped>
 .listbox {
   --speed: var(--transition-speed, 0.3s);
-  --border-radius: var(--listbox-border-radius, var(--input-border-radius, 4px));
+  --color: var(--listbox-color, var(--color-primary, #39f));
+  --color-hover: var(--listbox-color-hover, color-mix(in srgb, var(--color) 10%, transparent));
+  --padding: var(--input-padding, 0.25rem);
 
-  border: var(--listbox-border, var(--input-border, 1px solid #8886));
-  border-radius: var(--border-radius);
-  background: var(--listbox-background, var(--input-background, var(--color-bg, inherit)));
-  padding: var(--listbox-padding, 0.125rem);
+  flex-direction: column;
+  align-items: initial;
+  gap: 1px;
+  padding: var(--padding);
   max-height: var(--listbox-max-height, 175px);
-  min-width: var(--listbox-width, 150px);
   overflow: auto;
-  position: relative;
-
-  input[type="checkbox"],
-  input[type="radio"] { display: none; }
 
   &__search {
+    flex: 0 0;
     position: sticky;
     top: 0;
     z-index: 1;
@@ -115,24 +121,27 @@ const clear = () => {
   &__option {
     display: flex;
     align-items: center;
-    padding: var(--listbox-option-padding, 0.25rem 0.5rem);
-    border-radius: var(--listbox-option-border-radius, var(--border-radius));
-    margin: 1px;
-    line-height: 1;
-    cursor: pointer;
+    padding: var(--padding);
+    gap: var(--padding);
+    border-radius: var(--border-radius);
     transition: var(--speed) ease;
     transition-property: background, color;
 
+    &:hover {
+      background: var(--color-hover);
+      cursor: pointer;
+    }
+
     input:checked + & {
       color: #fff;
-      background: var(--listbox-select-color, var(--color-primary, #39ff));
-      transition: all var(--speed) ease calc(var(--speed) / 3);
+      background: var(--color);
     }
   }
 
   &__empty {
     text-align: center;
     opacity: 0.5;
+    padding: calc(2 * var(--padding)) calc(4 * var(--padding));
   }
 
   &__clear {
@@ -140,11 +149,14 @@ const clear = () => {
 
     button {
       all: unset;
-      font-size: 0.74em;
+      font-size: 0.75em;
       padding: 0.5em;
-      opacity: 0.75;
+      opacity: 0.5;
       cursor: pointer;
     }
   }
+
+  input[type="checkbox"],
+  input[type="radio"] { display: none; }
 }
 </style>
