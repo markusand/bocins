@@ -107,7 +107,7 @@
         <fieldset class="label">
           <legend>Panel replacement</legend>
           <Selector
-            v-model="data.user"
+            v-model="data.target"
             :options="teams"
             placeholder="Select one..."
             clearable
@@ -118,17 +118,18 @@
             </template>
             <template #panel="{ options, select }">
               <TreeList :schema="options" children-node="members" class="treelist">
-                <template #title="{ item: area }">
-                  <div @click.prevent="select(area)">
-                    <Avatar :src="area.avatar" :initials="area.name" class="avatar--s" />
-                    {{ area.name }}
-                  </div>
-                </template>
-                <template #default="{ item: user }">
-                  <div class="user" @click="select(user)">
-                    <Avatar :src="user.avatar" :initials="user.name" class="avatar--s" />
-                    {{ user.name }}
-                  </div>
+                <template #default="{ item }">
+                  <label class="treelist-item">
+                    <input
+                      name="user"
+                      type="radio"
+                      :value="item"
+                      @input="select(item)">
+                    <div class="treelist-item__label">
+                      <Avatar :src="item.avatar" :initials="item.name" class="avatar--s" />
+                      {{ item.name }}
+                    </div>
+                  </label>
                 </template>
               </TreeList>
             </template>
@@ -159,6 +160,7 @@ import users from '/@/assets/data/users.json';
 
 const data = reactive({
   user: undefined,
+  target: undefined,
   users: [],
   admins: [],
 });
@@ -184,21 +186,38 @@ const teams = Object.values(users.reduce((acc, member) => {
 
 <style lang="scss">
 .treelist {
-  margin: 0.75rem 0.25rem !important;
+  margin: 0.5rem !important;
 
   ul {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    margin: 0 0.5rem 0 1.85rem !important;
-    padding: 0.5rem 0.75rem !important;
-    border-left: 1px solid #8888;
+    margin-left: 2rem !important;
+    padding-left: 0.5rem !important;
+    border-left: 1px solid #8883;
   }
 
-  .user {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  &-item__label:hover,
+  summary:focus &-item__label { background: #8882; }
+
+  &-item {
+    display: block;
+    flex: 1;
+
+    // stylelint-disable no-descending-specificity
+    &__label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+
+      :checked + & {
+        background: var(--color-primary);
+        color: #fff;
+        cursor: default;
+      }
+    }
   }
 }
 </style>

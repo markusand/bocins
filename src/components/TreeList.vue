@@ -6,23 +6,28 @@
           <Icon
             src="/icons/chevron-right.svg"
             class="tree-list__chevron" />
-          <slot name="title" :item="item">{{ item[props.nameNode] }}</slot>
+          <slot name="title" :item="item">
+            <slot :item="item">{{ item[props.nameNode] }}</slot>
+          </slot>
         </summary>
         <TreeList
+          :parent="item"
           :schema="item[props.childrenNode]"
           :name-node="props.nameNode"
           :children-node="props.childrenNode"
           :open="props.open">
-          <template #title="{ item: title }">
-            <slot name="title" :item="title" />
+          <template #title>
+            <slot name="title" :item="item" />
           </template>
           <template #default="{ item: nested }">
-            <slot :item="nested" />
+            <slot :item="nested" :parent="item" />
           </template>
         </TreeList>
       </details>
       <div v-else class="tree-list__item">
-        <slot :item="item">{{ item.name }}</slot>
+        <slot :item="item" :parent="props.parent">
+          {{ item[props.nameNode] }}
+        </slot>
       </div>
     </li>
   </ul>
@@ -33,6 +38,7 @@ import Icon from './Icon.vue';
 
 type Props = {
   schema: Record<string, any>[];
+  parent?: any;
   nameNode?: string;
   childrenNode?: string;
   open?: boolean;
@@ -71,12 +77,11 @@ const props = withDefaults(defineProps<Props>(), {
     display: flex;
     align-items: center;
     list-style: none;
+    outline: none;
     cursor: pointer;
 
     &::-webkit-details-marker,
     &::marker { display: none; }
   }
-
-  &__item { margin-left: var(--padding); }
 }
 </style>
