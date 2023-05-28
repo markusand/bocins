@@ -1,7 +1,7 @@
 <template>
-  <label :class="['toggler', { silent, switch: props.switch }]">
+  <label :class="['toggler', { silent, block, switch: props.switch }]">
     <input
-      v-model="value"
+      v-model="toggleValue"
       :type="type"
       :value="props.value"
       :disabled="props.disabled">
@@ -21,15 +21,19 @@ type Props = {
   label?: string;
   switch?: boolean;
   disabled?: boolean;
+  block?: boolean;
   silent?: boolean;
 };
 
 const props = defineProps<Props>();
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'change']);
 
-const value = computed({
+const toggleValue = computed({
   get: () => props.modelValue,
-  set: newValue => emit('update:modelValue', newValue),
+  set: newValue => {
+    emit('update:modelValue', newValue);
+    emit('change', newValue);
+  },
 });
 
 const type = computed(() => (
@@ -53,6 +57,11 @@ const type = computed(() => (
     var(--input-margin, 1px);
 
   input { display: none; }
+
+  &.block {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
 
   &__toggle {
     --size: var(--toggler-size, 1em);

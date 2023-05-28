@@ -27,7 +27,8 @@
         v-model="data.shift"
         :value="shift"
         :disabled="!data.active"
-        switch>
+        switch
+        block>
         {{ shift }}
       </Toggler>
     </fieldset>
