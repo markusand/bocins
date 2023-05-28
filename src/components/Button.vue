@@ -85,35 +85,11 @@ const props = defineProps<{
     cursor: not-allowed;
   }
 
-  .button-group & {
-    margin: 0;
-
-    &:active { z-index: 1; }
-
-    &:not(:first-child) {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      border-left: none;
-    }
-
-    &:not(:last-child) {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-  }
-
   &:not(:disabled):hover { filter: brightness(95%); }
-
-  .input-group .dropdown__dropdown &,
-  .button-group .dropdown__toggler & {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-left: 0;
-  }
 }
 </style>
 
-<style>
+<style lang="scss">
 .button-group {
   --margin: var(--button-margin, 1px);
 
@@ -122,5 +98,20 @@ const props = defineProps<{
   flex-wrap: nowrap;
   margin: var(--margin);
   vertical-align: middle;
+
+  & .button { margin: var(--margin) 0; }
+
+  & > .button:not(:first-child),
+  & > :not(:first-child) > .button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: none;
+  }
+
+  & > .button:not(:last-child),
+  & > :not(:last-child) > .button {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 }
 </style>
