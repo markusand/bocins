@@ -103,6 +103,37 @@
             <template #default="{ item: user }">{{ user.name }}</template>
           </Selector>
         </fieldset>
+
+        <fieldset class="label">
+          <legend>Panel replacement</legend>
+          <Selector
+            v-model="data.user"
+            :options="teams"
+            placeholder="Select one..."
+            clearable
+            size="12">
+            <template #selected="{ selected }">
+              <Avatar :src="selected.avatar" :initials="selected.name" class="avatar--s" />
+              {{ selected.name }}
+            </template>
+            <template #panel="{ options, select }">
+              <TreeList :schema="options" children-node="members" class="treelist">
+                <template #title="{ item: area }">
+                  <div @click.prevent="select(area)">
+                    <Avatar :src="area.avatar" :initials="area.name" class="avatar--s" />
+                    {{ area.name }}
+                  </div>
+                </template>
+                <template #default="{ item: user }">
+                  <div class="user" @click="select(user)">
+                    <Avatar :src="user.avatar" :initials="user.name" class="avatar--s" />
+                    {{ user.name }}
+                  </div>
+                </template>
+              </TreeList>
+            </template>
+          </Selector>
+        </fieldset>
       </fieldset>
     </div>
     
@@ -123,7 +154,7 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { ListBox, Selector, Transfer, Avatar } from '/@/components';
+import { ListBox, Selector, Transfer, Avatar, TreeList } from '/@/components';
 import users from '/@/assets/data/users.json';
 
 const data = reactive({
@@ -131,6 +162,12 @@ const data = reactive({
   users: [],
   admins: [],
 });
+
+const teams = Object.values(users.reduce((acc, member) => {
+  if (!acc[member.area]) acc[member.area] = { name: member.area, members: [] };
+  acc[member.area].members.push(member as any);
+  return acc;
+}, {} as Record<string, any>));
 </script>
 
 <style lang="scss" scoped>
@@ -142,5 +179,26 @@ const data = reactive({
 .selector__label > .avatar--s,
 .avatar-group {
   margin: -0.25rem 0;
+}
+</style>
+
+<style lang="scss">
+.treelist {
+  margin: 0.75rem 0.25rem !important;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0 0.5rem 0 1.85rem !important;
+    padding: 0.5rem 0.75rem !important;
+    border-left: 1px solid #8888;
+  }
+
+  .user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
 }
 </style>
