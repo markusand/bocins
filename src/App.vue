@@ -45,6 +45,8 @@ const dark = ref(false);
   --color-alert: #cd574c;
   --color-text: #20262e;
   --color-bg: #fff;
+  --border: 1px solid #8888;
+  --input-border: var(--border);
   --border-radius: 4px;
   --input-border-radius: var(--border-radius);
   --modal-border-radius: var(--border-radius);

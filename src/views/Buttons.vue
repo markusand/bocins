@@ -49,9 +49,25 @@
         <template #toggler>
           <Button><Icon src="/icons/chevron-down.svg" class="unique" /></Button>
         </template>
-        <label><input v-model="action" value="Section" type="radio"> Section</label>
-        <label><input v-model="action" value="Slope" type="radio"> Slope</label>
-        <label><input v-model="action" value="Resort" type="radio"> Resort</label>
+        <div class="dropmenu">
+          <ToggleButton v-model="action" value="New" flat>
+            <Icon src="/icons/new.svg" />New
+          </ToggleButton>
+          <hr>
+          <ToggleButton v-model="action" value="Download" flat>
+            <Icon src="/icons/download.svg" />Download
+          </ToggleButton>
+          <ToggleButton v-model="action" value="Move" flat>
+            <Icon src="/icons/move.svg" />Move
+          </ToggleButton>
+          <hr>
+          <ToggleButton v-model="action" value="Edit" flat>
+            <Icon src="/icons/edit.svg" />Edit
+          </ToggleButton>
+          <ToggleButton v-model="action" value="Delete" flat alert>
+            <Icon src="/icons/delete-bin.svg" />Delete
+          </ToggleButton>
+        </div>
       </Dropdown>
     </div>
 
@@ -61,8 +77,14 @@
         <Button><Icon src="/icons/more.svg" class="unique" /></Button>
       </template>
       <template #default="{ close }">
-        <Button primary block @click="consoleMessage(); close()">Console</Button>
-        <Button alert block @click="alertMessage(); close()">Alert</Button>
+        <div class="dropmenu spaced">
+          <Button flat @click="consoleMessage(); close()">
+            <Icon src="/icons/edit.svg" />Edit
+          </Button>
+          <Button alert block @click="alertMessage(); close()">
+            <Icon src="/icons/delete-bin.svg" />Delete
+          </Button>
+        </div>
       </template>
     </Dropdown>
 
@@ -76,7 +98,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Icon, Button, Dropdown } from '/@/components';
+import { Icon, Button, ToggleButton, Dropdown } from '/@/components';
 
 const action = ref('Section');
 
@@ -84,11 +106,24 @@ const alertMessage = () => alert('Alert button clicked');
 const consoleMessage = () => console.log('Console button clicked');
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .section {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem;
+}
+
+.dropmenu {
+  background: var(--color-bg);
+  border: var(--border);
+  border-radius: var(--border-radius);
+
+  &.spaced { padding: 0.25rem; }
+}
+
+hr {
+  border: 0;
+  border-top: var(--border);
 }
 
 .custom {
