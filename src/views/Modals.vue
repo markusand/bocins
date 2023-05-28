@@ -30,6 +30,30 @@
       </template>
     </Modal>
 
+    <Modal closeable :backdrop="false">
+      <template #toggle="{ open }">
+        <Button @click="open">Seamless</Button>
+      </template>
+      <section class="section">
+        <h3>Modal title<em>Optio tempora asperiores</em></h3>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+          Magnam voluptates nulla blanditiis, obcaecati pariatur voluptatum.
+        </p>
+      </section>
+    </Modal>
+
+    <ToggleButton v-model="isModalOpen">Stateful</ToggleButton>
+    <Modal v-model:open="isModalOpen" closeable>
+      <section class="section">
+        <h3>Visibility from state<em>Optio tempora asperiores</em></h3>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+          Magnam voluptates nulla blanditiis, obcaecati pariatur voluptatum.
+        </p>
+      </section>
+    </Modal>
+
     <Modal>
       <template #toggle="{ open }">
         <Button alert @click="open">Delete</Button>
@@ -51,9 +75,12 @@
 </template>
 
 <script setup lang="ts">
-import { Modal, Button } from '/@/components';
+import { ref } from 'vue';
+import { Modal, Button, ToggleButton } from '/@/components';
 
 const deleteUser = () => alert('User deleted');
+
+const isModalOpen = ref(false);
 </script>
 
 <style scoped>

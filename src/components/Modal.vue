@@ -3,41 +3,46 @@
     ref="modal"
     v-bind="$attrs"
     :style="`width:${props.size}${isNumber(props.size) ? 'rem' : ''}`"
-    class="modal">
-    <slot name="close" :close="close">
+    class="modal"
+    @cancel="handleEscape"
+    @close="closeModal">
+    <slot name="close" :close="closeModal">
       <button
         v-if="props.closeable"
         class="modal__close"
-        @click="close">
+        @click="closeModal">
         &times;
       </button>
     </slot>
     <section class="modal__content">
-      <slot :close="close" />
+      <slot :close="closeModal" />
     </section>
     <footer v-if="slots.footer" class="modal__footer">
-      <slot name="footer" :close="close" />
+      <slot name="footer" :close="closeModal" />
     </footer>
   </dialog>
   <slot
     name="toggle"
-    :open="open"
-    :close="close"
-    :toggle="toggle" />
+    :open="openModal"
+    :close="closeModal"
+    :toggle="toggleModal" />
 </template>
 
 <script setup lang="ts">
-import { ref, watch, useSlots, onMounted } from 'vue';
+import { ref, watch, useSlots } from 'vue';
 import { isNumber } from '/@/utils/number';
 
 type Props = {
   open?: boolean;
   closeable?: boolean;
   size?: number | string;
+  backdrop?: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
+  open: false,
   size: 20,
+  backdrop: true,
 });
 
 const emit = defineEmits(['update:open', 'open', 'close', 'toggle']);
@@ -46,33 +51,31 @@ const slots = useSlots();
 
 const modal = ref<HTMLDialogElement>();
 
-const open = () => {
-  if (modal.value) {
-    modal.value.showModal();
-    emit('open');
-    emit('toggle', true);
-    emit('update:open', true);
+const toggleModal = (open = !modal.value?.open || false) => {
+  if (props.open !== undefined) {
+    if (open) {
+      if (props.backdrop) modal.value?.showModal();
+      else modal.value?.show();
+    } else modal.value?.close();
+    emit('toggle', open);
+    emit('update:open', open);
+    emit(open ? 'open' : 'close');
+  }
+  const { clientHeight } = document.body;
+  modal.value?.classList.toggle('constrained', modal.value.offsetHeight > clientHeight * 0.9);
+};
 
-    const { clientHeight } = document.body;
-    modal.value.classList.toggle('constrained', modal.value.offsetHeight > clientHeight * 0.9);
+const openModal = () => toggleModal(true);
+const closeModal = () => toggleModal(false);
+
+watch(() => props.open, toggleModal);
+
+const handleEscape = (event: Event) => {
+  if (!props.closeable) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 };
-
-const close = () => {
-  modal.value?.close();
-  emit('close');
-  emit('toggle', false);
-  emit('update:open', false);
-};
-
-const toggle = (toOpen = !modal.value?.open) => {
-  if (toOpen) open();
-  else close();
-};
-
-watch(() => props.open, toggle, { immediate: true });
-
-onMounted(() => toggle(props.open));
 </script>
 
 <script lang="ts">
