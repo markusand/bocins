@@ -48,7 +48,7 @@
             placeholder="Select many..."
             size="12"
             multiple>
-            <template #selected="{ selected }">
+            <template #selecteds="{ selected }">
               {{ selected[0].name }}
               <span v-if="selected.length > 1" class="chip">
                 +{{ selected.length - 1 }}
@@ -67,7 +67,7 @@
             size="12"
             clearable
             multiple>
-            <template #selected="{ selected }">
+            <template #selecteds="{ selected }">
               <span class="avatar-group">
                 <Avatar
                   v-for="user in selected"
@@ -92,7 +92,7 @@
             placeholder="Select many..."
             size="12"
             multiple>
-            <template #selected="{ selected }">
+            <template #selecteds="{ selected }">
               <div class="chip-group">
                 <span v-for="user in selected" :key="user.id" class="chip">
                   {{ user.name }}
