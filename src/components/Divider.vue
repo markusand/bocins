@@ -6,10 +6,13 @@
 
 <style lang="scss" scoped>
 div.divider {
+  --color: var(--divider-color, #8888);
+  --margin: var(--divider-margin, 2rem);
+
   display: flex;
   align-items: center;
-  color: var(--divider-color, #8888);
-  margin: var(--divider-margin, 2rem) 0;
+  color: var(--color);
+  margin: var(--margin) 0;
 
   &::before,
   &::after {
@@ -17,7 +20,6 @@ div.divider {
     flex: 1;
     border-top: 1px solid currentcolor;
     margin: 0 0.5rem;
-    opacity: var(--divider-opacity, 0.5);
   }
 
   &:empty::after { display: none; }
