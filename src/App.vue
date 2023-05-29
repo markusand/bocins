@@ -8,15 +8,15 @@
       <template #title>Buttons</template>
       <Buttons />
     </Collapser>
-    <Collapser v-model:accordion="accordion">
+    <Collapser v-model:open="accordion">
       <template #title>Forms</template>
       <Forms />
     </Collapser>
-    <Collapser v-model:accordion="accordion">
+    <Collapser v-model:open="accordion">
       <template #title>Lists</template>
       <Lists />
     </Collapser>
-    <Collapser v-model:accordion="accordion" main>
+    <Collapser v-model:open="accordion" main>
       <template #title>Modals</template>
       <Modals />
     </Collapser>
@@ -31,7 +31,7 @@ import Forms from './views/forms/Forms.vue';
 import Lists from './views/Lists.vue';
 import Modals from './views/Modals.vue';
 
-const accordion = ref('buttons');
+const accordion = ref(false);
 const dark = ref(false);
 </script>
 

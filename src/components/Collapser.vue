@@ -24,41 +24,42 @@ import { unique } from '/@/utils/string';
 
 type Props = {
   name?: string;
-  open?: boolean;
-  accordion?: string | undefined;
+  open?: string | boolean | undefined;
   main?: boolean;
   disabled?: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
   name: () => unique(),
-  accordion: undefined,
+  open: undefined,
 });
 
-const emit = defineEmits(['toggle', 'open', 'close', 'update:accordion']);
+const emit = defineEmits(['toggle', 'open', 'close', 'update:open']);
 
 const isOpen = computed(() => {
-  const { accordion, name, main, open } = props;
-  return accordion === name || (!accordion && main) || open;
+  const { name, main, open } = props;
+  return typeof open === 'string'
+    ? [name, ''].includes(open)
+    : open ?? main;
 });
 
 const toggle = (event: Event) => {
   const { open } = event.target as HTMLDetailsElement;
-  const { name, accordion } = props;
-  const attributes = { open, name };
+  const attributes = { ...props, open };
   emit(open ? 'open' : 'close', attributes);
   emit('toggle', attributes);
-
-  if (open) emit('update:accordion', name);
-  else if (accordion === name) emit('update:accordion', undefined);
+  
+  if (open) emit('update:open', props.name);
+  else if (props.open === props.name) emit('update:open', undefined);
 };
 </script>
 
 <style lang="scss" scoped>
 .collapser {
   --padding: var(--collapser-padding, 0.75rem);
+  --border: var(--collapser-border, 1px solid #8883);
 
-  border: var(--collapser-border, 1px solid #8883);
+  border: var(--border);
   border-width: 1px 0;
 
   & + & { border-top: 0; }
