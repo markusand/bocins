@@ -128,6 +128,7 @@ const clear = () => { selected.value = props.multiple ? [] : undefined; };
     transition: var(--speed) ease;
     transition-property: background, color;
 
+    // stylelint-disable-next-line no-descending-specificity
     input:focus + &,
     &:hover {
       background: var(--color-hover);
