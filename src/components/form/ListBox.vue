@@ -4,60 +4,57 @@
       <InputField
         v-if="searchable"
         v-model="search"
-        :placeholder="props.searchText"
+        :placeholder="searchText"
         block>
         <template #prefix>
           <Icon src="/icons/search.svg" class="icon" />
         </template>
       </InputField>
     </div>
-    <slot v-if="selected && (props.clearable || slots.clear)" name="clear" :clear="clear">
+    <slot v-if="selected && (clearable || slots.clear)" name="clear" :clear="clear">
       <div class="listbox__clear">
         <button @click="clear">
-          {{ typeof props.clearable === 'boolean' ? 'Clear' : props.clearable }}
+          {{ typeof clearable === 'boolean' ? 'Clear' : clearable }}
         </button>
       </div>
     </slot>
-    <label v-for="option in filteredOptions" :key="props.asKey(option)">
+    <label v-for="option, i in filteredOptions" :key="i">
       <input
         v-model="selected"
         :value="option"
-        :type="props.multiple ? 'checkbox' : 'radio'">
+        :type="multiple ? 'checkbox' : 'radio'">
       <div class="listbox__option">
         <slot :item="option">
-          {{ props.formatter?.(option) || option }}
+          {{ formatter?.(option) || option }}
         </slot>
       </div>
     </label>
     <slot v-if="!filteredOptions.length" name="empty">
-      <div class="listbox__empty">
-        {{ props.emptyText }}
-      </div>
+      <div class="listbox__empty">{{ emptyText }}</div>
     </slot>
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, computed, useSlots } from 'vue';
+<script setup lang="ts" generic="T">
+import { ref, computed } from 'vue';
 import InputField from './InputField.vue';
 import Icon from '../Icon.vue';
 import { isNumber, normalize } from '/@/utils';
 
 type Props = {
-  modelValue: any;
-  options: any[];
-  formatter?: (option: any) => string;
-  asKey?: (option: any) => string | number;
+  modelValue: T | T[] | undefined;
+  options: T[];
+  formatter?: (option: T) => string;
   emptyText?: string;
   multiple?: boolean;
-  searchable?: boolean | ((options: any) => string);
+  searchable?: boolean | ((option: T) => string);
   searchText?: string;
   clearable?: string | boolean;
   size?: string | number;
 };
 
 const props = withDefaults(defineProps<Props>(), {
-  asKey: (option: any) => option,
+  multiple: false,
   formatter: undefined,
   searchable: undefined,
   searchText: 'Search',
@@ -68,7 +65,11 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits(['update:modelValue', 'select']);
 
-const slots = useSlots();
+const slots = defineSlots<{
+  default?: (props: { item: T }) => any;
+  clear?: (props: { clear: () => void }) => any;
+  empty?: (props: object) => any;
+}>();
 
 const selected = computed({
   get: () => props.modelValue,

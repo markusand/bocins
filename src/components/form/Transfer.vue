@@ -3,7 +3,6 @@
     <ListBox
       v-model="addList"
       :options="fromList"
-      :as-key="props.asKey"
       :searchable="props.searchable"
       :empty-text="props.emptyText"
       :multiple="multiple">
@@ -22,7 +21,6 @@
     <ListBox
       v-model="removeList"
       :options="toList"
-      :as-key="props.asKey"
       :searchable="props.searchable"
       :empty-text="props.emptyText"
       :multiple="multiple">
