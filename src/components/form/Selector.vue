@@ -87,7 +87,10 @@ const props = withDefaults(defineProps<Props>(), {
   size: 'calc(100% - 2 * var(--margin))',
 });
 
-const emit = defineEmits(['update:modelValue', 'select']);
+const emit = defineEmits<{
+  'update:modelValue': [selected: T | T[] | undefined],
+  select: [selected: T | T[] | undefined],
+}>();
 
 defineSlots<{
   default?: (props: { item: T }) => any;
