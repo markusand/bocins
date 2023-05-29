@@ -4,7 +4,7 @@
     <TreeList :schema="teams" children-node="members" class="members-tree">
       <template #title="{ item }">{{ item.name }}</template>
       <template #default="{ item: user }">
-        <Avatar :src="user.avatar" :initials="`${user.name} ${user.surname}`" />
+        <Avatar :src="user.avatar" :name="`${user.name} ${user.surname}`" />
         {{ user.name }} {{ user.surname }}
       </template>
     </TreeList>

@@ -13,7 +13,7 @@
           <template #default="{ item: user }">
             <Avatar
               :src="user.avatar"
-              :initials="`${user.name} ${user.surname}`"
+              :name="`${user.name} ${user.surname}`"
               class="avatar--s" />
             {{ user.name }}
           </template>
@@ -31,11 +31,11 @@
             clearable
             size="12">
             <template #selected="{ selected: user }">
-              <Avatar :src="user.avatar" :initials="user.name" class="avatar--s" />
+              <Avatar :src="user.avatar" :name="user.name" class="avatar--s" />
               {{ user.name }}
             </template>
             <template #option="{ option: user }">
-              <Avatar :src="user.avatar" :initials="user.name" class="avatar--s" />
+              <Avatar :src="user.avatar" :name="user.name" class="avatar--s" />
               {{ user.name }}
             </template>
           </Selector>
@@ -74,12 +74,12 @@
                   v-for="user in selected"
                   :key="user.id"
                   :src="user.avatar"
-                  :initials="user.name"
+                  :name="user.name"
                   class="avatar--s" />
               </span>
             </template>
             <template #option="{ option: user }">
-              <Avatar :src="user.avatar" :initials="user.name" class="avatar--s" />
+              <Avatar :src="user.avatar" :name="user.name" class="avatar--s" />
               {{ user.name }}
             </template>
           </Selector>
@@ -113,7 +113,7 @@
             clearable
             size="12">
             <template #selected="{ selected }">
-              <Avatar :src="selected.avatar" :initials="selected.name" class="avatar--s" />
+              <Avatar :src="selected.avatar" :name="selected.name" class="avatar--s" />
               {{ selected.name }}
             </template>
             <template #panel="{ options, select }">
@@ -126,7 +126,7 @@
                       :value="item"
                       @input="select(item)">
                     <div class="treelist-item__label">
-                      <Avatar :src="item.avatar" :initials="item.name" class="avatar--s" />
+                      <Avatar :src="item.avatar" :name="item.name" class="avatar--s" />
                       {{ item.name }}
                     </div>
                   </label>
@@ -144,7 +144,7 @@
         <template #default="{ item: user }">
           <Avatar
             :src="user.avatar"
-            :initials="`${user.name} ${user.surname}`"
+            :name="`${user.name} ${user.surname}`"
             class="avatar--s" />
           {{ user.name }}
         </template>

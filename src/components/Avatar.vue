@@ -9,14 +9,15 @@ import { computed } from 'vue';
 
 type Props = {
   src?: string | null;
-  initials?: string;
+  name?: string;
 };
 
 const props = defineProps<Props>();
 
-const initials = computed(() => (
-  props.initials?.split(' ').slice(0, 2).map(str => str.charAt(0)).join('')
-));
+const initials = computed(() => {
+  if (!props.name) return '';
+  return props.name.split(' ').slice(0, 2).map(str => str.charAt(0)).join('');
+});
 </script>
 
 <style lang="scss" scoped>
