@@ -139,7 +139,7 @@
     
     <fieldset class="label">
       <legend>Transfer</legend>
-      <Transfer v-model="data.admins" :options="users" multiple>
+      <Transfer v-model="data.admins" :options="users">
         <template #default="{ item: user }">
           <Avatar
             :src="user.avatar"
