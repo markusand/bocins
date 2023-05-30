@@ -43,7 +43,9 @@ const props = withDefaults(defineProps<Props>(), {
   size: 'calc(100% - 2 * var(--margin))',
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{
+  'update:modelValue': [date: Date | undefined],
+}>();
 
 const date = computed({
   get: () => props.modelValue,

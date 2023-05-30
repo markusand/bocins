@@ -63,13 +63,18 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: File[] | undefined): void,
-  (e: 'dragover', event: DragEvent): void,
-  (e: 'dragleave', event: DragEvent): void,
-  (e: 'drop', value: { event: DragEvent, files: File[] }): void,
-  (e: 'change', value: { files: File[] }): void,
-  (e: 'remove', value: { file: File, files: File[] }): void,
-  (e: 'error', value: { error: Error; file?: File }): void,
+  'update:modelValue': [value: File[] | undefined],
+  dragover: [ev: DragEvent],
+  dragleave: [ev: DragEvent],
+  drop: [ev: { event: DragEvent, files: File[] }],
+  change: [ev: { files: File[] }],
+  remove: [ev: { file: File, files: File[] }],
+  error: [ev: { error: Error; file?: File }],
+}>();
+
+defineSlots<{
+  default?: (props: object) => void;
+  file?: (props: { file: File, remove: () => void }) => void
 }>();
 
 const files = ref(props.modelValue || []);

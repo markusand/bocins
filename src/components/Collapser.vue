@@ -34,7 +34,18 @@ const props = withDefaults(defineProps<Props>(), {
   open: undefined,
 });
 
-const emit = defineEmits(['toggle', 'open', 'close', 'update:open']);
+const emit = defineEmits<{
+  toggle: [attributes: Props];
+  open: [attributes: Props];
+  close: [attributes: Props];
+  'update:open': [open: string | boolean | undefined];
+}>();
+
+defineSlots<{
+  default?: (props: object) => void;
+  title?: (props: object) => void;
+  aside?: (props: object) => void;
+}>();
 
 const isOpen = computed(() => {
   const { name, main, open } = props;
@@ -46,7 +57,8 @@ const isOpen = computed(() => {
 const toggle = (event: Event) => {
   const { open } = event.target as HTMLDetailsElement;
   const attributes = { ...props, open };
-  emit(open ? 'open' : 'close', attributes);
+  if (open) emit('open', attributes);
+  else emit('close', attributes);
   emit('toggle', attributes);
   
   if (open) emit('update:open', props.name);

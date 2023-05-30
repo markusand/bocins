@@ -19,13 +19,16 @@ type Props = {
 };
 
 const props = defineProps<Props>();
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{
+  'update:modelValue': [value: boolean | T | T[] | undefined],
+  change: [value: boolean | T | T[] | undefined],
+}>();
 
 const isChecked = computed(() => {
   const { modelValue, value } = props;
   return typeof modelValue === 'boolean'
     ? modelValue
-    : Array.isArray(modelValue)
+    : value && Array.isArray(modelValue)
       ? modelValue.includes(value)
       : modelValue === value;
 });
@@ -34,11 +37,12 @@ const check = () => {
   const { modelValue, value } = props;
   const update = typeof modelValue === 'boolean'
     ? !modelValue
-    : Array.isArray(modelValue)
+    : value && Array.isArray(modelValue)
       ? modelValue.includes(value)
         ? modelValue.filter(item => item !== value)
         : [...modelValue, value]
       : value;
   emit('update:modelValue', update);
+  emit('change', update);
 };
 </script>

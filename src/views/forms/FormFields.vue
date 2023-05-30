@@ -183,16 +183,16 @@ import {
 } from '/@/components';
 
 const data = reactive({
-  name: undefined,
-  bio: undefined,
-  search: undefined,
-  password: undefined,
-  website: undefined,
-  priceEuro: undefined,
+  name: '',
+  bio: '',
+  search: '',
+  password: '',
+  website: '',
+  priceEuro: '0',
   age: 18,
-  files: [],
-  avatar: [],
-  tags: [],
+  files: [] as File[],
+  avatar: [] as File[],
+  tags: [] as string[],
 });
 
 const fileUrl = (file: File) => URL.createObjectURL(file);

@@ -26,6 +26,11 @@ const props = withDefaults(defineProps<Props>(), {
   label: 'Dropdown',
 });
 
+defineSlots<{
+  default?: (props: { close: () => void }) => any;
+  toggler?: (props: { close: () => void }) => any;
+}>();
+
 const dropdown = ref<HTMLDivElement | null>(null);
 
 const close = () => {

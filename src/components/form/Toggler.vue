@@ -1,40 +1,46 @@
 <template>
-  <label :class="['toggler', { silent, block, switch: props.switch }]">
+  <label :class="['toggler', { silent, block, switch: isSwitch }]">
     <input
       v-model="toggleValue"
       :type="type"
-      :value="props.value"
-      :disabled="props.disabled">
-    <span v-if="props.switch" class="switch__toggle" />
+      :value="value"
+      :disabled="disabled">
+    <span v-if="isSwitch" class="switch__toggle" />
     <Icon v-else src="/icons/check.svg" class="toggler__toggle" />
-    <span class="toggler__label"><slot>{{ props.label }}</slot></span>
+    <span class="toggler__label">
+      <slot>{{ label }}</slot>
+    </span>
   </label>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T">
 import { computed } from 'vue';
 import Icon from '../Icon.vue';
 
-type Props = {
-  modelValue: any;
-  value?: any;
+const props = defineProps<{
+  modelValue: T | T[] | undefined;
+  value?: T;
   label?: string;
   switch?: boolean;
   disabled?: boolean;
   block?: boolean;
   silent?: boolean;
-};
+}>();
 
-const props = defineProps<Props>();
-const emit = defineEmits(['update:modelValue', 'change']);
+const emit = defineEmits<{
+  'update:modelValue': [value: T | T[] | undefined],
+  change: [value: T | T[] | undefined],
+}>();
 
 const toggleValue = computed({
   get: () => props.modelValue,
-  set: newValue => {
-    emit('update:modelValue', newValue);
-    emit('change', newValue);
+  set: value => {
+    emit('update:modelValue', value);
+    emit('change', value);
   },
 });
+
+const isSwitch = computed(() => props.switch);
 
 const type = computed(() => (
   typeof props.modelValue === 'boolean' || Array.isArray(props.modelValue) ? 'checkbox' : 'radio'

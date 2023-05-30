@@ -21,9 +21,11 @@ import { ref, computed } from 'vue';
 import InputField from './InputField.vue';
 import Icon from '../Icon.vue';
 
-const props = defineProps<{ modelValue?: string }>();
+const props = defineProps<{ modelValue: string }>();
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{
+  'update:modelValue': [value: string],
+}>();
 
 const value = computed({
   get: () => props.modelValue,

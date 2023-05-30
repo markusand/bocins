@@ -23,7 +23,7 @@ import { computed } from 'vue';
 import { isNumber } from '/@/utils/number';
 
 type Props = {
-  modelValue?: string;
+  modelValue: string;
   maxLength?: number | string;
   cols?: number | string;
   rows?: number | string;
@@ -39,7 +39,9 @@ const props = withDefaults(defineProps<Props>(), {
   rows: 5,
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{
+  'update:modelValue': [value: string];
+}>();
 
 const text = computed({
   get: () => props.modelValue,
