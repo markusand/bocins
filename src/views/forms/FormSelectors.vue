@@ -112,11 +112,17 @@
             clearable
             size="12">
             <template #selected="{ selected }">
-              <Avatar :src="selected.avatar" :name="selected.name" class="avatar--s" />
+              <template v-if="'avatar' in selected">
+                <Avatar :src="selected.avatar" :name="selected.name" class="avatar--s" />
+              </template>
               {{ selected.name }}
             </template>
-            <template #panel="{ options, select }">
-              <TreeList :schema="options" children-node="members" class="treelist">
+            <template #panel="{ select }">
+              <TreeList
+                :schema="teams"
+                name-node="name"
+                children-node="members"
+                class="treelist">
                 <template #default="{ item }">
                   <label class="treelist-item">
                     <input
@@ -125,7 +131,9 @@
                       :value="item"
                       @input="select(item)">
                     <div class="treelist-item__label">
-                      <Avatar :src="item.avatar" :name="item.name" class="avatar--s" />
+                      <template v-if="'avatar' in item">
+                        <Avatar :src="item.avatar" :name="item.name" class="avatar--s" />
+                      </template>
                       {{ item.name }}
                     </div>
                   </label>
@@ -154,21 +162,25 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { ListBox, Selector, Transfer, Avatar, TreeList } from '/@/components';
+import { ListBox, Selector, Transfer, Avatar, TreeList, type TreeNode } from '/@/components';
 import users from '/@/assets/data/users.json';
+
+type User = { name: string; avatar: string };
+type Team = { name: string; members: (Team | User)[] };
+
+const teams: TreeNode<Team, 'members'>[] = Object.values(users.reduce((acc, member) => {
+  if (!acc[member.area]) acc[member.area] = { name: member.area, members: [] };
+  acc[member.area].members.push(member as any);
+  return acc;
+}, {} as Record<string, Team>));
 
 const data = reactive({
   user: undefined,
-  target: undefined,
+  target: teams[0] as Team | User,
   users: [],
   admins: [],
 });
 
-const teams = Object.values(users.reduce((acc, member) => {
-  if (!acc[member.area]) acc[member.area] = { name: member.area, members: [] };
-  acc[member.area].members.push(member as any);
-  return acc;
-}, {} as Record<string, any>));
 </script>
 
 <style lang="scss" scoped>
