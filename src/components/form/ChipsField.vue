@@ -24,9 +24,11 @@ const props = withDefaults(defineProps<Props>(), {
   separator: ',',
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{
+  'update:modelValue': [value: string[]];
+}>();
 
-const input = ref<string | undefined>(undefined);
+const input = ref<string>('');
 
 const deleteChip = (chip: string) => {
   const chips = props.modelValue.filter(value => value !== chip);

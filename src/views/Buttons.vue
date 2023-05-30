@@ -64,7 +64,11 @@
           <ToggleButton v-model="action" value="Edit" flat>
             <Icon src="/icons/edit.svg" />Edit
           </ToggleButton>
-          <ToggleButton v-model="action" value="Delete" flat alert>
+          <ToggleButton
+            v-model="action"
+            value="Delete"
+            flat
+            alert>
             <Icon src="/icons/delete-bin.svg" />Delete
           </ToggleButton>
         </div>

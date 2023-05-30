@@ -37,7 +37,7 @@
     "typescript": "^5.0.4",
     "vite": "^4.3.8",
     "vite-plugin-dts": "^2.3.0",
-    "vue": "^3.2.37"
+    "vue": "^3.3.4"
   },
   "dependencies": {
     "date-fns": "^2.29.3",

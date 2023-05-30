@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, useSlots } from 'vue';
+import { ref, watch } from 'vue';
 import { isNumber } from '/@/utils/number';
 
 type Props = {
@@ -45,9 +45,19 @@ const props = withDefaults(defineProps<Props>(), {
   backdrop: true,
 });
 
-const emit = defineEmits(['update:open', 'open', 'close', 'toggle']);
+const emit = defineEmits<{
+  'update:open': [value: boolean];
+  open: [];
+  close: [];
+  toggle: [value: boolean];
+}>();
 
-const slots = useSlots();
+const slots = defineSlots<{
+  default?: (props: { close: () => void }) => any;
+  close?: (props: { close: () => void }) => any;
+  footer?: (props: { close: () => void }) => any;
+  toggle?: (props: { open: () => void; close: () => void; toggle: () => void }) => any;
+}>();
 
 const modal = ref<HTMLDialogElement>();
 
@@ -59,7 +69,8 @@ const toggleModal = (open = !modal.value?.open || false) => {
     } else modal.value?.close();
     emit('toggle', open);
     emit('update:open', open);
-    emit(open ? 'open' : 'close');
+    if (open) emit('open');
+    else emit('close');
   }
   const { clientHeight } = document.body;
   modal.value?.classList.toggle('constrained', modal.value.offsetHeight > clientHeight * 0.9);

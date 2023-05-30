@@ -17,7 +17,7 @@ import { unique } from '/@/utils/string';
 
 type Props = {
   name?: string;
-  modelValue?: number;
+  modelValue: number | undefined;
   max?: number | string;
 };
 
@@ -27,7 +27,9 @@ const props = withDefaults(defineProps<Props>(), {
   max: 5,
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{
+  'update:modelValue': [value: number | undefined],
+}>();
 
 const rating = computed({
   get: () => props.modelValue,

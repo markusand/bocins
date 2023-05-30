@@ -1,18 +1,24 @@
 <template>
   <section class="section">
     <h3>Tree list<em>Hierachical dropdown tree structure</em></h3>
-    <TreeList :schema="teams" children-node="members" class="members-tree">
+    <TreeList
+      :schema="teams"
+      name-node="name"
+      children-node="members"
+      class="members-tree">
       <template #title="{ item }">{{ item.name }}</template>
       <template #default="{ item: user }">
-        <Avatar :src="user.avatar" :name="`${user.name} ${user.surname}`" />
-        {{ user.name }} {{ user.surname }}
+        <template v-if="'avatar' in user">
+          <Avatar :src="user.avatar" :name="`${user.name} ${user.surname}`" />
+          {{ user.name }}
+        </template>
       </template>
     </TreeList>
   </section>
 </template>
 
 <script setup lang="ts">
-import { TreeList, Avatar } from '/@/components';
+import { TreeList, Avatar, type TreeNode } from '/@/components';
 import users from '/@/assets/data/users.json';
 
 type Member = {
@@ -45,17 +51,22 @@ type Member = {
 
 type Team = {
   name: string;
+  members: Member[];
+};
+
+type Department = {
+  name: string;
   members: (Team | Member)[];
 };
 
-const teams = [{
-  name: 'Company',
+const teams: TreeNode<Department, 'members'>[] = [...Array(5).keys()].map(i => ({
+  name: `Department ${i}`,
   members: Object.values(users.reduce((acc, member) => {
     if (!acc[member.area]) acc[member.area] = { name: member.area, members: [] };
     acc[member.area].members.push(member as Member);
     return acc;
   }, {} as Record<string, Team>)),
-}];
+}));
 </script>
 
 <style lang="scss">

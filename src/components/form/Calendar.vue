@@ -61,8 +61,8 @@ type Day = {
 type Props = {
   modelValue?: Date;
   disabled?: boolean;
-  notBefore?: string | Date;
-  notAfter?: string | Date;
+  notBefore?: string | number | Date;
+  notAfter?: string | number | Date;
   invalid?: DatesList;
   valid?: DatesList;
   locale?: string;
@@ -79,7 +79,14 @@ const props = withDefaults(defineProps<Props>(), {
   yearRange: '-10:+10',
 });
 
-const emit = defineEmits(['update:modelValue', 'select']);
+const emit = defineEmits<{
+  'update:modelValue': [date: Date | (Date | undefined)[] | undefined],
+  select: [date: Date | (Date | undefined)[] | undefined],
+}>();
+
+defineSlots<{
+  default?: (props: { day: Day }) => void;
+}>();
 
 const today = new Date();
 const weekdayFormatter = new Intl.DateTimeFormat(props.locale, { weekday: 'short' });
@@ -155,7 +162,7 @@ const days = computed<Day[]>(() => {
 const select = (day: Day) => {
   if (!day.disabled) {
     const value = Array.isArray(props.modelValue)
-      ? [props.modelValue[1], day.date]
+      ? [props.modelValue[1] as Date | undefined, day.date]
       : day.date;
     emit('update:modelValue', value);
     emit('select', value);

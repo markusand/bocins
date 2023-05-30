@@ -66,7 +66,7 @@ const shifts = ['Morning', 'Afternoon', 'Night'];
 const data = reactive({
   shift: undefined,
   active: false,
-  parts: [],
+  parts: [] as string[],
   howto: undefined,
 });
 </script>
