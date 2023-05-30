@@ -1,24 +1,38 @@
 <template>
   <Button
-    :disabled="props.disabled"
+    :disabled="disabled"
     :primary="isChecked"
+    :alert="alert"
+    :flat="flat"
+    :block="block"
+    :loading="loading"
+    :size="size"
     @click="check">
     <slot />
   </Button>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T">
 import { computed } from 'vue';
 import Button from '../Button.vue';
 
-type Props = {
-  modelValue: any;
-  value?: any;
-  disabled?: boolean;
-  silent?: boolean;
-};
+defineOptions({ inheritAttrs: true });
 
-const props = defineProps<Props>();
+const props = defineProps<{
+  modelValue: T | T[];
+  value?: T;
+  silent?: boolean;
+  // Modifiers
+  alert?: boolean;
+  flat?: boolean;
+  block?: boolean;
+  loading?: boolean;
+  // State
+  disabled?: boolean;
+  // Size
+  size?: number | string;
+}>();
+
 const emit = defineEmits<{
   'update:modelValue': [value: boolean | T | T[] | undefined],
   change: [value: boolean | T | T[] | undefined],
