@@ -75,17 +75,12 @@
         tooltip="none"
         vertical />
     </label>
-
-    <fieldset class="label">
-      <legend>Rating</legend>
-      <Rating v-model="data.rating" />
-    </fieldset>
   </section>
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { Histogram, Rating, Slider } from '/@/components';
+import { Histogram, Slider } from '/@/components';
 
 const marks = { 10: '', 14: '14ºC', 19: '19ºC', 25: '25ºC', 30: '' };
 
@@ -101,7 +96,6 @@ const data = reactive({
   single: 21,
   range: [histogram.min, histogram.max],
   multiRange: [10, 20, 30, 40, 80],
-  rating: undefined,
 });
 </script>
 
