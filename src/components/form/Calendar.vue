@@ -61,8 +61,8 @@ type Day = {
 type Props = {
   modelValue?: Date;
   disabled?: boolean;
-  notBefore?: string | Date;
-  notAfter?: string | Date;
+  notBefore?: string | number | Date;
+  notAfter?: string | number | Date;
   invalid?: DatesList;
   valid?: DatesList;
   locale?: string;
