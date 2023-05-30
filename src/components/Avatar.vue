@@ -71,7 +71,7 @@ const initials = computed(() => {
 
   .avatar {
     margin-left: -0.5rem;
-    outline: 2px solid #fff;
+    outline: 2px solid var(--color-bg);
   }
 }
 </style>
