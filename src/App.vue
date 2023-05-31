@@ -8,15 +8,15 @@
       <template #title>Buttons</template>
       <Buttons />
     </Collapser>
-    <Collapser v-model:accordion="accordion">
+    <Collapser v-model:open="accordion">
       <template #title>Forms</template>
       <Forms />
     </Collapser>
-    <Collapser v-model:accordion="accordion">
+    <Collapser v-model:open="accordion">
       <template #title>Lists</template>
       <Lists />
     </Collapser>
-    <Collapser v-model:accordion="accordion" main>
+    <Collapser v-model:open="accordion" main>
       <template #title>Modals</template>
       <Modals />
     </Collapser>
@@ -31,7 +31,7 @@ import Forms from './views/forms/Forms.vue';
 import Lists from './views/Lists.vue';
 import Modals from './views/Modals.vue';
 
-const accordion = ref('buttons');
+const accordion = ref(false);
 const dark = ref(false);
 </script>
 
@@ -45,6 +45,8 @@ const dark = ref(false);
   --color-alert: #cd574c;
   --color-text: #20262e;
   --color-bg: #fff;
+  --border: 1px solid #8888;
+  --input-border: var(--border);
   --border-radius: 4px;
   --input-border-radius: var(--border-radius);
   --modal-border-radius: var(--border-radius);
@@ -67,40 +69,6 @@ const dark = ref(false);
 
     background: var(--color-bg);
     color: #ddd;
-  }
-}
-
-.calendar {
-  line-height: 1;
-  padding: 0.25rem;
-
-  &__header {
-    margin: 0.5rem 0.75rem 0.75rem;
-  }
-
-  &__weekday {
-    opacity: 0.4;
-    margin: 0 0 0.25rem;
-    text-transform: uppercase;
-    font-size: 0.5rem;
-  }
-
-  &__day {
-    padding: 0.35rem;
-
-    &--today { color: var(--color-primary); }
-    &--outsider { color: #aaa; }
-
-    &--selected {
-      background: var(--color-primary);
-      color: #fff;
-      border-radius: 4px;
-    }
-
-    &--disabled {
-      background: #d0d0d3;
-      opacity: 0.25;
-    }
   }
 }
 
@@ -162,29 +130,11 @@ fieldset { all: unset; }
   margin: 1.5rem 1rem;
 }
 
-.modal {
-  color: var(--color-text);
-  max-width: 90%;
-  max-height: 80%;
-  box-shadow: 0 2px 12px 0 #0002;
-
-  &__close {
-    all: unset;
-    padding: 0.125rem;
-    margin: 0.25rem 0.5rem;
-    font-size: 1.25rem;
-    cursor: pointer;
-    opacity: 0.5;
-
-    &:hover { opacity: 1; }
-  }
-
-  &__footer {
-    padding: 0.5rem;
-    border-top: 1px solid var(--color-border);
-    background: #8881;
-    text-align: right;
-  }
+.b-modal__footer {
+  padding: 0.5rem;
+  border-top: 1px solid #8882;
+  background: #8881;
+  text-align: right;
 }
 
 .switcher {

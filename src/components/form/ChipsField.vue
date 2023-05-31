@@ -1,32 +1,41 @@
 <template>
-  <InputField v-model="input" class="chips-field" @keydown="handleKey">
-    <template v-if="modelValue.length" #prefix>
-      <ul class="chips-field__chips">
-        <li v-for="chip in modelValue" :key="chip" class="chip">
-          {{ chip }}
-          <a href="#" @click.prevent="deleteChip(chip)">&times;</a>
-        </li>
-      </ul>
+  <InputField v-model="input" class="b-input--chips" @keydown="handleKey">
+    <template v-if="modelValue.length" #[slot]>
+      <div class="chips-group">
+        <Chip
+          v-for="chip in modelValue"
+          :key="chip"
+          :text="chip"
+          closeable
+          primary
+          @close="deleteChip(chip)" />
+      </div>
     </template>
   </InputField>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import InputField from './InputField.vue';
+import Chip from '../Chip.vue';
 
 type Props = {
   modelValue: string[];
   separator?: string;
+  outside?: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
   separator: ',',
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{
+  'update:modelValue': [value: string[]];
+}>();
 
-const input = ref<string | undefined>(undefined);
+const slot = computed(() => props.outside ? 'suffix' : 'prefix');
+
+const input = ref<string>('');
 
 const deleteChip = (chip: string) => {
   const chips = props.modelValue.filter(value => value !== chip);
@@ -49,33 +58,3 @@ const handleKey = (event: KeyboardEvent) => {
   if (event.key === 'Backspace' && !input.value) deleteLastChip();
 };
 </script>
-
-<style lang="scss" scoped>
-.chips-field {
-  flex-wrap: wrap;
-
-  &__chips {
-    all: unset;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5em 2px;
-
-    .chip {
-      background: var(--chip-color, #8884);
-      color: var(--chip-textcolor, inherit);
-      font-size: 0.75em;
-      padding: 0.25em 0.5em;
-      margin: -0.25em 0;
-      border-radius: 4px;
-      white-space: nowrap;
-
-      a {
-        color: inherit;
-        text-decoration: none;
-        margin-left: 0.25em;
-      }
-    }
-  }
-}
-</style>

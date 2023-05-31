@@ -1,5 +1,5 @@
 /* Global input styles */
-.input {
+.b-input {
   --padding: var(--input-padding, 0.5rem);
   --margin: var(--input-margin, 1px);
   --border-radius: var(--input-border-radius, 4px);
@@ -10,8 +10,9 @@
   gap: var(--padding);
   align-items: center;
   margin: var(--margin);
+  padding: 0 var(--padding);
   vertical-align: middle;
-  color: var(--font-color);
+  color: inherit;
   background: var(--background);
   border: var(--border);
   border-radius: var(--border-radius);
@@ -20,9 +21,9 @@
   overflow: hidden;
   text-align: left;
   outline: 0;
-  padding: var(--padding);
   box-sizing: border-box;
   transition: all 0.3s ease;
+  min-height: calc(1em + 2 * var(--padding));
   width: calc(var(--width) - 2 * var(--margin));
 
   :focus-within > & {
@@ -32,11 +33,11 @@
   input {
     all: unset;
     min-width: 0;
-    height: 1rem;
+    height: 1em;
     flex: 1;
     white-space: nowrap;
     text-overflow: ellipsis;
-    margin: calc(-1 * var(--padding)) 0;
+    overflow: hidden;
     padding: var(--padding) 0;
 
     &[type="number"] {
@@ -50,9 +51,6 @@
     }
   }
 
-  // &__prefix { padding-right: var(--padding); }
-  // &__suffix { padding-left: var(--padding); }
-
   &__prefix,
   &__suffix {
     flex: 0 0 content;
@@ -65,33 +63,63 @@
 
   &__clear { cursor: pointer; }
 
+  &__control {
+    opacity: 0.5;
+    cursor: pointer;
+    user-select: none;
+
+    &--disabled {
+      pointer-events: none;
+      color: transparent;
+    }
+  }
+
   .block &,
-  &.block { width: calc(100% - 2 * var(--margin)); }
+  &.block {
+    margin: 0;
+    width: 100%;
+  }
 
   &.disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
+
+  &--number { text-align: center; }
+
+  &--chips {
+    overflow: visible;
+
+    .b-input__suffix {
+      position: absolute;
+      top: 100%;
+      left: 0;
+    }
+
+    .chips-group { margin: 0.25rem 0; }
+  }
 }
 
 .input-group {
+  display: inline-flex;
   border: 0;
   margin: var(--input-margin, 1px);
   padding: 0;
 
-  & > * { margin: 0 !important; }
+  & .b-input,
+  & .b-button { margin: 0; }
 
-  .input:not(:first-child),
-  .button:not(:first-child),
-  & > :not(:first-child) .input {
+  .b-input:not(:first-child),
+  .b-button:not(:first-child),
+  & > :not(:first-child) > .b-input {
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
-    margin-left: -1px !important;
+    border-left: 0;
   }
 
-  .input:not(:last-child),
-  .button:not(:last-child),
-  & > :not(:last-child) .input {
+  .b-input:not(:last-child),
+  .b-button:not(:last-child),
+  & > :not(:last-child) .b-input {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
   }

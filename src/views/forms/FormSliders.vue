@@ -13,7 +13,6 @@
           v-model="data.single"
           :min="10"
           :max="30"
-          contained
           tooltip="none" />
       </label>
 
@@ -23,8 +22,7 @@
           v-model="data.single"
           :min="10"
           :max="30"
-          :marks="marks"
-          contained />
+          :marks="marks" />
       </label>
     </div>
 
@@ -39,8 +37,7 @@
           v-model="data.range"
           :min="histogram.min"
           :max="histogram.max"
-          tooltip="none"
-          contained />
+          tooltip="none" />
       </label>
 
       <label class="label">
@@ -48,8 +45,7 @@
         <Slider
           v-model="data.multiRange"
           :min="0"
-          :max="100"
-          contained />
+          :max="100" />
       </label>
     </div>
 
@@ -65,21 +61,27 @@
           v-model="data.range"
           :min="histogram.min"
           :max="histogram.max"
-          :marks="histogramMarks" />
+          :marks="histogramMarks"
+          :contained="false" />
       </div>
     </label>
 
-    <fieldset class="label">
-      <legend>Rating</legend>
-      <Rating v-model="data.rating" />
-    </fieldset>
+    <label class="label">
+      <em>Vertical</em>
+      <Slider
+        v-model="data.single"
+        min="10"
+        max="30"
+        tooltip="none"
+        vertical />
+    </label>
   </section>
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue';
-import Slider from 'vue-slider-component';
-import { Histogram, Rating } from '/@/components';
+import { Histogram } from '/@/components';
+import Slider from '/@/components/Slider.vue';
 
 const marks = { 10: '', 14: '14ºC', 19: '19ºC', 25: '25ºC', 30: '' };
 
@@ -95,12 +97,9 @@ const data = reactive({
   single: 21,
   range: [histogram.min, histogram.max],
   multiRange: [10, 20, 30, 40, 80],
-  rating: undefined,
 });
 </script>
 
 <style lang="scss">
-@import "/@/styles/slider";
-
 .histoslider { padding: 0.5rem 0.75rem; }
 </style>

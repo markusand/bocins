@@ -1,9 +1,9 @@
 <template>
   <span
-    class="input"
+    class="b-input"
     :class="classes"
     :style="`--width:${props.size}${isNumber(props.size) ? 'rem' : ''}`">
-    <span v-if="props.prefix || slots.prefix" class="input__prefix">
+    <span v-if="props.prefix || slots.prefix" class="b-input__prefix">
       <slot name="prefix">{{ props.prefix }}</slot>
     </span>
     <input
@@ -14,22 +14,35 @@
     <Icon
       v-if="props.clearable && value"
       src="/icons/close.svg"
-      class="input__clear"
+      class="b-input__clear"
       @click="clear" />
-    <span v-if="props.suffix || slots.suffix" class="input__suffix">
+    <span v-if="props.suffix || slots.suffix" class="b-input__suffix">
       <slot name="suffix">{{ props.suffix }}</slot>
     </span>
   </span>
 </template>
 
 <script setup lang="ts">
-import { computed, useSlots } from 'vue';
+import { computed } from 'vue';
 import { isNumber } from '/@/utils/number';
 import Icon from '../Icon.vue';
 
+export type InputTypes = 'text'
+| 'color'
+| 'password'
+| 'datetime-local'
+| 'email'
+| 'month'
+| 'number'
+| 'search'
+| 'tel'
+| 'time'
+| 'url'
+| 'week';
+
 type Props = {
-  modelValue: any;
-  type?: string;
+  modelValue: string;
+  type?: InputTypes;
   class?: string | Record<string, boolean> | string[];
   prefix?: string;
   suffix?: string;
@@ -47,12 +60,17 @@ const props = withDefaults(defineProps<Props>(), {
   size: 10,
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{
+  'update:modelValue': [value: string],
+}>();
 
-const slots = useSlots();
+const slots = defineSlots<{
+  prefix?: (props: object) => any;
+  suffix?: (props: object) => any;
+}>();
 
 const value = computed({
-  get: () => props.modelValue,
+  get: () => String(props.modelValue),
   set: newValue => emit('update:modelValue', newValue),
 });
 
@@ -62,7 +80,7 @@ const classes = computed(() => {
   return [...classArray, { disabled, block }];
 });
 
-const clear = () => emit('update:modelValue', undefined);
+const clear = () => emit('update:modelValue', '');
 </script>
 
 <script lang="ts">

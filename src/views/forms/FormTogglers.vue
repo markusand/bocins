@@ -27,7 +27,8 @@
         v-model="data.shift"
         :value="shift"
         :disabled="!data.active"
-        switch>
+        switch
+        block>
         {{ shift }}
       </Toggler>
     </fieldset>
@@ -65,7 +66,7 @@ const shifts = ['Morning', 'Afternoon', 'Night'];
 const data = reactive({
   shift: undefined,
   active: false,
-  parts: [],
+  parts: [] as string[],
   howto: undefined,
 });
 </script>

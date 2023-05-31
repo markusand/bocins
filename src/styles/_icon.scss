@@ -1,0 +1,20 @@
+.b-icon {
+  --size: var(--icon-size, 24px);
+
+  vertical-align: middle;
+  fill: currentcolor;
+  display: inline-block;
+
+  img,
+  svg {
+    height: var(--size);
+    width: var(--size);
+    flex: 0 0 var(--size);
+    display: block;
+  }
+
+  .b-input &,
+  .b-button & { --size: 1em; }
+
+  .b-button &.unique { margin: 0 calc(-1 * var(--button-padding, 0.5rem)); }
+}

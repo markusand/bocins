@@ -1,0 +1,39 @@
+.b-modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 5;
+  margin: 0;
+  padding: 0;
+  background: var(--modal-background, var(--color-bg, inherit));
+  color: inherit;
+  border: var(--modal-border, var(--border, none));
+  border-radius: var(--modal-border-radius, 0);
+  box-shadow: 0 0 1rem 0 #0001;
+  max-width: 90%;
+  max-height: 80%;
+  overflow: visible;
+
+  &[open] { animation: fadein 0.5s ease forwards; }
+
+  &.constrained {
+    overflow: auto;
+    max-height: 90%;
+  }
+
+  &__close {
+    all: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.125rem;
+    margin: 0.25rem 0.5rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+    opacity: 0.5;
+
+    &:hover { opacity: 1; }
+  }
+
+  &::backdrop { background: var(--modal-fade, #0006); }
+}

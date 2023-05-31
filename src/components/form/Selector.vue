@@ -1,57 +1,63 @@
 <template>
-  <dropdown
-    :class="['selector', { multiple }]"
-    :disabled="disabled">
-    <div
-      :class="['input', { disabled }]"
-      v-bind="$attrs"
-      :style="`width:${props.size}${isNumber(props.size) ? 'rem' : ''}`">
-      <div class="selector__label">
-        <slot v-if="isSelected" :selected="selected" name="selected">
-          <slot :item="selected">
-            {{ props.formatter?.(selected) || selected }}
+  <Dropdown
+    :class="['b-selector b-input', { multiple, disabled }]"
+    :style="`width:${size}${isNumber(size) ? 'rem' : ''}`"
+    :disabled="disabled"
+    v-bind="$attrs">
+    <template #toggler>
+      <div class="b-selector__label">
+        <template v-if="isSelected">
+          <slot v-if="multiple" name="selecteds" :selected="(selected as T[])">
+            <slot v-for="item, i in (selected as T[])" :key="i" :item="item">
+              {{ formatter?.(item) || item! }}
+            </slot>
           </slot>
-        </slot>
-        <div v-else class="selector__placeholder">
-          {{ props.placeholder }}
+          <slot v-else name="selected" :selected="(selected as T)">
+            <slot :item="(selected as T)">
+              {{ formatter?.(selected as T) || selected! }}
+            </slot>
+          </slot>
+        </template>
+        <div v-else class="b-selector__placeholder">
+          {{ placeholder }}
         </div>
       </div> 
       <Icon
-        v-if="props.clearable && isSelected"
+        v-if="clearable && isSelected"
         src="/icons/close.svg"
-        class="selector__clear"
+        class="b-selector__clear"
         @click="clear" />
       <Icon
         v-else
         src="/icons/chevron-down.svg"
-        class="selector__chevron" />
-    </div>
-    <template #dropdown>
+        class="b-selector__chevron" />
+    </template>
+    <div class="b-input b-selector__panel">
       <slot name="panel" :options="options" :select="select">
         <ListBox
           v-model="selected"
           :options="options"
-          :formatter="props.formatter"
+          :formatter="formatter"
           :searchable="searchable"
-          :multiple="props.multiple"
-          :as-key="props.asKey"
-          :placeholder="props.searchText"
-          :empty-text="props.notFoundText"
-          class="selector__options">
+          :multiple="multiple"
+          :search-text="searchText"
+          :empty-text="emptyText"
+          class="b-selector__options"
+          tabindex="-1">
           <template #default="{ item: option }">
             <slot :option="option" name="option">
               <slot :item="option">
-                {{ props.formatter?.(option) || option }}
+                {{ formatter?.(option) || option }}
               </slot>
             </slot>
           </template>
         </ListBox>
       </slot>
-    </template>
-  </dropdown>
+    </div>
+  </Dropdown>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T">
 import { computed } from 'vue';
 import { isNumber } from '/@/utils/number';
 import Dropdown from '../Dropdown.vue';
@@ -59,33 +65,42 @@ import ListBox from './ListBox.vue';
 import Icon from '../Icon.vue';
 
 type Props = {
-  modelValue: any;
-  options: any[];
-  asKey?: (option: any) => string | number;
-  formatter?: (option: any) => string;
+  modelValue: T | T[] | undefined;
+  options: T[];
+  formatter?: (option: T | T[]) => string;
   placeholder?: string;
-  searchable?: boolean | ((options: any) => string);
+  searchable?: boolean | ((option: T) => string);
   clearable?: boolean;
   disabled?: boolean;
   searchText?: string;
-  notFoundText?: string;
+  emptyText?: string;
   multiple?: boolean;
   size?: number | string;
 };
 
 const props = withDefaults(defineProps<Props>(), {
-  asKey: (option: any) => option,
   formatter: undefined,
   placeholder: 'Select one',
   searchable: false,
   searchText: 'Search',
-  notFoundText: 'Nothing found',
+  emptyText: 'Nothing found',
   size: 'calc(100% - 2 * var(--margin))',
 });
 
-const emit = defineEmits(['update:modelValue', 'select']);
+const emit = defineEmits<{
+  'update:modelValue': [selected: T | T[] | undefined],
+  select: [selected: T | T[] | undefined],
+}>();
 
-const select = (value: any) => {
+defineSlots<{
+  default?: (props: { item: T }) => any;
+  selected?: (props: { selected: T }) => any;
+  selecteds?: (props: { selected: T[] }) => any;
+  option?: (props: { option: T }) => any;
+  panel?: (props: { options: T[], select: (value: T | T[] | undefined) => void }) => any;
+}>();
+
+const select = (value: T | T[] | undefined) => {
   emit('update:modelValue', value);
   emit('select', value);
 };
@@ -96,39 +111,14 @@ const selected = computed({
 });
 
 const isSelected = computed(() => props.multiple
-  ? (selected.value as any[]).length
+  ? !!(selected.value as T[]).length
   : selected.value !== undefined,
 );
 
 const clear = () => {
-  if (!props.disabled && props.clearable && isSelected.value) {
-    const value = props.multiple ? [] : undefined;
-    select(value);
+  if (!props.disabled && props.clearable) {
+    select(props.multiple ? [] : undefined);
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.selector {
-  --margin: var(--input-margin, 1px);
-
-  margin: var(--margin);
-  cursor: pointer;
-
-  .input { margin: 0; }
-
-  &__label {
-    flex: 1;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    margin: calc(-1 * var(--input-padding, 0.5rem)) 0;
-    padding: var(--input-padding, 0.5rem) 0;
-  }
-
-  &__clear,
-  &__chevron { margin-left: 0.5em; }
-  &__placeholder { opacity: 0.5; }
-}
-</style>
 

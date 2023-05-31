@@ -1,12 +1,28 @@
-/* Custom theme for slider */
-.vue-slider {
+.b-slider.vue-slider {
   --color: var(--slider-color, var(--color-primary, #39f));
+  --size: var(--slider-size, 150px);
+  --weight: var(--slider-weight, 4px);
 
-  min-width: var(--slider-size, 150px);
-  margin: 0.5rem 0;
+  z-index: 0;
 
+  &-rtl,
+  &-ltr {
+    width: var(--size) !important;
+    height: var(--weight) !important;
+    margin: 0.5rem 0;
+  }
+
+  &-ttb,
+  &-btt {
+    height: var(--size) !important;
+    width: var(--weight) !important;
+    margin: 0 auto;
+  }
+}
+
+.b-slider .vue-slider {
   &-rail {
-    background-color: var(--slider-rail, #8883);
+    background-color: var(--slider-color-rail, #8883);
     border-radius: 4px;
   }
 
@@ -26,23 +42,17 @@
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      background-color: var(--slider-handle, #fff);
-      outline: 3px solid var(--color);
+      background: var(--slider-color-handle, #fff);
+      box-shadow: var(--slider-shadow-handle, 0 0 0 1px #8888);
       box-sizing: border-box;
 
       &-disabled { display: none; }
-
-      &-focus,
-      &:hover {
-        background: var(--color);
-        border: 4px solid #fff;
-      }
     }
 
     &-tooltip-inner {
       font-size: 0.9rem;
       white-space: nowrap;
-      padding: 0.125rem 0.25rem;
+      padding: 0.25rem 0.4rem;
       text-align: center;
       color: #fff;
       border-radius: 0.25rem;
@@ -56,17 +66,14 @@
     &-step {
       width: 50%;
       height: 100%;
-      background: #0002;
+      background: #8888;
     }
 
     &-label {
       font-size: 0.75em;
       white-space: nowrap;
-      margin-top: 0.5em !important;
+      margin-top: 0.75em !important;
       opacity: 0.4;
     }
-
-    &:first-child &-step,
-    &:last-child &-step { display: none; }
   }
 }

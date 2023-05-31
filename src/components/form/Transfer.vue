@@ -1,19 +1,18 @@
 <template>
-  <fieldset class="transfer">
+  <fieldset class="b-transfer">
     <ListBox
       v-model="addList"
       :options="fromList"
-      :as-key="props.asKey"
       :searchable="props.searchable"
       :empty-text="props.emptyText"
-      :multiple="multiple">
+      multiple>
       <template #default="{ item }">
         <slot name="from" :item="item">
           <slot :item="item">{{ item }}</slot>
         </slot>
       </template>
     </ListBox>
-    <div class="transfer__controls">
+    <div class="b-transfer__controls">
       <Button :disabled="!fromList.length" @click="addAll()">&raquo;</Button>
       <Button :disabled="!addList.length" @click="add()">&gt;</Button>
       <Button :disabled="!removeList.length" @click="remove()">&lt;</Button>
@@ -22,10 +21,9 @@
     <ListBox
       v-model="removeList"
       :options="toList"
-      :as-key="props.asKey"
       :searchable="props.searchable"
       :empty-text="props.emptyText"
-      :multiple="multiple">
+      multiple>
       <template #default="{ item }">
         <slot name="to" :item="item">
           <slot :item="item">{{ item }}</slot>
@@ -35,72 +33,60 @@
   </fieldset>
 </template>
 
-<script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+<script setup lang="ts" generic="T">
+import { ref, computed, type Ref } from 'vue';
 import ListBox from './ListBox.vue';
 import Button from '../Button.vue';
 
-type Item = any;
-
 type Props = {
-  options: Item[];
-  modelValue: Item[];
-  asKey?: (options: any) => string | number;
+  options: T[];
+  modelValue: T[];
   searchable?: boolean | ((options: any) => string);
   emptyText?: string;
-  multiple?: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
-  asKey: (item: Item) => item.id,
   searchable: undefined,
   emptyText: 'Empty list',
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{
+  'update:modelValue': [items: T[]];
+  change: [items: T[]],
+}>();
 
-const fromList = ref<Item[]>([]);
-const addList = ref<Item[]>([]);
-const removeList = ref<Item[]>([]);
-const toList = computed<Item[]>({
+defineSlots<{
+  default?: (props: { item: T }) => any;
+  from?: (props: { item: T }) => any;
+  to?: (props: { item: T }) => any;
+}>();
+
+const fromList = ref<T[]>(props.options) as Ref<T[]>;
+const addList = ref<T[]>([]) as Ref<T[]>;
+const removeList = ref<T[]>([]) as Ref<T[]>;
+
+const toList = computed<T[]>({
   get: () => props.modelValue,
-  set: value => emit('update:modelValue', value),
+  set: value => {
+    emit('update:modelValue', value);
+    emit('change', value);
+  },
 });
 
-const inList = (item: Item, list: Item[]) => {
-  const search = props.asKey(item);
-  return !!list.find(listItem => props.asKey(listItem) === search);
-};
+const inList = (item: T, list: T[]) => !!list.find(listT => listT === item);
 
-const add = (list = addList) => {
-  toList.value = [...toList.value, ...list.value];
+const add = (items = addList) => {
+  toList.value.push(...items.value);
+  fromList.value = fromList.value.filter(item => !inList(item, items.value));
   addList.value = [];
 };
 
-const remove = (list = removeList) => {
-  toList.value = toList.value.filter(item => !inList(item, list.value));
+const remove = (items = removeList) => {
+  fromList.value.push(...items.value);
+  toList.value = toList.value.filter(item => !inList(item, items.value));
   removeList.value = [];
 };
 
 const addAll = () => add(fromList);
 const removeAll = () => remove(toList);
-
-watch(toList, () => {
-  fromList.value = props.options.filter(item => !inList(item, toList.value));
-}, { immediate: true });
 </script>
-
-<style lang="scss" scoped>
-.transfer {
-  display: flex;
-  padding: 0;
-  border: none;
-
-  &__controls {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 0.5em;
-  }
-}
-</style>

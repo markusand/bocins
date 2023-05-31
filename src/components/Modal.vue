@@ -3,120 +3,92 @@
     ref="modal"
     v-bind="$attrs"
     :style="`width:${props.size}${isNumber(props.size) ? 'rem' : ''}`"
-    class="modal">
-    <slot name="close" :close="close">
+    class="b-modal"
+    @cancel="handleEscape"
+    @close="closeModal">
+    <slot name="close" :close="closeModal">
       <button
         v-if="props.closeable"
-        class="modal__close"
-        @click="close">
+        class="b-modal__close"
+        @click="closeModal">
         &times;
       </button>
     </slot>
-    <section class="modal__content">
-      <slot :close="close" />
+    <section class="b-modal__content">
+      <slot :close="closeModal" />
     </section>
-    <footer v-if="slots.footer" class="modal__footer">
-      <slot name="footer" :close="close" />
+    <footer v-if="slots.footer" class="b-modal__footer">
+      <slot name="footer" :close="closeModal" />
     </footer>
   </dialog>
   <slot
     name="toggle"
-    :open="open"
-    :close="close"
-    :toggle="toggle" />
+    :open="openModal"
+    :close="closeModal"
+    :toggle="toggleModal" />
 </template>
 
 <script setup lang="ts">
-import { ref, watch, useSlots, onMounted } from 'vue';
+import { ref, watch } from 'vue';
 import { isNumber } from '/@/utils/number';
 
 type Props = {
   open?: boolean;
   closeable?: boolean;
   size?: number | string;
+  backdrop?: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
+  open: false,
   size: 20,
+  backdrop: true,
 });
 
-const emit = defineEmits(['update:open', 'open', 'close', 'toggle']);
+const emit = defineEmits<{
+  'update:open': [value: boolean];
+  open: [];
+  close: [];
+  toggle: [value: boolean];
+}>();
 
-const slots = useSlots();
+const slots = defineSlots<{
+  default?: (props: { close: () => void }) => any;
+  close?: (props: { close: () => void }) => any;
+  footer?: (props: { close: () => void }) => any;
+  toggle?: (props: { open: () => void; close: () => void; toggle: () => void }) => any;
+}>();
 
 const modal = ref<HTMLDialogElement>();
 
-const open = () => {
-  if (modal.value) {
-    modal.value.showModal();
-    emit('open');
-    emit('toggle', true);
-    emit('update:open', true);
+const toggleModal = (open = !modal.value?.open || false) => {
+  if (props.open !== undefined) {
+    if (open) {
+      if (props.backdrop) modal.value?.showModal();
+      else modal.value?.show();
+    } else modal.value?.close();
+    emit('toggle', open);
+    emit('update:open', open);
+    if (open) emit('open');
+    else emit('close');
+  }
+  const { clientHeight } = document.body;
+  modal.value?.classList.toggle('constrained', modal.value.offsetHeight > clientHeight * 0.9);
+};
 
-    const { clientHeight } = document.body;
-    modal.value.classList.toggle('constrained', modal.value.offsetHeight > clientHeight * 0.9);
+const openModal = () => toggleModal(true);
+const closeModal = () => toggleModal(false);
+
+watch(() => props.open, toggleModal);
+
+const handleEscape = (event: Event) => {
+  if (!props.closeable) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 };
-
-const close = () => {
-  modal.value?.close();
-  emit('close');
-  emit('toggle', false);
-  emit('update:open', false);
-};
-
-const toggle = (toOpen = !modal.value?.open) => {
-  if (toOpen) open();
-  else close();
-};
-
-watch(() => props.open, toggle, { immediate: true });
-
-onMounted(() => toggle(props.open));
 </script>
 
 <script lang="ts">
 export default { inheritAttrs: false };
 </script>
-
-<style lang="scss" scoped>
-.modal {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  z-index: 5;
-  margin: 0;
-  padding: 0;
-  background: var(--modal-background, var(--color-bg, inherit));
-  color: inherit;
-  border: var(--modal-border, none);
-  border-radius: var(--modal-border-radius, 0);
-  max-width: 90%;
-  max-height: none;
-  overflow: visible;
-
-  &[open] { animation: fadein 0.5s ease forwards; }
-
-  &.constrained {
-    overflow: auto;
-    max-height: 90%;
-  }
-
-  &__close {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-
-  &::backdrop { background: var(--modal-fade, #0006); }
-}
-
-@keyframes fadein {
-  0% {
-    transform: translate(-50%, calc(-50% - 0.5rem));
-    opacity: 0;
-  }
-
-  100% { transform: translate(-50%, -50%); }
-}
-</style>
