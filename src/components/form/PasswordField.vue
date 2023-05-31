@@ -1,8 +1,7 @@
 <template>
   <InputField
     v-model="value"
-    :type="isVisible ? 'text' : 'password'"
-    class="input--password">
+    :type="isVisible ? 'text' : 'password'">
     <template #suffix>
       <Icon
         v-if="isVisible"

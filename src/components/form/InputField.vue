@@ -1,9 +1,9 @@
 <template>
   <span
-    class="input"
+    class="b-input"
     :class="classes"
     :style="`--width:${props.size}${isNumber(props.size) ? 'rem' : ''}`">
-    <span v-if="props.prefix || slots.prefix" class="input__prefix">
+    <span v-if="props.prefix || slots.prefix" class="b-input__prefix">
       <slot name="prefix">{{ props.prefix }}</slot>
     </span>
     <input
@@ -14,9 +14,9 @@
     <Icon
       v-if="props.clearable && value"
       src="/icons/close.svg"
-      class="input__clear"
+      class="b-input__clear"
       @click="clear" />
-    <span v-if="props.suffix || slots.suffix" class="input__suffix">
+    <span v-if="props.suffix || slots.suffix" class="b-input__suffix">
       <slot name="suffix">{{ props.suffix }}</slot>
     </span>
   </span>

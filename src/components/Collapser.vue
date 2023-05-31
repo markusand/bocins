@@ -1,17 +1,17 @@
 <template>
   <details
-    class="collapser"
+    class="b-collapser"
     :disabled="props.disabled"
     :open="isOpen"
     @toggle="toggle">
-    <summary class="collapser__toggler">
+    <summary class="b-collapser__toggler">
       <slot name="title" />
-      <aside class="collapser__aside">
+      <aside class="b-collapser__aside">
         <slot name="aside" />
       </aside>
       <icon
         src="/icons/chevron-right.svg"
-        class="collapser__chevron" />
+        class="b-collapser__chevron" />
     </summary>
     <slot />
   </details>
@@ -65,44 +65,3 @@ const toggle = (event: Event) => {
   else if (props.open === props.name) emit('update:open', undefined);
 };
 </script>
-
-<style lang="scss" scoped>
-.collapser {
-  --padding: var(--collapser-padding, 0.75rem);
-  --border: var(--collapser-border, 1px solid #8883);
-
-  border: var(--border);
-  border-width: 1px 0;
-
-  & + & { border-top: 0; }
-
-  &__toggler {
-    list-style: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: var(--padding);
-    padding: var(--padding);
-
-    &::-webkit-details-marker,
-    &::marker { display: none; }
-  }
-
-  &__aside { margin-left: auto; }
-
-  &__chevron {
-    --size: 1em;
-
-    [open] > summary & { transform: rotate(90deg); }
-  }
-
-  &[disabled="true"] {
-    cursor: not-allowed;
-
-    summary {
-      pointer-events: none;
-      opacity: 0.5;
-    }
-  }
-}
-</style>

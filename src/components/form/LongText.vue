@@ -1,6 +1,6 @@
 <template>
   <span
-    :class="['longtext', { block }]"
+    :class="['b-longtext', { block }]"
     :style="`
       width:${props.cols}${isNumber(props.cols) ? 'em' : ''};
       height:${props.rows}${isNumber(props.rows) ? 'em' : ''};
@@ -9,10 +9,10 @@
       v-model="text"
       v-bind="$attrs"
       :maxlength="props.maxLength"
-      :class="['input', { disabled }]"
+      :class="['b-input', { disabled }]"
       :disabled="props.disabled"
       @keydown.tab="handleTab" />
-    <span v-if="props.maxLength" class="longtext__remain">
+    <span v-if="props.maxLength" class="b-longtext__remain">
       {{ text.length }} / {{ props.maxLength }}
     </span>
   </span>
@@ -58,36 +58,3 @@ const handleTab = (event: KeyboardEvent) => {
   target.selectionEnd = selectionEnd + 1;
 };
 </script>
-
-<style lang="scss" scoped>
-.longtext {
-  --margin: var(--input-margin, 1px);
-
-  display: inline-block;
-  position: relative;
-  margin: var(--margin);
-  vertical-align: top;
-  max-width: 100% !important;
-
-  &__remain {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    font-size: 0.75em;
-    margin: 0.5rem;
-    opacity: 0.5;
-  }
-
-  textarea {
-    font: inherit;
-    resize: none;
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    overflow: auto;
-  }
-
-  .block > &,
-  &.block { width: calc(100% - 2 * var(--margin)) !important; }
-}
-</style>

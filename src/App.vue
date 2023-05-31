@@ -72,40 +72,6 @@ const dark = ref(false);
   }
 }
 
-.calendar {
-  line-height: 1;
-  padding: 0.25rem;
-
-  &__header {
-    margin: 0.5rem 0.75rem 0.75rem;
-  }
-
-  &__weekday {
-    opacity: 0.4;
-    margin: 0 0 0.25rem;
-    text-transform: uppercase;
-    font-size: 0.5rem;
-  }
-
-  &__day {
-    padding: 0.35rem;
-
-    &--today { color: var(--color-primary); }
-    &--outsider { color: #aaa; }
-
-    &--selected {
-      background: var(--color-primary);
-      color: #fff;
-      border-radius: 4px;
-    }
-
-    &--disabled {
-      background: #d0d0d3;
-      opacity: 0.25;
-    }
-  }
-}
-
 h3 {
   font-size: 1rem;
   font-weight: bold;
@@ -164,29 +130,11 @@ fieldset { all: unset; }
   margin: 1.5rem 1rem;
 }
 
-.modal {
-  color: var(--color-text);
-  max-width: 90%;
-  max-height: 80%;
-  box-shadow: 0 2px 12px 0 #0002;
-
-  &__close {
-    all: unset;
-    padding: 0.125rem;
-    margin: 0.25rem 0.5rem;
-    font-size: 1.25rem;
-    cursor: pointer;
-    opacity: 0.5;
-
-    &:hover { opacity: 1; }
-  }
-
-  &__footer {
-    padding: 0.5rem;
-    border-top: 1px solid var(--color-border);
-    background: #8881;
-    text-align: right;
-  }
+.b-modal__footer {
+  padding: 0.5rem;
+  border-top: 1px solid #8882;
+  background: #8881;
+  text-align: right;
 }
 
 .switcher {

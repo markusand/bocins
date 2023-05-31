@@ -1,11 +1,11 @@
 <template>
   <Dropdown
-    :class="['selector input', { multiple, disabled }]"
+    :class="['b-selector b-input', { multiple, disabled }]"
     :style="`width:${size}${isNumber(size) ? 'rem' : ''}`"
     :disabled="disabled"
     v-bind="$attrs">
     <template #toggler>
-      <div class="selector__label">
+      <div class="b-selector__label">
         <template v-if="isSelected">
           <slot v-if="multiple" name="selecteds" :selected="(selected as T[])">
             <slot v-for="item, i in (selected as T[])" :key="i" :item="item">
@@ -18,21 +18,21 @@
             </slot>
           </slot>
         </template>
-        <div v-else class="selector__placeholder">
+        <div v-else class="b-selector__placeholder">
           {{ placeholder }}
         </div>
       </div> 
       <Icon
         v-if="clearable && isSelected"
         src="/icons/close.svg"
-        class="selector__clear"
+        class="b-selector__clear"
         @click="clear" />
       <Icon
         v-else
         src="/icons/chevron-down.svg"
-        class="selector__chevron" />
+        class="b-selector__chevron" />
     </template>
-    <div class="input selector__panel">
+    <div class="b-input b-selector__panel">
       <slot name="panel" :options="options" :select="select">
         <ListBox
           v-model="selected"
@@ -42,7 +42,7 @@
           :multiple="multiple"
           :search-text="searchText"
           :empty-text="emptyText"
-          class="selector__options"
+          class="b-selector__options"
           tabindex="-1">
           <template #default="{ item: option }">
             <slot :option="option" name="option">
@@ -121,38 +121,4 @@ const clear = () => {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.selector {
-  cursor: pointer;
-
-  &__label,
-  &__placeholder {
-    display: flex;
-    align-items: center;
-    gap: var(--padding);
-    padding: var(--padding) 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    flex: 1;
-  }
-
-  &__placeholder {
-    margin: calc(-1 * var(--padding)) 0;
-    opacity: 0.5;
-  }
-
-  &__panel {
-    padding: 0;
-
-    &:focus-within { border: var(--border); }
-
-    & * {
-      border: 0;
-      margin: 0;
-    }
-  }
-}
-</style>
 

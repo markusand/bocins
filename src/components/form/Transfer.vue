@@ -1,5 +1,5 @@
 <template>
-  <fieldset class="transfer">
+  <fieldset class="b-transfer">
     <ListBox
       v-model="addList"
       :options="fromList"
@@ -12,7 +12,7 @@
         </slot>
       </template>
     </ListBox>
-    <div class="transfer__controls">
+    <div class="b-transfer__controls">
       <Button :disabled="!fromList.length" @click="addAll()">&raquo;</Button>
       <Button :disabled="!addList.length" @click="add()">&gt;</Button>
       <Button :disabled="!removeList.length" @click="remove()">&lt;</Button>
@@ -90,18 +90,3 @@ const remove = (items = removeList) => {
 const addAll = () => add(fromList);
 const removeAll = () => remove(toList);
 </script>
-
-<style lang="scss" scoped>
-.transfer {
-  display: flex;
-  padding: 0;
-  border: none;
-
-  &__controls {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 0.5em;
-  }
-}
-</style>

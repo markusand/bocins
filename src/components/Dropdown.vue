@@ -1,10 +1,10 @@
 <template>
-  <div ref="dropdown" :class="['dropdown', { disabled, top, right, block }]" tabindex="0">
+  <div ref="dropdown" :class="['b-dropdown', { disabled, top, right, block }]" tabindex="0">
     <slot name="toggler" :close="close">
       {{ props.label }}
-      <Icon src="/icons/chevron-down.svg" class="dropdown__chevron" />
+      <Icon src="/icons/chevron-down.svg" class="b-dropdown__chevron" />
     </slot>
-    <div v-if="!disabled" class="dropdown__container">
+    <div v-if="!disabled" class="b-dropdown__container">
       <slot :close="close" />
     </div>
   </div>
@@ -38,48 +38,3 @@ const close = () => {
   focused?.blur();
 };
 </script>
-
-<style lang="scss" scoped>
-.dropdown {
-  display: inline-flex;
-  align-items: center;
-  vertical-align: middle;
-  position: relative;
-  overflow: visible;
-
-  &__container {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1;
-    margin: 2px -2px;
-    visibility: hidden;
-    box-sizing: border-box;
-    opacity: 0;
-    transition: all 0.3s ease;
-    transform: translateY(-0.5rem);
-
-    :focus-within > &,
-    &:hover {
-      opacity: 1;
-      visibility: visible;
-      transform: none !important;
-    }
-  }
-
-  &.top > &__container {
-    bottom: 100%;
-    top: unset;
-    transform: translateY(0.5rem);
-  }
-
-  &.right > &__container {
-    left: unset;
-    right: 0;
-  }
-
-  &.block { width: 100%; }
-
-  &.disabled { cursor: not-allowed; }
-}
-</style>

@@ -1,0 +1,12 @@
+.b-transfer {
+  display: flex;
+  padding: 0;
+  border: none;
+
+  &__controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0.5em;
+  }
+}

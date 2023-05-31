@@ -38,7 +38,7 @@
           placeholder="Search"
           clearable>
           <template #prefix>
-            <Icon src="/icons/search.svg" class="icon" />
+            <Icon src="/icons/search.svg" />
           </template>
         </InputField>
       </label>

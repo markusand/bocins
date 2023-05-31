@@ -1,5 +1,5 @@
 <template>
-  <div class="rating">
+  <div class="b-rating">
     <template v-for="i in +props.max" :key="i">
       <input
         :id="`rating-${props.name}-${i}`"
@@ -36,50 +36,3 @@ const rating = computed({
   set: value => emit('update:modelValue', value),
 });
 </script>
-
-<style lang="scss" scoped>
-.rating {
-  --color: var(--rating-color, #fdcf10);
-  --size: var(--rating-size, 1.5em);
-  --speed: var(--transition-speed, 0.3s);
-
-  display: inline-flex;
-  align-items: center;
-  flex-direction: row-reverse;
-  vertical-align: middle;
-  margin:
-    calc(var(--input-padding, 0.5rem) + (1rem - var(--size)) / 2)
-    var(--input-margin, 1px);
-
-  input { display: none; }
-
-  label::before {
-    content: "";
-    display: block;
-    background: #8885;
-    border-radius: 50%;
-    line-height: 1;
-    font-size: var(--size);
-    height: 1em;
-    width: 1em;
-    color: var(--color);
-    cursor: pointer;
-    transform: scale(0.3);
-    transition: all var(--speed) ease-in-out;
-  }
-
-  label:hover::before,
-  label:hover ~ label::before {
-    transform: scale(0.4);
-    background: var(--color);
-  }
-
-  input:checked ~ label::before {
-    content: "\2605";
-    background: transparent;
-    transform: scale(1);
-    transition: none;
-    animation: bounce 0.8s forwards ease-in-out;
-  }
-}
-</style>

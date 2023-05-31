@@ -1,0 +1,65 @@
+.b-histogram {
+  --speed: var(--transition-speed, 0.3s);
+
+  all: unset;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: var(--histogram-height, 75px);
+  width: var(--histogram-width, var(--width));
+
+  li {
+    flex: 1 0 auto;
+    position: relative;
+    height: var(--height, 0);
+    transition: all var(--speed) ease;
+    border-radius: var(--histogram-border-radius, 2px);
+    margin: 0 var(--histogram-gap, 1px);
+
+    &.active { background: var(--histogram-color-active, var(--color-primary, #39f)); }
+    &.inactive { background: var(--histogram-color-inactive, #8883); }
+  }
+
+  .tooltip {
+    background: #333;
+    color: #fff;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    z-index: 1;
+    font-size: 0.8em;
+    padding: 0.5em 0.75em;
+    border-radius: 4px;
+    margin-bottom: 0.75em;
+    text-align: center;
+
+    &__range {
+      opacity: 0.5;
+      font-size: 0.75em;
+      white-space: nowrap;
+      display: block;
+      margin-bottom: 0.25em;
+    }
+
+    &::after {
+      content: "";
+      border: 5px solid transparent;
+      border-top-color: #333;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  li.active:hover .tooltip { display: block; }
+
+  &--empty {
+    padding: 1rem;
+    text-align: center;
+    color: #8888;
+  }
+}

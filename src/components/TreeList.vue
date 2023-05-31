@@ -1,11 +1,11 @@
 <template>
-  <ul class="tree-list">
+  <ul class="b-treelist">
     <li v-for="item, i in schema" :key="i">
       <details v-if="item[childrenNode as keyof T]" :open="open">
-        <summary class="tree-list__title">
+        <summary class="b-treelist__title">
           <Icon
             src="/icons/chevron-right.svg"
-            class="tree-list__chevron" />
+            class="b-treelist__chevron" />
           <slot name="title" :item="item">
             <slot :item="item">{{ item[nameNode as keyof T] }}</slot>
           </slot>
@@ -24,7 +24,7 @@
           </template>
         </TreeList>
       </details>
-      <div v-else class="tree-list__item">
+      <div v-else class="b-treelist__item">
         <slot :item="item" :parent="parent">
           {{ item[nameNode as keyof T] }}
         </slot>
@@ -62,38 +62,3 @@ withDefaults(defineProps<Props>(), {
   open: false,
 });
 </script>
-
-<style lang="scss" scoped>
-.tree-list {
-  --indent: var(--treelist-indent, 1rem);
-  --padding: var(--treelist-padding, 0.125rem);
-
-  margin: 0;
-  list-style: none;
-  padding: var(--padding);
-
-  & & { margin-left: var(--indent); }
-
-  &__chevron {
-    --size: 1em;
-
-    width: var(--indent);
-    flex: 0 0 var(--indent);
-    margin-right: var(--padding);
-
-    [open] > summary & { transform: rotate(90deg); }
-  }
-
-  &__title {
-    padding: var(--padding) 0;
-    display: flex;
-    align-items: center;
-    list-style: none;
-    outline: none;
-    cursor: pointer;
-
-    &::-webkit-details-marker,
-    &::marker { display: none; }
-  }
-}
-</style>

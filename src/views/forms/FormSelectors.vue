@@ -124,13 +124,13 @@
                 children-node="members"
                 class="treelist">
                 <template #default="{ item }">
-                  <label class="treelist-item">
+                  <label class="treelist-leaf">
                     <input
                       name="user"
                       type="radio"
                       :value="item"
                       @input="select(item)">
-                    <div class="treelist-item__label">
+                    <div class="treelist-leaf__label">
                       <template v-if="'avatar' in item">
                         <Avatar :src="item.avatar" :name="item.name" class="avatar--s" />
                       </template>
@@ -183,19 +183,12 @@ const data = reactive({
 
 </script>
 
-<style lang="scss" scoped>
-.avatar {
-  &--s { --size: 1.5rem; }
-  &--xs { --size: 1rem; }
-}
-
-.selector__label > .avatar--s,
-.avatar-group {
-  margin: -0.25rem 0;
-}
-</style>
-
 <style lang="scss">
+.avatar--s { --size: 1.5rem; }
+
+.b-selector__label > .avatar--s,
+.avatar-group { margin: -0.25rem 0; }
+
 .treelist {
   margin: 0.5rem !important;
 
@@ -210,7 +203,7 @@ const data = reactive({
   &-item__label:hover,
   summary:focus &-item__label { background: #8882; }
 
-  &-item {
+  &-leaf {
     display: block;
     flex: 1;
 

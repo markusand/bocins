@@ -1,18 +1,18 @@
 <template>
-  <div class="input listbox" :style="`--width:${width}`">
-    <div class="listbox__search">
+  <div class="b-input b-listbox" :style="`--width:${width}`">
+    <div class="b-listbox__search">
       <InputField
         v-if="searchable"
         v-model="search"
         :placeholder="searchText"
         block>
         <template #prefix>
-          <Icon src="/icons/search.svg" class="icon" />
+          <Icon src="/icons/search.svg" />
         </template>
       </InputField>
     </div>
     <slot v-if="selected && (clearable || slots.clear)" name="clear" :clear="clear">
-      <div class="listbox__clear">
+      <div class="b-listbox__clear">
         <button @click="clear">
           {{ typeof clearable === 'boolean' ? 'Clear' : clearable }}
         </button>
@@ -23,14 +23,14 @@
         v-model="selected"
         :value="option"
         :type="multiple ? 'checkbox' : 'radio'">
-      <div class="listbox__option">
+      <div class="b-listbox__option">
         <slot :item="option">
           {{ formatter?.(option) || option }}
         </slot>
       </div>
     </label>
     <slot v-if="!filteredOptions.length" name="empty">
-      <div class="listbox__empty">{{ emptyText }}</div>
+      <div class="b-listbox__empty">{{ emptyText }}</div>
     </slot>
   </div>
 </template>
@@ -100,68 +100,3 @@ const filteredOptions = computed(() => {
 
 const clear = () => { selected.value = props.multiple ? [] : undefined; };
 </script>
-
-<style lang="scss" scoped>
-.listbox {
-  --speed: var(--transition-speed, 0.3s);
-  --color: var(--listbox-color, var(--color-primary, #39f));
-  --color-hover: var(--listbox-color-hover, color-mix(in srgb, var(--color) 10%, transparent));
-  --padding: var(--input-padding, 0.25rem);
-
-  flex-direction: column;
-  align-items: initial;
-  gap: 1px;
-  padding: var(--padding);
-  max-height: var(--listbox-max-height, 175px);
-  overflow: auto;
-
-  &__search {
-    flex: 0 0;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
-
-  &__option {
-    display: flex;
-    align-items: center;
-    padding: var(--padding);
-    gap: var(--padding);
-    border-radius: var(--border-radius);
-    transition: var(--speed) ease;
-    transition-property: background, color;
-
-    // stylelint-disable-next-line no-descending-specificity
-    input:focus + &,
-    &:hover {
-      background: var(--color-hover);
-      cursor: pointer;
-    }
-
-    input:checked + & {
-      color: #fff;
-      background: var(--color);
-    }
-  }
-
-  &__empty {
-    text-align: center;
-    opacity: 0.5;
-    padding: calc(2 * var(--padding)) calc(4 * var(--padding));
-  }
-
-  &__clear {
-    text-align: right;
-
-    button {
-      all: unset;
-      font-size: 0.75em;
-      padding: 0.5em;
-      opacity: 0.5;
-      cursor: pointer;
-
-      &:focus { opacity: 0.75; }
-    }
-  }
-}
-</style>

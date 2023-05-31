@@ -1,0 +1,32 @@
+.b-treelist {
+  --indent: var(--treelist-indent, 1rem);
+  --padding: var(--treelist-padding, 0.125rem);
+
+  margin: 0;
+  list-style: none;
+  padding: var(--padding);
+
+  & & { margin-left: var(--indent); }
+
+  &__chevron {
+    --size: 1em;
+
+    width: var(--indent);
+    flex: 0 0 var(--indent);
+    margin-right: var(--padding);
+
+    [open] > summary & { transform: rotate(90deg); }
+  }
+
+  &__title {
+    padding: var(--padding) 0;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    outline: none;
+    cursor: pointer;
+
+    &::-webkit-details-marker,
+    &::marker { display: none; }
+  }
+}

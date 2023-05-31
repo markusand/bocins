@@ -5,17 +5,17 @@
     :min="props.min"
     :max="props.max"
     type="number"
-    class="input--number">
+    class="b-input--number">
     <template #prefix>
       <span
-        :class="['input__control', { 'input__control--disabled': isMin }]"
+        :class="['b-input__control', { 'b-input__control--disabled': isMin }]"
         @click="change(-props.step)">
         &minus;
       </span>
     </template>
     <template #suffix>
       <span
-        :class="['input__control', { 'input__control--disabled': isMax }]"
+        :class="['b-input__control', { 'b-input__control--disabled': isMax }]"
         @click="change(+props.step)">
         &plus;
       </span>
@@ -59,24 +59,3 @@ const change = (delta: number) => {
   number.value = String(clamp(round((+number.value || 0) + delta, decimals(+step)), +min, +max));
 };
 </script>
-
-<style lang="scss" scoped>
-.input {
-  &__control {
-    opacity: 0.5;
-    cursor: pointer;
-    user-select: none;
-
-    &--disabled {
-      pointer-events: none;
-      color: transparent;
-    }
-  }
-}
-</style>
-
-<style lang="scss">
-.input--number {
-  text-align: center;
-}
-</style>

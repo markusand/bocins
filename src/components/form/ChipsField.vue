@@ -1,8 +1,8 @@
 <template>
-  <InputField v-model="input" class="chips-field" @keydown="handleKey">
+  <InputField v-model="input" class="b-chips-field" @keydown="handleKey">
     <template v-if="modelValue.length" #prefix>
-      <ul class="chips-field__chips">
-        <li v-for="chip in modelValue" :key="chip" class="chip">
+      <ul class="b-chips-field__chips">
+        <li v-for="chip in modelValue" :key="chip" class="b-chip">
           {{ chip }}
           <a href="#" @click.prevent="deleteChip(chip)">&times;</a>
         </li>
@@ -51,33 +51,3 @@ const handleKey = (event: KeyboardEvent) => {
   if (event.key === 'Backspace' && !input.value) deleteLastChip();
 };
 </script>
-
-<style lang="scss" scoped>
-.chips-field {
-  flex-wrap: wrap;
-
-  &__chips {
-    all: unset;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5em 2px;
-
-    .chip {
-      background: var(--chip-color, #8884);
-      color: var(--chip-textcolor, inherit);
-      font-size: 0.75em;
-      padding: 0.25em 0.5em;
-      margin: -0.25em 0;
-      border-radius: 4px;
-      white-space: nowrap;
-
-      a {
-        color: inherit;
-        text-decoration: none;
-        margin-left: 0.25em;
-      }
-    }
-  }
-}
-</style>

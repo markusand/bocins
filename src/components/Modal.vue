@@ -3,21 +3,21 @@
     ref="modal"
     v-bind="$attrs"
     :style="`width:${props.size}${isNumber(props.size) ? 'rem' : ''}`"
-    class="modal"
+    class="b-modal"
     @cancel="handleEscape"
     @close="closeModal">
     <slot name="close" :close="closeModal">
       <button
         v-if="props.closeable"
-        class="modal__close"
+        class="b-modal__close"
         @click="closeModal">
         &times;
       </button>
     </slot>
-    <section class="modal__content">
+    <section class="b-modal__content">
       <slot :close="closeModal" />
     </section>
-    <footer v-if="slots.footer" class="modal__footer">
+    <footer v-if="slots.footer" class="b-modal__footer">
       <slot name="footer" :close="closeModal" />
     </footer>
   </dialog>
@@ -92,45 +92,3 @@ const handleEscape = (event: Event) => {
 <script lang="ts">
 export default { inheritAttrs: false };
 </script>
-
-<style lang="scss" scoped>
-.modal {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  z-index: 5;
-  margin: 0;
-  padding: 0;
-  background: var(--modal-background, var(--color-bg, inherit));
-  color: inherit;
-  border: var(--modal-border, none);
-  border-radius: var(--modal-border-radius, 0);
-  max-width: 90%;
-  max-height: none;
-  overflow: visible;
-
-  &[open] { animation: fadein 0.5s ease forwards; }
-
-  &.constrained {
-    overflow: auto;
-    max-height: 90%;
-  }
-
-  &__close {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-
-  &::backdrop { background: var(--modal-fade, #0006); }
-}
-
-@keyframes fadein {
-  0% {
-    transform: translate(-50%, calc(-50% - 0.5rem));
-    opacity: 0;
-  }
-
-  100% { transform: translate(-50%, -50%); }
-}
-</style>

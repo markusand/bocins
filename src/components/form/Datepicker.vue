@@ -1,23 +1,23 @@
 <template>
-  <Dropdown class="datepicker">
+  <Dropdown class="b-datepicker">
     <template #toggler>
-      <div class="input" :style="`width:${props.size}${isNumber(props.size) ? 'rem' : ''}`">
-        <div class="datepicker__label">
+      <div class="b-input" :style="`width:${props.size}${isNumber(props.size) ? 'rem' : ''}`">
+        <div class="b-datepicker__label">
           <span v-if="date">{{ props.formatter(date) }}</span>
-          <span v-else class="datepicker__placeholder">{{ props.placeholder }}</span>
+          <span v-else class="b-datepicker__placeholder">{{ props.placeholder }}</span>
         </div>
         <Icon
           v-if="clearable && date"
           src="/icons/close.svg"
-          class="datepicker__clear"
+          class="b-datepicker__clear"
           @click="clear" />
         <Icon
           v-else
           src="/icons/chevron-down.svg"
-          class="datepicker__chevron" />
+          class="b-datepicker__chevron" />
       </div>
     </template>
-    <Calendar v-model="date" v-bind="$attrs" class="datepicker__calendar" />
+    <Calendar v-model="date" v-bind="$attrs" class="b-datepicker__calendar" />
   </Dropdown>
 </template>
 
@@ -54,24 +54,3 @@ const date = computed({
 
 const clear = () => emit('update:modelValue', undefined);
 </script>
-
-<style lang="scss" scoped>
-.datepicker {
-  &__label {
-    flex: 1;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  &__clear,
-  &__chevron { margin-left: 0.5em; }
-  &__placeholder { opacity: 0.5; }
-
-  &__calendar {
-    border: var(--input-border, 1px solid #8886);
-    border-radius: var(--input-border-radius, 4px);
-    background: var(--input-background, var(--color-bg, inherit));
-  }
-}
-</style>
