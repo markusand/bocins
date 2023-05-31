@@ -232,6 +232,6 @@ const onUploadChange = ({ files }: { files: File[] }) => {
   border-radius: 50%;
   display: none;
 
-  .dropzone:hover & { display: block; }
+  .b-dropzone:hover & { display: block; }
 }
 </style>

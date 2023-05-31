@@ -107,16 +107,17 @@ const checkFiles = (newFiles: FileList | null | undefined) => {
 };
 
 const onDragOver = (event: DragEvent) => {
-  (event.target as HTMLElement).classList.add('dropzone--active');
+  (event.target as HTMLElement).classList.add('b-dropzone--active');
   emit('dragover', event);
 };
 
 const onDragLeave = (event: DragEvent) => {
-  (event.target as HTMLElement).classList.remove('dropzone--active');
+  (event.target as HTMLElement).classList.remove('b-dropzone--active');
   emit('dragleave', event);
 };
 
 const onDrop = (event: DragEvent) => {
+  (event.target as HTMLElement).classList.remove('b-dropzone--active');
   checkFiles(event.dataTransfer?.files);
   emit('drop', { event, files: files.value });
 };
