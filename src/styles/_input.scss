@@ -86,6 +86,18 @@
   }
 
   &--number { text-align: center; }
+
+  &--chips {
+    overflow: visible;
+
+    .b-input__suffix {
+      position: absolute;
+      top: 100%;
+      left: 0;
+    }
+
+    .chips-group { margin: 0.25rem 0; }
+  }
 }
 
 .input-group {

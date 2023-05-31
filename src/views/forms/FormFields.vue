@@ -62,8 +62,13 @@
       </label>
 
       <label class="label">
-        <em>Tags</em>
+        <em>Tags inside</em>
         <ChipsField v-model="data.tags" size="15" />
+      </label>
+
+      <label class="label">
+        <em>Tags outside</em>
+        <ChipsField v-model="data.tags" size="15" outside />
       </label>
 
       <fieldset class="label">

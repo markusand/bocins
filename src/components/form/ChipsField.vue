@@ -1,23 +1,28 @@
 <template>
-  <InputField v-model="input" class="b-chips-field" @keydown="handleKey">
-    <template v-if="modelValue.length" #prefix>
-      <ul class="b-chips-field__chips">
-        <li v-for="chip in modelValue" :key="chip" class="b-chip">
-          {{ chip }}
-          <a href="#" @click.prevent="deleteChip(chip)">&times;</a>
-        </li>
-      </ul>
+  <InputField v-model="input" class="b-input--chips" @keydown="handleKey">
+    <template v-if="modelValue.length" #[slot]>
+      <div class="chips-group">
+        <Chip
+          v-for="chip in modelValue"
+          :key="chip"
+          :text="chip"
+          closeable
+          primary
+          @close="deleteChip(chip)" />
+      </div>
     </template>
   </InputField>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import InputField from './InputField.vue';
+import Chip from '../Chip.vue';
 
 type Props = {
   modelValue: string[];
   separator?: string;
+  outside?: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
@@ -27,6 +32,8 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   'update:modelValue': [value: string[]];
 }>();
+
+const slot = computed(() => props.outside ? 'suffix' : 'prefix');
 
 const input = ref<string>('');
 
