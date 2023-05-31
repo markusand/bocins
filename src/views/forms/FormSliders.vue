@@ -80,7 +80,8 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { Histogram, Slider } from '/@/components';
+import { Histogram } from '/@/components';
+import Slider from '/@/components/Slider.vue';
 
 const marks = { 10: '', 14: '14ºC', 19: '19ºC', 25: '25ºC', 30: '' };
 

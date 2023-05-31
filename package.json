@@ -37,11 +37,11 @@
     "typescript": "^5.0.4",
     "vite": "^4.3.8",
     "vite-plugin-dts": "^2.3.0",
-    "vue": "^3.3.4"
+    "vue": "^3.3.4",
+    "vue-slider-component": "^4.1.0-beta.7"
   },
   "dependencies": {
     "date-fns": "^2.29.3",
-    "reset-css": "^5.0.1",
-    "vue-slider-component": "^4.1.0-beta.2"
+    "reset-css": "^5.0.1"
   }
 }
