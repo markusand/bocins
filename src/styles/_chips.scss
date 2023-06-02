@@ -1,15 +1,16 @@
 .b-chip {
   --color: var(--chip-color, #888);
+  --size: var(--chip-size, 0.8rem);
 
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.5em;
   vertical-align: middle;
   padding: 0.4em 0.5em;
   border-radius: var(--border-radius);
   background: color-mix(in srgb, var(--color) 25%, transparent);
   color: var(--color);
-  font-size: 0.85em;
+  font-size: var(--size);
   white-space: nowrap;
 
   &.primary { --color: var(--color-primary); }
