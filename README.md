@@ -1,103 +1,42 @@
-# Vue 3 UI components
+![bocins](https://github.com/markusand/vue-ui-components/assets/12972543/762e3261-34bf-470b-8420-0c56f6333d37)
 
-## Install
+# Bocins
 
-## Components
+Collection of reusable UI components for Vue 3 that can be used standalone or combined together to create flexible and customized interfaces. The term **bocins** is derived from catalan and means *small bits or pieces of something*.
 
-### Avatar
+[![NPM](https://img.shields.io/npm/v/bocins)](https://npmjs.org/package/bocins)
+[![NPM](https://img.shields.io/bundlephobia/minzip/bocins)](https://npmjs.org/package/bocins)
+[![NPM](https://img.shields.io/npm/l/bocins)](https://npmjs.org/package/bocins)
 
-Avatars are circular components that usually wrap an image or icon. They can be used to represent a person or an object.
+## Get started
 
-Display an image that represents a person or an object, or displays the name initials as fallback. If wrapped in an `avatar-group` element, avatars are overlapped.
+Install bocins with npm
 
-```html
-<Avatar :src="user.avatar" :initials="user.name" />
+```bash
+npm i bocins
 ```
 
-#### Props
-
-| prop | type | default | description |
-|---|---|---|---|
-| src | `string`, `null` | `undefined` | Image url |
-| initials | `string` | `undefined` | Name from  where extract fallback initials |
-
-#### Events
-
-None
-
-#### Slots
-
-None
-
-#### CSS custom properties
-
-`--avatar-size: 2rem`  
-`--avatar-radius: 15%`
-
-### Button
+Import components directly in your vue files
 
 ```html
-<Button primary @click="doSomething">Do it!</Button>
+<template>
+  <Selector v-model="user" :options="store.users">
+    <template #default="{ item: user }">
+      <Avatar :src="user.avatar" :name="user.name" />
+      {{ user.name }}
+    </template>
+  </Selector>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { Selector, Avatar } from 'bocins';
+import store, { type User } from './store';
+
+const user = ref<User>();
+</script>
+
+<style scoped>
+.b-avatar { --size: 1.5rem; }
+</style>
 ```
-
-#### Props
-
-| prop | type | default | description |
-|---|---|---|---|
-| primary | `boolean` | `undefined` |  |
-| alert | `boolean` | `undefined` | |
-| outline | `boolean` | `undefined` | |
-| flat | `boolean`  | `undefined` | |
-| block | `boolean` | `undefined` | |
-| loading | `boolean` | `undefined` | |
-| disabled | `boolean` | `undefined` | |
-| submit | `boolean` | `undefined` | |
-| reset | `boolean` | `undefined` | |
-
-#### Events
-
-None
-
-#### Slots
-
-`default`
-
-#### CSS custom properties
-
-`--button-padding: 0.5rem`  
-`--button-margin: 1px`  
-`--button-border-radius: 4px`  
-`--button-color: #f8f8f8`  
-`--button-font-color: #606068`  
-`--button-border: 1px solid #c8c8cf`
-
-### Collapser
-
-```html
-<Collapser>
-  <template #title>Title</template>
-  <section>Content</section>
-</Collapser>
-```
-
-#### Props
-
-| prop | type | default | description |
-|---|---|---|---|
-| disabled | `boolean` | `undefined` |  |
-| open | `boolean` | `undefined` | |
-
-#### Events
-
-`toggle`
-
-#### Slots
-
-`title` Title
-
-`default` Content
-
-#### CSS custom properties
-
-`--collapser-padding: 0.75rem`  
-`--collapser-border: 1px solid #0001`
