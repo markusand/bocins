@@ -86,3 +86,26 @@
     border-bottom-right-radius: 0;
   }
 }
+
+.button-stack {
+  --spacing: calc(0.5 * var(--button-padding, 0.5rem));
+
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing) 0;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  background: var(--color-bg);
+
+  // stylelint-disable-next-line no-descending-specificity
+  .b-button {
+    justify-content: left;
+    &:not(.flat) { margin: 0 var(--spacing); }
+  }
+
+  hr {
+    border: 0;
+    border-top: var(--border);
+    margin: var(--spacing) 0;
+  }
+}

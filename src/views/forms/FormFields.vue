@@ -114,6 +114,23 @@
           </Button>
         </span>
       </fieldset>
+
+      <fieldset class="label">
+        <em>Grouped</em>
+        <span class="input-group">
+          <InputField v-model="data.website" size="10" />
+          <Dropdown right>
+            <template #toggler>
+              <Button>
+                <Icon src="/icons/more.svg" class="unique" />
+              </Button>
+            </template>
+            <InputField v-model="data.website">
+              <template #prefix>https://</template>
+            </InputField>
+          </Dropdown>
+        </span>
+      </fieldset>
     </article>
     
     <article>
@@ -185,6 +202,7 @@ import {
   Selector,
   ChipsField,
   Button,
+  Dropdown,
 } from '/@/components';
 
 const data = reactive({

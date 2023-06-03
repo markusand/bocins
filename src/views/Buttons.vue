@@ -49,7 +49,7 @@
         <template #toggler>
           <Button><Icon src="/icons/chevron-down.svg" class="unique" /></Button>
         </template>
-        <div class="dropmenu">
+        <div class="button-stack">
           <ToggleButton v-model="action" value="New" flat>
             <Icon src="/icons/new.svg" />New
           </ToggleButton>
@@ -81,11 +81,11 @@
         <Button><Icon src="/icons/more.svg" class="unique" /></Button>
       </template>
       <template #default="{ close }">
-        <div class="dropmenu spaced">
+        <div class="button-stack">
           <Button flat @click="consoleMessage(); close()">
             <Icon src="/icons/edit.svg" />Edit
           </Button>
-          <Button alert block @click="alertMessage(); close()">
+          <Button alert @click="alertMessage(); close()">
             <Icon src="/icons/delete-bin.svg" />Delete
           </Button>
         </div>
@@ -115,19 +115,6 @@ const consoleMessage = () => console.log('Console button clicked');
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem;
-}
-
-.dropmenu {
-  background: var(--color-bg);
-  border: var(--border);
-  border-radius: var(--border-radius);
-
-  &.spaced { padding: 0.25rem; }
-}
-
-hr {
-  border: 0;
-  border-top: var(--border);
 }
 
 .custom {
