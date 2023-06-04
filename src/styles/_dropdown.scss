@@ -20,8 +20,7 @@
       all 0.3s ease,
       max-height 0s ease 0.3s;
 
-    :focus-within > &,
-    &:hover {
+    :focus-within > & {
       opacity: 1;
       max-height: 100vh;
       transition: all 0.3s ease;
