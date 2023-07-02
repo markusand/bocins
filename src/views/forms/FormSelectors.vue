@@ -190,12 +190,15 @@ const data = reactive({
 .avatar-group { margin: -0.25rem 0; }
 
 .treelist {
-  margin: 0.5rem !important;
+  padding: 0.5rem;
+  background: var(--background);
+  border: var(--input-border);
+  border-radius: var(--input-border-radius);
 
   ul {
     display: flex;
     flex-direction: column;
-    margin-left: 2rem !important;
+    margin-left: 1.5rem !important;
     padding-left: 0.5rem !important;
     border-left: 1px solid #8883;
   }
