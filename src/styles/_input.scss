@@ -7,7 +7,7 @@
   --border: var(--input-border, 1px solid #8886);
 
   display: inline-flex;
-  gap: var(--padding);
+  gap: 0 var(--padding);
   align-items: center;
   margin: var(--margin);
   padding: 0 var(--padding);
@@ -89,12 +89,15 @@
 
   &--chips {
     overflow: visible;
+    flex-wrap: wrap;
 
     .b-input__suffix {
       position: absolute;
       top: 100%;
       left: 0;
     }
+
+    input { flex: 1 0 1rem; }
 
     .chips-group { margin: 0.25rem 0; }
   }
