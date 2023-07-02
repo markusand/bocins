@@ -27,7 +27,7 @@
   width: calc(var(--width) - 2 * var(--margin));
 
   :focus-within > & {
-    border-color: var(--inpt-color-focus, var(--color-primary, #39f));
+    border-color: var(--input-color-focus, var(--color-primary, #39f));
   }
 
   input {
