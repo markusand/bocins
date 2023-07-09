@@ -4,6 +4,7 @@
   vertical-align: middle;
   fill: currentcolor;
   display: inline-block;
+  color: var(--color, currentcolor);
 
   img,
   svg {
