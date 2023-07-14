@@ -71,7 +71,7 @@
   vertical-align: middle;
 
   // stylelint-disable-next-line no-descending-specificity
-  .b-button { margin: var(--margin) 0; }
+  .b-button { margin: 0; }
 
   & > .b-button:not(:first-child),
   & > :not(:first-child) > .b-button {
