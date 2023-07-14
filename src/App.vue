@@ -57,7 +57,7 @@ const dark = ref(false);
   padding: 0;
 }
 
-#layout {
+#app {
   color: #20262e; // #596b76
   font: 1rem / 1 Rubik, sans-serif;
   height: 100vh;

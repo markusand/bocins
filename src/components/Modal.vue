@@ -1,26 +1,28 @@
 <template>
-  <dialog
-    ref="modal"
-    v-bind="$attrs"
-    :style="`width:${props.size}${isNumber(props.size) ? 'rem' : ''}`"
-    class="b-modal"
-    @cancel="handleEscape"
-    @close="closeModal">
-    <slot name="close" :close="closeModal">
-      <button
-        v-if="props.closeable"
-        class="b-modal__close"
-        @click="closeModal">
-        &times;
-      </button>
-    </slot>
-    <section class="b-modal__content">
-      <slot :close="closeModal" />
-    </section>
-    <footer v-if="slots.footer" class="b-modal__footer">
-      <slot name="footer" :close="closeModal" />
-    </footer>
-  </dialog>
+  <Teleport :to="props.to">
+    <dialog
+      ref="modal"
+      v-bind="$attrs"
+      :style="`width:${props.size}${isNumber(props.size) ? 'rem' : ''}`"
+      class="b-modal"
+      @cancel="handleEscape"
+      @close="closeModal">
+      <slot name="close" :close="closeModal">
+        <button
+          v-if="props.closeable"
+          class="b-modal__close"
+          @click="closeModal">
+          &times;
+        </button>
+      </slot>
+      <section class="b-modal__content">
+        <slot :close="closeModal" />
+      </section>
+      <footer v-if="slots.footer" class="b-modal__footer">
+        <slot name="footer" :close="closeModal" />
+      </footer>
+    </dialog>
+  </Teleport>
   <slot
     name="toggle"
     :open="openModal"
@@ -33,6 +35,7 @@ import { ref, watch } from 'vue';
 import { isNumber } from '/@/utils/number';
 
 type Props = {
+  to?: string;
   open?: boolean;
   closeable?: boolean;
   size?: number | string;
@@ -40,6 +43,7 @@ type Props = {
 };
 
 const props = withDefaults(defineProps<Props>(), {
+  to: 'body',
   open: false,
   size: 20,
   backdrop: true,
