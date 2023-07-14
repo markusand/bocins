@@ -39,12 +39,15 @@
   }
 
   &.outline {
-    color: var(--color);
+    --font-color: var(--color);
+
+    border-color: var(--font-color);
     background: transparent;
   }
 
   &.flat {
-    color: var(--color);
+    --font-color: var(--color);
+
     background: transparent;
     border-color: transparent;
   }
