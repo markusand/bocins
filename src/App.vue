@@ -63,13 +63,15 @@ const dark = ref(false);
   height: 100vh;
   overflow: auto;
   transition: background 0.3s ease;
+}
 
-  &.dark {
-    --color-bg: #23242e;
+#layout { min-height: 100vh; }
 
-    background: var(--color-bg);
-    color: #ddd;
-  }
+.dark {
+  --color-bg: #23242e;
+
+  background: var(--color-bg);
+  color: #ddd;
 }
 
 h3 {
