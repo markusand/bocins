@@ -1,6 +1,6 @@
 <template>
   <section class="section">
-    <Modal closeable>
+    <Modal to="#app" closeable>
       <template #toggle="{ open }">
         <Button @click="open">Basic</Button>
       </template>
@@ -13,7 +13,7 @@
       </section>
     </Modal>
 
-    <Modal>
+    <Modal to="#app">
       <template #toggle="{ open }">
         <Button @click="open">Footer</Button>
       </template>
@@ -30,7 +30,7 @@
       </template>
     </Modal>
 
-    <Modal closeable :backdrop="false">
+    <Modal to="#app" closeable :backdrop="false">
       <template #toggle="{ open }">
         <Button @click="open">Seamless</Button>
       </template>
@@ -44,7 +44,7 @@
     </Modal>
 
     <ToggleButton v-model="isModalOpen">Stateful</ToggleButton>
-    <Modal v-model:open="isModalOpen" closeable>
+    <Modal v-model:open="isModalOpen" to="#app" closeable>
       <section class="section">
         <h3>Visibility from state<em>Optio tempora asperiores</em></h3>
         <p>
@@ -54,7 +54,7 @@
       </section>
     </Modal>
 
-    <Modal>
+    <Modal to="#app">
       <template #toggle="{ open }">
         <Button alert @click="open">Delete</Button>
       </template>

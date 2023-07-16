@@ -57,19 +57,21 @@ const dark = ref(false);
   padding: 0;
 }
 
-#layout {
+#app {
   color: #20262e; // #596b76
   font: 1rem / 1 Rubik, sans-serif;
   height: 100vh;
   overflow: auto;
   transition: background 0.3s ease;
+}
 
-  &.dark {
-    --color-bg: #23242e;
+#layout { min-height: 100vh; }
 
-    background: var(--color-bg);
-    color: #ddd;
-  }
+.dark {
+  --color-bg: #23242e;
+
+  background: var(--color-bg);
+  color: #ddd;
 }
 
 h3 {

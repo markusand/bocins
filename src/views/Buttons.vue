@@ -14,6 +14,10 @@
       <Icon src="https://www.unpkg.com/remixicon@2.5.0/icons/Business/printer-line.svg" />
       Print
     </Button>
+    <Button outline primary>
+      <Icon src="https://www.unpkg.com/remixicon@2.5.0/icons/Business/printer-line.svg" />
+      Print
+    </Button>
     <Button alert>
       <Icon src="https://www.unpkg.com/remixicon@2.5.0/icons/System/close-circle-line.svg" />
       Close

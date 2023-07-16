@@ -1,5 +1,6 @@
 .b-longtext {
   --margin: var(--input-margin, 1px);
+  --padding: var(--input-padding, 0.5rem);
 
   display: inline-block;
   position: relative;
@@ -22,6 +23,7 @@
     height: 100%;
     width: 100%;
     margin: 0;
+    padding: var(--padding);
     overflow: auto;
   }
 

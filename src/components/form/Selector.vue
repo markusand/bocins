@@ -32,7 +32,7 @@
         src="/icons/chevron-down.svg"
         class="b-selector__chevron" />
     </template>
-    <div class="b-input b-selector__panel">
+    <div class="b-selector__panel">
       <slot name="panel" :options="options" :select="select">
         <ListBox
           v-model="selected"

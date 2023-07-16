@@ -9,7 +9,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    z-index: 1;
+    z-index: 2;
     margin: 2px -2px;
     box-sizing: border-box;
     transform: translateY(-0.5rem);
@@ -20,11 +20,11 @@
       all 0.3s ease,
       max-height 0s ease 0.3s;
 
-    :focus-within > &,
-    &:hover {
+    :focus-within > & {
       opacity: 1;
       max-height: 100vh;
       transition: all 0.3s ease;
+      overflow: visible;
       transform: none !important;
     }
   }

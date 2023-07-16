@@ -39,12 +39,15 @@
   }
 
   &.outline {
-    color: var(--color);
+    --font-color: var(--color);
+
+    border-color: var(--font-color);
     background: transparent;
   }
 
   &.flat {
-    color: var(--color);
+    --font-color: var(--color);
+
     background: transparent;
     border-color: transparent;
   }
@@ -71,7 +74,7 @@
   vertical-align: middle;
 
   // stylelint-disable-next-line no-descending-specificity
-  .b-button { margin: var(--margin) 0; }
+  .b-button { margin: 0; }
 
   & > .b-button:not(:first-child),
   & > :not(:first-child) > .b-button {
