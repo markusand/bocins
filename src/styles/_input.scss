@@ -27,7 +27,7 @@
   min-height: calc(1em + 2 * var(--padding));
   width: calc(var(--width) - 2 * var(--margin));
 
-  :focus-within > & {
+  :focus-within > &:not(.disabled) {
     border-color: var(--input-color-focus, var(--color-primary, #39f));
   }
 
