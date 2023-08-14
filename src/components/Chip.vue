@@ -2,7 +2,7 @@
   <span :class="['b-chip', { primary }]">
     <slot>{{ text }}</slot>
     <slot v-if="closeable || slots.close" name="close">
-      <a href="#" @click.prevent="emit('close')">&times;</a>
+      <a href="#" role="button" @click.prevent="emit('close')">&times;</a>
     </slot>
   </span>
 </template>
