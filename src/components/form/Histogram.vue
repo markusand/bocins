@@ -16,7 +16,11 @@
       </span>
     </li>
   </ul>
-  <p v-else class="b-histogram--empty">{{ props.emptyText }}</p>
+  <div v-else class="b-histogram--empty">
+    <slot name="empty">
+      <p>{{ props.emptyText }}</p>
+    </slot>
+  </div>
 </template>
 
 <script setup lang="ts">
