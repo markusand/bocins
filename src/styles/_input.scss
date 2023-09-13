@@ -8,10 +8,8 @@
   --color: currentcolor;
 
   display: inline-flex;
-  gap: 0 var(--padding);
   align-items: center;
   margin: var(--margin);
-  padding: 0 var(--padding);
   vertical-align: middle;
   color: inherit;
   background: var(--background);
@@ -31,27 +29,6 @@
     border-color: var(--input-color-focus, var(--color-primary, #39f));
   }
 
-  input {
-    all: unset;
-    min-width: 0;
-    height: 1em;
-    flex: 1;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    padding: var(--padding) 0;
-
-    &[type="number"] {
-      appearance: textfield;
-
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        appearance: none;
-        margin: 0;
-      }
-    }
-  }
-
   &__prefix,
   &__suffix {
     flex: 0 0 content;
@@ -60,14 +37,26 @@
     align-items: center;
 
     .disabled > & { pointer-events: none; }
+
+    & > .b-icon { margin: var(--padding); }
   }
 
-  &__clear { cursor: pointer; }
+  &__prefix > .b-icon { margin-right: 0; }
+  &__suffix > .b-icon { margin-left: 0; }
+
+  &__clear {
+    padding: var(--padding);
+    padding-left: 0;
+    cursor: pointer;
+  }
 
   &__control {
-    opacity: 0.5;
     cursor: pointer;
     user-select: none;
+    padding: var(--padding);
+    margin: -1px;
+
+    .b-icon { margin: 0; }
 
     &--disabled {
       pointer-events: none;
@@ -101,7 +90,28 @@
 
     input { flex: 1 0 1rem; }
 
-    .chips-group { margin: 0.25rem 0; }
+    .chips-group { margin: 0.25rem; }
+  }
+
+  input:not([type="radio"], [type="checkbox"]) {
+    all: unset;
+    min-width: 0;
+    height: 1em;
+    flex: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: var(--padding);
+
+    &[type="number"] {
+      appearance: textfield;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        appearance: none;
+        margin: 0;
+      }
+    }
   }
 }
 

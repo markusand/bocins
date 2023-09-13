@@ -22,15 +22,17 @@
           {{ placeholder }}
         </div>
       </div> 
-      <Icon
-        v-if="clearable && isSelected"
-        src="/icons/close.svg"
-        class="b-selector__clear"
-        @click="clear" />
-      <Icon
-        v-else
-        src="/icons/chevron-down.svg"
-        class="b-selector__chevron" />
+      <span class="b-input__control">
+        <Icon
+          v-if="clearable && isSelected"
+          src="/icons/close.svg"
+          class="b-selector__clear"
+          @click="clear" />
+        <Icon
+          v-else
+          src="/icons/chevron-down.svg"
+          class="b-selector__chevron" />
+      </span>
     </template>
     <div class="b-selector__panel">
       <slot name="panel" :options="options" :select="select">

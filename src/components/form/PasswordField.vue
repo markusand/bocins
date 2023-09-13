@@ -3,14 +3,16 @@
     v-model="value"
     :type="isVisible ? 'text' : 'password'">
     <template #suffix>
-      <Icon
-        v-if="isVisible"
-        src="/icons/eye.svg"
-        @click="toggleVisibility" />
-      <Icon
-        v-else
-        src="/icons/eye-off.svg"
-        @click="toggleVisibility" />
+      <span class="b-input__control">
+        <Icon
+          v-if="isVisible"
+          src="/icons/eye.svg"
+          @click="toggleVisibility" />
+        <Icon
+          v-else
+          src="/icons/eye-off.svg"
+          @click="toggleVisibility" />
+      </span>
     </template>
   </InputField>
 </template>

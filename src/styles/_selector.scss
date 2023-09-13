@@ -7,15 +7,15 @@
     display: flex;
     align-items: center;
     gap: var(--padding);
-    padding: var(--padding) 0;
     overflow: hidden;
+    padding: var(--padding);
     white-space: nowrap;
     text-overflow: ellipsis;
     flex: 1;
   }
 
   &__placeholder {
-    margin: calc(-1 * var(--padding)) 0;
+    padding: 0;
     opacity: 0.5;
   }
 }

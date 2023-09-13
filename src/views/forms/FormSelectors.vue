@@ -198,7 +198,7 @@ const data = reactive({
   ul {
     display: flex;
     flex-direction: column;
-    margin-left: 1.5rem !important;
+    margin-left: 0.5rem !important;
     padding-left: 0.5rem !important;
     border-left: 1px solid #8883;
   }
@@ -209,6 +209,8 @@ const data = reactive({
   &-leaf {
     display: block;
     flex: 1;
+
+    input { display: none; }
 
     // stylelint-disable no-descending-specificity
     &__label {
