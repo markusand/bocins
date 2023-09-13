@@ -25,10 +25,6 @@
   min-height: calc(1em + 2 * var(--padding));
   width: calc(var(--width) - 2 * var(--margin));
 
-  :focus-within > &:not(.disabled) {
-    border-color: var(--input-color-focus, var(--color-primary, #39f));
-  }
-
   &__prefix,
   &__suffix {
     flex: 0 0 content;
@@ -113,6 +109,10 @@
       }
     }
   }
+
+  :focus-within > &:not(.disabled) {
+    border-color: var(--input-color-focus, var(--color-primary, #39f));
+  }
 }
 
 .input-group {
@@ -121,6 +121,7 @@
   margin: var(--input-margin, 1px);
   padding: 0;
 
+  // stylelint-disable-next-line no-descending-specificity
   & .b-input,
   & .b-button { margin: 0; }
 
