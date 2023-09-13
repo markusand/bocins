@@ -8,13 +8,13 @@
       <div class="b-selector__label">
         <template v-if="isSelected">
           <slot v-if="multiple" name="selecteds" :selected="(selected as T[])">
-            <slot v-for="item, i in (selected as T[])" :key="i" :item="item">
-              {{ formatter?.(item) || item! }}
+            <slot v-for="item in (selected as T[])" :item="item">
+              {{ formatter?.(item) || item }}
             </slot>
           </slot>
           <slot v-else name="selected" :selected="(selected as T)">
             <slot :item="(selected as T)">
-              {{ formatter?.(selected as T) || selected! }}
+              {{ formatter?.(selected as T) || selected }}
             </slot>
           </slot>
         </template>
