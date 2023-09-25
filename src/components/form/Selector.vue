@@ -69,7 +69,7 @@ import Icon from '../Icon.vue';
 type Props = {
   modelValue: T | T[] | undefined;
   options: T[];
-  formatter?: (option: T | T[]) => string;
+  formatter?: (option: T) => string;
   placeholder?: string;
   searchable?: boolean | ((option: T) => string);
   clearable?: boolean;
