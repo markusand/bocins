@@ -1,6 +1,6 @@
 <template>
   <InputField v-model="input" class="b-input--chips" @keydown="handleKey">
-    <template v-if="modelValue.length" #[slot]>
+    <template v-if="modelValue.length" #[slotName]>
       <div class="chips-group">
         <Chip
           v-for="chip in modelValue"
@@ -20,7 +20,6 @@ import InputField from './InputField.vue';
 import Chip from '../Chip.vue';
 
 type Props = {
-  modelValue: string[];
   separator?: string;
   outside?: boolean;
 };
@@ -29,24 +28,17 @@ const props = withDefaults(defineProps<Props>(), {
   separator: ',',
 });
 
-const emit = defineEmits<{
-  'update:modelValue': [value: string[]];
-}>();
-
-const slot = computed(() => props.outside ? 'suffix' : 'prefix');
-
+const chips = defineModel<string[]>({ required: true });
 const input = ref<string>('');
 
 const deleteChip = (chip: string) => {
-  const chips = props.modelValue.filter(value => value !== chip);
-  emit('update:modelValue', chips);
+  chips.value = chips.value.filter(value => value !== chip);
 };
 
-const deleteLastChip = () => emit('update:modelValue', props.modelValue.slice(0, -1));
+const deleteLastChip = () => chips.value.pop();
 
 const addChip = (chip: string) => {
-  const chips = [...new Set([...props.modelValue, chip])];
-  emit('update:modelValue', chips);
+  chips.value = [...new Set([...chips.value, chip])];
   input.value = '';
 };
 
@@ -57,4 +49,6 @@ const handleKey = (event: KeyboardEvent) => {
   }
   if (event.key === 'Backspace' && !input.value) deleteLastChip();
 };
+
+const slotName = computed(() => props.outside ? 'suffix' : 'prefix');
 </script>
