@@ -1,7 +1,7 @@
 <template>
   <label :class="['b-toggler', { silent, block, switch: isSwitch }]">
     <input
-      v-model="toggleValue"
+      v-model="toggle"
       :type="type"
       :value="value"
       :disabled="disabled">
@@ -14,11 +14,10 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import Icon from '../Icon.vue';
 
 const props = defineProps<{
-  modelValue: T | T[] | undefined;
   value?: T;
   label?: string;
   switch?: boolean;
@@ -28,21 +27,15 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  'update:modelValue': [value: T | T[] | undefined],
   change: [value: T | T[] | undefined],
 }>();
 
-const toggleValue = computed({
-  get: () => props.modelValue,
-  set: value => {
-    emit('update:modelValue', value);
-    emit('change', value);
-  },
-});
+const toggle = defineModel<T | T[] | undefined>({ required: true });
+watch(toggle, value => emit('change', value));
 
 const isSwitch = computed(() => props.switch);
 
 const type = computed(() => (
-  typeof props.modelValue === 'boolean' || Array.isArray(props.modelValue) ? 'checkbox' : 'radio'
+  typeof toggle.value === 'boolean' || Array.isArray(toggle.value) ? 'checkbox' : 'radio'
 ));
 </script>
