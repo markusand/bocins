@@ -34,13 +34,12 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { ref, computed, type Ref } from 'vue';
+import { ref, watch, type Ref } from 'vue';
 import ListBox from './ListBox.vue';
 import Button from '../Button.vue';
 
 type Props = {
   options: T[];
-  modelValue: T[];
   searchable?: boolean | ((options: any) => string);
   emptyText?: string;
 };
@@ -51,7 +50,6 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  'update:modelValue': [items: T[]];
   change: [items: T[]],
 }>();
 
@@ -65,13 +63,9 @@ const fromList = ref<T[]>(props.options) as Ref<T[]>;
 const addList = ref<T[]>([]) as Ref<T[]>;
 const removeList = ref<T[]>([]) as Ref<T[]>;
 
-const toList = computed<T[]>({
-  get: () => props.modelValue,
-  set: value => {
-    emit('update:modelValue', value);
-    emit('change', value);
-  },
-});
+
+const toList = defineModel<T[]>({ required: true });
+watch(toList, value => emit('change', value));
 
 const inList = (item: T, list: T[]) => !!list.find(listT => listT === item);
 
