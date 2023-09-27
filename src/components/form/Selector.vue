@@ -67,7 +67,6 @@ import ListBox from './ListBox.vue';
 import Icon from '../Icon.vue';
 
 type Props = {
-  modelValue: T | T[] | undefined;
   options: T[];
   formatter?: (option: T) => string;
   placeholder?: string;
@@ -90,7 +89,6 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  'update:modelValue': [selected: T | T[] | undefined],
   select: [selected: T | T[] | undefined],
 }>();
 
@@ -102,15 +100,12 @@ defineSlots<{
   panel?: (props: { options: T[], select: (value: T | T[] | undefined) => void }) => any;
 }>();
 
+const selected = defineModel<T | T[]>();
+
 const select = (value: T | T[] | undefined) => {
-  emit('update:modelValue', value);
+  selected.value = value;
   emit('select', value);
 };
-
-const selected = computed({
-  get: () => props.modelValue,
-  set: select,
-});
 
 const isSelected = computed(() => props.multiple
   ? !!(selected.value as T[]).length
