@@ -36,13 +36,12 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import InputField from './InputField.vue';
 import Icon from '../Icon.vue';
 import { isNumber, normalize } from '/@/utils';
 
 type Props = {
-  modelValue: T | T[] | undefined;
   options: T[];
   formatter?: (option: T) => string;
   emptyText?: string;
@@ -64,7 +63,6 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  'update:modelValue': [selected: T | T[] | undefined],
   select: [selected: T | T[] | undefined],
 }>();
 
@@ -74,13 +72,8 @@ const slots = defineSlots<{
   empty?: (props: object) => any;
 }>();
 
-const selected = computed({
-  get: () => props.modelValue,
-  set: value => {
-    emit('update:modelValue', value);
-    emit('select', value);
-  },
-});
+const selected = defineModel<T | T[] | undefined>({ required: true });
+watch(selected, value => emit('select', value));
 
 const width = computed(() => `${props.size}${isNumber(props.size) ? 'rem' : ''}`);
 
