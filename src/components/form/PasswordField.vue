@@ -18,20 +18,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import InputField from './InputField.vue';
 import Icon from '../Icon.vue';
 
-const props = defineProps<{ modelValue: string }>();
-
-const emit = defineEmits<{
-  'update:modelValue': [value: string],
-}>();
-
-const value = computed({
-  get: () => props.modelValue,
-  set: newValue => emit('update:modelValue', newValue),
-});
+const value = defineModel<string>({ required: true });
 
 const isVisible = ref(false);
 
