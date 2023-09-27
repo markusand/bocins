@@ -59,7 +59,6 @@ type Day = {
 };
 
 type Props = {
-  modelValue?: Date;
   disabled?: boolean;
   notBefore?: string | number | Date;
   notAfter?: string | number | Date;
@@ -70,7 +69,6 @@ type Props = {
 };
 
 const props = withDefaults(defineProps<Props>(), {
-  modelValue: undefined,
   locale: 'en',
   notBefore: undefined,
   notAfter: undefined,
@@ -80,21 +78,22 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  'update:modelValue': [date: Date | (Date | undefined)[] | undefined],
-  select: [date: Date | (Date | undefined)[] | undefined],
+  select: [date: Date],
 }>();
 
 defineSlots<{
   default?: (props: { day: Day }) => void;
 }>();
 
+const selectedDate = defineModel<Date>();
+
 const today = new Date();
 const weekdayFormatter = new Intl.DateTimeFormat(props.locale, { weekday: 'short' });
 const monthFormatter = new Intl.DateTimeFormat(props.locale, { month: 'long' });
 
-const cursor = ref(startOfMonth(props.modelValue || new Date()));
+const cursor = ref(startOfMonth(selectedDate.value || new Date()));
 // Update cursor if date changed externally
-watch(() => props.modelValue, date => cursor.value = date || new Date());
+watch(selectedDate, date => cursor.value = date || new Date());
 
 const cursorMonth = computed({
   get: () => cursor.value.getMonth(),
@@ -152,7 +151,7 @@ const days = computed<Day[]>(() => {
     const classes = ['b-calendar__day', {
       'b-calendar__day--disabled': disabled,
       'b-calendar__day--outsider': !isSameMonth(date, cursor.value),
-      'b-calendar__day--selected': !!props.modelValue && isSameDay(date, props.modelValue),
+      'b-calendar__day--selected': !!selectedDate.value && isSameDay(date, selectedDate.value),
       'b-calendar__day--today': isSameDay(date, today),
     }];
     return { date, label, disabled, classes };
@@ -161,11 +160,8 @@ const days = computed<Day[]>(() => {
 
 const select = (day: Day) => {
   if (!day.disabled) {
-    const value = Array.isArray(props.modelValue)
-      ? [props.modelValue[1] as Date | undefined, day.date]
-      : day.date;
-    emit('update:modelValue', value);
-    emit('select', value);
+    selectedDate.value = day.date;
+    emit('select', day.date);
   }
 };
 </script>
