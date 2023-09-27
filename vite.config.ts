@@ -10,7 +10,7 @@ export default defineConfig({
     ],
   },
   plugins: [
-    vue(),
+    vue({ script: { defineModel: true } }),
     dts({ insertTypesEntry: true }),
   ],
   build: {
