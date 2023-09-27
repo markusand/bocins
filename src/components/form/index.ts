@@ -11,7 +11,7 @@ export { default as Calendar } from './Calendar.vue';
 export { default as Datepicker } from './Datepicker.vue';
 export { default as Toggler } from './Toggler.vue';
 // export { default as Slider } from 'vue-slider-component';
-export { default as Histogram } from './Histogram.vue';
+export { default as Histogram, type HistogramBar } from './Histogram.vue';
 export { default as Rating } from './Rating.vue';
 export { default as Transfer } from './Transfer.vue';
 export { default as ToggleButton } from './ToggleButton.vue';

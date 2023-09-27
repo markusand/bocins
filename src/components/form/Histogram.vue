@@ -10,7 +10,9 @@
       :style="`--height:${bar.height}%`">
       <span class="tooltip">
         <span class="tooltip__range">
-          {{ bar.range.low }}{{ unit }} - {{ bar.range.high }}{{ unit }}
+          <slot name="range" :bar="bar">
+            {{ bar.range.low }}{{ unit }} - {{ bar.range.high }}{{ unit }}
+          </slot>
         </span>
         <span class="tooltip__ratio">{{ bar.ratio }}%</span>
       </span>
@@ -26,6 +28,16 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { round, decimals, isNumber } from '/@/utils/number';
+
+export type HistogramBar = {
+  height: number;
+  ratio: number;
+  range: {
+    low: number;
+    high: number;
+  };
+  status: 'active' | 'inactive';
+};
 
 type Props = {
   data: number[];
@@ -46,6 +58,11 @@ const props = withDefaults(defineProps<Props>(), {
   emptyText: 'No data to show',
 });
 
+defineSlots<{
+  range?: (props: { bar: HistogramBar }) => void;
+  empty?: () => void;
+}>();
+
 const sum = computed(() => props.data.reduce((acc, value) => acc + value, 0));
 
 const bars = computed(() => {
@@ -57,7 +74,7 @@ const bars = computed(() => {
     const high = round(low + step, precision);
     const height = 2 + (value * 100) / highest || 2;
     const ratio = round(value * 100 / sum.value, 1) || 0;
-    const status = props.active[0] < high && low < props.active[1] ? 'active' : 'inactive';
+    const status = props.active[0] < high && low < props.active[1] ? 'active' as const : 'inactive' as const;
     return { height, ratio, range: { low, high }, status };
   });
 });
