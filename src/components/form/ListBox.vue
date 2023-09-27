@@ -69,7 +69,7 @@ const emit = defineEmits<{
 const slots = defineSlots<{
   default?: (props: { item: T }) => any;
   clear?: (props: { clear: () => void }) => any;
-  empty?: (props: object) => any;
+  empty?: () => any;
 }>();
 
 const selected = defineModel<T | T[] | undefined>({ required: true });

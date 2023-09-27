@@ -42,9 +42,9 @@ const emit = defineEmits<{
 }>();
 
 defineSlots<{
-  default?: (props: object) => void;
-  title?: (props: object) => void;
-  aside?: (props: object) => void;
+  default?: () => void;
+  title?: () => void;
+  aside?: () => void;
 }>();
 
 const isOpen = computed(() => {
