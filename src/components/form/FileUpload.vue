@@ -35,7 +35,6 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue';
 import { isNumber } from '/@/utils/number';
 import Icon from '../Icon.vue';
 
@@ -76,8 +75,6 @@ defineSlots<{
 
 const files = defineModel<File[]>({ default: [] });
 
-watch(files, value => emit('change', { files: value || [] }));
-
 const checkFiles = (newFiles: FileList | null | undefined) => {
   if (!newFiles || props.disabled) return;
   if (!props.multiple && newFiles.length > 1) {
@@ -96,7 +93,6 @@ const checkFiles = (newFiles: FileList | null | undefined) => {
     if (error) emit('error', { error, file });
     return !sizeError && !formatError;
   });
-  files.value = filesList;
   return filesList;
 };
 
@@ -112,13 +108,16 @@ const onDragLeave = (event: DragEvent) => {
 
 const onDrop = (event: DragEvent) => {
   (event.target as HTMLElement).classList.remove('b-dropzone--active');
-  const filesList = checkFiles(event.dataTransfer?.files);
-  emit('drop', { event, files: filesList || [] });
-  emit('change', { files: filesList || [] });
+  const filesList = checkFiles(event.dataTransfer?.files) || [];
+  files.value = filesList ;
+  emit('drop', { event, files: filesList });
+  emit('change', { files: filesList });
 };
 
 const onChange = (event: Event) => {
-  checkFiles((event.target as HTMLInputElement).files);
+  const filesList = checkFiles((event.target as HTMLInputElement).files) || [];
+  files.value = filesList ;
+  emit('change', { files: filesList });
 };
 
 const remove = (file: File) => {
