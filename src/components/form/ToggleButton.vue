@@ -19,7 +19,6 @@ import Button from '../Button.vue';
 defineOptions({ inheritAttrs: true });
 
 const props = defineProps<{
-  modelValue: T | T[];
   value?: T;
   silent?: boolean;
   // Modifiers
@@ -34,29 +33,27 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  'update:modelValue': [value: boolean | T | T[] | undefined],
   change: [value: boolean | T | T[] | undefined],
 }>();
 
-const isChecked = computed(() => {
-  const { modelValue, value } = props;
-  return typeof modelValue === 'boolean'
-    ? modelValue
-    : value && Array.isArray(modelValue)
-      ? modelValue.includes(value)
-      : modelValue === value;
-});
+const toggle = defineModel<boolean | T | T[] | undefined>({ required: true });
+
+const isChecked = computed(() => (typeof toggle.value === 'boolean'
+  ? toggle.value
+  : props.value && Array.isArray(toggle.value)
+    ? toggle.value.includes(props.value)
+    : toggle.value === props.value
+));
 
 const check = () => {
-  const { modelValue, value } = props;
-  const update = typeof modelValue === 'boolean'
-    ? !modelValue
-    : value && Array.isArray(modelValue)
-      ? modelValue.includes(value)
-        ? modelValue.filter(item => item !== value)
-        : [...modelValue, value]
-      : value;
-  emit('update:modelValue', update);
-  emit('change', update);
+  const value = typeof toggle.value === 'boolean'
+    ? !toggle.value
+    : props.value && Array.isArray(toggle.value)
+      ? toggle.value.includes(props.value)
+        ? toggle.value.filter(item => item !== props.value)
+        : [...toggle.value, props.value]
+      : props.value;
+  toggle.value = value;
+  emit('change', value);
 };
 </script>

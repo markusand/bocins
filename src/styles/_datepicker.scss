@@ -4,11 +4,17 @@
 
   &__label {
     align-items: center;
-    padding: var(--padding) 0;
+    padding: var(--padding);
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     flex: 1;
+  }
+
+  &__chevron,
+  &__clear {
+    padding: var(--padding);
+    padding-left: 0;
   }
 
   &__placeholder { opacity: 0.5; }

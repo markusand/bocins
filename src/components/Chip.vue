@@ -17,7 +17,7 @@ defineProps<{
 const emit = defineEmits<{ close: [] }>();
 
 const slots = defineSlots<{
-  default?: (props: object) => void;
-  close?: (props: object) => void;
+  default?: () => void;
+  close?: () => void;
 }>();
 </script>

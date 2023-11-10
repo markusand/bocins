@@ -41,7 +41,6 @@ export type InputTypes = 'text'
 | 'week';
 
 type Props = {
-  modelValue: string;
   type?: InputTypes;
   class?: string | Record<string, boolean> | string[];
   prefix?: string;
@@ -60,27 +59,20 @@ const props = withDefaults(defineProps<Props>(), {
   size: 10,
 });
 
-const emit = defineEmits<{
-  'update:modelValue': [value: string],
-}>();
-
 const slots = defineSlots<{
-  prefix?: (props: object) => any;
-  suffix?: (props: object) => any;
+  prefix?: () => void;
+  suffix?: () => void;
 }>();
 
-const value = computed({
-  get: () => String(props.modelValue),
-  set: newValue => emit('update:modelValue', newValue),
-});
+const value = defineModel<string>({ required: true });
+
+const clear = () => { value.value = ''; };
 
 const classes = computed(() => {
   const { disabled, block } = props;
   const classArray = Array.isArray(props.class) ? props.class : [props.class];
   return [...classArray, { disabled, block }];
 });
-
-const clear = () => emit('update:modelValue', '');
 </script>
 
 <script lang="ts">

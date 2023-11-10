@@ -35,12 +35,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { watch } from 'vue';
 import { isNumber } from '/@/utils/number';
 import Icon from '../Icon.vue';
 
 type Props = {
-  modelValue?: File[];
   accept?: string;
   capture?: boolean | 'user' | 'environment';
   multiple?: boolean;
@@ -53,7 +52,6 @@ type Props = {
 };
 
 const props = withDefaults(defineProps<Props>(), {
-  modelValue: undefined,
   accept: undefined,
   capture: undefined,
   maxSize: Infinity,
@@ -63,7 +61,6 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  'update:modelValue': [value: File[] | undefined],
   dragover: [ev: DragEvent],
   dragleave: [ev: DragEvent],
   drop: [ev: { event: DragEvent, files: File[] }],
@@ -73,18 +70,13 @@ const emit = defineEmits<{
 }>();
 
 defineSlots<{
-  default?: (props: object) => void;
+  default?: () => void;
   file?: (props: { file: File, remove: () => void }) => void
 }>();
 
-const files = ref(props.modelValue || []);
+const files = defineModel<File[]>({ default: [] });
 
-watch(() => props.modelValue, value => files.value = value || []);
-
-watch(files, value => {
-  emit('update:modelValue', value);
-  emit('change', { files: files.value });
-});
+watch(files, value => emit('change', { files: value || [] }));
 
 const checkFiles = (newFiles: FileList | null | undefined) => {
   if (!newFiles || props.disabled) return;
@@ -92,7 +84,7 @@ const checkFiles = (newFiles: FileList | null | undefined) => {
     emit('error', { error: new Error('UPLOAD_MULTIPLE_ERROR') });
     return;
   }
-  files.value = Array.from(newFiles).filter(file => {
+  const filesList = Array.from(newFiles).filter(file => {
     const { type, name, size } = file;
     const { accept, maxSize } = props;
     const extension = name.slice((Math.max(0, name.lastIndexOf('.')) || Infinity));
@@ -104,6 +96,8 @@ const checkFiles = (newFiles: FileList | null | undefined) => {
     if (error) emit('error', { error, file });
     return !sizeError && !formatError;
   });
+  files.value = filesList;
+  return filesList;
 };
 
 const onDragOver = (event: DragEvent) => {
@@ -118,8 +112,9 @@ const onDragLeave = (event: DragEvent) => {
 
 const onDrop = (event: DragEvent) => {
   (event.target as HTMLElement).classList.remove('b-dropzone--active');
-  checkFiles(event.dataTransfer?.files);
-  emit('drop', { event, files: files.value });
+  const filesList = checkFiles(event.dataTransfer?.files);
+  emit('drop', { event, files: filesList || [] });
+  emit('change', { files: filesList || [] });
 };
 
 const onChange = (event: Event) => {
@@ -127,7 +122,7 @@ const onChange = (event: Event) => {
 };
 
 const remove = (file: File) => {
-  files.value = files.value.filter(({ name }) => name !== file.name);
+  files.value = files.value?.filter(({ name }) => name !== file.name) || [];
   emit('change', { files: files.value });
   emit('remove', { file, files: files.value });
 };

@@ -32,5 +32,12 @@ const data = reactive({
   date: undefined,
 });
 
-const warn = (date: Date) => alert(date.toLocaleDateString());
+const warn = (dates: Date | (Date | undefined)[] | undefined) => {
+  const array = Array.isArray(dates) ? dates : [dates];
+  const text = array
+    .filter(Boolean)
+    .map(date => date?.toLocaleDateString())
+    .join( ' -> ');
+  alert(text);
+};
 </script>

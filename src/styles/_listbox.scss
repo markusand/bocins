@@ -13,6 +13,9 @@
   overflow: auto;
   border: var(--border) !important;
 
+  input[type="checkbox"],
+  input[type="radio"] { display: none; }
+
   &__search {
     flex: 0 0;
     position: sticky;

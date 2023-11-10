@@ -19,11 +19,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import { isNumber } from '/@/utils/number';
 
 type Props = {
-  modelValue: string;
   maxLength?: number | string;
   cols?: number | string;
   rows?: number | string;
@@ -33,20 +31,12 @@ type Props = {
 };
 
 const props = withDefaults(defineProps<Props>(), {
-  modelValue: '',
   maxLength: undefined,
   cols: 15,
   rows: 5,
 });
 
-const emit = defineEmits<{
-  'update:modelValue': [value: string];
-}>();
-
-const text = computed({
-  get: () => props.modelValue,
-  set: value => emit('update:modelValue', value),
-});
+const text = defineModel<string>({ required: true });
 
 const handleTab = (event: KeyboardEvent) => {
   if (!props.indentable) return;

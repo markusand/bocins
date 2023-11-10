@@ -1,6 +1,6 @@
 {
   "name": "bocins",
-  "version": "1.2.3",
+  "version": "1.4.0",
   "description": "UI components for Vue 3",
   "type": "module",
   "main": "./dist/index.umd.cjs",
@@ -20,28 +20,31 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.2.3",
-    "@typescript-eslint/eslint-plugin": "^5.33.0",
-    "@typescript-eslint/parser": "^5.33.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
     "@vitejs/plugin-vue": "^4.2.3",
-    "@vue/eslint-config-typescript": "^11.0.0",
+    "@vue/eslint-config-typescript": "^11.0.3",
     "@vue/tsconfig": "^0.4.0",
     "eslint": "^8.21.0",
-    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-airbnb-typescript": "^17.1.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-typescript": "^3.4.0",
     "eslint-plugin-vue": "^9.3.0",
     "sass": "^1.54.3",
-    "stylelint": "^14.9.1",
+    "stylelint": "^15.10.3",
     "stylelint-config-html": "^1.1.0",
-    "stylelint-config-standard-scss": "^5.0.0",
+    "stylelint-config-standard-scss": "^11.0.0",
     "typescript": "^5.0.4",
     "vite": "^4.3.8",
-    "vite-plugin-dts": "^2.3.0",
+    "vite-plugin-dts": "^3.5.3",
     "vue": "^3.3.4",
     "vue-slider-component": "^4.1.0-beta.7"
   },
   "dependencies": {
     "date-fns": "^2.29.3",
     "reset-css": "^5.0.1"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
   }
 }

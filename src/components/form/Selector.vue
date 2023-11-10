@@ -8,13 +8,13 @@
       <div class="b-selector__label">
         <template v-if="isSelected">
           <slot v-if="multiple" name="selecteds" :selected="(selected as T[])">
-            <slot v-for="item, i in (selected as T[])" :key="i" :item="item">
-              {{ formatter?.(item) || item! }}
+            <slot v-for="item in (selected as T[])" :item="item">
+              {{ formatter?.(item) || item }}
             </slot>
           </slot>
           <slot v-else name="selected" :selected="(selected as T)">
             <slot :item="(selected as T)">
-              {{ formatter?.(selected as T) || selected! }}
+              {{ formatter?.(selected as T) || selected }}
             </slot>
           </slot>
         </template>
@@ -22,15 +22,17 @@
           {{ placeholder }}
         </div>
       </div> 
-      <Icon
-        v-if="clearable && isSelected"
-        src="/icons/close.svg"
-        class="b-selector__clear"
-        @click="clear" />
-      <Icon
-        v-else
-        src="/icons/chevron-down.svg"
-        class="b-selector__chevron" />
+      <span class="b-input__control">
+        <Icon
+          v-if="clearable && isSelected"
+          src="/icons/close.svg"
+          class="b-selector__clear"
+          @click="clear" />
+        <Icon
+          v-else
+          src="/icons/chevron-down.svg"
+          class="b-selector__chevron" />
+      </span>
     </template>
     <div class="b-selector__panel">
       <slot name="panel" :options="options" :select="select">
@@ -65,9 +67,8 @@ import ListBox from './ListBox.vue';
 import Icon from '../Icon.vue';
 
 type Props = {
-  modelValue: T | T[] | undefined;
   options: T[];
-  formatter?: (option: T | T[]) => string;
+  formatter?: (option: T) => string;
   placeholder?: string;
   searchable?: boolean | ((option: T) => string);
   clearable?: boolean;
@@ -88,7 +89,6 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  'update:modelValue': [selected: T | T[] | undefined],
   select: [selected: T | T[] | undefined],
 }>();
 
@@ -100,15 +100,12 @@ defineSlots<{
   panel?: (props: { options: T[], select: (value: T | T[] | undefined) => void }) => any;
 }>();
 
+const selected = defineModel<T | T[]>();
+
 const select = (value: T | T[] | undefined) => {
-  emit('update:modelValue', value);
+  selected.value = value;
   emit('select', value);
 };
-
-const selected = computed({
-  get: () => props.modelValue,
-  set: select,
-});
 
 const isSelected = computed(() => props.multiple
   ? !!(selected.value as T[]).length

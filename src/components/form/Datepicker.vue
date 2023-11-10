@@ -22,14 +22,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import { isNumber } from '/@/utils/number';
 import Dropdown from '../Dropdown.vue';
 import Calendar from './Calendar.vue';
 import Icon from '../Icon.vue';
 
 type Props = {
-  modelValue?: Date | undefined;
   placeholder?: string;
   clearable?: boolean;
   formatter?: (date: Date) => string;
@@ -37,20 +35,12 @@ type Props = {
 };
 
 const props = withDefaults(defineProps<Props>(), {
-  modelValue: undefined,
   placeholder: 'Pick a date',
   formatter: (date: Date) => date.toLocaleDateString(),
   size: 'calc(100% - 2 * var(--margin))',
 });
 
-const emit = defineEmits<{
-  'update:modelValue': [date: Date | undefined],
-}>();
+const date = defineModel<Date | undefined>({ required: true });
 
-const date = computed({
-  get: () => props.modelValue,
-  set: value => emit('update:modelValue', value),
-});
-
-const clear = () => emit('update:modelValue', undefined);
+const clear = () => { date.value = undefined; };
 </script>

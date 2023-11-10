@@ -77,18 +77,18 @@
           <InputField
             v-model="data.name"
             placeholder="Name"
-            size="6" />
+            size="10" />
           <PasswordField
             v-model="data.password"
             placeholder="Password"
-            size="6" />
+            size="10" />
           <ChipsField v-model="data.tags" />
           <NumberField
             v-model="data.age"
             placeholder="Age"
             min="18"
             max="99"
-            size="5" />
+            size="6" />
           <Selector
             v-model="data.age"
             :options="[...Array(82)].map((_, i) => 18 + i)"
