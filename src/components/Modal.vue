@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { isNumber } from '/@/utils/number';
 
 type Props = {
@@ -91,6 +91,10 @@ const handleEscape = (event: Event) => {
     event.stopPropagation();
   }
 };
+
+onMounted(() => {
+  if (props.open) toggleModal(props.open);
+});
 </script>
 
 <script lang="ts">
