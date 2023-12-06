@@ -18,7 +18,8 @@
     box-sizing: border-box;
     transform: translateY(-0.5rem);
     opacity: 0;
-    max-height: 0;
+    visibility: hidden;
+    max-height: 5px;
     overflow: hidden;
     transition:
       all 0.3s ease,
@@ -28,6 +29,7 @@
   &__container:hover,
   &__toggler:focus-within + &__container {
     opacity: 1;
+    visibility: visible;
     max-height: 100vh;
     transition: all 0.3s ease;
     overflow: visible;
