@@ -100,7 +100,6 @@
   border-radius: var(--border-radius);
   background: var(--color-bg);
 
-  // stylelint-disable-next-line no-descending-specificity
   .b-button {
     justify-content: left;
     &:not(.flat) { margin: 0 var(--spacing); }
