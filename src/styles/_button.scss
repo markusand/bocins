@@ -73,18 +73,18 @@
   margin: var(--margin);
   vertical-align: middle;
 
-  // stylelint-disable-next-line no-descending-specificity
+  // stylelint-disable no-descending-specificity
   .b-button { margin: 0; }
 
   & > .b-button:not(:first-child),
-  & > :not(:first-child) > .b-button {
+  & > :not(:first-child) > .toggler > .b-button {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-left: none;
   }
 
   & > .b-button:not(:last-child),
-  & > :not(:last-child) > .b-button {
+  & > :not(:last-child) > .toggler > .b-button {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }

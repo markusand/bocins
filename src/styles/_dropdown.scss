@@ -1,9 +1,13 @@
 .b-dropdown {
-  display: inline-flex;
-  align-items: center;
-  vertical-align: middle;
   position: relative;
   overflow: visible;
+
+  &__toggler {
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    width: 100%;
+  }
 
   &__container {
     position: absolute;
@@ -19,14 +23,15 @@
     transition:
       all 0.3s ease,
       max-height 0s ease 0.3s;
+  }
 
-    :focus-within > & {
-      opacity: 1;
-      max-height: 100vh;
-      transition: all 0.3s ease;
-      overflow: visible;
-      transform: none !important;
-    }
+  &__container:hover,
+  &__toggler:focus-within + &__container {
+    opacity: 1;
+    max-height: 100vh;
+    transition: all 0.3s ease;
+    overflow: visible;
+    transform: none !important;
   }
 
   &.top > &__container {

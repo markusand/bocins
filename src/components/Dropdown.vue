@@ -1,9 +1,11 @@
 <template>
-  <div ref="dropdown" :class="['b-dropdown', { disabled, top, right, block }]" tabindex="0">
-    <slot name="toggler" :close="close">
-      {{ props.label }}
-      <Icon src="/icons/chevron-down.svg" class="b-dropdown__chevron" />
-    </slot>
+  <div ref="dropdown" :class="['b-dropdown', { disabled, top, right, block }]">
+    <div class="b-dropdown__toggler toggler" tabindex="0">
+      <slot name="toggler" :close="close">
+        {{ props.label }}
+        <Icon src="/icons/chevron-down.svg" class="b-dropdown__chevron" />
+      </slot>
+    </div>
     <div v-if="!disabled" class="b-dropdown__container">
       <slot :close="close" />
     </div>
