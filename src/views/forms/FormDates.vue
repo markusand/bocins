@@ -23,6 +23,13 @@
         :not-after="new Date()"
         clearable />
     </fieldset>
+
+    <fieldset class="label">
+      <legend>Dates range</legend>
+      <Datepicker
+        v-model="data.dates"
+        clearable />
+    </fieldset>
   </section>
 </template>
 
