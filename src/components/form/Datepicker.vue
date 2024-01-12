@@ -6,16 +6,14 @@
       <div class="b-datepicker__label">
         <template v-if="Array.isArray(date)">
           <span v-if="date[0] || date[1]">
-            {{ date[0] && props.formatter(date[0]) }}
-            <span class="b-datepicker__separator">-</span>
-            {{ date[1] &&props.formatter(date[1]) }}
+            <slot name="date" :date="date[0]">{{ date[0] && props.formatter(date[0]) }}</slot>
+            <slot name="separator"><span class="b-datepicker__separator">-</span></slot>
+            <slot name="date" :date="date[0]">{{ date[1] &&props.formatter(date[1]) }}</slot>
           </span>
           <span v-else class="b-datepicker__placeholder">{{ props.placeholder }}</span>
         </template>
-        <template v-else>
-          <span v-if="date">{{ props.formatter(date) }}</span>
-          <span v-else class="b-datepicker__placeholder">{{ props.placeholder }}</span>
-        </template>
+        <slot v-else-if="date" name="date" :date="date">{{ props.formatter(date) }}</slot>
+        <span v-else class="b-datepicker__placeholder">{{ props.placeholder }}</span>
       </div>
       <Icon
         v-if="clearable && isSelected"
@@ -52,6 +50,11 @@ const props = withDefaults(defineProps<Props>(), {
   formatter: (date: Date) => date.toLocaleDateString(),
   size: 'calc(100% - 2 * var(--margin))',
 });
+
+defineSlots<{
+  date?: (props: { date: Date | undefined }) => void;
+  separator?: () => void;
+}>();
 
 const date = defineModel<SelectedDate>({ required: true });
 

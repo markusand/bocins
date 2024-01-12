@@ -28,7 +28,12 @@
       <legend>Dates range</legend>
       <Datepicker
         v-model="data.dates"
-        clearable />
+        clearable>
+        <template #separator> ~ </template>
+        <template #date="{ date }">
+          {{ date?.toLocaleDateString() }}
+        </template>
+      </Datepicker>
     </fieldset>
   </section>
 </template>
