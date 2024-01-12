@@ -39,6 +39,7 @@
     all: unset;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    gap: 1px 0;
     list-style: none;
   }
 
@@ -61,12 +62,29 @@
     transition: all 0.3s ease;
 
     &--today { color: var(--color-primary); }
-    &--outsider { color: #aaa; }
+    &--out { color: #aaa; }
 
-    &--selected {
+    &--start,
+    &--end {
       background: var(--color-primary);
       color: #fff;
-      border-radius: var(--border-radius);
+      cursor: default
+    }
+
+    &--start,
+    &:nth-child(7n + 1) {
+      border-top-left-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+    }
+
+    &--end,
+    &:nth-child(7n) {
+      border-top-right-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
+    }
+
+    &--start ~ &:not(&--end, &--end ~ &) {
+      background: color-mix(in srgb, var(--color-primary) 50%, transparent);
     }
 
     &--disabled {

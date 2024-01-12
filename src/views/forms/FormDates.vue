@@ -8,6 +8,10 @@
       :invalid="invalidDates" />
     
     <Calendar
+      v-model="data.dates"
+      :invalid="invalidDates" />
+    
+    <Calendar
       :not-after="new Date()"
       :invalid="invalidDates"
       @select="warn" />
@@ -30,6 +34,7 @@ const invalidDates = ['2022-08-04', '2022-08-05', ['2022-07-08', '2022-07-14']];
 
 const data = reactive({
   date: undefined,
+  dates: [undefined, undefined] as [Date | undefined, Date | undefined],
 });
 
 const warn = (dates: Date | (Date | undefined)[] | undefined) => {

@@ -49,6 +49,7 @@ import {
 
 import Selector from './Selector.vue';
 
+export type SelectedDate = Date | [Date | undefined, Date | undefined];
 type DatesList = (string | Date | (string | Date)[])[];
 
 type Day = {
@@ -85,15 +86,18 @@ defineSlots<{
   default?: (props: { day: Day }) => void;
 }>();
 
-const selectedDate = defineModel<Date>();
+const selected = defineModel<SelectedDate>();
 
 const today = new Date();
 const weekdayFormatter = new Intl.DateTimeFormat(props.locale, { weekday: 'short' });
 const monthFormatter = new Intl.DateTimeFormat(props.locale, { month: 'long' });
 
-const cursor = ref(startOfMonth(selectedDate.value || new Date()));
-// Update cursor if date changed externally
-watch(selectedDate, date => cursor.value = date || new Date());
+const cursor = ref<Date>(new Date());
+watch(selected, (date: SelectedDate | undefined) => {
+  if (!date) cursor.value = new Date();
+  else if (Array.isArray(date)) cursor.value = date[1] ?? date[0] ?? new Date();
+  else cursor.value = date;
+}, { immediate: true });
 
 const cursorMonth = computed({
   get: () => cursor.value.getMonth(),
@@ -150,18 +154,31 @@ const days = computed<Day[]>(() => {
     const disabled = isDisabled(date);
     const classes = ['b-calendar__day', {
       'b-calendar__day--disabled': disabled,
-      'b-calendar__day--outsider': !isSameMonth(date, cursor.value),
-      'b-calendar__day--selected': !!selectedDate.value && isSameDay(date, selectedDate.value),
+      'b-calendar__day--out': !isSameMonth(date, cursor.value),
+      'b-calendar__day--start': Array.isArray(selected.value)
+        ? !!selected.value[0] && isSameDay(date, selected.value[0])
+        : !!selected.value && isSameDay(date, selected.value),
+      'b-calendar__day--end': Array.isArray(selected.value)
+        ? !!selected.value[1] && isSameDay(date, selected.value[1])
+        : !!selected.value && isSameDay(date, selected.value),
       'b-calendar__day--today': isSameDay(date, today),
     }];
     return { date, label, disabled, classes };
   });
 });
 
+const cicles = ref(0);
 const select = (day: Day) => {
-  if (!day.disabled) {
-    selectedDate.value = day.date;
-    emit('select', day.date);
-  }
+  if (props.disabled) return;
+  if (Array.isArray(selected.value)) {
+    const [start, end] = cicles.value ? selected.value : [undefined, undefined];
+    if (!start && !end) selected.value = [day.date, day.date];
+    else if (start && isBefore(day.date, start)) selected.value = [day.date, start];
+    else if (end && isAfter(day.date, end)) selected.value = [end, day.date];
+    else selected.value = [start, day.date];
+    cicles.value = (cicles.value + 1) % 2;
+  } else selected.value = day.date;
+  emit('select', day.date);
 };
+
 </script>
