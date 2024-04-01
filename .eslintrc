@@ -6,7 +6,8 @@
     "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:vue/vue3-recommended",
-    "@vue/eslint-config-typescript/recommended"
+    "@vue/eslint-config-typescript/recommended",
+    "plugin:storybook/recommended"
   ],
   "env": {
     "browser": true,
