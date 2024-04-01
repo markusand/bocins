@@ -48,8 +48,7 @@
     "typescript": "^5.0.4",
     "vite": "^5.2.7",
     "vite-plugin-dts": "^3.5.3",
-    "vue": "^3.3.4",
-    "vue-slider-component": "^4.1.0-beta.7"
+    "vue": "^3.3.4"
   },
   "dependencies": {
     "date-fns": "^2.29.3",
