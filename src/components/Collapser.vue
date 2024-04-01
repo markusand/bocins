@@ -1,67 +1,106 @@
 <template>
-  <details
-    class="b-collapser"
-    :disabled="props.disabled"
-    :open="isOpen"
-    @toggle="toggle">
-    <summary class="b-collapser__toggler">
-      <slot name="title" />
-      <aside class="b-collapser__aside">
-        <slot name="aside" />
-      </aside>
-      <icon
-        src="/icons/chevron-right.svg"
-        class="b-collapser__chevron" />
+  <details class="collapser" :open="isOpen" @toggle="toggle">
+    <summary class="toggler">
+      <div class="title">
+        <slot name="toggler" :open="hasBeenOpen">
+          {{ props.title }}
+        </slot>
+      </div>
+      <Icon src="/@/assets/icons/chevron-down.svg" class="chevron" />
     </summary>
-    <slot />
+    <div class="content">
+      <slot :open="hasBeenOpen" />
+    </div>
   </details>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, computed, inject, type Ref } from 'vue';
 import Icon from './Icon.vue';
-import { unique } from '/@/utils/string';
 
-type Props = {
+export type CollapserProps = {
+  title?: string;
+  open?: boolean; 
   name?: string;
-  open?: string | boolean | undefined;
-  main?: boolean;
-  disabled?: boolean;
 };
 
-const props = withDefaults(defineProps<Props>(), {
-  name: () => unique(),
-  open: undefined,
+const props = withDefaults(defineProps<CollapserProps>(), {
+  title: '',
+  open: false,
+  name: () => Math.random().toString(36).slice(2),
 });
-
-const emit = defineEmits<{
-  toggle: [attributes: Props];
-  open: [attributes: Props];
-  close: [attributes: Props];
-  'update:open': [open: string | boolean | undefined];
-}>();
 
 defineSlots<{
-  default?: () => void;
-  title?: () => void;
-  aside?: () => void;
+  toggler: (props: { open: boolean }) => void;
+  default: (props: { open: boolean }) => void;
 }>();
 
-const isOpen = computed(() => {
-  const { name, main, open } = props;
-  return typeof open === 'string'
-    ? [name, ''].includes(open)
-    : open ?? main;
-});
+const emit = defineEmits<{
+  open: [name: string];
+  close: [name: string];
+  toggle: [name: string];
+}>();
+
+const accordion = inject<{
+  active: Ref<string | undefined>,
+  activate: (nam?: string) => void,
+} | null>('accordion', null);
+
+const hasBeenOpen = ref(props.open); // Triggered programmatically
+const isOpen = computed(() => props.open || accordion?.active.value === props.name); // Triggered automatically
 
 const toggle = (event: Event) => {
   const { open } = event.target as HTMLDetailsElement;
-  const attributes = { ...props, open };
-  if (open) emit('open', attributes);
-  else emit('close', attributes);
-  emit('toggle', attributes);
-  
-  if (open) emit('update:open', props.name);
-  else if (props.open === props.name) emit('update:open', undefined);
+  if (open) {
+    accordion?.activate(props.name);
+    emit('open', props.name);
+  } else {
+    if (accordion?.active.value === props.name) accordion.activate();
+    emit('close', props.name);
+  }
+  hasBeenOpen.value = open;
+  emit('toggle', props.name);
 };
 </script>
+
+<style lang="scss" scoped>
+.collapser {
+  --color: transparent;
+  --border: none;
+  --radius: 0.25rem;
+  --spacing: 0.75rem;
+
+  padding: 0 0 0.1px;
+
+  & + & { border-top: 1px solid #8882; }
+
+  & > .toggler {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing);
+    padding: var(--spacing);
+    cursor: pointer;
+
+    &::-webkit-details-marker,
+    &::marker { display: none; }
+
+    & > .title { flex: 1; }
+  }
+
+  & > .content { margin: 0 var(--spacing) var(--spacing); }
+
+  
+  .chevron { --size: 1em; }
+  &[open] > summary .chevron { transform: rotate(180deg); }
+
+  &[disabled="true"] {
+    cursor: not-allowed;
+
+    summary {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  }
+}
+</style>
