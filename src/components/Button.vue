@@ -1,38 +1,110 @@
 <template>
   <button
-    :class="['b-button', modifiers]"
-    :style="style"
-    :type="type"
+    class="btn"
+    :class="modifiers"
+    :style="width"
     :disabled="props.disabled">
-    <slot />
+    <slot>{{ props.text }}</slot>
   </button>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { isNumber } from '/@/utils/number';
+import { toWidth } from '/@/utils';
 
-const props = defineProps<{
-  // Modifiers
-  primary?: boolean;
-  alert?: boolean;
-  outline?: boolean;
-  flat?: boolean;
+export type ButtonProps = {
+  text?: string;
+  variant?: 'ghost' | 'flat';
+  size?: 'small' | 'large';
+  width?: number | string;
+  even?: boolean;
   block?: boolean;
-  loading?: boolean;
-  // State
   disabled?: boolean;
-  // Button type shorthands
-  submit?: boolean;
-  reset?: boolean;
-  // Size
-  size?: number | string;
+};
+
+defineSlots<{
+  default: () => void;
 }>();
 
-const type = computed(() => props.submit ? 'submit' : props.reset ? 'reset' : 'button');
-const style = computed(() => `--width:${props.size}${isNumber(props.size) ? 'rem' : ''}`);
+const props = defineProps<ButtonProps>();
+
 const modifiers = computed(() => {
-  const { primary, alert, outline, flat, loading, block } = props;
-  return { primary, alert, outline, flat, loading, block };
+  const { variant, size, even, block } = props;
+  return {
+    [`btn--${variant}`]: !!variant,
+    [`btn--${size}`]: !!size,
+    'btn--even': even,
+    block,
+  };
 });
+
+const width = computed(() => toWidth(props.width));
 </script>
+
+<style lang="scss" scoped>
+.btn {
+  --spacing: 0.5rem;
+  --radius: 0.25em;
+  --color: #333;
+  --state-color: var(--color);
+  --color-hover: color-mix(in srgb, var(--color) 85%, #000);
+  --color-active: color-mix(in srgb, var(--color) 85%, #fff);
+  --color-disabled: #8882;
+  --color-text: #fff;
+  --border-width: 1px;
+
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  padding: var(--spacing) calc(1.5 * var(--spacing));
+  gap: var(--spacing);
+  background: var(--state-color);
+  box-shadow: inset 0 0 0 var(--border-width) var(--state-color);
+  color: var(--color-text);
+  border-radius: var(--radius);
+  margin: 1px 0.5px;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &--small { --spacing: 0.25em; }
+  &--large { --spacing: 0.75em; }
+
+  &--even { padding: var(--spacing); }
+
+  .ghost &,
+  &--ghost {
+    background: none;
+    color: var(--state-color);
+  }
+
+  .flat &,
+  &--flat {
+    background: none;
+    box-shadow: none;
+    color: var(--state-color);
+  }
+
+  /* States */
+  :disabled &,
+  .disabled &,
+  &:disabled {
+    --state-color: var(--color-disabled);
+
+    cursor: not-allowed;
+    opacity: 0.5;
+    color: #888;
+  }
+
+  &:not(:disabled) {
+    &:hover { --state-color: var(--color-hover); }
+  
+    &:active,
+    &.active { --state-color: var(--color-active); }
+  }
+
+  // stylelint-disable-next-line selector-pseudo-class-no-unknown
+  :deep(.icon) { --size: 1em; }
+}
+</style>

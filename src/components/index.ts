@@ -1,7 +1,9 @@
+import '../styles.scss';
+
 export { default as Icon, type IconProps } from './Icon.vue';
 export { default as Avatar, type AvatarProps } from './Avatar.vue';
 export { default as AvatarGroup, type AvatarGroupProps } from './AvatarGroup.vue';
-export { default as Button } from './Button.vue';
+export { default as Button, type ButtonProps } from './Button.vue';
 export { default as Chip, type ChipProps } from './Chip.vue';
 export { default as Divider } from './Divider.vue';
 export { default as Dropdown } from './Dropdown.vue';
