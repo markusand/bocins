@@ -73,13 +73,13 @@ const width = computed(() => toWidth(props.width));
 
   &--even { padding: var(--spacing); }
 
-  .ghost &,
+  .btn-group--ghost &,
   &--ghost {
     background: none;
     color: var(--state-color);
   }
 
-  .flat &,
+  .btn-group--flat &,
   &--flat {
     background: none;
     box-shadow: none;
