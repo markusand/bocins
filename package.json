@@ -51,8 +51,7 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "date-fns": "^2.29.3",
-    "reset-css": "^5.0.1"
+    "date-fns": "^2.29.3"
   },
   "peerDependencies": {
     "vue": "^3.3.0"
