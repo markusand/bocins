@@ -18,6 +18,7 @@ export { default as Accordion } from './Accordion.vue';
 export { default as Collapser, type CollapserProps } from './Collapser.vue';
 export { default as Input, type InputProps } from './Input.vue';
 export { default as Password, type PasswordProps } from './Password.vue';
+export { default as Stepper, type StepperProps } from './Stepper.vue';
 export { default as TreeList } from './TreeList.vue';
 export type * from './TreeList.vue';
 export { default as Modal } from './Modal.vue';
