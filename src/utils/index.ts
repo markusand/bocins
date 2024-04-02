@@ -1,5 +1,5 @@
 export * from './svg-inline';
-export * from './width';
+export * from './dimensions';
 
 export * from './number';
 export * from './string';

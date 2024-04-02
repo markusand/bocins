@@ -20,6 +20,7 @@ export { default as Input, type InputProps } from './Input.vue';
 export { default as Password, type PasswordProps } from './Password.vue';
 export { default as Stepper, type StepperProps } from './Stepper.vue';
 export { default as Search, type SearchProps } from './Search.vue';
+export { default as LongText, type LongTextProps } from './LongText.vue';
 export { default as TreeList } from './TreeList.vue';
 export type * from './TreeList.vue';
 export { default as Modal } from './Modal.vue';
