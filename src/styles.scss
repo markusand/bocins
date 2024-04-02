@@ -9,3 +9,48 @@
   border: 1px solid var(--color-border, #8884);
   border-radius: var(--radius, 0.25rem);
 }
+
+%input {
+  --spacing: 0.5rem;
+  --border-width: 1px;
+
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  gap: var(--spacing);
+  padding: 0 var(--spacing);
+  min-height: calc(1em + 2 * var(--spacing));
+  background: var(--color-bg, #fff);
+  color: var(--color-text, currentcolor);
+  box-sizing: border-box;
+  box-shadow: inset 0 0 0 var(--border-width) var(--color-border, #8886);
+  border-radius: var(--radius, 0.25em);
+  
+  &:focus-within { --color-border: var(--color, #333); }
+
+  .icon {
+    --size: 1rem;
+
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .invalid:not(:focus-within) &,
+  &.invalid:not(:focus-within),
+  &:not(:focus-within):has(:invalid) {
+    --color-border: var(--color-error, red);
+    --color-text: var(--color-error, red);
+    --color-bg: color-mix(in srgb, var(--color-error, red) 5%, transparent);
+  }
+}
+
+%disabled {
+  --color-bg: #8881 !important;
+  --color-text: #8886 !important;
+  --border-width: 0 !important;
+
+  cursor: not-allowed !important;
+
+  // stylelint-disable-next-line selector-pseudo-class-no-unknown
+  :deep(*) { pointer-events: none !important; }
+}
