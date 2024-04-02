@@ -22,6 +22,7 @@ export { default as Stepper, type StepperProps } from './Stepper.vue';
 export { default as Search, type SearchProps } from './Search.vue';
 export { default as LongText, type LongTextProps } from './LongText.vue';
 export { default as ChipsInput, type ChipsInputProps } from './ChipsInput.vue';
+export { default as Rating } from './Rating.vue';
 export { default as TreeList } from './TreeList.vue';
 export type * from './TreeList.vue';
 export { default as Modal } from './Modal.vue';
