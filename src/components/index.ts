@@ -8,6 +8,12 @@ export { default as ButtonGroup, type ButtonGroupProps } from './ButtonGroup.vue
 export { default as Chip, type ChipProps } from './Chip.vue';
 export { default as Divider } from './Divider.vue';
 export { default as Dropdown } from './Dropdown.vue';
+export {
+  default as ContextualMenu,
+  type ContextualMenuProps,
+  type ContextualMenuActions,
+  type ContextualMenuAction,
+} from './ContextualMenu.vue';
 export { default as Accordion } from './Accordion.vue';
 export { default as Collapser, type CollapserProps } from './Collapser.vue';
 export { default as TreeList } from './TreeList.vue';
