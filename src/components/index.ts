@@ -28,6 +28,7 @@ export { default as ToggleButton } from './ToggleButton.vue';
 export { default as Toggler, type TogglerProps } from './Toggler.vue';
 export { default as Picker, type PickerProps } from './Picker.vue';
 export { default as ListBox, type ListBoxProps } from './ListBox.vue';
+export { default as Transfer, type TransferProps } from './Transfer.vue';
 export { default as TreeList } from './TreeList.vue';
 export type * from './TreeList.vue';
 export { default as Modal } from './Modal.vue';
