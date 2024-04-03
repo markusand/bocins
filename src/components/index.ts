@@ -26,6 +26,7 @@ export { default as Rating } from './Rating.vue';
 export { default as Switch } from './Switch.vue';
 export { default as ToggleButton } from './ToggleButton.vue';
 export { default as Toggler, type TogglerProps } from './Toggler.vue';
+export { default as Picker, type PickerProps } from './Picker.vue';
 export { default as TreeList } from './TreeList.vue';
 export type * from './TreeList.vue';
 export { default as Modal } from './Modal.vue';
