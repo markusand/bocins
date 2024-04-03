@@ -50,7 +50,8 @@ const width = computed(() => toWidth(props.width));
   & > :not(:first-child) .btn,
   .btn:not(:first-child),
   & > :not(:first-child) .input,
-  .input:not(:first-child) {
+  .input:not(:first-child),
+  & > :not(:first-child) .toggler {
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
     margin-left: calc(-1 * var(--border-width));
@@ -59,7 +60,8 @@ const width = computed(() => toWidth(props.width));
   & > :not(:last-child) .btn,
   .btn:not(:last-child),
   & > :not(:last-child) .input,
-  .input:not(:last-child) {
+  .input:not(:last-child),
+  & > :not(:last-child) .toggler {
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
   }
