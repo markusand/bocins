@@ -116,6 +116,11 @@ const modifiers = computed(() => {
   }
 
   &.invalid { @extend %invalid; }
+  
   &.disabled { @extend %disabled; }
+  
+  &.disabled :checked + &__option {
+    background: color-mix(in srgb, var(--color, #333) 25%, transparent);
+  }
 }
 </style>
