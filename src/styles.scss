@@ -59,3 +59,20 @@
   // stylelint-disable-next-line selector-pseudo-class-no-unknown
   :deep(*) { pointer-events: none !important; }
 }
+
+%selector-toggler {
+  @extend %input;
+
+  display: flex;
+  align-items: center;
+  
+  &.disabled { @extend %disabled; }
+
+  .selected,
+  .placeholder {
+    flex: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}

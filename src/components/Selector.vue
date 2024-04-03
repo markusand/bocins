@@ -83,21 +83,7 @@ const clear = () => {
 .selector {
   --panel-border: none;
 
-  .toggler {
-    @extend %input;
-
-    display: flex;
-    
-    &.disabled { @extend %disabled; }
-
-    .selected,
-    .placeholder {
-      flex: 1;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-  }
+  .toggler { @extend %selector-toggler; }
 
   .listbox {
     display: flex;
