@@ -2,7 +2,7 @@
   <div class="listbox" :class="modifiers">
     <header v-if="props.search">
       <Search
-        v-model="searcher"
+        v-model="searchBy"
         :placeholder="props.searchText"
         clearable
         block />
@@ -32,9 +32,10 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { ref, computed } from 'vue';
+import { toRef, computed } from 'vue';
 import Search from './Search.vue';
 import Picker, { type PickerProps } from './Picker.vue';
+import { useSearcher } from '/@/utils';
 
 export type ListBoxProps<T> = {
   search?: (option: T) => string;
@@ -51,11 +52,8 @@ defineSlots<{
 
 const selected = defineModel<T | T[] | undefined>({ required: true });
 
-const searcher = ref('');
-const options = computed(() => {
-  if (!props.search) return props.options;
-  return props.options.filter(option => props.search!(option).includes(searcher.value));
-});
+const { searchBy, search } = useSearcher<T>(toRef(props, 'search'));
+const options = search(toRef(props, 'options'));
 
 const modifiers = computed(() => {
   const { disabled, invalid } = props;
