@@ -35,6 +35,8 @@
   
   &:focus-within { --color-border: var(--color, #333); }
 
+  .placeholder { opacity: 0.5; }
+
   .icon {
     --size: 1rem;
 
