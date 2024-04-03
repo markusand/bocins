@@ -30,6 +30,7 @@ export { default as Picker, type PickerProps } from './Picker.vue';
 export { default as ListBox, type ListBoxProps } from './ListBox.vue';
 export { default as Transfer, type TransferProps } from './Transfer.vue';
 export { default as Selector, type SelectorProps } from './Selector.vue';
+export { default as Calendar, type CalendarProps, type SelectedDate } from './Calendar.vue';
 export { default as TreeList } from './TreeList.vue';
 export type * from './TreeList.vue';
 export { default as Modal } from './Modal.vue';
