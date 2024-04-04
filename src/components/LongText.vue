@@ -38,7 +38,6 @@ const text = defineModel<string>({ required: true });
 
 const handleTab = (event: KeyboardEvent) => {
   if (!props.indentable) return;
-  console.log('Entered');
   event.preventDefault();
   const target = event.target as HTMLTextAreaElement;
   const { selectionStart, selectionEnd, value } = target;

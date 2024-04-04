@@ -39,5 +39,3 @@ export { default as TreeList } from './TreeList.vue';
 export type * from './TreeList.vue';
 export { default as Modal } from './Modal.vue';
 export { default as Editable } from './Editable.vue';
-
-export * from './form';

@@ -31,7 +31,6 @@ const meta = {
       options: [undefined, (user: User) => `${user.name} ${user.surname} ${user.email}`],
     },
   },
-  // @ts-expect-error keyAttr is not infered from generic 
   args,
 } satisfies Meta<typeof ListBox>;
 
