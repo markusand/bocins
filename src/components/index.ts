@@ -35,7 +35,8 @@ export { default as Calendar, type CalendarProps, type SelectedDate } from './Ca
 export { default as DatePicker, type DatePickerProps } from './DatePicker.vue';
 export { default as InputGroup } from './ButtonGroup.vue';
 export { default as FileDrop } from './FileDrop.vue';
+export { default as Modal } from './Modal.vue';
+
 export { default as TreeList } from './TreeList.vue';
 export type * from './TreeList.vue';
-export { default as Modal } from './Modal.vue';
 export { default as Editable } from './Editable.vue';
