@@ -28,7 +28,10 @@ const meta = {
       description: 'The width of the drop area. Can be a number (in rem) or any string representing length and unit.',
       control: 'text',
     },
-    dropText: { description: 'The label text.' },
+    label: {
+      control: 'text',
+      description: 'The label text.',
+    },
   },
   args: {
     maxSize: 100,

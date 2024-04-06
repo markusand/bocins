@@ -3,7 +3,7 @@
     <input v-bind="input" type="file" @change="onChange">
     <slot v-if="!files.length">
       <Icon src="/@/assets/icons/plus.svg" size="medium" />
-      <em>{{ props.dropText || 'Click or Drop files' }}</em>
+      <em>{{ props.label || 'Click or Drop files' }}</em>
     </slot>
     <slot v-else name="files" :files="files" :remove="remove">
       <ul class="file-drop__list">
@@ -31,7 +31,7 @@ type FileDropProps = {
   maxSize?: number | string;
   width?: string | number;
   height?: string | number;
-  dropText?: string;
+  label?: string;
   disabled?: boolean;
   block?: boolean;
 };
