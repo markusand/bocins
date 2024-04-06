@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body" :disabled="!expanded">
     <picture :class="['image-expand', { expanded }]">
-      <img :src="expanded ? props.srcHd || props.src : props.src" :alt="props.alt">
+      <img :src="expanded ? props.src : props.thumbnail || props.src" :alt="props.alt">
       <div class="controls">
         <slot name="controls" />
         <ToggleButton v-model="expanded" even @click.prevent>
@@ -20,7 +20,7 @@ import Icon from './Icon.vue';
 
 const props = defineProps<{
   src: string;
-  srcHd?: string;
+  thumbnail?: string;
   alt: string;
 }>();
 

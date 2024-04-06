@@ -14,12 +14,12 @@ const meta = {
   },
   argTypes: {
     src: { description: 'The source of the image.' },
-    srcHd: { description: 'The source of the high-resolution image.' },
+    thumbnail: { description: 'The source of a lowest resolution image.' },
     alt: { description: 'The alternative text for the image.' },
   },
   args: {
-    src: 'https://images.unsplash.com/photo-1476673160081-cf065607f449?q=80&w=200',
-    srcHd: 'https://images.unsplash.com/photo-1476673160081-cf065607f449?q=80&w=1400',
+    src: 'https://images.unsplash.com/photo-1476673160081-cf065607f449?q=80&w=1400',
+    thumbnail: 'https://images.unsplash.com/photo-1476673160081-cf065607f449?q=80&w=200',
     alt: 'Beach',
   },
 } satisfies Meta<typeof ImageExpand>;
