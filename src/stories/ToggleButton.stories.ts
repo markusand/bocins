@@ -34,7 +34,6 @@ const meta = {
     },
   },
   args: {
-    text: 'Toggle',
     variant: undefined,
     size: undefined,
     width: undefined,
@@ -56,7 +55,7 @@ export const Base: Story = {
       const value = ref(args.modelValue);
       return { args, value };
     },
-    template: '<ToggleButton v-bind="args" v-model="value" />',
+    template: '<ToggleButton v-bind="args" v-model="value">Toggle</ToggleButton>',
   }),
 };
 
@@ -76,7 +75,7 @@ export const SingleValue: Story = {
       const label = computed(() => status.value ?? 'inactive');
       return { args, status, label };
     },
-    template: '<ToggleButton v-model="status" :text="label" value="active">',
+    template: '<ToggleButton v-model="status" value="active">{{ label }}</ToggleButton>',
   }),
 };
 
@@ -96,9 +95,9 @@ export const MultipleValues: Story = {
       return { args, value };
     },
     template: `<ButtonGroup>
-      <ToggleButton v-model="value" text="Good" value="good" />
-      <ToggleButton v-model="value" text="Cheap" value="cheap" />
-      <ToggleButton v-model="value" text="Pretty" value="pretty" />
+      <ToggleButton v-model="value" value="good">Good</ToggleButton>
+      <ToggleButton v-model="value" value="cheap">Cheap</ToggleButton>
+      <ToggleButton v-model="value" value="pretty">Pretty</ToggleButton>
     </ButtonGroup>`,
   }),
 };

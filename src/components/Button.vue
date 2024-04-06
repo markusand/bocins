@@ -4,7 +4,7 @@
     :class="modifiers"
     :style="width"
     :disabled="props.disabled">
-    <slot>{{ props.text }}</slot>
+    <slot />
   </button>
 </template>
 
@@ -13,7 +13,6 @@ import { computed } from 'vue';
 import { toWidth } from '/@/utils';
 
 export type ButtonProps = {
-  text?: string;
   variant?: 'ghost' | 'flat';
   size?: 'small' | 'large';
   width?: number | string;
@@ -22,11 +21,11 @@ export type ButtonProps = {
   disabled?: boolean;
 };
 
+const props = defineProps<ButtonProps>();
+
 defineSlots<{
   default: () => void;
 }>();
-
-const props = defineProps<ButtonProps>();
 
 const modifiers = computed(() => {
   const { variant, size, even, block } = props;

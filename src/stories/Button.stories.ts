@@ -34,7 +34,6 @@ const meta = {
     disabled: { description: 'Disable the button.' },
   },
   args: {
-    text: 'Button',
     variant: undefined,
     size: undefined,
     width: undefined,
@@ -48,7 +47,13 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Base: Story = {};
+export const Base: Story = {
+  render: args => ({
+    components: { Button, Icon },
+    setup: () => ({ args }),
+    template: '<Button v-bind="args">Button</Button>',
+  }),
+};
 
 export const IconButton: Story = {
   parameters: {
