@@ -22,15 +22,31 @@ const meta = {
   title: 'Transfer',
   component: Transfer,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Move items between two lists or containers.',
+      },
+    },
+  },
   argTypes: {
+    options: { description: 'List of options to display.' },
+    keyAttr: { description: 'Key to use to identify each item.' },
+    limit: { description: 'Limit the number of items that can be selected. 0 means no limit.' },
+    searchText: { description: 'Text to display on the search input.' },
+    emptyText: { description: 'Text to display when there are no items in the list.' },
     formatter: {
+      description: 'Customize the item format.',
       control: 'select',
       options: formatters,
     },
     search: {
+      description: 'Customize the content that can be searched.',
       control: 'select',
       options: [undefined, (user: User) => `${user.name} ${user.surname} ${user.email}`],
     },
+    invalid: { description: 'Set as invalid state.' },
+    disabled: { description: 'Set as disabled state.' },
   },
   // @ts-expect-error keyAttr is not infered from generic 
   args,
@@ -52,7 +68,14 @@ export const Base: Story = {
   }),
 };
 
-export const SlotContent: Story = {
+export const CustomOption: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Customize the option format.',
+      },
+    },
+  },
   args: {
     modelValue: [],
     limit: 4,

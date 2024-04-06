@@ -5,6 +5,19 @@ const meta = {
   title: 'AvatarGroup',
   component: AvatarGroup,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'A group of avatars displayed next to each other.',
+      },
+    },
+  },
+  argTypes: {
+    stacked: {
+      description: 'Display avatars stacked on top of each other to save space.',
+      control: 'boolean',
+    },
+  },
   args: {
     stacked: false,
   },

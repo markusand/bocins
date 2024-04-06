@@ -6,8 +6,25 @@ const meta = {
   title: 'Password',
   component: Password,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Securely entering passwords.',
+      },
+    },
+  },
   argTypes: {
-    width: { control: 'text' },
+    placeholder: { description: 'The text to display when the input is empty.' },
+    clearable: { description: 'Enable the clear button.' },
+    prefix: { description: 'The prefix text to display before the input.' },
+    disabled: { description: 'Disable the input.' },
+    invalid: { description: 'Set state to invalid.' },
+    block: { description: 'Display as a block input.' },
+    strength: { description: 'List of validation functions to assess the strength of the password' },
+    width: {
+      description: 'The width of the input. Can be a number (in rem) or any string representing length and unit.',
+      control: 'text',
+    },
   },
   args: {
     width: undefined,
@@ -47,6 +64,13 @@ const strength = [
 ];
 
 export const PasswordStrength: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Display a password strength indicator based on the rules provided.',
+      },
+    },
+  },
   args: {
     modelValue: '',
     strength,

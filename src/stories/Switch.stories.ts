@@ -6,6 +6,17 @@ const meta = {
   title: 'Switch',
   component: Switch,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Turn a single option on or off.',
+      },
+    },
+  },
+  argTypes: {
+    disabled: { description: 'Disable the switch.' },
+    value: { description: 'The value that the switch enables.' },
+  },
   args: {
     disabled: false,
   },
@@ -28,6 +39,13 @@ export const Base: Story = {
 };
 
 export const UniqueSelection: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Allow only one option to be selected.',
+      },
+    },
+  },
   args: { modelValue: undefined },
   render: args => ({
     components: { Switch },
@@ -44,6 +62,13 @@ export const UniqueSelection: Story = {
 };
 
 export const MultipleSelections: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Allow multiple options to be selected.',
+      },
+    },
+  },
   args: { modelValue: [] },
   render: args => ({
     components: { Switch },

@@ -5,12 +5,25 @@ const meta = {
   title: 'ButtonGroup',
   component: ButtonGroup,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'A group of multiple buttons, often related to similar actions.',
+      },
+    },
+  },
   argTypes: {
     variant: {
+      description: 'The variant to use for the button.',
       control: 'radio',
       options: [undefined, 'ghost', 'flat'],
     },
-    width: { control: 'text' },
+    width: {
+      description: 'The width of the button group. Can be a number (in rem) or any string representing length and unit.',
+      control: 'text',
+    },
+    block: { description: 'Display the button group as a block full width element. Buttons take equal width.' },
+    disabled: { description: 'Disable the buttons.' },
   },
   args: {
     variant: undefined,

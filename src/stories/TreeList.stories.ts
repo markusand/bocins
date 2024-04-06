@@ -33,6 +33,18 @@ const meta = {
   title: 'TreeList',
   component: TreeList,
   tags: ['autodocs'],
+  docs: {
+    description: {
+      component: 'A hierarchical list of nested items displayed in a structured tree format.',
+    },
+  },
+  argTypes: {
+    schema: { description: 'List of items to display.' },
+    nameNode: { description: 'Key of the item used as toggler name.' },
+    childrenNode: { description: 'Key of the item used as children list.' },
+    open: { description: 'Set as open state.' },
+    parent: { description: 'The parent of the current item. Used internally for recursivity' },
+  },
   // @ts-expect-error TS doesn't infer args properly
   args: props,
 } satisfies Meta<typeof TreeList>;

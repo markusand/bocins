@@ -5,6 +5,18 @@ const meta = {
   title: 'ImageExpand',
   component: ImageExpand,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Enlarge or view an image in more detail.',
+      },
+    },
+  },
+  argTypes: {
+    src: { description: 'The source of the image.' },
+    srcHd: { description: 'The source of the high-resolution image.' },
+    alt: { description: 'The alternative text for the image.' },
+  },
   args: {
     src: 'https://images.unsplash.com/photo-1476673160081-cf065607f449?q=80&w=200',
     srcHd: 'https://images.unsplash.com/photo-1476673160081-cf065607f449?q=80&w=1400',

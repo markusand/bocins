@@ -28,6 +28,20 @@ const meta = {
   title: 'ContextualMenu',
   component: ContextualMenu,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'A menu that appears contextually based on user actions, typically offering relevant options or actions.',
+      },
+    },
+  },
+  argTypes: {
+    item: { description: 'The item that the menu is associated with.' },
+    actions: { description: 'The actions to display in the menu.' },
+    top: { description: 'Display the menu upwards.' },
+    right: { description: 'Display the menu anchored to the right.' },
+    disabled: { description: 'Disable the menu.' },
+  },
   args: {
     item: user,
     actions,
@@ -43,7 +57,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Base: Story = {};
 
-export const OverrideToggler: Story = {
+export const CustomToggler: Story = {
   render: args => ({
     components: { ContextualMenu, Button, Icon },
     setup: () => ({ args }),
@@ -57,7 +71,7 @@ export const OverrideToggler: Story = {
   }),
 };
 
-export const OverrideAction: Story = {
+export const CustomAction: Story = {
   render: args => ({
     components: { ContextualMenu, Button },
     setup: () => ({ args }),

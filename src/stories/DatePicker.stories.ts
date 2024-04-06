@@ -6,15 +6,39 @@ const meta = {
   title: 'DatePicker',
   component: DatePicker,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Select dates from a calendar.',
+      },
+    },
+  },
   argTypes: {
     modelValue: { control: 'date' },
-    notBefore: { control: 'date' },
-    notAfter: { control: 'date' },
-    width: { control: 'text' },
+    notBefore: {
+      description: 'The earliest date that can be selected.',
+      control: 'date',
+    },
+    notAfter: {
+      description: 'The latest date that can be selected.',
+      control: 'date',
+    },
+    width: {
+      description: 'The width of the input. Can be a number (in rem) or any string representing length and unit.',
+      control: 'text',
+    },
     locale: {
+      description: 'The locale to use for the calendar.',
       control: 'select',
       options: ['en', 'ca', 'zh', 'he'],
     },
+    startSunday: { description: 'Start the week on Sunday instead of Monday.' },
+    disabled: { description: 'Disable the calendar.' },
+    clearable: { description: 'Enable the clear button.' },
+    top: { description: 'Display the calendar upwards.' },
+    right: { description: 'Display the calendar anchored to the right.' },
+    block: { description: 'Display the calendar as a block full width element.' },
+    formatter: { description: 'The function used to format the date.' },
   },
   args: {
     locale: 'en',
@@ -25,6 +49,7 @@ const meta = {
     right: false,
     width: undefined,
     block: false,
+    formatter: (date: Date) => date.toLocaleDateString(),
   },
 } satisfies Meta<typeof DatePicker>;
 
@@ -45,6 +70,13 @@ export const Base: Story = {
 };
 
 export const RangeDatePicker: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Enable selecting a range of dates.',
+      },
+    },
+  },
   args: {
     modelValue: [undefined, undefined],
     placeholder: 'Select dates range',

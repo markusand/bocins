@@ -6,6 +6,21 @@ const meta = {
   title: 'Toggler',
   component: Toggler,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Select or deselect an option.',
+      },
+    },
+  },
+  argTypes: {
+    label: { description: 'The text to display on the button.' },
+    radio: { description: 'Allow only selection of a single option.' },
+    invalid: { description: 'Set state to invalid.' },
+    disabled: { description: 'Disable the button.' },
+    block: { description: 'Display as a block input.' },
+    value: { description: 'The value that the button enables.' },
+  },
   args: {
     label: 'Toggler',
     radio: false,
@@ -32,6 +47,13 @@ export const Base: Story = {
 };
 
 export const Radio: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Allow only selection of a single option.',
+      },
+    },
+  },
   args: {
     modelValue: false,
     radio: true,

@@ -5,6 +5,18 @@ const meta = {
   title: 'Collapser',
   component: Collapser,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Collapse or expand sections of content.',
+      },
+    },
+  },
+  argTypes: {
+    title: { description: 'The title of the collapser.' },
+    open: { description: 'The open state of the collapser.' },
+    name: { description: 'The name of the collapser. Used as identifier in Accordion' },
+  },
   args: {
     title: 'Collapser',
     open: false,

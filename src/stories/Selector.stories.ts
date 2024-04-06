@@ -27,13 +27,36 @@ const meta = {
   title: 'Selector',
   component: Selector,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Select one or more options from a list.',
+      },
+    },
+  },
   argTypes: {
-    width: { control: 'text' },
+    keyAttr: { description: 'Key to use to identify each item.' },
+    clearable: { description: 'Enable the clear button.' },
+    block: { description: 'Display as a block input.' },
+    disabled: { description: 'Disable the input.' },
+    invalid: { description: 'Set state to invalid.' },
+    placeholder: { description: 'The text to display when the input is empty.' },
+    top: { description: 'Display the dropdown menu above the input.' },
+    right: { description: 'Display the dropdown menu anchored to the right of the input.' },
+    searchText: { description: 'Text to display on the search input.' },
+    emptyText: { description: 'Text to display when the search results are empty.' },
+    options: { description: 'List of options to display.' },
+    width: {
+      description: 'The width of the input. Can be a number (in rem) or any string representing length and unit.',
+      control: 'text',
+    },
     formatter: {
+      description: 'The function used to format the item in the list.',
       control: 'select',
       options: formatters,
     },
     search: {
+      description: 'Customize what content can be searched.',
       control: 'select',
       options: [undefined, (user: User) => `${user.name} ${user.surname} ${user.email}`],
     },
@@ -59,6 +82,13 @@ export const Base: Story = {
 };
 
 export const MultipleSelector: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Allow multiple options to be selected.',
+      },
+    },
+  },
   args: {
     modelValue: [],
     placeholder: 'Select users',
@@ -73,7 +103,7 @@ export const MultipleSelector: Story = {
   }),
 };
 
-export const SlotContent: Story = {
+export const CustomOptions: Story = {
   args: {
     modelValue: [],
     width: 15,

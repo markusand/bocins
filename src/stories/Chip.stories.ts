@@ -5,6 +5,17 @@ const meta = {
   title: 'Chip',
   component: Chip,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'A small, interactive representation of an item or attribute.',
+      },
+    },
+  },
+  argTypes: {
+    close: { description: 'The function to be called when the close button is clicked. Enables the close button' },
+    text: { description: 'The text to display on the chip.' },
+  },
   args: {
     text: 'Chip',
   },
@@ -17,10 +28,17 @@ type Story = StoryObj<typeof meta>;
 export const Base: Story = {};
 
 export const CloseFunction: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Specify a function to be called when the close button is clicked.',
+      },
+    },
+  },
   args: { close: console.log },
 };
 
-export const Slots: Story = {
+export const CustomClose: Story = {
   args: { close: console.log },
   render: args => ({
     components: { Chip },

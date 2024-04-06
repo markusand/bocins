@@ -5,8 +5,23 @@ const meta = {
   title: 'Dropdown',
   component: Dropdown,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Reveal and select additional content or options hidden from view until activated.',
+      },
+    },
+  },
   argTypes: {
-    width: { control: 'text' },
+    width: {
+      description: 'The width of the dropdown. Can be a number (in rem) or any string representing length and unit.',
+      control: 'text',
+    },
+    top: { description: 'Align the dropdown menu to the top of the button.' },
+    right: { description: 'Align the dropdown menu to the right of the button.' },
+    block: { description: 'Display the dropdown menu as a block full width element.' },
+    disabled: { description: 'Disable the dropdown menu.' },
+    toggler: { description: 'The toggler options' },
   },
   args: {
     top: false,
@@ -36,7 +51,7 @@ export const Base: Story = {
   }),
 };
 
-export const SlotToggler: Story = {
+export const CustomToggler: Story = {
   render: args => ({
     components: { Dropdown, Button, Icon },
     setup: () => ({ args }),

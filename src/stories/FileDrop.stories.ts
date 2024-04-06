@@ -6,8 +6,29 @@ const meta = {
   title: 'FileDrop',
   component: FileDrop,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Drag and drop files for uploading or processing.',
+      },
+    },
+  },
   argTypes: {
-    width: { control: 'text' },
+    maxSize: { description: 'The maximum size of the file in kilobytes.' },
+    formats: { description: 'The accepted file formats. Use extensions or mime types.' },
+    capture: { description: 'Enable the camera.' },
+    multiple: { description: 'Allow multiple files to be selected.' },
+    disabled: { description: 'Disable the file drop.' },
+    block: { description: 'Display the file drop as a block full width element.' },
+    height: {
+      description: 'The height of the drop area. Can be a number (in rem) or any string representing length and unit.',
+      control: 'text',
+    },
+    width: {
+      description: 'The width of the drop area. Can be a number (in rem) or any string representing length and unit.',
+      control: 'text',
+    },
+    dropText: { description: 'The label text.' },
   },
   args: {
     maxSize: 100,
@@ -36,6 +57,13 @@ export const Base: Story = {
 };
 
 export const ImagePreview: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Preview dropped images.',
+      },
+    },
+  },
   args: { modelValue: undefined },
   render: args => ({
     components: { FileDrop, ImageExpand, Button, Icon },

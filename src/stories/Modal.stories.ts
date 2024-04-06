@@ -5,6 +5,20 @@ const meta = {
   title: 'Modal',
   component: Modal,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: "A pop-up window that temporarily interrupts the user's workflow to display important information or request input.",
+      },
+    },
+  },
+  argTypes: {
+    closeable: { description: 'Enable the close button.' },
+    open: { description: 'Open state of the modal.' },
+    plain: { description: 'Display a modal without a backdrop.' },
+    width: { description: 'The width of the modal. Can be a number (in rem) or any string representing length and unit.' },
+    height: { description: 'The height of the modal. Can be a number (in rem) or any string representing length and unit.' },
+  },
   args: {
     closeable: true,
     open: false,
@@ -32,6 +46,13 @@ export const Base: Story = {
 };
 
 export const Plain: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Display a modal without a backdrop and allowing interaction with the background.',
+      },
+    },
+  },
   args: { plain: true },
   render: args => ({
     components: { Modal, Button },
@@ -47,6 +68,13 @@ export const Plain: Story = {
 };
 
 export const Confirmation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'The modal is only closeable by accepting the default action.',
+      },
+    },
+  },
   args: { closeable: false },
   render: args => ({
     components: { Modal, Button },
@@ -67,6 +95,13 @@ export const Confirmation: Story = {
 };
 
 export const Nested: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Modal can be nested in other modals.',
+      },
+    },
+  },
   render: args => ({
     components: { Modal, Button },
     setup: () => ({ args }),

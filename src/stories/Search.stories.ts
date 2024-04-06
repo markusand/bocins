@@ -6,9 +6,27 @@ const meta = {
   title: 'Search',
   component: Search,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Enter search queries to retrieve relevant results from a dataset or database.',
+      },
+    },
+  },
   argTypes: {
-    placeholder: { control: 'text' },
-    width: { control: 'text' },
+    clearable: { description: 'Enable the clear button.' },
+    block: { description: 'Display as a block input.' },
+    disabled: { description: 'Disable the input.' },
+    invalid: { description: 'Set state to invalid.' },
+    suffix: { description: 'The suffix text to display after the input.' },
+    placeholder: {
+      description: 'The text to display when the input is empty.',
+      control: 'text',
+    },
+    width: {
+      description: 'The width of the input. Can be a number (in rem) or any string representing length and unit.',
+      control: 'text',
+    },
   },
   args: {
     width: undefined,

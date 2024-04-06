@@ -5,8 +5,17 @@ const meta = {
   title: 'Icon',
   component: Icon,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'A visual symbol or representation of information or actions.',
+      },
+    },
+  },
   argTypes: {
+    src: { description: 'The source of the icon' },
     size: {
+      description: 'The size of the icon',
       control: 'radio',
       options: [undefined, 'small', 'medium', 'large'],
     },

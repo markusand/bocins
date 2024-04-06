@@ -6,6 +6,13 @@ const meta = {
   title: 'Accordion',
   component: Accordion,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Expand one section of content while collapsing others.',
+      },
+    },
+  },
 } satisfies Meta<typeof Accordion>;
 
 export default meta;

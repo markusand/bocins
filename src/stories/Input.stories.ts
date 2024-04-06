@@ -6,12 +6,30 @@ const meta = {
   title: 'Input',
   component: Input,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Accept user input, such as text or numbers.',
+      },
+    },
+  },
   argTypes: {
     type: {
+      description: 'The type of input content.',
       control: 'select',
       options: ['text', 'color', 'password', 'datetime-local', 'email', 'month', 'number', 'search', 'tel', 'time', 'url', 'week'],
     },
-    width: { control: 'text' },
+    placeholder: { description: 'The placeholder text to display when the input is empty.' },
+    clearable: { description: 'Enable the clear button.' },
+    prefix: { description: 'The prefix text to display before the input.' },
+    suffix: { description: 'The suffix text to display after the input.' },
+    disabled: { description: 'Disable the input.' },
+    invalid: { description: 'Set state to invalid.' },
+    block: { description: 'Display as a block input.' },
+    width: {
+      description: 'The width of the input. Can be a number (in rem) or any string representing length and unit.',
+      control: 'text',
+    },
   },
   args: {
     type: 'text',
@@ -42,7 +60,14 @@ export const Base: Story = {
   }),
 };
 
-export const Prefixed: Story = {
+export const Prefix: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Add content to the start (or end) of the input.',
+      },
+    },
+  },
   args: { modelValue: '' },
   render: args => ({
     components: { Input, Icon },

@@ -19,8 +19,21 @@ const meta = {
   title: 'Picker',
   component: Picker,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Select or pick values from a set of options.',
+      },
+    },
+  },
   argTypes: {
+    options: { description: 'List of options to display.' },
+    keyAttr: { description: 'A key attribute used to uniquely identify each option.' },
+    columns: { description: 'The number of columns to arrange the toggler items in' },
+    invalid: { description: 'Set state to invalid.' },
+    disabled: { description: 'Disable the picker.' },
     formatter: {
+      description: 'The formatter function to display options in a custom format.',
       control: 'select',
       options: formatters,
     },
@@ -46,6 +59,13 @@ export const Base: Story = {
 };
 
 export const SingleChoice: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Allow only one option to be selected.',
+      },
+    },
+  },
   args: {
     modelValue: undefined,
   },
@@ -60,7 +80,7 @@ export const SingleChoice: Story = {
 };
 
 
-export const SlotContent: Story = {
+export const CustomOption: Story = {
   args: {
     modelValue: [],
     columns: 2,

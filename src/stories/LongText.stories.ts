@@ -6,10 +6,31 @@ const meta = {
   title: 'LongText',
   component: LongText,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Multi-line input field to enter and edit large amounts of text.',
+      },
+    },
+  },
   argTypes: {
-    cols: { control: 'text' },
-    rows: { control: 'text' },
-    maxLength: { control: 'number' },
+    placeholder: { description: 'The text to display when the input is empty.' },
+    indentable: { description: 'Enable text indentation.' },
+    cols: {
+      description: 'The width of the input. Can be a number (in rem) or any string representing length and unit.',
+      control: 'text',
+    },
+    rows: {
+      description: 'The height of the input. Can be a number (in rem) or any string representing length and unit.',
+      control: 'text',
+    },
+    maxLength: {
+      description: 'The maximum length of the input.',
+      control: 'number',
+    },
+    disabled: { description: 'Disable the input.' },
+    invalid: { description: 'Set state to invalid.' },
+    block: { description: 'Display as a block input.' },
   },
   args: {
     cols: '20',

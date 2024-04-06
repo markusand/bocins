@@ -8,8 +8,20 @@ const meta = {
   title: 'InputGroup',
   component: InputGroup,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Group and style multiple input elements together.',
+      },
+    },
+  },
   argTypes: {
-    width: { control: 'text' },
+    width: {
+      description: 'The width of the input group. Can be a number (in rem) or any string representing length and unit.',
+      control: 'text',
+    },
+    block: { description: 'Display as a block input group.' },
+    disabled: { description: 'Disable the input group.' },
   },
   args: {
     block: false,

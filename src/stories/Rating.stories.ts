@@ -6,6 +6,20 @@ const meta = {
   title: 'Rating',
   component: Rating,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Provide feedback or rate items.',
+      },
+    },
+  },
+  argTypes: {
+    max: {
+      description: 'The maximum value of the rating.',
+      control: 'number',
+    },
+    disabled: { description: 'Disable the rating.' },
+  },
   args: {
     max: 5,
     disabled: false,
@@ -29,6 +43,13 @@ export const Base: Story = {
 };
 
 export const HeartsRange: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use custom icons to represent your rating range.',
+      },
+    },
+  },
   args: { modelValue: undefined },
   render: args => ({
     components: { Rating, Icon },
