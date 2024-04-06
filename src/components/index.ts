@@ -7,6 +7,7 @@ export { default as Button, type ButtonProps } from './Button.vue';
 export { default as ButtonGroup, type ButtonGroupProps } from './ButtonGroup.vue';
 export { default as Chip, type ChipProps } from './Chip.vue';
 export { default as Divider } from './Divider.vue';
+export { default as Carousel } from './Carousel.vue';
 export { default as ImageExpand } from './ImageExpand.vue';
 export { default as Dropdown } from './Dropdown.vue';
 export {
