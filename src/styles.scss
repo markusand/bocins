@@ -5,9 +5,9 @@
 };
 
 %invalid {
-  --color-border: var(--color-error, red);
-  --color-text: var(--color-error, red);
-  --color-bg: color-mix(in srgb, var(--color-error, red) 5%, transparent);
+  --color-border: var(--color-error, red) !important;
+  --color-text: var(--color-error, red) !important;
+  --color-bg: color-mix(in srgb, var(--color-error, red) 5%, transparent) !important;
 }
 
 %panel {

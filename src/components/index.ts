@@ -38,3 +38,4 @@ export { default as InputGroup } from './ButtonGroup.vue';
 export { default as FileDrop } from './FileDrop.vue';
 export { default as Modal } from './Modal.vue';
 export { default as TreeList, type TreeListProps, type TreeNode } from './TreeList.vue';
+export { default as Passcode, type PasscodeProps } from './Passcode.vue';
