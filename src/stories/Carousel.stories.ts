@@ -48,7 +48,7 @@ export const Base: Story = {
   render: args => ({
     components: { Carousel, Cover },
     setup: () => ({ args }),
-    template: `<Carousel v-bind="args" style="height:400px">
+    template: `<Carousel v-bind="args">
       <template #default="{ item }">
         <Cover :src="item.url" :license="\`photo by \${item.author} on Unsplash\`" />
       </template>
