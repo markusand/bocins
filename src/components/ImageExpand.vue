@@ -36,7 +36,6 @@ const expanded = ref(false);
   display: inline-block;
   position: relative;
   background: var(--color-bg, #000d);
-  border-radius: 0.25rem;
   overflow: hidden;
   max-width: 100%;
 
@@ -61,7 +60,6 @@ const expanded = ref(false);
     height: 100%;
     width: 100%;
     z-index: 9999;
-    border-radius: 0;
   }
 }
 </style>
