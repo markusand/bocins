@@ -120,8 +120,8 @@ const status = (day: Date) => {
     end: Array.isArray(selected.value)
       ? isEqual(day, selected.value[1])
       : isEqual(day, selected.value),
-    in: Array.isArray(selected.value) && isBetween(day, selected.value[0], selected.value[1]),
-    out: !isBetween(day, monthStart(cursor.value), monthEnd(cursor.value), true),
+    range: Array.isArray(selected.value) && isBetween(day, selected.value[0], selected.value[1]),
+    off: !isBetween(day, monthStart(cursor.value), monthEnd(cursor.value), true),
     disabled: isInvalid(day),
   };
 };
@@ -208,7 +208,7 @@ const years = computed(() => {
       font-weight: bold;
     }
     
-    &.in button { --color-bg: var(--color-range); }
+    &.range button { --color-bg: var(--color-range); }
 
     &.start,
     &.end {
@@ -239,7 +239,7 @@ const years = computed(() => {
       }
     }
 
-    &.out { opacity: 0.25; }
+    &.off { opacity: 0.25; }
 
     &.disabled { @extend %disabled; }
   }
