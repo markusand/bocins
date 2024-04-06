@@ -18,9 +18,9 @@ const meta = {
     alt: { description: 'The alternative text for the image.' },
   },
   args: {
-    src: 'https://images.unsplash.com/photo-1476673160081-cf065607f449?q=80&w=1400',
-    thumbnail: 'https://images.unsplash.com/photo-1476673160081-cf065607f449?q=80&w=200',
-    alt: 'Beach',
+    src: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1400',
+    thumbnail: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=200',
+    alt: 'photo by Bailey Zindel on Unsplash',
   },
 } satisfies Meta<typeof ImageExpand>;
 

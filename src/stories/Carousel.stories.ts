@@ -1,11 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { Carousel } from '/@/components';
+import Cover from './Cover.vue';
 
 const items = [
-  'https://images.unsplash.com/photo-1639182946622-7de9d7efa6b4?q=80&h=700',
-  'https://images.unsplash.com/photo-1474511320723-9a56873867b5?q=80&h=500',
-  'https://images.unsplash.com/photo-1644891153709-188147e8e8d6?q=80&h=700',
-  'https://images.unsplash.com/photo-1470165511815-34e78ff7a111?q=80&h=500',
+  { url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=900', author: 'Bailey Zindel' },
+  { url: 'https://images.unsplash.com/photo-1413752362258-7af2a667b590?q=80&w=900', author: 'Ales Krivec' },
+  { url: 'https://images.unsplash.com/photo-1506260408121-e353d10b87c7?q=80&w=900', author: 'Claudio Testa' },
+  { url: 'https://images.unsplash.com/photo-1513875528452-39400945934d?q=80&w=900', author: 'Rodrigo Soares' },
 ];
 
 const meta = {
@@ -45,11 +46,11 @@ type Story = StoryObj<typeof meta>;
 export const Base: Story = {
   args: {},
   render: args => ({
-    components: { Carousel },
+    components: { Carousel, Cover },
     setup: () => ({ args }),
     template: `<Carousel v-bind="args" style="height:400px">
       <template #default="{ item }">
-        <img :src="item" style="display:block;height:100%;width:100%;object-fit:cover" />
+        <Cover :src="item.url" :license="\`photo by \${item.author} on Unsplash\`" />
       </template>
     </Carousel>`,
   }),
