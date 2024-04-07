@@ -13,6 +13,7 @@ import Button, { type ButtonProps } from './Button.vue';
 
 export type ToggleButtonProps<T> = {
   value?: T;
+  required?: boolean; 
 } & ButtonProps;
 
 const props = defineProps<ToggleButtonProps<T>>();
@@ -38,7 +39,7 @@ const toggle = () => {
       ? selected.value.includes(props.value)
         ? selected.value.filter(value => value !== props.value)
         : [...selected.value, props.value]
-      : selected.value
+      : selected.value === props.value && !props.required
         ? undefined
         : props.value;
 };

@@ -14,10 +14,10 @@ const meta = {
     },
   },
   argTypes: {
-    text: { description: 'The text to display on the button.' },
     block: { description: 'Display as a block input.' },
     disabled: { description: 'Disable the button.' },
     even: { description: 'Display as an even button.' },
+    required: { description: 'Button cannot toggle to undefined.' },
     variant: {
       description: 'The appearance of the button.',
       control: 'select',
@@ -32,6 +32,7 @@ const meta = {
       description: 'The width of the button. Can be a number (in rem) or any string representing length and unit.',
       control: 'text',
     },
+    value: { description: 'The value of the toggler.' },
   },
   args: {
     variant: undefined,
@@ -39,7 +40,9 @@ const meta = {
     width: undefined,
     block: false,
     even: false,
+    required: false,
     disabled: false,
+    value: undefined,
   },
 } satisfies Meta<typeof ToggleButton>;
 
@@ -79,11 +82,34 @@ export const SingleValue: Story = {
   }),
 };
 
-export const MultipleValues: Story = {
+export const SingleChoice: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Toggle multiple values.',
+        story: 'Toggle a single choice between multiple values.',
+      },
+    },
+  },
+  args: { modelValue: undefined },
+  render: args => ({
+    components: { ToggleButton, ButtonGroup },
+    setup: () => {
+      const value = ref(args.modelValue);
+      return { args, value };
+    },
+    template: `<ButtonGroup>
+      <ToggleButton v-model="value" value="good" required>Good</ToggleButton>
+      <ToggleButton v-model="value" value="cheap" required>Cheap</ToggleButton>
+      <ToggleButton v-model="value" value="pretty" required>Pretty</ToggleButton>
+    </ButtonGroup>`,
+  }),
+};
+
+export const MultipleChoices: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Toggle multiple choices.',
       },
     },
   },
