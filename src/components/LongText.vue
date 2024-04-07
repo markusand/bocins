@@ -18,8 +18,8 @@ import { toWidth, toHeight } from '/@/utils';
 
 export type LongTextProps = {
   maxLength?: number | string;
-  cols?: number | string;
-  rows?: number | string;
+  width?: number | string;
+  height?: number | string;
   placeholder?: string;
   block?: boolean;
   disabled?: boolean;
@@ -29,8 +29,8 @@ export type LongTextProps = {
 
 const props = withDefaults(defineProps<LongTextProps>(), {
   maxLength: undefined,
-  cols: 20,
-  rows: 5,
+  width: 20,
+  height: 5,
   placeholder: '',
 });
 
@@ -47,8 +47,8 @@ const handleTab = (event: KeyboardEvent) => {
 };
 
 const dimensions = computed(() => ({
-  ...toWidth(props.cols),
-  ...toHeight(props.rows),
+  ...toWidth(props.width),
+  ...toHeight(props.height),
 }));
 
 const modifiers = computed(() => {

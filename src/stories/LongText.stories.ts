@@ -16,11 +16,11 @@ const meta = {
   argTypes: {
     placeholder: { description: 'The text to display when the input is empty.' },
     indentable: { description: 'Enable text indentation.' },
-    cols: {
+    width: {
       description: 'The width of the input. Can be a number (in rem) or any string representing length and unit.',
       control: 'text',
     },
-    rows: {
+    height: {
       description: 'The height of the input. Can be a number (in rem) or any string representing length and unit.',
       control: 'text',
     },
@@ -33,8 +33,8 @@ const meta = {
     block: { description: 'Display as a block input.' },
   },
   args: {
-    cols: '20',
-    rows: '5',
+    width: '20',
+    height: '5',
     placeholder: 'LongText',
     disabled: false,
     invalid: false,
