@@ -26,7 +26,7 @@ export { default as LongText, type LongTextProps } from './LongText.vue';
 export { default as ChipsInput, type ChipsInputProps } from './ChipsInput.vue';
 export { default as Rating } from './Rating.vue';
 export { default as Switch } from './Switch.vue';
-export { default as ToggleButton } from './ToggleButton.vue';
+export { default as ToggleButton, type ToggleButtonProps } from './ToggleButton.vue';
 export { default as Toggler, type TogglerProps } from './Toggler.vue';
 export { default as Picker, type PickerProps } from './Picker.vue';
 export { default as ListBox, type ListBoxProps } from './ListBox.vue';
