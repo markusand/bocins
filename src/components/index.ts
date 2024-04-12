@@ -18,6 +18,8 @@ export {
 } from './ContextualMenu.vue';
 export { default as Accordion } from './Accordion.vue';
 export { default as Collapser, type CollapserProps } from './Collapser.vue';
+export { default as Tabs } from './Tabs.vue';
+export { default as TabView, type Tab } from './TabView.vue';
 export { default as Input, type InputProps } from './Input.vue';
 export { default as Password, type PasswordProps } from './Password.vue';
 export { default as Stepper, type StepperProps } from './Stepper.vue';
