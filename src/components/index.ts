@@ -42,3 +42,5 @@ export { default as Modal } from './Modal.vue';
 export { default as TreeList, type TreeListProps, type TreeNode } from './TreeList.vue';
 export { default as Passcode, type PasscodeProps } from './Passcode.vue';
 export { default as Pagination, type PaginationProps } from './Pagination.vue';
+export { default as Popover } from './Popover.vue';
+export { default as Tooltip } from './Tooltip.vue';
