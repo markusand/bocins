@@ -13,8 +13,8 @@
     "lint": "eslint src && stylelint 'src/**/*.scss'",
     "build": "vite build",
     "prepare": "npm run build",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "dev": "storybook dev -p 6006",
+    "build:stories": "storybook build"
   },
   "keywords": [],
   "author": "",
