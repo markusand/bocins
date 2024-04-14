@@ -11,7 +11,10 @@ export default defineConfig({
   },
   plugins: [
     vue({ script: { defineModel: true } }),
-    dts({ insertTypesEntry: true }),
+    dts({
+      insertTypesEntry: true,
+      exclude: ['src/stories/**/*'],
+    }),
   ],
   build: {
     lib: {
