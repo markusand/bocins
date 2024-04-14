@@ -50,9 +50,6 @@
     "vite-plugin-dts": "^3.5.3",
     "vue": "^3.3.4"
   },
-  "dependencies": {
-    "date-fns": "^2.29.3"
-  },
   "peerDependencies": {
     "vue": "^3.3.0"
   }
