@@ -16,7 +16,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/components/index.ts'),
-      name: 'vue-ui',
+      name: 'bocins',
       fileName: 'index',
     },
     rollupOptions: {
