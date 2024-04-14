@@ -7,16 +7,16 @@
     </ListBox>
     <div class="controls">
       <Button :disabled="!isAddable(pool)" even @click="addItems()">
-        <Icon src="/@/assets/icons/chevrons-right.svg" />
+        <Icon src="/icons/chevrons-right.svg" />
       </Button>
       <Button :disabled="!isAddable(toAdd)" even @click="addItems(toAdd)">
-        <Icon src="/@/assets/icons/chevron-right.svg" />
+        <Icon src="/icons/chevron-right.svg" />
       </Button>
       <Button :disabled="!isRemoveable(toRemove)" even @click="removeItems(toRemove)">
-        <Icon src="/@/assets/icons/chevron-right.svg" class="remove" />
+        <Icon src="/icons/chevron-right.svg" class="remove" />
       </Button>
       <Button :disabled="!isRemoveable(selected)" even @click="removeItems()">
-        <Icon src="/@/assets/icons/chevrons-right.svg" class="remove" />
+        <Icon src="/icons/chevrons-right.svg" class="remove" />
       </Button>
     </div>
     <ListBox v-bind="props" v-model="toRemove" :options="selected">

@@ -3,7 +3,7 @@
     <template #toggler>
       <slot name="toggler">
         <Button :disabled="props.disabled" even>
-          <Icon src="/@/assets/icons/more.svg" />
+          <Icon src="/icons/more.svg" />
         </Button>
       </slot>
     </template>

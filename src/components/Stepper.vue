@@ -7,12 +7,12 @@
     class="stepper">
     <template #prefix>
       <button :disabled="isMin" @click.stop="decrease()">
-        <Icon src="/@/assets/icons/minus.svg" />
+        <Icon src="/icons/minus.svg" />
       </button>
     </template>
     <template #suffix>
       <button :disabled="isMax" @click.stop="increase()">
-        <Icon src="/@/assets/icons/plus.svg" />
+        <Icon src="/icons/plus.svg" />
       </button>
     </template>
   </Input>

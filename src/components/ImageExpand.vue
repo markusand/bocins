@@ -5,8 +5,8 @@
       <div class="controls">
         <slot name="controls" />
         <ToggleButton v-model="expanded" even @click.prevent>
-          <Icon v-if="expanded" src="/@/assets/icons/collapse.svg" />
-          <Icon v-else src="/@/assets/icons/expand.svg" />
+          <Icon v-if="expanded" src="/icons/collapse.svg" />
+          <Icon v-else src="/icons/expand.svg" />
         </ToggleButton>
       </div>
     </picture>

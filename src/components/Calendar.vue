@@ -7,7 +7,7 @@
         :disabled="props.disabled"
         even
         @click="month = month - 1">
-        <Icon src="/@/assets/icons/chevron-right.svg" class="prev" />
+        <Icon src="/icons/chevron-right.svg" class="prev" />
       </Button>
       <Selector
         v-model="month" 
@@ -21,7 +21,7 @@
         :disabled="props.disabled"
         even
         @click="month = month + 1">
-        <Icon src="/@/assets/icons/chevron-right.svg" />
+        <Icon src="/icons/chevron-right.svg" />
       </Button>
     </header>
     <ul class="weekdays">

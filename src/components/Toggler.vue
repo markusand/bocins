@@ -66,7 +66,7 @@ const modifiers = computed(() => {
     &:checked {
       background:
         var(--color-bg)
-        url('/@/assets/icons/check.svg')
+        url('/icons/check.svg')
         no-repeat
         center center
         !important;

@@ -9,7 +9,7 @@
             <slot v-if="Array.isArray(selected)" name="dates" :dates="selected">
               <div class="range-dates">
                 <span>{{ props.formatter?.(selected[0]) ?? selected[0] }}</span>
-                <Icon src="/@/assets/icons/arrow-right.svg" class="separator" />
+                <Icon src="/icons/arrow-right.svg" class="separator" />
                 <span>{{ props.formatter?.(selected[1]) ?? selected[1] }}</span>
               </div>
             </slot>
@@ -23,9 +23,9 @@
         </div>
         <Icon
           v-if="props.clearable && isSelected(selected)"
-          src="/@/assets/icons/close.svg"
+          src="/icons/close.svg"
           @click="clear" />
-        <Icon v-else src="/@/assets/icons/chevron-down.svg" />
+        <Icon v-else src="/icons/chevron-down.svg" />
       </div>
     </template>
     <Calendar v-model="selected" v-bind="props">

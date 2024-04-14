@@ -2,7 +2,7 @@
   <label :class="['file-drop', modifiers]" :style="size" v-on="onDragDrop">
     <input v-bind="input" type="file" @change="onChange">
     <slot v-if="!files.length">
-      <Icon src="/@/assets/icons/plus.svg" size="medium" />
+      <Icon src="/icons/plus.svg" size="medium" />
       <em>{{ props.label || 'Click or Drop files' }}</em>
     </slot>
     <slot v-else name="files" :files="files" :remove="remove">

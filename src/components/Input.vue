@@ -20,7 +20,7 @@
       @copy="emit('copy', $event)">
     <Icon
       v-if="props.clearable && value"
-      src="/@/assets/icons/close.svg"
+      src="/icons/close.svg"
       class="close"
       @click="clear" />
     <slot name="suffix">{{ props.suffix }}</slot>

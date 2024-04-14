@@ -6,7 +6,7 @@
           {{ props.title }}
         </slot>
       </div>
-      <Icon src="/@/assets/icons/chevron-down.svg" class="chevron" />
+      <Icon src="/icons/chevron-down.svg" class="chevron" />
     </summary>
     <div class="content">
       <slot :open="hasBeenOpen" />

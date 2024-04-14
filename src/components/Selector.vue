@@ -21,9 +21,9 @@
         </div>
         <Icon
           v-if="props.clearable && isSelected(selected)"
-          src="/@/assets/icons/close.svg"
+          src="/icons/close.svg"
           @click="clear" />
-        <Icon v-else src="/@/assets/icons/chevron-down.svg" />
+        <Icon v-else src="/icons/chevron-down.svg" />
       </div>
     </template>
     <ListBox v-model="selected" v-bind="props" width="auto">

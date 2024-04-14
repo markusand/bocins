@@ -8,7 +8,7 @@
           :disabled="props.disabled"
           block>
           {{ props.label }}
-          <Icon src="/@/assets/icons/chevron-down.svg" class="chevron" />
+          <Icon src="/icons/chevron-down.svg" class="chevron" />
         </Button>
       </slot>
     </div>

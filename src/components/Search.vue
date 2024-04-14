@@ -5,7 +5,7 @@
     class="search"
     type="search">
     <template #prefix>
-      <Icon src="/@/assets/icons/search.svg" />
+      <Icon src="/icons/search.svg" />
     </template>
   </Input>
 </template>
