@@ -19,7 +19,7 @@ const actions: ContextualMenuActions<User, UserActions>[] = [
     ],
   }, {
     actions: [
-      { id: 'delete', label: 'Delete', icon: '/@/stories/assets/trash.svg', type: 'delete', onClick: console.log }
+      { id: 'delete', label: 'Delete', icon: '/@/stories/assets/trash.svg', type: 'delete', onClick: console.log },
     ],
   },
 ];

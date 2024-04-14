@@ -6,23 +6,6 @@ import { users, type User } from './assets/users';
 
 const formatters = [undefined, (item: any) => item.name];
 
-const args = {
-  keyAttr: 'name',
-  placeholder: 'Select...',
-  clearable: true,
-  top: false,
-  right: false,
-  width: undefined,
-  block: false,
-  formatter: formatters[1],
-  search: undefined,
-  searchText: 'Search user...',
-  emptyText: 'No users found',
-  invalid: false,
-  disabled: false,
-  options: users,
-} satisfies SelectorProps<User>;
-
 const meta = {
   title: 'Selector',
   component: Selector,
@@ -62,7 +45,22 @@ const meta = {
     },
   },
   // @ts-expect-error keyAttr is not infered from generic
-  args,
+  args: {
+    keyAttr: 'name',
+    placeholder: 'Select...',
+    clearable: true,
+    top: false,
+    right: false,
+    width: undefined,
+    block: false,
+    formatter: formatters[1],
+    search: undefined,
+    searchText: 'Search user...',
+    emptyText: 'No users found',
+    invalid: false,
+    disabled: false,
+    options: users,
+  } satisfies SelectorProps<User>,
 } satisfies Meta<typeof Selector>;
 
 export default meta;

@@ -6,17 +6,6 @@ import { users, type User } from '/@/stories/assets/users';
 
 const formatters = [undefined, (item: any) => item.name];
 
-const args = {
-  options: users,
-  keyAttr: 'name',
-  formatter: formatters[1],
-  search: undefined,
-  searchText: 'Search user...',
-  emptyText: 'No users found',
-  invalid: false,
-  disabled: false,
-} satisfies ListBoxProps<User>;
-
 const meta = {
   title: 'ListBox',
   component: ListBox,
@@ -46,7 +35,16 @@ const meta = {
       options: formatters,
     },
   },
-  args,
+  args: {
+    options: users,
+    keyAttr: 'name',
+    formatter: formatters[1],
+    search: undefined,
+    searchText: 'Search user...',
+    emptyText: 'No users found',
+    invalid: false,
+    disabled: false,
+  } satisfies ListBoxProps<User>,
 } satisfies Meta<typeof ListBox>;
 
 export default meta;

@@ -6,15 +6,6 @@ import { users, type User } from '/@/stories/assets/users';
 
 const formatters = [undefined, (item: any) => item.name];
 
-const args = {
-  options: users,
-  keyAttr: 'name',
-  formatter: formatters[1],
-  columns: 0,
-  invalid: false,
-  disabled: false,
-} satisfies PickerProps<User>;
-
 const meta = {
   title: 'Picker',
   component: Picker,
@@ -39,7 +30,14 @@ const meta = {
     },
   },
   // @ts-expect-error keyAttr is not infered from generic 
-  args,
+  args: {
+    options: users,
+    keyAttr: 'name',
+    formatter: formatters[1],
+    columns: 0,
+    invalid: false,
+    disabled: false,
+  } satisfies PickerProps<User>,
 } satisfies Meta<typeof Picker>;
 
 export default meta;

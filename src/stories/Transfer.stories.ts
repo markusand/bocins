@@ -6,18 +6,6 @@ import { users, type User } from '/@/stories/assets/users';
 
 const formatters = [undefined, (item: any) => item.name];
 
-const args = {
-  limit: 0,
-  options: users,
-  keyAttr: 'name',
-  formatter: formatters[1],
-  search: undefined,
-  searchText: 'Search user...',
-  emptyText: 'No users found',
-  invalid: false,
-  disabled: false,
-} satisfies TransferProps<User>;
-
 const meta = {
   title: 'Transfer',
   component: Transfer,
@@ -49,7 +37,17 @@ const meta = {
     disabled: { description: 'Set as disabled state.' },
   },
   // @ts-expect-error keyAttr is not infered from generic 
-  args,
+  args: {
+    limit: 0,
+    options: users,
+    keyAttr: 'name',
+    formatter: formatters[1],
+    search: undefined,
+    searchText: 'Search user...',
+    emptyText: 'No users found',
+    invalid: false,
+    disabled: false,
+  } satisfies TransferProps<User>,
 } satisfies Meta<typeof Transfer>;
 
 export default meta;
