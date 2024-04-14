@@ -13,6 +13,7 @@ const meta = {
     },
   },
   argTypes: {
+    label: { description: 'The text to display on the toggler button.' },
     width: {
       description: 'The width of the dropdown. Can be a number (in rem) or any string representing length and unit.',
       control: 'text',
@@ -24,12 +25,12 @@ const meta = {
     toggler: { description: 'The toggler options' },
   },
   args: {
+    label: '',
     top: false,
     right: false,
     block: false,
     disabled: false,
     toggler: {
-      text: '',
       variant: undefined,
       size: undefined,
     },

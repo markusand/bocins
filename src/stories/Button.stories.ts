@@ -14,7 +14,6 @@ const meta = {
     },
   },
   argTypes: {
-    text: { description: 'The text to display on the button.' },
     variant: {
       description: 'The variant to use for the button.',
       control: 'select',

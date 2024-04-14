@@ -4,10 +4,10 @@
       <slot name="toggler">
         <Button
           v-bind="props.toggler"
-          :even="!props.toggler?.text"
+          :even="!props.label"
           :disabled="props.disabled"
           block>
-          {{ props.toggler?.text }}
+          {{ props.label }}
           <Icon src="/@/assets/icons/chevron-down.svg" class="chevron" />
         </Button>
       </slot>
@@ -25,12 +25,13 @@ import Button, { type ButtonProps } from './Button.vue';
 import { toWidth } from '/@/utils';
 
 export type DropdownProps = {
+  label?: string; 
   top?: boolean;
   right?: boolean;
   disabled?: boolean;
   block?: boolean;
   width?: number | string;
-  toggler?: Omit<ButtonProps, 'block' | 'even' | 'width' | 'disabled'>;
+  toggler?: Omit<ButtonProps, 'block' | 'width' | 'disabled'>;
 };
 
 const props = defineProps<DropdownProps>();
