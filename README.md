@@ -10,13 +10,23 @@ Collection of reusable UI components for Vue 3 that can be used standalone or co
 
 ## Get started
 
-Install bocins with npm
+Install the library
 
 ```bash
 npm i bocins
 ```
 
-Import components directly in your vue files
+Import styles in your entry point file
+
+```ts
+import 'bocins/dist/style.css';
+```
+
+Copy icons from `/node_modules/bocins/dist/icons` to `/public/icons/`, or replace them with your own.
+
+## Usage
+
+Import and use components directly in your vue files
 
 ```html
 <template>
@@ -37,6 +47,6 @@ const user = ref<User>();
 </script>
 
 <style scoped>
-.b-avatar { --size: 1.5rem; }
+.avatar { --size: 1.5rem; }
 </style>
 ```
