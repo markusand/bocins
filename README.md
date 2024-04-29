@@ -16,13 +16,46 @@ Install the library
 npm i bocins
 ```
 
-Import styles in your entry point file
+Default icons are copied from `/node_modules/bocins/dist/icons` to `/public/icons/`. Replace them to use your own icons. Existing icons won't be replaced.
+
+Import styles in your app entry point file or in your styles entry point
 
 ```ts
+// main.ts
 import 'bocins/dist/style.css';
+
+// main.scss
+@import 'bocins/dist/style.css';
 ```
 
-Default icons are copied from `/node_modules/bocins/dist/icons` to `/public/icons/`. Replace them to use your own icons. Existing icons won't be replaced.
+You can customize the theme using CSS variables and extending some base styles
+
+```css
+:root {
+  font-size: 16px;
+  font-family: system-ui, Arial, sans-serif;
+
+  color-scheme: light dark;
+
+  --color-bg: light-dark(#f8f8f8, #333);
+  --color-text: light-dark(#333, #efefec);
+  --color-error: #d33;
+  --color-accent: #39f;
+  --color-btn: var(--color-accent);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.btn[alert] { --color: var(--color-error); }
+
+.switch {
+  --color-on: lightgreen;
+  --color-off: var(--color-error);
+}
+```
 
 ## Usage
 
