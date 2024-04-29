@@ -7,7 +7,8 @@
         :key="id"
         :disabled="disabled"
         :class="{ active }"
-        @click="activate(id)">
+        type="button"
+        @click.prevent="activate(id)">
         <slot v-bind="{ label, active }" :name="id">
           <slot v-bind="{ id, label, active }" name="tab">
             {{ label ?? id }}

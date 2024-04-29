@@ -5,8 +5,8 @@
     :type="type"
     :class="['password', strength.level]">
     <template #suffix>
-      <Icon v-if="revealed" src="/icons/eye.svg" @click="toggle" />
-      <Icon v-else src="/icons/eye-off.svg" @click="toggle" />
+      <Icon v-if="revealed" src="/icons/eye.svg" @click.prevent="toggle" />
+      <Icon v-else src="/icons/eye-off.svg" @click.prevent="toggle" />
     </template>
   </Input>
 </template>

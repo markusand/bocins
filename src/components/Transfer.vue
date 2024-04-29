@@ -6,16 +6,16 @@
       </template>
     </ListBox>
     <div class="controls">
-      <Button :disabled="!isAddable(pool)" even @click="addItems()">
+      <Button :disabled="!isAddable(pool)" even @click.prevent="addItems()">
         <Icon src="/icons/chevrons-right.svg" />
       </Button>
-      <Button :disabled="!isAddable(toAdd)" even @click="addItems(toAdd)">
+      <Button :disabled="!isAddable(toAdd)" even @click.prevent="addItems(toAdd)">
         <Icon src="/icons/chevron-right.svg" />
       </Button>
-      <Button :disabled="!isRemoveable(toRemove)" even @click="removeItems(toRemove)">
+      <Button :disabled="!isRemoveable(toRemove)" even @click.prevent="removeItems(toRemove)">
         <Icon src="/icons/chevron-right.svg" class="remove" />
       </Button>
-      <Button :disabled="!isRemoveable(selected)" even @click="removeItems()">
+      <Button :disabled="!isRemoveable(selected)" even @click.prevent="removeItems()">
         <Icon src="/icons/chevrons-right.svg" class="remove" />
       </Button>
     </div>

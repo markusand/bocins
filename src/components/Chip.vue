@@ -3,6 +3,7 @@
     <slot>{{ props.text }}</slot>
     <button
       v-if="props.close"
+      type="button"
       class="close"
       @click.prevent="props.close">
       <slot name="close">&times;</slot>

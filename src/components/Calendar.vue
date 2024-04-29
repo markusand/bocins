@@ -6,7 +6,7 @@
         size="small"
         :disabled="props.disabled"
         even
-        @click="month = month - 1">
+        @click.prevent="month = month - 1">
         <Icon src="/icons/chevron-right.svg" class="prev" />
       </Button>
       <Selector
@@ -20,7 +20,7 @@
         size="small"
         :disabled="props.disabled"
         even
-        @click="month = month + 1">
+        @click.prevent="month = month + 1">
         <Icon src="/icons/chevron-right.svg" />
       </Button>
     </header>
@@ -30,7 +30,7 @@
     <ul class="days">
       <li v-for="day in days" :key="day.getTime()" :class="['day', status(day)]">
         <slot name="day" :day="day" :select="select">
-          <button @click="select(day)">
+          <button type="button" @click.prevent="select(day)">
             {{ day.getDate() }}
           </button>
         </slot>

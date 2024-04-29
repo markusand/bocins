@@ -3,7 +3,7 @@
     class="input"
     :class="modifiers"
     :style="width"
-    @click="onClick">
+    @click.prevent="onClick">
     <slot name="prefix">{{ props.prefix }}</slot>
     <input
       v-model="value"
@@ -22,7 +22,7 @@
       v-if="props.clearable && value"
       src="/icons/close.svg"
       class="close"
-      @click="clear" />
+      @click.prevent="clear" />
     <slot name="suffix">{{ props.suffix }}</slot>
   </div>
 </template>

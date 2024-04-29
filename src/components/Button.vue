@@ -1,6 +1,7 @@
 <template>
   <button
     class="btn"
+    type="button"
     :class="modifiers"
     :style="width"
     :disabled="props.disabled">

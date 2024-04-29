@@ -18,7 +18,7 @@
               v-bind="action.type ? { [action.type]: true } : {}"
               variant="flat"
               block
-              @click="action.onClick(props.item)">
+              @click.prevent="action.onClick(props.item)">
               <Icon v-if="action.icon" :src="action.icon" />
               {{ action.label ?? action.id }}
             </Button>

@@ -8,7 +8,13 @@
       @cancel="handleEscape"
       @close="close">
       <slot name="close" :close="close">
-        <button v-if="props.closeable" class="modal__close" @click="close">&times;</button>
+        <button
+          v-if="props.closeable"
+          type="button"
+          class="modal__close"
+          @click.prevent="close">
+          &times;
+        </button>
       </slot>
       <section class="modal__content">
         <slot :close="close" />

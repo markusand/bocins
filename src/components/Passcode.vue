@@ -2,7 +2,7 @@
   <fieldset
     :class="['passcode', { invalid }]"
     :disabled="props.disabled"
-    @click="focusLast">
+    @click.prevent="focusLast">
     <input
       v-for="i in props.length"
       :key="i"

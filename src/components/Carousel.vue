@@ -14,7 +14,10 @@
             :current="i"
             :active="active"
             :goto="() => goto(i)">
-            <button :class="{ active: isActive(i) }" @click="goto(i)" />
+            <button
+              type="button"
+              :class="{ active: isActive(i) }"
+              @click.prevent="goto(i)" />
           </slot>
         </li>
       </ul>

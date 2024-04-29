@@ -1,6 +1,6 @@
 <template>
   <div class="pagination">
-    <Button v-if="props.controls" v-bind="prev" @click="change(-1)">
+    <Button v-if="props.controls" v-bind="prev" @click.prevent="change(-1)">
       <Icon src="/icons/chevron-right.svg" />
     </Button>
     <!-- First page always visible -->
@@ -25,7 +25,7 @@
         {{ props.pages }}
       </ToggleButton>
     </slot>
-    <Button v-if="props.controls" v-bind="next" @click="change(1)">
+    <Button v-if="props.controls" v-bind="next" @click.prevent="change(1)">
       <Icon src="/icons/chevron-right.svg" />
     </Button>
   </div>

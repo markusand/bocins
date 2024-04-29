@@ -10,7 +10,7 @@
         <li v-for="file in files" :key="file.name">
           <slot name="file" :file="file" :remove="remove">
             <span class="file-name">{{ file.name }}</span>
-            <button @click="remove(file)">&times;</button>
+            <button type="button" @click.prevent="remove(file)">&times;</button>
           </slot>
         </li>
       </ul>
