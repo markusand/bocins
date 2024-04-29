@@ -1,89 +1,87 @@
 <template>
-  <Teleport :to="props.to">
+  <Teleport to="body">
     <dialog
       ref="modal"
-      v-bind="$attrs"
-      :style="`width:${props.size}${isNumber(props.size) ? 'rem' : ''}`"
-      class="b-modal"
+      class="modal"
+      v-bind="props"
+      :style="size"
       @cancel="handleEscape"
-      @close="closeModal">
-      <slot name="close" :close="closeModal">
+      @close="close">
+      <slot name="close" :close="close">
         <button
           v-if="props.closeable"
-          class="b-modal__close"
-          @click="closeModal">
+          type="button"
+          class="modal__close"
+          @click.prevent="close">
           &times;
         </button>
       </slot>
-      <section class="b-modal__content">
-        <slot :close="closeModal" />
+      <section class="modal__content">
+        <slot :close="close" />
       </section>
-      <footer v-if="slots.footer" class="b-modal__footer">
-        <slot name="footer" :close="closeModal" />
-      </footer>
     </dialog>
   </Teleport>
-  <slot
-    name="toggle"
-    :open="openModal"
-    :close="closeModal"
-    :toggle="toggleModal" />
+  <slot name="toggler" :open="open" :close="close" :toggle="toggle" />
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
-import { isNumber } from '/@/utils/number';
+import { ref, computed, watch, onMounted } from 'vue';
+import { toWidth, toHeight } from '/@/utils';
 
-type Props = {
-  to?: string;
+type Action = () => void;
+
+export type ModalProps = {
   open?: boolean;
   closeable?: boolean;
-  size?: number | string;
-  backdrop?: boolean;
+  width?: number | string;
+  height?: number | string;
+  plain?: boolean;
 };
 
-const props = withDefaults(defineProps<Props>(), {
-  to: 'body',
-  open: false,
-  size: 20,
-  backdrop: true,
-});
+const props = defineProps<ModalProps>();
 
 const emit = defineEmits<{
-  'update:open': [value: boolean];
+  'update:open': [isOpen: boolean];
   open: [];
   close: [];
-  toggle: [value: boolean];
+  toggle: [isOpen: boolean];
 }>();
 
-const slots = defineSlots<{
-  default?: (props: { close: () => void }) => any;
-  close?: (props: { close: () => void }) => any;
-  footer?: (props: { close: () => void }) => any;
-  toggle?: (props: { open: () => void; close: () => void; toggle: () => void }) => any;
+defineSlots<{
+  default?: (props: { close: Action }) => void;
+  close?: (props: { close: Action }) => void;
+  toggler?: (props: { open: Action; close: Action; toggle: Action }) => void;
 }>();
 
 const modal = ref<HTMLDialogElement>();
 
-const toggleModal = (open = !modal.value?.open || false) => {
-  if (props.open !== undefined) {
-    if (open) {
-      if (props.backdrop) modal.value?.showModal();
-      else modal.value?.show();
-    } else modal.value?.close();
-    emit('toggle', open);
-    emit('update:open', open);
-    if (open) emit('open');
-    else emit('close');
-  }
-  const { clientHeight } = document.body;
-  modal.value?.classList.toggle('constrained', modal.value.offsetHeight > clientHeight * 0.9);
+const size = computed(() => ({
+  ...toWidth(props.width ?? 20),
+  ...toHeight(props.height ?? 'content-fit'),
+}));
+
+const open = () => {
+  if (props.plain) modal.value?.show();
+  else modal.value?.showModal();
+  emit('open');
+  emit('update:open', true);
 };
 
-const openModal = () => toggleModal(true);
-const closeModal = () => toggleModal(false);
+const close = () => {
+  modal.value?.close();
+  emit('close');
+  emit('update:open', false);
+};
 
-watch(() => props.open, toggleModal);
+const toggle = () => {
+  const isOpen = modal.value?.open ?? false;
+  if (isOpen) close();
+  else open();
+  emit('toggle', !isOpen);
+  emit('update:open', !isOpen);
+};
+
+watch(() => props.open, toggle);
 
 const handleEscape = (event: Event) => {
   if (!props.closeable) {
@@ -92,11 +90,46 @@ const handleEscape = (event: Event) => {
   }
 };
 
-onMounted(() => {
-  if (props.open) toggleModal(props.open);
-});
+onMounted(() => props.open && open());
 </script>
 
-<script lang="ts">
-export default { inheritAttrs: false };
-</script>
+<style lang="scss" scoped>
+@import '../styles';
+
+.modal {
+  @extend %panel;
+
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  border: none;
+  max-width: 90%;
+  max-height: 80%;
+  overflow: visible;
+
+  &__close {
+    all: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.125rem;
+    margin: 0.25rem 0.5rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+    opacity: 0.5;
+
+    &:hover { opacity: 1; }
+  }
+
+  &::backdrop { background: var(--color-fade, #0006); }
+}
+</style>
+
+<style>
+dialog::backdrop { background: red; }
+</style>

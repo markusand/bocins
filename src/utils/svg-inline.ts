@@ -31,11 +31,15 @@ const observer = new IntersectionObserver(entries => {
   });
 });
 
-export default {
+export const vSvgInline = {
   mounted(el: HTMLImageElement, { modifiers }: DirectiveBinding) {
     if (el.tagName !== 'IMG') throw new Error('Element must be image');
     const { lazy = true } = modifiers;
     if (lazy) observer.observe(el);
     else replace(el);
+  },
+
+  unmounted(el: HTMLImageElement) {
+    observer.unobserve(el);
   },
 };

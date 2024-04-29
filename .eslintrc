@@ -6,11 +6,13 @@
     "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:vue/vue3-recommended",
-    "@vue/eslint-config-typescript/recommended"
+    "@vue/eslint-config-typescript/recommended",
+    "plugin:storybook/recommended"
   ],
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "node": true
   },
   "parser": "vue-eslint-parser",
   "parserOptions": {
@@ -18,6 +20,7 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["vue", "@typescript-eslint"],
+  "ignores": ["./scripts/*.js"],
   "rules": {
     "max-len": ["error", {
       "code": 100,
@@ -46,7 +49,7 @@
       "multiline": "never"
     }],
     "vue/max-attributes-per-line": ["error", {
-      "singleline": 3,
+      "singleline": 4,
       "multiline": 1
     }],
     "vue/singleline-html-element-content-newline": "off"

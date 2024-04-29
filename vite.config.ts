@@ -11,12 +11,15 @@ export default defineConfig({
   },
   plugins: [
     vue({ script: { defineModel: true } }),
-    dts({ insertTypesEntry: true }),
+    dts({
+      insertTypesEntry: true,
+      exclude: ['src/stories/**/*'],
+    }),
   ],
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/components/index.ts'),
-      name: 'vue-ui',
+      name: 'bocins',
       fileName: 'index',
     },
     rollupOptions: {
