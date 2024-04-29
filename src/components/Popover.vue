@@ -34,8 +34,9 @@ const width = computed(() => toWidth(props.width ?? 'auto'));
   color: var(--color-text, currentcolor);
   padding: var(--spacing, 0);
   border-radius: 0.25rem;
-  box-shadow: 0 0 1rem 0.25rem #8882;
+  box-shadow: var(--shadow, 0 0 1rem 0.25rem #8882);
   display: none;
+  z-index: 2;
 
   &:hover,
   :focus > &,

@@ -65,6 +65,8 @@ const modifiers = computed(() => {
 @import '../styles';
 
 .listbox {
+  --color: var(--color-accent, #333);
+
   @extend %panel;
 
   display: flex;
@@ -93,11 +95,11 @@ const modifiers = computed(() => {
     flex: 1;
     border-radius: 0.25rem;
 
-    &:hover { background: color-mix(in srgb, var(--color, #333) 10%, transparent); }
+    &:hover { background: color-mix(in srgb, var(--color) 10%, transparent); }
 
     :checked + & {
-      background: var(--color, #333);
-      color: var(--color-text, #fff);
+      background: var(--color);
+      color: var(--color-text-accent, #fff);
     }
 
     .invalid :checked + & {
@@ -120,7 +122,7 @@ const modifiers = computed(() => {
   &.disabled { @extend %disabled; }
   
   &.disabled :checked + &__option {
-    background: color-mix(in srgb, var(--color, #333) 25%, transparent);
+    background: color-mix(in srgb, var(--color) 25%, transparent);
   }
 }
 </style>

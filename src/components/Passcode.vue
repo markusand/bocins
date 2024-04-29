@@ -86,12 +86,14 @@ const focusLast = (event: Event) => {
     box-shadow:  0 0 0 var(--border-width, 1px) var(--color-border, #8886);
     color: var(--color-text, currentcolor);
     text-align: center;
-    border-radius: 0.125em;
+    border-radius: var(--radius, 0.125em);
 
     &:not(:placeholder-shown),
     &:focus { --color-border: var(--color-accent, #333); }
 
     &:focus {
+      --color-text: var(--color-accent, #333);
+  
       outline: 0.125em solid color-mix(in srgb, var(--color-accent, #333) 10%, transparent);
     }
   }

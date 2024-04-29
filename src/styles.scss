@@ -33,7 +33,7 @@
   box-shadow: inset 0 0 0 var(--border-width) var(--color-border, #8886);
   border-radius: var(--radius, 0.25em);
   
-  &:focus-within { --color-border: var(--color, #333); }
+  &:focus-within { --color-border: var(--color-accent, #333); }
 
   .placeholder { opacity: 0.5; }
 

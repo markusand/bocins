@@ -42,14 +42,14 @@ const width = computed(() => toWidth(props.width));
 
 <style lang="scss" scoped>
 .btn {
-  --spacing: 0.5rem;
-  --radius: 0.25em;
-  --color: #333;
-  --state-color: var(--color);
+  --spacing: var(--spacing-btn, 0.5rem);
+  --radius: var(--radius-btn, 0.25em);
+  --color: var(--color-btn, #333);
+  --color-text: var(--color-text-btn, #fff);
+  --color-state: var(--color);
   --color-hover: color-mix(in srgb, var(--color) 85%, #000);
   --color-active: color-mix(in srgb, var(--color) 85%, #fff);
   --color-disabled: #8882;
-  --color-text: #fff;
   --border-width: 1px;
 
   all: unset;
@@ -59,8 +59,8 @@ const width = computed(() => toWidth(props.width));
   vertical-align: middle;
   padding: var(--spacing) calc(1.5 * var(--spacing));
   gap: var(--spacing);
-  background: var(--state-color);
-  box-shadow: inset 0 0 0 var(--border-width) var(--state-color);
+  background: var(--color-state);
+  box-shadow: inset 0 0 0 var(--border-width) var(--color-state);
   color: var(--color-text);
   border-radius: var(--radius);
   margin: 1px 0.5px;
@@ -76,21 +76,21 @@ const width = computed(() => toWidth(props.width));
   .btn-group--ghost &,
   &--ghost {
     background: none;
-    color: var(--state-color);
+    color: var(--color-state);
   }
 
   .btn-group--flat &,
   &--flat {
     background: none;
     box-shadow: none;
-    color: var(--state-color);
+    color: var(--color-state);
   }
 
   /* States */
   :disabled &,
   .disabled &,
   &:disabled {
-    --state-color: var(--color-disabled);
+    --color-state: var(--color-disabled);
 
     cursor: not-allowed;
     opacity: 0.5;
@@ -98,10 +98,10 @@ const width = computed(() => toWidth(props.width));
   }
 
   &:not(:disabled) {
-    &:hover { --state-color: var(--color-hover); }
+    &:hover { --color-state: var(--color-hover); }
   
     &:active,
-    &.active { --state-color: var(--color-active); }
+    &.active { --color-state: var(--color-active); }
   }
 
   // stylelint-disable-next-line selector-pseudo-class-no-unknown

@@ -143,9 +143,7 @@ const years = computed(() => {
 /* stylelint-disable selector-pseudo-class-no-unknown */
 .calendar {
   --spacing: 0.5rem;
-  --color-accent: var(--calendar-color-highlight, #333);
-  --color-accent-text: var(--calendar-color-accent-text, #fff);
-  --color-range: color-mix(in srgb, var(--color-accent) 40%, transparent);
+  --color-range: color-mix(in srgb, var(--color-accent, #333) 40%, transparent);
   --radius: 0.25rem;
 
   display: inline-flex;
@@ -165,6 +163,7 @@ const years = computed(() => {
       :deep(.toggler) {
         --spacing: 0;
         --border-width: 0;
+        --color-bg: none !important;
       }
       :deep(.icon) { display: none; }
     }
@@ -199,12 +198,11 @@ const years = computed(() => {
       padding: calc(0.5 * var(--spacing));
       box-sizing: border-box;
       background: var(--color-bg);
-      color: var(--color-text, inherit);
       cursor: pointer;
     }
 
     &.today {
-      color: var(--color-accent);
+      color: var(--color-accent, #333);
       font-weight: bold;
     }
     
@@ -213,8 +211,8 @@ const years = computed(() => {
     &.start,
     &.end {
       button {
-        background: var(--color-accent);
-        color: var(--color-accent-text);
+        background: var(--color-accent, #333);
+        color: var(--color-text-accent, #fff);
         cursor: default;
       }
     }
@@ -249,7 +247,7 @@ const years = computed(() => {
     
     .day {
       --color-bg: none;
-      --color-accent: #8884;
+      --color: #8884;
       --color-range: #8882;
     }
   }

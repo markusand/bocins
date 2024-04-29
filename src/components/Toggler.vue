@@ -81,7 +81,7 @@ const modifiers = computed(() => {
     background: none;
   }
 
-  &:has(:checked) { --color-bg: var(--color, #333); }
+  &:has(:checked) { --color-bg: var(--color-accent, #333); }
 
   &.invalid { --color-bg: var(--color-error, red); }
   &:has(:disabled) { @extend %disabled; }

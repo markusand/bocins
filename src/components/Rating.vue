@@ -23,6 +23,7 @@ const rating = defineModel<number | undefined>({ required: true });
 <style lang="scss" scoped>
 .rating {
   --size: 1.25rem;
+  --color: #fdcf10;
 
   padding: 0;
   border: 0;
@@ -36,7 +37,7 @@ const rating = defineModel<number | undefined>({ required: true });
   cursor: pointer;
 
   label {
-    color: var(--color, #fdcf10);
+    color: var(--color);
     position: relative;
     cursor: inherit;
 
