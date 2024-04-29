@@ -14,7 +14,8 @@
     "build": "vite build",
     "prepare": "npm run build",
     "dev": "storybook dev -p 6006",
-    "build:stories": "storybook build"
+    "build:stories": "storybook build",
+    "postinstall": "node dist/postinstall.cjs"
   },
   "keywords": [],
   "author": "",

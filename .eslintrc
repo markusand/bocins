@@ -11,7 +11,8 @@
   ],
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "node": true
   },
   "parser": "vue-eslint-parser",
   "parserOptions": {
@@ -19,6 +20,7 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["vue", "@typescript-eslint"],
+  "ignores": ["./scripts/*.js"],
   "rules": {
     "max-len": ["error", {
       "code": 100,

@@ -22,7 +22,7 @@ Import styles in your entry point file
 import 'bocins/dist/style.css';
 ```
 
-Copy icons from `/node_modules/bocins/dist/icons` to `/public/icons/`, or replace them with your own.
+Default icons are copied from `/node_modules/bocins/dist/icons` to `/public/icons/`. Replace them to use your own icons. Existing icons won't be replaced.
 
 ## Usage
 
