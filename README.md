@@ -1,12 +1,15 @@
-![bocins](https://github.com/markusand/vue-ui-components/assets/12972543/762e3261-34bf-470b-8420-0c56f6333d37)
-
 # Bocins
 
 Collection of reusable UI components for Vue 3 that can be used standalone or combined together to create flexible and customized interfaces. The term **bocins** is derived from catalan and means *small bits or pieces of something*.
 
+Explore all components in [Storybook](https://bocins.netlify.app).
+
+![bocins](https://github.com/markusand/vue-ui-components/assets/12972543/762e3261-34bf-470b-8420-0c56f6333d37)
+
 [![NPM](https://img.shields.io/npm/v/bocins)](https://npmjs.org/package/bocins)
 [![NPM](https://img.shields.io/bundlephobia/minzip/bocins)](https://npmjs.org/package/bocins)
 [![NPM](https://img.shields.io/npm/l/bocins)](https://npmjs.org/package/bocins)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/57ca7f9d-4047-4f47-b37c-53102f268e60/deploy-status)](https://app.netlify.com/sites/bocins/deploys)
 
 ## Get started
 
