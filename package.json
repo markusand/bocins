@@ -17,8 +17,21 @@
     "build:stories": "storybook build",
     "postinstall": "if [ \"$STORYBOOK\" = \"true\" ]; then exit 0; fi; node dist/postinstall.cjs"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "vue",
+    "components",
+    "ui",
+    "style"
+  ],
+  "author": "Marc Vilella <mvilella@obsa.ad> (https://github.com/markusand)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markusand/bocins.git"
+  },
+  "bugs": {
+    "url": "https://github.com/markusand/bocins/issues"
+  },
+  "homepage": "https://github.com/markusand/bocins",
   "license": "ISC",
   "devDependencies": {
     "@chromatic-com/storybook": "^1.2.25",
