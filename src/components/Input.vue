@@ -102,10 +102,12 @@ const onClick = (event: Event) => {
   input {
     all: unset;
     appearance: textfield;
-    flex: 1;
     min-width: 0;
+    flex: 1;
+    width: 100%;
     text-overflow: ellipsis;
     line-height: 1;
+    display: block;
     
     &[type="number"]::-webkit-outer-spin-button,
     &[type="number"]::-webkit-inner-spin-button {
