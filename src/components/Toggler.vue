@@ -52,14 +52,16 @@ const modifiers = computed(() => {
 
   input[type="checkbox"],
   input[type="radio"] {
+    all: unset;
     appearance:none;
-    height: var(--size, 1em);
-    width: var(--size, 1em);
-    flex: 0 0 var(--size, 1em);
+    display: block;
+    height: var(--size, 0.75em);
+    width: var(--size, 0.75em);
+    flex: 0 0 var(--size, 0.75em);
     border-radius: 20%;
     transform: scale(var(--scaledown));
     background: var(--color-bg);
-    outline: 1px solid var(--color-bg);
+    border: 1px solid transparent;
     transition: all 0.3s ease;
     cursor: pointer;
 
@@ -79,6 +81,7 @@ const modifiers = computed(() => {
   &:hover input:not(:disabled) {
     transform: none;
     background: none;
+    border-color: var(--color-bg);
   }
 
   &:has(:checked) { --color-bg: var(--color-accent, #333); }
