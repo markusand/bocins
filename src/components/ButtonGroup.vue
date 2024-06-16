@@ -42,10 +42,7 @@ const width = computed(() => toWidth(props.width));
   vertical-align: middle;
 
   .btn,
-  .input {
-    margin: 0;
-    flex: 1;
-  };
+  .input { flex: 1; };
 
   & > :not(:first-child) .btn,
   .btn:not(:first-child),

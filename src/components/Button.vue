@@ -64,7 +64,6 @@ const width = computed(() => toWidth(props.width));
   box-shadow: inset 0 0 0 var(--border-width) var(--color-state);
   color: var(--color-text);
   border-radius: var(--radius);
-  margin: 1px 0.5px;
   box-sizing: border-box;
   line-height: 1;
   cursor: pointer;
