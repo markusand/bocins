@@ -19,7 +19,7 @@ export type ToggleButtonProps<T> = {
 
 const props = defineProps<ToggleButtonProps<T>>();
 
-const selected = defineModel<boolean | T | T[] | undefined>({ required: true });
+const selected = defineModel<T | T[] | undefined>({ required: true });
 
 defineSlots<{
   default: () => void;
@@ -35,7 +35,7 @@ const active = computed(() => (
 
 const toggle = () => {
   selected.value = typeof selected.value === 'boolean'
-    ? !selected.value
+    ? !selected.value as T
     : props.value && Array.isArray(selected.value)
       ? selected.value.includes(props.value)
         ? selected.value.filter(value => value !== props.value)
