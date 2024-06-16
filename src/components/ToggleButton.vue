@@ -10,9 +10,10 @@
 <script setup lang="ts" generic="T">
 import { computed } from 'vue';
 import Button, { type ButtonProps } from './Button.vue';
+import type { MaybeReadonly } from '/@/types';
 
 export type ToggleButtonProps<T> = {
-  value?: T;
+  value?: MaybeReadonly<T>;
   required?: boolean; 
 } & ButtonProps;
 

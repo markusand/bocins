@@ -33,6 +33,7 @@
 import Dropdown, { type DropdownProps } from './Dropdown.vue';
 import Button from './Button.vue';
 import Icon from './Icon.vue';
+import type { MaybeReadonly } from '/@/types';
 
 export type ContextualMenuAction<T, K extends string> = {
   id: K,
@@ -48,7 +49,7 @@ export type ContextualMenuActions<T, K extends string> = {
 };
 
 export type ContextualMenuProps<T, K extends string> = {
-  item?: T;
+  item?: MaybeReadonly<T>;
   actions: ContextualMenuActions<T, K>[];
 } & DropdownProps;
 

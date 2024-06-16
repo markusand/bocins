@@ -27,9 +27,10 @@
 
 <script setup lang="ts" generic="T">
 import { ref, watch, onUnmounted } from 'vue';
+import type { MaybeReadonly } from '/@/types';
 
 export type CarouselProps<T> = {
-  items: T[];
+  items: MaybeReadonly<T[]>;
   controls?: 'top' | 'bottom' | 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
   interval?: number;
 };

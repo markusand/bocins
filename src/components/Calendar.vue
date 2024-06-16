@@ -56,14 +56,15 @@ import {
 import Button from './Button.vue';
 import Icon from './Icon.vue';
 import Selector from './Selector.vue';
+import type { MaybeReadonly } from '/@/types';
 
 export type SelectedDate = Date | undefined | [Date | undefined, Date | undefined];
 
 export type CalendarProps = {
   notBefore?: Day;
   notAfter?: Day;
-  invalid?: (Day | [Day, Day])[];
-  valid?: (Day | [Day, Day])[];
+  invalid?: MaybeReadonly<(Day | [Day, Day])[]>;
+  valid?: MaybeReadonly<(Day | [Day, Day])[]>;
   locale?: string;
   years?: `${number}:${number}`;
   disabled?: boolean;

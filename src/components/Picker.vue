@@ -16,10 +16,10 @@
 
 <script setup lang="ts" generic="T">
 import Toggler from './Toggler.vue';
-import { type KeyOfAttribute } from '/@/types';
+import type { KeyOfAttribute, MaybeReadonly } from '/@/types';
 
 export type PickerProps<T> = {
-  options: T[],
+  options: MaybeReadonly<T[]>,
   keyAttr?: T extends object
     ? KeyOfAttribute<T, string | number | symbol>
     : never;

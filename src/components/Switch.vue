@@ -10,9 +10,10 @@
 
 <script setup lang="ts" generic="T">
 import { computed } from 'vue';
+import type { MaybeReadonly } from '/@/types';
 
 const props = defineProps<{
-  value?: T;
+  value?: MaybeReadonly<T>;
   disabled?: boolean;
 }>();
 

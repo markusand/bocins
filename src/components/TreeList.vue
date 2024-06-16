@@ -37,7 +37,7 @@
 
 <script setup lang="ts" generic="T extends object, K extends KeyOfAttribute<T, unknown[]>">
 import Icon from './Icon.vue';
-import type { KeyOfAttribute } from '/@/types';
+import type { KeyOfAttribute, MaybeReadonly } from '/@/types';
 
 export type TreeNode<
   T extends object,
@@ -45,7 +45,7 @@ export type TreeNode<
 > = (T & { [k in K]?: TreeNode<T, K>[] }) | T;
 
 export type TreeListProps<T extends object, K extends KeyOfAttribute<T, unknown[]>> = {
-  schema: TreeNode<T, K>[];
+  schema: MaybeReadonly<TreeNode<T, K>[]>;
   nameNode: KeyOfAttribute<T, string | number>;
   childrenNode: K;
   parent?: any;
