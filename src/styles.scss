@@ -50,8 +50,8 @@
 }
 
 %disabled {
-  --color-bg: #8881 !important;
-  --color-text: #8886 !important;
+  --color-bg: color-mix(in srgb, var(--color-disabled, #8886) 10%, transparent) !important;
+  --color-text: var(--color-disabled, #8886) !important;
   --border-width: 0 !important;
 
   cursor: not-allowed !important;

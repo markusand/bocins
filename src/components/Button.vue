@@ -50,7 +50,6 @@ const width = computed(() => toWidth(props.width));
   --color-state: var(--color);
   --color-hover: color-mix(in srgb, var(--color) 85%, #000);
   --color-active: color-mix(in srgb, var(--color) 85%, #fff);
-  --color-disabled: #8882;
   --border-width: 1px;
 
   all: unset;
@@ -90,11 +89,10 @@ const width = computed(() => toWidth(props.width));
   :disabled &,
   .disabled &,
   &:disabled {
-    --color-state: var(--color-disabled);
+    --color-state: color-mix(in srgb, var(--color-disabled, #8886) 10%, transparent);
 
     cursor: not-allowed;
-    opacity: 0.5;
-    color: #888;
+    color: var(--color-disabled, #8886);
   }
 
   &:not(:disabled) {
