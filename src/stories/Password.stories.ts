@@ -1,6 +1,7 @@
 import { ref } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { Password } from '/@/components';
+import './assets/styles.scss';
 
 const meta = {
   title: 'Password',

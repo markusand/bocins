@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { Collapser } from '/@/components';
+import './assets/styles.scss';
 
 const meta = {
   title: 'Collapser',

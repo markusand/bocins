@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { Chip } from '/@/components';
+import './assets/styles.scss';
 
 const meta = {
   title: 'Chip',

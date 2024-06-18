@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { InputGroup, Input, Stepper, Selector, Button } from '/@/components';
 import UserProfile from './UserProfile.vue';
 import { users } from './assets/users';
+import './assets/styles.scss';
 
 const meta = {
   title: 'InputGroup',

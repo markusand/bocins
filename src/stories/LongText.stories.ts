@@ -1,6 +1,7 @@
 import { ref } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { LongText } from '/@/components';
+import './assets/styles.scss';
 
 const meta = {
   title: 'LongText',

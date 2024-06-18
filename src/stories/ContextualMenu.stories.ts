@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ContextualMenu, type ContextualMenuActions, Button, Icon } from '/@/components';
+import './assets/styles.scss';
 
 type User = { name: string; age: number };
 type UserActions = 'copy' | 'download' | 'archive' | 'delete';

@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ToggleButton, ButtonGroup } from '/@/components';
+import './assets/styles.scss';
 
 const meta = {
   title: 'ToggleButton',

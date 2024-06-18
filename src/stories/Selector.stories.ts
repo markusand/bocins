@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { Selector, type SelectorProps, AvatarGroup, Avatar } from '/@/components';
 import UserProfile from './UserProfile.vue';
 import { users, type User } from './assets/users';
+import './assets/styles.scss';
 
 const formatters = [undefined, (item: any) => item.name];
 

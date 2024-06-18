@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { TreeList, type TreeNode, type TreeListProps } from '/@/components';
 import UserProfile from './UserProfile.vue';
 import { users, type User } from './assets/users';
+import './assets/styles.scss';
 
 type Team = {
   name: string;

@@ -1,3 +1,14 @@
+:root {
+  --color-bg: #fff;
+  --color-text: #333;
+  --color-accent: #333;
+  --color-error: #d43;
+  --color-border: #89a5;
+  --border-width: 1px;
+  --radius: 0.25rem;
+  --shadow: 0 0 1rem 0.25rem #89a3;
+}
+
 .badge {
   position: absolute;
   top: 0;

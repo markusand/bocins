@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 // import { fn } from '@storybook/test';
 import { Button, Icon } from '/@/components';
+import './assets/styles.scss';
 
 const meta = {
   title: 'Button',

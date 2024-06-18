@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { Divider } from '/@/components';
+import './assets/styles.scss';
 
 const meta = {
   title: 'Divider',

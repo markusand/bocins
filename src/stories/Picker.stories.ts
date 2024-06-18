@@ -2,7 +2,8 @@ import { ref } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { Picker, type PickerProps } from '/@/components';
 import UserProfile from './UserProfile.vue';
-import { users, type User } from '/@/stories/assets/users';
+import { users, type User } from './assets/users';
+import './assets/styles.scss';
 
 const formatters = [undefined, (item: any) => item.name];
 
