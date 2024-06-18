@@ -4,6 +4,12 @@
   flex: 0 0 100% !important;
 };
 
+.placeholder,
+*::placeholder {
+  color: var(--color-placeholder, var(--color-text, #888)) !important;
+  opacity: 0.5 !important;
+}
+
 %invalid {
   --color-border: var(--color-error, red) !important;
   --color-text: var(--color-error, red) !important;
