@@ -66,8 +66,6 @@ defineSlots<{
 @import '../styles';
 
 .contextual {
-  --panel-spacing: 0;
-
   // stylelint-disable-next-line selector-pseudo-class-no-unknown
   :deep(.dropdown__container) { @extend %panel; }
 

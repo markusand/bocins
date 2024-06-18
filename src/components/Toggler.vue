@@ -41,8 +41,8 @@ const modifiers = computed(() => {
 /* stylelint-disable no-descending-specificity */
 
 .toggler { 
-  --color-bg: #8888;
-  --scaledown: 0.5;
+  --color-bg: var(--toggler-color, var(--color-border, #888));
+  --scaledown: var(--toggle-scale, 0.5);
 
   display: inline-flex;
   align-items: center;

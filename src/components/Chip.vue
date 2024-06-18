@@ -28,10 +28,10 @@ defineSlots<{
 <style lang="scss" scoped>
 .chip {
   --color: var(--color-accent, #888);
-  --opacity: 15%;
+  --opacity: var(--chip-opacity, 15%);
   --color-shade: color-mix(in srgb, var(--color) var(--opacity), transparent);
-  --size: 0.8em;
-  --radius: 0.25em;
+  --size: var(--chip-size, 0.8em);
+  --radius: var(--chip-radius, 0.25em);
 
   display: inline-flex;
   align-items: center;

@@ -43,14 +43,14 @@ const width = computed(() => toWidth(props.width));
 
 <style lang="scss" scoped>
 .btn {
-  --spacing: var(--spacing-btn, 0.5rem);
-  --radius: var(--radius-btn, 0.25em);
-  --color: var(--color-btn, #333);
-  --color-text: var(--color-text-btn, #fff);
+  --spacing: var(--btn-spacing, 0.5rem);
+  --radius: var(--btn-radius, 0.25em);
+  --color: var(--btn-color, #333);
+  --color-text: var(--btn-color-text, #fff);
   --color-state: var(--color);
   --color-hover: color-mix(in srgb, var(--color) 85%, #000);
-  --color-active: color-mix(in srgb, var(--color) 85%, #fff);
-  --border-width: 1px;
+  --color-active: var(--btn-color-active, color-mix(in srgb, var(--color) 85%, #fff));
+  --border-width: var(--btn-border-width, 1px);
 
   all: unset;
   display: inline-flex;

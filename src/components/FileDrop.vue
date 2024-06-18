@@ -123,7 +123,7 @@ const remove = (file: File) => {
 @import '../styles';
 
 .file-drop {
-  --color: #888;
+  --color: var(--filedrop-color, #888);
   --color-bg: color-mix(in srgb, var(--color) 5%, transparent);
   --color-border: color-mix(in srgb, var(--color) 50%, transparent);
   --color-text: var(--color);

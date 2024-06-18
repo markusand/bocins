@@ -27,8 +27,8 @@ const type = computed(() => {
 
 <style lang="scss" scoped>
 .switch {
-	--size: 1.25rem;
-	--spacing: 0.125rem;
+	--size: var(--switch-size, 1.25rem);
+	--spacing: var(--switch-spacing, 0.125rem);
 
 	display: inline-flex;
   align-items: center;

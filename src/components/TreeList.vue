@@ -64,8 +64,8 @@ const props = defineProps<TreeListProps<T, K>>();
 
 <style lang="scss" scoped>
 .treelist {
-  --indent: 1rem;
-  --spacing: 0.25rem;
+  --indent: var(--treelist-indent, 1rem);
+  --spacing: var(--treelist-spacing, 0.25rem);
 
   margin: 0;
   list-style: none;

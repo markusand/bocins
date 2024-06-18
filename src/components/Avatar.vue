@@ -30,10 +30,10 @@ const initials = computed(() => props.name.split(' ').slice(0, 2).map(str => str
 
 <style lang="scss" scoped>
 .avatar {
-  --size: 2rem;
-  --radius: 15%;
-  --color: #8883;
-  --color-text: #888;
+  --size: var(--avatar-size, 2rem);
+  --radius: var(--avatar-radius, 15%);
+  --color: var(--avatar-color, #8883);
+  --color-text: var(--avatar-color-text, #888);
 
   display: inline-block;
   height: var(--size);

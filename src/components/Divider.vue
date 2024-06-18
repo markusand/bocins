@@ -17,7 +17,7 @@ defineSlots<{
 <style lang="scss" scoped>
 .divider {
   --color: var(--color-border, #8888);
-  --margin: 2rem;
+  --margin: var(--divider-margin, 2rem);
 
   display: flex;
   align-items: center;

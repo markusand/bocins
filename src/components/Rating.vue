@@ -22,8 +22,8 @@ const rating = defineModel<number | undefined>({ required: true });
 
 <style lang="scss" scoped>
 .rating {
-  --size: 1.25rem;
-  --color: #fdcf10;
+  --size: var(--rating-size, 1.25rem);
+  --color: var(--rating-color, #fdcf10);
 
   padding: 0;
   border: 0;

@@ -47,14 +47,14 @@ onMounted(() => !activePanel.value && activate(tabs.value[0]?.id));
 @import '../styles';
 
 .tabs {
-  --spacing: 0.75rem;
+  --spacing: var(--tabs-spacing, 0.75rem);
 
   & > header {
     padding: 0;
     margin: 0;
     list-style: none;
     display: flex;
-    border-bottom: 1px solid #8883;
+    border-bottom: 1px solid var(--tabs-color-border, var(--color-border, #8883));
     margin-bottom: var(--spacing);
     gap: calc(2 * var(--spacing));
     align-items: flex-end;

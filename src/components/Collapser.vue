@@ -65,10 +65,10 @@ const toggle = (event: Event) => {
 
 <style lang="scss" scoped>
 .collapser {
-  --color: transparent;
-  --border: none;
-  --radius: 0.25rem;
-  --spacing: 0.75rem;
+  --color: var(--collapser-color, transparent);
+  --border: var(--collapser-border, none);
+  --radius: var(--collapser-radius, 0.25rem);
+  --spacing: var(--collapser-spacing, 0.75rem);
 
   padding: 0 0 0.1px;
 

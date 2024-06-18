@@ -86,12 +86,7 @@ const clear = () => {
 @import '../styles';
 
 .datepicker {
-  --color-border: #8886;
-  --border-width: 1px;
-  --panel-min-width: 0;
-
   .toggler { @extend %selector-toggler; }
-
   .calendar { @extend %panel; }
 
   .range-dates {

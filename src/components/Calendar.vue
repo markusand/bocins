@@ -143,9 +143,9 @@ const years = computed(() => {
 /* stylelint-disable no-descending-specificity */
 /* stylelint-disable selector-pseudo-class-no-unknown */
 .calendar {
-  --spacing: 0.5rem;
+  --spacing: var(--calendar-spacing, 0.5rem);
   --color-range: color-mix(in srgb, var(--color-accent, #333) 40%, transparent);
-  --radius: 0.25rem;
+  --radius: var(--calendar-radius, 0.25rem);
 
   display: inline-flex;
   flex-direction: column;

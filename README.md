@@ -44,7 +44,7 @@ You can customize the theme using CSS variables and extending some base styles
   --color-text: light-dark(#333, #efefec);
   --color-error: #d33;
   --color-accent: #39f;
-  --color-btn: var(--color-accent);
+  --btn-color: var(--color-accent);
 }
 
 body {

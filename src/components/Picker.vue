@@ -40,7 +40,7 @@ const selected = defineModel<T | T[] | undefined>({ required: true });
 
 <style lang="scss" scoped>
 .picker {
-  --spacing: 0.25rem;
+  --spacing: var(--picker-spacing, 0.25rem);
 
   margin: 0;
   padding: var(--spacing);

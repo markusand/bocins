@@ -19,8 +19,8 @@ defineSlots<{
 
 <style lang="scss" scoped>
 .tooltip {
-  --color-bg: var(--color, #333);
-  --color-text: #fff;
-  --spacing: 0.5rem 0.75rem;
+  --color-bg: var(--tooltip-color, #333);
+  --color-text: var(--tooltip-text-color, #fff);
+  --spacing: var(--tooltip-spacing, 0.5rem 0.75rem);
 }
 </style>
