@@ -31,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/markusand/bocins/issues"
   },
-  "homepage": "https://github.com/markusand/bocins",
+  "homepage": "https://bocins.netlify.app/",
   "license": "ISC",
   "devDependencies": {
     "@chromatic-com/storybook": "^1.2.25",
