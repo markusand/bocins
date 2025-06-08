@@ -15,9 +15,9 @@
         <slot :action="action">
           <slot :name="action.id" :action="action">
             <Button
-              v-bind="action.type ? { [action.type]: true } : {}"
               variant="flat"
               block
+              v-bind="action.attributes ?? {}"
               :disabled="action.disabled"
               @click.prevent="action.onClick(props.item)">
               <Icon v-if="action.icon" :src="action.icon" />
@@ -40,7 +40,7 @@ export type ContextualMenuAction<T, K extends string> = {
   id: K,
   label?: string;
   icon?: string;
-  type?: string;
+  attributes?: Record<string, any>;
   disabled?: boolean;
   onClick: (item?: T) => void;
 };
