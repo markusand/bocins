@@ -14,7 +14,7 @@ const actions: ContextualMenuActions<User, UserActions>[] = [
   {
     label: 'Group 1',
     actions: [
-      { id: 'copy', onClick: console.log },
+      { id: 'copy', disabled: true, onClick: console.log },
       { id: 'download', label: 'Download', icon: '/@/stories/assets/download.svg', onClick: console.log },
       { id: 'archive', label: 'Archive', icon: '/@/stories/assets/archive.svg', onClick: console.log },
     ],

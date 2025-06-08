@@ -18,6 +18,7 @@
               v-bind="action.type ? { [action.type]: true } : {}"
               variant="flat"
               block
+              :disabled="action.disabled"
               @click.prevent="action.onClick(props.item)">
               <Icon v-if="action.icon" :src="action.icon" />
               {{ action.label ?? action.id }}
@@ -40,6 +41,7 @@ export type ContextualMenuAction<T, K extends string> = {
   label?: string;
   icon?: string;
   type?: string;
+  disabled?: boolean;
   onClick: (item?: T) => void;
 };
 
