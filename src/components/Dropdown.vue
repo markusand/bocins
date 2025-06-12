@@ -12,7 +12,7 @@
         </Button>
       </slot>
     </div>
-    <div v-if="!props.disabled" class="dropdown__container">
+    <div v-if="!props.disabled" class="dropdown__container" tabindex="-1">
       <slot />
     </div>
   </div>
@@ -84,8 +84,10 @@ const width = computed(() => toWidth(props.width));
     right: 0;
   }
 
+  &__toggler:focus-within + &__container,
   &__container:hover,
-  &__toggler:focus-within + &__container { display: block; }
+  &__container:focus,
+  &__container:focus-within { display: block; }
 
   &.disabled {
     cursor: not-allowed;
