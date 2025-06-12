@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown" :class="modifiers" :style="width">
+  <div class="dropdown" :class="modifiers" :style="width" @click.stop>
     <div class="dropdown__toggler" tabindex="0">
       <slot name="toggler">
         <Button
