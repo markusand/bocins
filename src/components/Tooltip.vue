@@ -1,6 +1,6 @@
 <template>
   <Popover class="tooltip" v-bind="props">
-    {{ props.text }}
+    <slot name="content">{{ props.text }}</slot>
     <template #anchor><slot /></template>
   </Popover>
 </template>
@@ -9,11 +9,12 @@
 import Popover, { type PopoverProps } from './Popover.vue';
 
 const props = defineProps<{
-  text: string;
+  text?: string;
 } & PopoverProps>();
 
 defineSlots<{
-  default: () => void
+  default: () => void;
+  content: () => void;
 }>();
 </script>
 

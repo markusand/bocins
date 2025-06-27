@@ -49,3 +49,21 @@ export const Base: Story = {
     </p>`,
   }),
 };
+
+export const WithSlot: Story = {
+  render: args => ({
+    components: { Tooltip },
+    setup: () => ({ args }),
+    template: `<p style="margin:5rem 0">
+      Lorem ipusm dolor sit
+      <Tooltip v-bind="args">
+        <template #content>
+          <h3>Tooltip title</h3>
+          <p>Lorem ipsum dolor sit amet</p>
+        </template>
+        amet
+      </Tooltip>
+      consectetur adipisicing elit.
+    </p>`,
+  }),
+};
