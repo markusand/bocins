@@ -94,7 +94,7 @@ onMounted(() => props.open && open());
 </script>
 
 <style lang="scss" scoped>
-@import '../styles';
+@use  '../styles';
 
 .modal {
   @extend %panel;

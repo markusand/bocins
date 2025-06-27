@@ -78,7 +78,7 @@ const clear = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles';
+@use  '../styles';
 
 .selector {
   --panel-border: none;

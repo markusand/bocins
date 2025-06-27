@@ -83,7 +83,7 @@ const clear = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles';
+@use  '../styles';
 
 .datepicker {
   .toggler { @extend %selector-toggler; }

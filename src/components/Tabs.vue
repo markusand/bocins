@@ -44,7 +44,7 @@ onMounted(() => !activePanel.value && activate(tabs.value[0]?.id));
 </script>
 
 <style lang="scss" scoped>
-@import '../styles';
+@use  '../styles';
 
 .tabs {
   --spacing: var(--tabs-spacing, 0.75rem);

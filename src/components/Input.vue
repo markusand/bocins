@@ -94,7 +94,7 @@ const onClick = (event: Event) => {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles';
+@use  '../styles';
 
 .input {
   @extend %input;

@@ -93,7 +93,7 @@ const change = (num: number) => goTo(selected.value + num + 1);
 </script>
 
 <style lang="scss" scoped>
-@import '../styles';
+@use  '../styles';
 
 .pagination {
   display: inline-flex;

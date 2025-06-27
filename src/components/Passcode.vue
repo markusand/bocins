@@ -66,7 +66,7 @@ const focusLast = (event: Event) => {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles';
+@use  '../styles';
 
 .passcode {
   --size: 2rem;

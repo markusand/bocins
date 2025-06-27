@@ -65,7 +65,7 @@ defineSlots<{
 </script>
 
 <style lang="scss" scoped>
-@import '../styles';
+@use  '../styles';
 
 .contextual {
   // stylelint-disable-next-line selector-pseudo-class-no-unknown

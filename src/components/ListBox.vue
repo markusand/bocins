@@ -62,7 +62,7 @@ const modifiers = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles';
+@use  '../styles';
 
 .listbox {
   --color: var(--color-accent, #333);

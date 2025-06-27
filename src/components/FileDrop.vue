@@ -120,7 +120,7 @@ const remove = (file: File) => {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles';
+@use  '../styles';
 
 .file-drop {
   --color: var(--filedrop-color, #888);

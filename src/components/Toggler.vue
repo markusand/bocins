@@ -36,7 +36,7 @@ const modifiers = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles';
+@use  '../styles';
 
 /* stylelint-disable no-descending-specificity */
 
