@@ -16,7 +16,7 @@
           &times;
         </button>
       </slot>
-      <section class="modal__content">
+      <section v-if="!!isOpen" class="modal__content">
         <slot :close="close" />
       </section>
     </dialog>
@@ -44,7 +44,6 @@ const emit = defineEmits<{
   'update:open': [isOpen: boolean];
   open: [];
   close: [];
-  toggle: [isOpen: boolean];
 }>();
 
 defineSlots<{
@@ -54,34 +53,29 @@ defineSlots<{
 }>();
 
 const modal = ref<HTMLDialogElement>();
+const isOpen = ref(props.open ?? false);
 
 const size = computed(() => ({
   ...toWidth(props.width ?? 20),
   ...toHeight(props.height ?? 'content-fit'),
 }));
 
-const open = () => {
-  if (props.plain) modal.value?.show();
-  else modal.value?.showModal();
-  emit('open');
-  emit('update:open', true);
-};
+watch(() => props.open, open => { isOpen.value = open; });
+watch(isOpen, open => {
+  if (open) {
+    if (props.plain) modal.value?.show();
+    else modal.value?.showModal();
+    emit('open');
+  } else {
+    modal.value?.close();
+    emit('close');
+  }
+  emit('update:open', open);
+});
 
-const close = () => {
-  modal.value?.close();
-  emit('close');
-  emit('update:open', false);
-};
-
-const toggle = () => {
-  const isOpen = modal.value?.open ?? false;
-  if (isOpen) close();
-  else open();
-  emit('toggle', !isOpen);
-  emit('update:open', !isOpen);
-};
-
-watch(() => props.open, toggle);
+const open = () => { isOpen.value = true; };
+const close = () => { isOpen.value = false; };
+const toggle = () => { isOpen.value = !isOpen.value; };
 
 const handleEscape = (event: Event) => {
   if (!props.closeable) {
