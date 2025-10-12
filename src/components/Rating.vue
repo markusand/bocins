@@ -8,6 +8,7 @@
 </template>
 
 <script setup lang="ts">
+import { watch } from 'vue';
 import Icon from './Icon.vue';
 
 const props = withDefaults(defineProps<{
@@ -17,7 +18,13 @@ const props = withDefaults(defineProps<{
   max: 5,
 });
 
-const rating = defineModel<number | undefined>({ required: true });
+const emit = defineEmits<{
+  rate: [rating: number];
+}>();
+
+const rating = defineModel<number | undefined>({ required: false, default: 0 });
+
+watch(rating, value => value && emit('rate', value));
 </script>
 
 <style lang="scss" scoped>

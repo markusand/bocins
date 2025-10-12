@@ -63,3 +63,14 @@ export const HeartsRange: Story = {
     </Rating>`,
   }),
 };
+
+export const Emitted: Story = {
+  render: args => ({
+    components: { Rating },
+    setup: () => {
+      const onRate = (value: number) => alert(value);
+      return { onRate };
+    },
+    template: '<Rating @rate="onRate" />',
+  }),
+};
