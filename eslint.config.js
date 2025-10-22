@@ -39,6 +39,7 @@ export default [
         multiline: 1,
       }],
       'vue/singleline-html-element-content-newline': 'off',
+      'vue/no-dupe-keys': 'off',
     },
   },
   {

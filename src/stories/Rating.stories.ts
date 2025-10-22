@@ -65,7 +65,7 @@ export const HeartsRange: Story = {
 };
 
 export const Emitted: Story = {
-  render: args => ({
+  render: () => ({
     components: { Rating },
     setup: () => {
       const onRate = (value: number) => alert(value);
