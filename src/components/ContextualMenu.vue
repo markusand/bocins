@@ -40,7 +40,7 @@ export type ContextualMenuAction<T, K extends string> = {
   id: K,
   label?: string;
   icon?: string;
-  attributes?: Record<string, any>;
+  attributes?: Record<string, unknown>;
   disabled?: boolean;
   onClick: (item?: T) => void;
 };

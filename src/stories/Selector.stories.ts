@@ -5,7 +5,7 @@ import UserProfile from './UserProfile.vue';
 import { users, type User } from './assets/users';
 import './assets/styles.scss';
 
-const formatters = [undefined, (item: any) => item.name];
+const formatters = [undefined, (item: { name: string }) => item.name];
 
 const meta = {
   title: 'Selector',

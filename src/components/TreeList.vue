@@ -48,7 +48,7 @@ export type TreeListProps<T extends object, K extends KeyOfAttribute<T, unknown[
   schema: MaybeReadonly<TreeNode<T, K>[]>;
   nameNode: KeyOfAttribute<T, string | number>;
   childrenNode: K;
-  parent?: any;
+  parent?: unknown;
   open?: boolean;
 };
 

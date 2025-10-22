@@ -28,7 +28,6 @@ export default [
       }],
       'arrow-parens': ['error', 'as-needed'],
       'no-nested-ternary': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
       'vue/component-tags-order': ['error', { order: ['template', 'script', 'style'] }],
       'vue/multi-word-component-names': 'off',
       'vue/html-closing-bracket-newline': ['error', {

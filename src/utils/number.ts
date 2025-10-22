@@ -1,4 +1,4 @@
-export const isNumber = (num: any) => typeof +num === 'number' && !Number.isNaN(+num);
+export const isNumber = (num: unknown) => num !== '' && !Number.isNaN(Number(num));
 
 export const round = (num: number, decimals: number): number => {
   const pow = 10 ** decimals;
