@@ -6,8 +6,8 @@
           <Icon
             src="/icons/chevron-right.svg"
             class="chevron" />
-          <slot name="title" :item="item" :parent="parent">
-            <slot :item="item" :parent="props.parent">
+          <slot name="title" :item :parent="parent">
+            <slot :item :parent="props.parent">
               {{ item[nameNode as keyof T] }}
             </slot>
           </slot>
@@ -27,7 +27,7 @@
         </TreeList>
       </details>
       <div v-else>
-        <slot :item="item" :parent="props.parent">
+        <slot :item :parent="props.parent">
           {{ item[nameNode as keyof T] }}
         </slot>
       </div>

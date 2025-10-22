@@ -2,7 +2,7 @@
   <Input
     v-model="value"
     v-bind="props"
-    :type="type"
+    :type
     :class="['password', strength.level]">
     <template #suffix>
       <Icon v-if="revealed" src="/icons/eye.svg" @click.prevent="toggle" />

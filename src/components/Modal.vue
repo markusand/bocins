@@ -21,7 +21,7 @@
       </section>
     </dialog>
   </Teleport>
-  <slot name="toggler" :open="open" :close="close" :toggle="toggle" />
+  <slot name="toggler" :open :close :toggle />
 </template>
 
 <script setup lang="ts">

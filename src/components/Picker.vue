@@ -7,7 +7,7 @@
       :value="option"
       :invalid="props.invalid"
       :radio="!Array.isArray(selected)">
-      <slot :option="option">
+      <slot :option>
         {{ props.formatter?.(option) || option }}
       </slot>
     </Toggler>

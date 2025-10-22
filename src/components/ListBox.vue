@@ -11,11 +11,11 @@
       v-if="options.length"
       v-model="selected"
       :key-attr="props.keyAttr"
-      :options="options"
+      :options
       :disabled="props.disabled">
       <template #default="{ option }">
         <div class="listbox__option">
-          <slot :option="option">
+          <slot :option>
             <div class="listbox__label">
               {{ props.formatter?.(option) || option }}
             </div>

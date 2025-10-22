@@ -28,7 +28,7 @@
     </template>
     <ListBox v-model="selected" v-bind="props" width="auto">
       <template #default="{ option }">
-        <slot name="option" :option="option">
+        <slot name="option" :option>
           <slot :item="option" />
         </slot>
       </template>

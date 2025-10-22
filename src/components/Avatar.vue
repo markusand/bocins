@@ -1,6 +1,6 @@
 <template>
   <picture class="avatar">
-    <img v-if="src" :src="src" :alt="props.name">
+    <img v-if="src" :src :alt="props.name">
     <div v-else class="initials">{{ initials }}</div>
     <div v-if="props.badge || props.badge === 0 || slots.badge" class="badge">
       <slot name="badge">

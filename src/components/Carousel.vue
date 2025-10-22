@@ -2,7 +2,7 @@
   <div class="carousel">
     <div ref="wrapper" class="carousel__wrapper" @scrollend="updateActive">
       <div v-for="item, i in props.items" :key="i" class="carousel__slide">
-        <slot :item="item" />
+        <slot :item />
       </div>
     </div>
     <slot v-if="props.controls" name="controls" :active="active" :goto="goto">
@@ -10,7 +10,7 @@
         <li v-for="item, i in props.items" :key="i">
           <slot
             name="control"
-            :item="item"
+            :item
             :current="i"
             :active="active"
             :goto="() => goto(i)">
