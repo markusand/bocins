@@ -8,7 +8,6 @@ const normalize = (str: string) => str.normalize('NFD').replace(/[\u0300-\u036f]
 export const useSearcher = <T>(searcher: MaybeRef<Searcher<T> | undefined>) => {
   const searchBy = ref('');
 
-  /* eslint-disable @typescript-eslint/naming-convention */
   const search = (items: MaybeRef<MaybeReadonly<T[]>>) => computed(() => {
     const _searcher = unref(searcher);
     const _items = unref(items);

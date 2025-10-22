@@ -17,7 +17,6 @@ const replace = (img: HTMLImageElement) => {
         img.replaceWith(svg);
         CACHE.set(img.src, svg);
       })
-      /* eslint-disable-next-line no-console */
       .catch(error => console.warn(`Cannot replace ${img.src} ${error.message}`));
   }
 };
