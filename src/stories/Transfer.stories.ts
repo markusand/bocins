@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { Transfer, type TransferProps } from '/@/components';
 import UserProfile from './UserProfile.vue';
 import { users, type User } from './assets/users';

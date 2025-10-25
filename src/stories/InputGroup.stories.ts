@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { InputGroup, Input, Stepper, Selector, Button } from '/@/components';
 import UserProfile from './UserProfile.vue';
 import { users } from './assets/users';

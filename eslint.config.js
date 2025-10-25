@@ -1,6 +1,7 @@
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import vue from 'eslint-plugin-vue';
+import storybook from 'eslint-plugin-storybook';
 
 export default [
   js.configs.recommended,
@@ -45,4 +46,5 @@ export default [
   {
     ignores: ['./scripts/*.js', 'dist/**', 'node_modules/**', 'eslint.config.js'],
   },
+  ...storybook.configs['flat/recommended'],
 ];

@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
-// import { fn } from '@storybook/test';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { Button, Icon } from '/@/components';
 import './assets/styles.scss';
 
@@ -69,3 +68,4 @@ export const IconButton: Story = {
     template: '<Button even><Icon src="/@/stories/assets/feather.svg" /></Button>',
   }),
 };
+

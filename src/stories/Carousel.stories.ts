@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { Carousel } from '/@/components';
 import Cover from './Cover.vue';
 import './assets/styles.scss';

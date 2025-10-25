@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ContextualMenu, type ContextualMenuActions, Button, Icon } from '/@/components';
 import './assets/styles.scss';
 
