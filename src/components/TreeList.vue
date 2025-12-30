@@ -6,8 +6,8 @@
           <Icon
             src="/icons/chevron-right.svg"
             class="chevron" />
-          <slot name="title" :item :parent="parent">
-            <slot :item :parent="props.parent">
+          <slot name="title" :item :parent>
+            <slot :item :parent>
               {{ item[nameNode as keyof T] }}
             </slot>
           </slot>
@@ -27,7 +27,7 @@
         </TreeList>
       </details>
       <div v-else>
-        <slot :item :parent="props.parent">
+        <slot :item :parent>
           {{ item[nameNode as keyof T] }}
         </slot>
       </div>
@@ -48,15 +48,14 @@ export type TreeListProps<T extends object, K extends KeyOfAttribute<T, unknown[
   schema: MaybeReadonly<TreeNode<T, K>[]>;
   nameNode: KeyOfAttribute<T, string | number>;
   childrenNode: K;
-  parent?: unknown;
+  parent?: T;
   open?: boolean;
 };
 
 defineSlots<{
   // @ts-expect-error Default prop may be any element of the children array
-  default?: (props: { item: T | T[K][number], parent: T }) => void;
-  title?: (props: { item: T, parent: T }) => void;
-  
+  default?: (props: { item: T | T[K][number], parent?: T }) => void;
+  title?: (props: { item: T, parent?: T }) => void;
 }>();
 
 const props = defineProps<TreeListProps<T, K>>();
