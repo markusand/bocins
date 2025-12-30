@@ -1,6 +1,6 @@
 {
   "name": "bocins",
-  "version": "2.6.1",
+  "version": "2.7.0",
   "description": "UI components for Vue 3",
   "type": "module",
   "main": "./dist/index.umd.cjs",
