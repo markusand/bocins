@@ -62,10 +62,24 @@ export const Base: Story = {
       <template #title="{ item, parent }">
         {{ item.name }} ({{ item.users.length }})
       </template>
-      <template #default="{ item, parent }">
-        <UserProfile v-if="'id' in item" :user="item" />
+      <template #default="{ item: user, parent, path }">
+        <UserProfile :user />
       </template>
     </TreeList>`,
   }),
 };
 
+export const FullPath: Story = {
+  render: args => ({
+    components: { TreeList, UserProfile },
+    setup: () => ({ args }),
+    template: `<TreeList v-bind="args">
+      <template #title="{ item, parent }">
+        {{ item.name }} ({{ item.users.length }})
+      </template>
+      <template #default="{ path }">
+        {{ path.join(' > ') }}
+      </template>
+    </TreeList>`,
+  }),
+};

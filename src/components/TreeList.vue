@@ -6,8 +6,8 @@
           <Icon
             src="/icons/chevron-right.svg"
             class="chevron" />
-          <slot name="title" :item :parent>
-            <slot :item :parent>
+          <slot name="title" :item :parent :path="path(item)">
+            <slot :item :parent :path="path(item)">
               {{ item[nameNode as keyof T] }}
             </slot>
           </slot>
@@ -17,17 +17,18 @@
           :schema="(item[childrenNode as keyof T] as TreeNode<T, K>[])"
           :name-node="nameNode"
           :children-node="childrenNode"
+          :path="path(item)"
           :open="props.open">
-          <template #title="{ item: _item, parent: _parent }">
-            <slot name="title" :item="_item" :parent="_parent" />
+          <template #title="{ item: _item, parent: _parent, path: _path }">
+            <slot name="title" :item="_item" :parent="_parent" :path="_path" />
           </template>
-          <template #default="{ item: _item, parent: _parent }">
-            <slot :item="_item" :parent="_parent" />
+          <template #default="{ item: _item, parent: _parent, path: _path }">
+            <slot :item="_item" :parent="_parent" :path="_path" />
           </template>
         </TreeList>
       </details>
       <div v-else>
-        <slot :item :parent>
+        <slot :item :parent :path="path(item)">
           {{ item[nameNode as keyof T] }}
         </slot>
       </div>
@@ -50,15 +51,21 @@ export type TreeListProps<T extends object, K extends KeyOfAttribute<T, unknown[
   childrenNode: K;
   parent?: T;
   open?: boolean;
+  path?: (string | number)[];
 };
 
 defineSlots<{
   // @ts-expect-error Default prop may be any element of the children array
-  default?: (props: { item: T | T[K][number], parent?: T }) => void;
-  title?: (props: { item: T, parent?: T }) => void;
+  default?: (props: { item: T | T[K][number], parent?: T, path: (string | number)[] }) => void;
+  title?: (props: { item: T, parent?: T, path: (string | number)[] }) => void;
 }>();
 
 const props = defineProps<TreeListProps<T, K>>();
+
+const path = (item: TreeNode<T, K>): (string | number)[] => [
+  ...(props.path || []),
+  item[props.nameNode] as string | number,
+];
 </script>
 
 <style lang="scss" scoped>
