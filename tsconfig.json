@@ -8,7 +8,7 @@
     "declarationDir": "./types",
     "importHelpers": true,
     "verbatimModuleSyntax": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "skipLibCheck": true,
     "jsx": "preserve",
     "resolveJsonModule": true,

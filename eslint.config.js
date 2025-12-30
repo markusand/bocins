@@ -9,6 +9,13 @@ export default [
   ...vue.configs['flat/recommended'],
   {
     languageOptions: {
+      globals: {
+        window: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+      },
       parserOptions: {
         parser: tseslint.parser,
         project: './tsconfig.json',
@@ -29,7 +36,6 @@ export default [
       }],
       'arrow-parens': ['error', 'as-needed'],
       'no-nested-ternary': 'off',
-      'vue/component-tags-order': ['error', { order: ['template', 'script', 'style'] }],
       'vue/multi-word-component-names': 'off',
       'vue/html-closing-bracket-newline': ['error', {
         singleline: 'never',
