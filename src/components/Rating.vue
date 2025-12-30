@@ -12,7 +12,7 @@ import { watch } from 'vue';
 import Icon from './Icon.vue';
 
 const props = withDefaults(defineProps<{
-  max: number | string;
+  max?: number | string;
   disabled?: boolean;
 }>(), {
   max: 5,
