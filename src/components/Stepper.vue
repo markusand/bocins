@@ -7,12 +7,12 @@
     class="stepper">
     <template #prefix>
       <button type="button" :disabled="isMin" @click.prevent="decrease()">
-        <Icon src="/icons/minus.svg" />
+        <Icon :src="`${config.iconPath}/minus.svg`" />
       </button>
     </template>
     <template #suffix>
       <button type="button" :disabled="isMax" @click.prevent="increase()">
-        <Icon src="/icons/plus.svg" />
+        <Icon :src="`${config.iconPath}/plus.svg`" />
       </button>
     </template>
   </Input>
@@ -20,6 +20,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { config } from '/@/config';
 import Input, { type InputProps } from './Input.vue';
 import Icon from './Icon.vue';
 

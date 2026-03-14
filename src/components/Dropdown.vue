@@ -8,7 +8,7 @@
           :disabled="props.disabled"
           block>
           {{ props.label }}
-          <Icon src="/icons/chevron-down.svg" class="chevron" />
+          <Icon :src="`${config.iconPath}/chevron-down.svg`" class="chevron" />
         </Button>
       </slot>
     </div>
@@ -20,6 +20,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { config } from '/@/config';
 import Icon from './Icon.vue';
 import Button, { type ButtonProps } from './Button.vue';
 import { toWidth } from '/@/utils';

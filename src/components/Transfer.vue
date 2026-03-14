@@ -7,16 +7,16 @@
     </ListBox>
     <div class="controls">
       <Button :disabled="!isAddable(pool)" even @click.prevent="addItems()">
-        <Icon src="/icons/chevrons-right.svg" />
+        <Icon :src="`${config.iconPath}/chevrons-right.svg`" />
       </Button>
       <Button :disabled="!isAddable(toAdd)" even @click.prevent="addItems(toAdd)">
-        <Icon src="/icons/chevron-right.svg" />
+        <Icon :src="`${config.iconPath}/chevron-right.svg`" />
       </Button>
       <Button :disabled="!isRemoveable(toRemove)" even @click.prevent="removeItems(toRemove)">
-        <Icon src="/icons/chevron-right.svg" class="remove" />
+        <Icon :src="`${config.iconPath}/chevron-right.svg`" class="remove" />
       </Button>
       <Button :disabled="!isRemoveable(selected)" even @click.prevent="removeItems()">
-        <Icon src="/icons/chevrons-right.svg" class="remove" />
+        <Icon :src="`${config.iconPath}/chevrons-right.svg`" class="remove" />
       </Button>
     </div>
     <ListBox v-bind="props" v-model="toRemove" :options="selected">
@@ -29,6 +29,7 @@
 
 <script setup lang="ts" generic="T">
 import { ref, computed, type Ref } from 'vue';
+import { config } from '/@/config';
 import ListBox, { type ListBoxProps } from './ListBox.vue';
 import Button from './Button.vue';
 import Icon from './Icon.vue';

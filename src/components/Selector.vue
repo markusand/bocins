@@ -21,9 +21,9 @@
         </div>
         <Icon
           v-if="props.clearable && isSelected(selected)"
-          src="/icons/close.svg"
+          :src="`${config.iconPath}/close.svg`"
           @click.stop="clear" />
-        <Icon v-else src="/icons/chevron-down.svg" />
+        <Icon v-else :src="`${config.iconPath}/chevron-down.svg`" />
       </div>
     </template>
     <ListBox v-model="selected" v-bind="props" width="auto">
@@ -41,6 +41,7 @@
 
 <script setup lang="ts" generic="T">
 import { computed } from 'vue';
+import { config } from '/@/config';
 import Dropdown, { type DropdownProps } from './Dropdown.vue';
 import ListBox, { type ListBoxProps } from './ListBox.vue';
 import Icon from './Icon.vue';

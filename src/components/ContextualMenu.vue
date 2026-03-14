@@ -3,7 +3,7 @@
     <template #toggler>
       <slot name="toggler">
         <Button :disabled="props.disabled" even>
-          <Icon src="/icons/more.svg" />
+          <Icon :src="`${config.iconPath}/more.svg`" />
         </Button>
       </slot>
     </template>
@@ -31,6 +31,7 @@
 </template>
 
 <script setup lang="ts" generic="T, K extends string">
+import { config } from '/@/config';
 import Dropdown, { type DropdownProps } from './Dropdown.vue';
 import Button from './Button.vue';
 import Icon from './Icon.vue';

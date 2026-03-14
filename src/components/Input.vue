@@ -20,7 +20,7 @@
       @copy="emit('copy', $event)">
     <Icon
       v-if="props.clearable && value"
-      src="/icons/close.svg"
+      :src="`${config.iconPath}/close.svg`"
       class="close"
       @click.prevent="clear" />
     <slot name="suffix">{{ props.suffix }}</slot>
@@ -30,6 +30,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { toWidth } from '/@/utils';
+import { config } from '/@/config';
 import Icon from './Icon.vue';
 
 export type InputType =

@@ -21,6 +21,17 @@ npm i bocins
 
 Default icons are copied from `/node_modules/bocins/dist/icons` to `/public/icons/`. Replace them to use your own icons. Existing icons won't be replaced.
 
+To load icons from a custom path (e.g., a CDN), configure the icon path **before** importing components:
+
+```ts
+// main.ts
+import { config } from 'bocins';
+
+// Configure icon path BEFORE using any components
+config.iconPath = 'https://cdn.example.com/icons'; // CDN
+config.iconPath = '/my-custom-icons'; // Custom local path
+```
+
 Import styles in your app entry point file or in your styles entry point
 
 ```ts

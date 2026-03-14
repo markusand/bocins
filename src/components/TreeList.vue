@@ -4,7 +4,7 @@
       <details v-if="item[childrenNode as keyof T]" :open="props.open">
         <summary class="treelist__title">
           <Icon
-            src="/icons/chevron-right.svg"
+            :src="`${config.iconPath}/chevron-right.svg`"
             class="chevron" />
           <slot name="title" :item :parent :path="path(item)">
             <slot :item :parent :path="path(item)">
@@ -37,6 +37,7 @@
 </template>
 
 <script setup lang="ts" generic="T extends object, K extends KeyOfAttribute<T, unknown[]>">
+import { config } from '/@/config';
 import Icon from './Icon.vue';
 import type { KeyOfAttribute, MaybeReadonly } from '/@/types';
 

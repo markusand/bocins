@@ -5,14 +5,15 @@
     :type
     :class="['password', strength.level]">
     <template #suffix>
-      <Icon v-if="revealed" src="/icons/eye.svg" @click.prevent="toggle" />
-      <Icon v-else src="/icons/eye-off.svg" @click.prevent="toggle" />
+      <Icon v-if="revealed" :src="`${config.iconPath}/eye.svg`" @click.prevent="toggle" />
+      <Icon v-else :src="`${config.iconPath}/eye-off.svg`" @click.prevent="toggle" />
     </template>
   </Input>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import { config } from '/@/config';
 import Input, { type InputProps } from './Input.vue';
 import Icon from './Icon.vue';
 

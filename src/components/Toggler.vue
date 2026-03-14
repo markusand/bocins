@@ -11,6 +11,7 @@
 
 <script setup lang="ts" generic="T">
 import { computed } from 'vue';
+import { config } from '/@/config';
 
 export type TogglerProps<T> = {
   label?: string;
@@ -68,7 +69,7 @@ const modifiers = computed(() => {
     &:checked {
       background:
         var(--color-bg)
-        url('/icons/check.svg')
+        v-bind("`url(${config.iconPath}/check.svg)`")
         no-repeat
         center center
         !important;

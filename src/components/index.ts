@@ -1,5 +1,7 @@
 import '../styles.scss';
 
+export { config } from '../config';
+
 export { default as Icon, type IconProps } from './Icon.vue';
 export { default as Avatar, type AvatarProps } from './Avatar.vue';
 export { default as AvatarGroup, type AvatarGroupProps } from './AvatarGroup.vue';

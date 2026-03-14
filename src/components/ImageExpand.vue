@@ -5,8 +5,8 @@
       <div class="controls">
         <slot name="controls" />
         <ToggleButton v-model="expanded" even @click.stop>
-          <Icon v-if="expanded" src="/icons/collapse.svg" />
-          <Icon v-else src="/icons/expand.svg" />
+          <Icon v-if="expanded" :src="`${config.iconPath}/collapse.svg`" />
+          <Icon v-else :src="`${config.iconPath}/expand.svg`" />
         </ToggleButton>
       </div>
     </picture>
@@ -15,6 +15,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { config } from '/@/config';
 import ToggleButton from './ToggleButton.vue';
 import Icon from './Icon.vue';
 

@@ -7,7 +7,7 @@
         :disabled="props.disabled"
         even
         @click.prevent="month = month - 1">
-        <Icon src="/icons/chevron-right.svg" class="prev" />
+        <Icon :src="`${config.iconPath}/chevron-right.svg`" class="prev" />
       </Button>
       <Selector
         v-model="month" 
@@ -21,7 +21,7 @@
         :disabled="props.disabled"
         even
         @click.prevent="month = month + 1">
-        <Icon src="/icons/chevron-right.svg" />
+        <Icon :src="`${config.iconPath}/chevron-right.svg`" />
       </Button>
     </header>
     <ul class="weekdays">
@@ -41,6 +41,7 @@
 
 <script setup lang="ts">
 import { toRef, computed } from 'vue';
+import { config } from '/@/config';
 import {
   isEqual,
   isBefore,

@@ -5,12 +5,13 @@
     class="search"
     type="search">
     <template #prefix>
-      <Icon src="/icons/search.svg" />
+      <Icon :src="`${config.iconPath}/search.svg`" />
     </template>
   </Input>
 </template>
 
 <script setup lang="ts">
+import { config } from '/@/config';
 import Input, { type InputProps } from './Input.vue';
 import Icon from './Icon.vue';
 
