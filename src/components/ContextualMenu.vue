@@ -19,7 +19,7 @@
               block
               v-bind="action.attributes ?? {}"
               :disabled="action.disabled"
-              @click.prevent="action.onClick(props.item)">
+              @click.prevent.stop="action.onClick(props.item)">
               <Icon v-if="action.icon" :src="action.icon" />
               {{ action.label ?? action.id }}
             </Button>

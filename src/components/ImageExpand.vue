@@ -4,7 +4,7 @@
       <img :src="expanded ? props.src : props.thumbnail || props.src" :alt="props.alt">
       <div class="controls">
         <slot name="controls" />
-        <ToggleButton v-model="expanded" even @click.prevent>
+        <ToggleButton v-model="expanded" even @click.stop>
           <Icon v-if="expanded" src="/icons/collapse.svg" />
           <Icon v-else src="/icons/expand.svg" />
         </ToggleButton>

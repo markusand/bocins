@@ -1,5 +1,5 @@
 <template>
-  <details class="collapser" :open="isOpen" @toggle="toggle">
+  <details class="collapser" :open="isOpen" @toggle.stop="toggle">
     <summary class="toggler">
       <div class="title">
         <slot name="toggler" :open="hasBeenOpen">

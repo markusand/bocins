@@ -2,7 +2,7 @@
   <Button
     :class="['toggle-button', { active }]"
     v-bind="props"
-    @click.prevent="toggle">
+    @click.prevent.stop="toggle">
     <slot />
   </Button>
 </template>

@@ -12,7 +12,7 @@
           v-if="props.closeable"
           type="button"
           class="modal__close"
-          @click.prevent="close">
+          @click.stop="close">
           &times;
         </button>
       </slot>
