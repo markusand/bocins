@@ -36,23 +36,23 @@ import Button from './Button.vue';
 import Icon from './Icon.vue';
 import type { MaybeReadonly } from '/@/types';
 
-export type ContextualMenuAction<T, K extends string> = {
+export type ContextualMenuAction<T, K extends string, U extends unknown[] = []> = {
   id: K,
   label?: string;
   icon?: string;
   attributes?: Record<string, unknown>;
   disabled?: boolean;
-  onClick: (item?: T) => void;
+  onClick: (item?: T, ...args: U) => void;
 };
 
-export type ContextualMenuActions<T, K extends string> = {
+export type ContextualMenuActions<T, K extends string, U extends unknown[] = []> = {
   label?: string;
-  actions: ContextualMenuAction<T, K>[];
+  actions: ContextualMenuAction<T, K, U>[];
 };
 
-export type ContextualMenuProps<T, K extends string> = {
+export type ContextualMenuProps<T, K extends string, U extends unknown[] = []> = {
   item?: MaybeReadonly<T>;
-  actions: ContextualMenuActions<T, K>[];
+  actions: ContextualMenuActions<T, K, U>[];
 } & DropdownProps;
 
 const props = defineProps<ContextualMenuProps<T, K>>();
