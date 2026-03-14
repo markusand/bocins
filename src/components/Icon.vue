@@ -22,6 +22,7 @@ const props = defineProps<IconProps>();
 
   display: inline-block;
   vertical-align: middle;
+  flex: 0 0 auto;
 
   img,
   svg {
@@ -29,6 +30,7 @@ const props = defineProps<IconProps>();
     flex: 0 0 var(--size);
     height: var(--size);
     width: var(--size);
+    max-width: none;
     color: var(--color);
   }
 
