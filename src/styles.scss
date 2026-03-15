@@ -71,8 +71,8 @@
   @extend %input;
 
   display: flex;
-  align-items: center;
-  text-align: center;
+  align-items: left;
+  text-align: left;
 
   &.disabled { @extend %disabled; }
 
