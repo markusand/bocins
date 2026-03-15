@@ -34,6 +34,8 @@ const modifiers = computed(() => {
   const { invalid, block } = props;
   return { invalid, block };
 });
+
+const checkIconUrl = computed(() => `url(${config.iconPath}/check.svg)`);
 </script>
 
 <style lang="scss" scoped>
@@ -69,7 +71,7 @@ const modifiers = computed(() => {
     &:checked {
       background:
         var(--color-bg)
-        v-bind("`url(${config.iconPath}/check.svg)`")
+        v-bind(checkIconUrl)
         no-repeat
         center center
         !important;
