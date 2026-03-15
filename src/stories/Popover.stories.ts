@@ -46,12 +46,12 @@ export const Base: Story = {
       return { args, user };
     },
     template: `<p style="margin:3rem 0">
-      Lorem ipsum dolor sit 
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
       <Popover v-bind="args">
         <UserProfile :user="user" />
-        <template #anchor>Leanne,</template>
+        <template #anchor>LEANNE,</template>
       </Popover>
-      amet consectetur adipisicing elit.
+      sed do eiusmod tempor incididunt ut labore.
     </p>`,
   }),
 };
