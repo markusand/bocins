@@ -53,7 +53,7 @@ const dimensions = computed(() => {
   return {
     ...toWidth(props.width),
     ...(props.expandable
-      ? { minHeight: height, fieldSizing: 'content' }
+      ? { minHeight: height, fieldSizing: 'content' as const }
       : { height }
     ),
   };
