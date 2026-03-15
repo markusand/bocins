@@ -32,6 +32,7 @@ const type = computed(() => {
 
 	display: inline-flex;
   align-items: center;
+	flex-shrink: 0;
 	height: var(--size);
 	border-radius: var(--size);
 	vertical-align: middle;
