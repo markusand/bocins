@@ -11,21 +11,23 @@
       <em v-if="group.label" class="contextual__group-label">
         <slot name="group" :group="group.label">{{ group.label }}</slot>
       </em>
-      <template v-for="action in group.actions" :key="action.label">
-        <slot :name="action.id" :action="action">
-          <slot :action="action">
-            <Button
-              variant="flat"
-              block
-              v-bind="action.attributes ?? {}"
-              :disabled="action.disabled"
-              @click.prevent.stop="action.onClick(props.item as I)">
-              <Icon v-if="action.icon" :src="action.icon" />
-              {{ action.label ?? action.id }}
-            </Button>
+      <div class="contextual__group-actions">
+        <template v-for="action in group.actions" :key="action.label">
+          <slot :name="action.id" :action="action">
+            <slot :action="action">
+              <Button
+                variant="flat"
+                block
+                v-bind="action.attributes ?? {}"
+                :disabled="action.disabled"
+                @click.prevent.stop="action.onClick(props.item as I)">
+                <Icon v-if="action.icon" :src="action.icon" />
+                {{ action.label ?? action.id }}
+              </Button>
+            </slot>
           </slot>
-        </slot>
-      </template>
+        </template>
+      </div>
     </article>
   </Dropdown>
 </template>
@@ -85,9 +87,12 @@ defineSlots<{
       font-style: normal;
     }
 
+    &-actions {
+      display: flex;
+      flex-direction: column;
+    }
+
     .btn {
-      display: block;
-      width: 100%;
       text-align: left;
       justify-content: left;
       white-space: nowrap;
