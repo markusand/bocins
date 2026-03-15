@@ -81,6 +81,7 @@ const styles = computed(() => {
     z-index: 2;
     box-sizing: border-box;
     margin: 0.125rem 0;
+    width: fit-content;
   }
 
   &--top > &__container {

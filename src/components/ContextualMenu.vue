@@ -86,6 +86,8 @@ defineSlots<{
     }
 
     .btn {
+      display: block;
+      width: 100%;
       text-align: left;
       justify-content: left;
       white-space: nowrap;
