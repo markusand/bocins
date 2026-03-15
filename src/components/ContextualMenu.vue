@@ -19,7 +19,7 @@
               block
               v-bind="action.attributes ?? {}"
               :disabled="action.disabled"
-              @click.prevent.stop="action.onClick(props.item)">
+              @click.prevent.stop="action.onClick(props.item as I)">
               <Icon v-if="action.icon" :src="action.icon" />
               {{ action.label ?? action.id }}
             </Button>
@@ -30,39 +30,39 @@
   </Dropdown>
 </template>
 
-<script setup lang="ts" generic="T, K extends string">
+<script setup lang="ts" generic="T, K extends string, I = T">
 import { config } from '/@/config';
 import Dropdown, { type DropdownProps } from './Dropdown.vue';
 import Button from './Button.vue';
 import Icon from './Icon.vue';
 import type { MaybeReadonly } from '/@/types';
 
-export type ContextualMenuAction<T, K extends string, U extends unknown[] = []> = {
+export type ContextualMenuAction<T, K extends string, I = T> = {
   id: K,
   label?: string;
   icon?: string;
   attributes?: Record<string, unknown>;
   disabled?: boolean;
-  onClick: (item?: T, ...args: U) => void;
+  onClick: (item: I) => void;
 };
 
-export type ContextualMenuActions<T, K extends string, U extends unknown[] = []> = {
+export type ContextualMenuActions<T, K extends string, I = T> = {
   label?: string;
-  actions: ContextualMenuAction<T, K, U>[];
+  actions: ContextualMenuAction<T, K, I>[];
 };
 
-export type ContextualMenuProps<T, K extends string, U extends unknown[] = []> = {
-  item?: MaybeReadonly<T>;
-  actions: ContextualMenuActions<T, K, U>[];
+export type ContextualMenuProps<T, K extends string, I = T> = {
+  item: MaybeReadonly<T>;
+  actions: ContextualMenuActions<T, K, I>[];
 } & DropdownProps;
 
-const props = defineProps<ContextualMenuProps<T, K>>();
+const props = defineProps<ContextualMenuProps<T, K, I>>();
 
 defineSlots<{
   toggler?: () => void;
   group?: (props: { group: string }) => void;
-  default?: (props: { action: ContextualMenuAction<T, K> }) => void;
-} & Record<K, (props: { action: ContextualMenuAction<T, K> }) => void>>();
+  default?: (props: { action: ContextualMenuAction<T, K, I> }) => void;
+} & Record<K, (props: { action: ContextualMenuAction<T, K, I> }) => void>>();
 </script>
 
 <style lang="scss" scoped>
