@@ -1,8 +1,9 @@
 <template>
-  <div :class="['longtext', modifiers]" :style="dimensions">
+  <div :class="['longtext', modifiers]">
     <textarea
       v-model="text"
       v-bind="props"
+      :style="dimensions"
       :maxlength="props.maxLength"
       :disabled="props.disabled"
       @keydown.tab="handleTab" />
@@ -25,6 +26,7 @@ export type LongTextProps = {
   disabled?: boolean;
   invalid?: boolean;
   indentable?: boolean;
+  expandable?: boolean;
 };
 
 const props = withDefaults(defineProps<LongTextProps>(), {
@@ -46,10 +48,16 @@ const handleTab = (event: KeyboardEvent) => {
   target.selectionEnd = selectionEnd + 1;
 };
 
-const dimensions = computed(() => ({
-  ...toWidth(props.width),
-  ...toHeight(props.height),
-}));
+const dimensions = computed(() => {
+  const { height = 0 } = toHeight(props.height) ?? props;
+  return {
+    ...toWidth(props.width),
+    ...(props.expandable
+      ? { minHeight: height, fieldSizing: 'content' }
+      : { height }
+    ),
+  };
+});
 
 const modifiers = computed(() => {
   const { block, disabled, invalid } = props;
@@ -70,10 +78,10 @@ const modifiers = computed(() => {
 
   textarea {
     all: unset;
+    display: block;
     padding: var(--spacing);
     box-sizing: border-box;
-    width: 100%;
-    height: 100%;
+    min-height: calc(1em + 2 * var(--spacing));
     white-space: pre-wrap;
   }
 

@@ -32,6 +32,7 @@ const meta = {
     disabled: { description: 'Disable the input.' },
     invalid: { description: 'Set state to invalid.' },
     block: { description: 'Display as a block input.' },
+    expandable: { description: 'Autoexpand the input on writing. https://caniuse.com/?search=field-sizing' },
   },
   args: {
     width: '20',
@@ -42,6 +43,7 @@ const meta = {
     block: false,
     indentable: false,
     maxLength: undefined,
+    expandable: false,
   },
 } satisfies Meta<typeof LongText>;
 
