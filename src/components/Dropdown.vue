@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown" :class="modifiers" :style="width" @click.stop>
+  <div class="dropdown" :class="modifiers" :style="styles" @click.stop>
     <div class="dropdown__toggler" tabindex="0">
       <slot name="toggler">
         <Button
@@ -19,14 +19,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, useId } from 'vue';
 import { config } from '/@/config';
 import Icon from './Icon.vue';
 import Button, { type ButtonProps } from './Button.vue';
 import { toWidth } from '/@/utils';
 
 export type DropdownProps = {
-  label?: string; 
+  label?: string;
   top?: boolean;
   right?: boolean;
   disabled?: boolean;
@@ -52,7 +52,14 @@ const modifiers = computed(() => {
   };
 });
 
-const width = computed(() => toWidth(props.width));
+const styles = computed(() => {
+  const anchorId = useId();
+  return {
+    ...toWidth(props.width),
+    '--anchor-name': `--dropdown-${anchorId}`,
+    '--position-anchor': `--dropdown-${anchorId}`,
+  };
+});
 </script>
 
 <style lang="scss" scoped>
@@ -62,27 +69,47 @@ const width = computed(() => toWidth(props.width));
   vertical-align: middle;
   overflow: visible;
   box-sizing: border-box;
+  anchor-name: var(--anchor-name);
 
   &__container {
     display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
+    position: fixed;
+    position-anchor: var(--position-anchor);
+    top: anchor(bottom);
+    left: anchor(left);
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
     z-index: 2;
     box-sizing: border-box;
     margin: 0.125rem 0;
   }
 
-  &--top > &__toggler .chevron { transform: rotate(180deg); }
-
   &--top > &__container {
-    bottom: 100%;
+    bottom: anchor(top);
     top: unset;
   }
 
   &--right > &__container {
     left: unset;
-    right: 0;
+    right: anchor(right);
+  }
+
+  /* Fallback for browsers without anchor positioning support */
+  @supports not (anchor-name: --dropdown-anchor) {
+    &__container {
+      position: absolute;
+      top: 100%;
+      left: 0;
+    }
+
+    &--top > &__container {
+      bottom: 100%;
+      top: unset;
+    }
+
+    &--right > &__container {
+      left: unset;
+      right: 0;
+    }
   }
 
   &__toggler:focus-within + &__container,

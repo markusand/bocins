@@ -1,5 +1,5 @@
 <template>
-  <div class="popover-wrapper" :tabindex="props.click ? -1 : undefined">
+  <div class="popover-wrapper" :tabindex="props.click ? -1 : undefined" :style="anchorStyles">
     <div :class="['popover', `popover--${props.position ?? 'top'}`]" :style="width">
       <slot />
     </div>
@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, useId } from 'vue';
 import { toWidth } from '../utils';
 
 export type PopoverProps = {
@@ -25,11 +25,20 @@ defineSlots<{
 }>();
 
 const width = computed(() => toWidth(props.width ?? 'auto'));
+
+const anchorStyles = computed(() => {
+  const anchorId = useId();
+  return {
+    '--anchor-name': `--popover-${anchorId}`,
+    '--position-anchor': `--popover-${anchorId}`,
+  };
+});
 </script>
 
 <style lang="scss" scoped>
 .popover {
-  position: absolute;
+  position: fixed;
+  position-anchor: var(--position-anchor);
   background: var(--color-bg, #fff);
   color: var(--color-text, currentcolor);
   padding: var(--spacing, 0);
@@ -37,6 +46,7 @@ const width = computed(() => toWidth(props.width ?? 'auto'));
   box-shadow: var(--shadow, 0 0 1rem 0.25rem #8882);
   display: none;
   z-index: 2;
+  position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
 
   &:hover,
   :focus > &,
@@ -50,8 +60,8 @@ const width = computed(() => toWidth(props.width ?? 'auto'));
   }
 
   &--bottom {
-    top: 100%;
-    left: 50%;
+    top: anchor(bottom);
+    left: anchor(center);
     margin: 0.5rem 0 0;
     transform: translateX(-50%);
 
@@ -63,8 +73,8 @@ const width = computed(() => toWidth(props.width ?? 'auto'));
   }
 
   &--top {
-    bottom: 100%;
-    left: 50%;
+    bottom: anchor(top);
+    left: anchor(center);
     margin: 0 0 0.5rem;
     transform: translateX(-50%);
 
@@ -76,8 +86,8 @@ const width = computed(() => toWidth(props.width ?? 'auto'));
   }
 
   &--left {
-    right: 100%;
-    top: 50%;
+    right: anchor(left);
+    top: anchor(center);
     margin: 0 0.5rem 0 0;
     transform: translateY(-50%);
 
@@ -88,10 +98,10 @@ const width = computed(() => toWidth(props.width ?? 'auto'));
       transform: translate(0, -50%);
     }
   }
-  
+
   &--right {
-    left: 100%;
-    top: 50%;
+    left: anchor(right);
+    top: anchor(center);
     margin: 0 0 0 0.5rem;
     transform: translateY(-50%);
 
@@ -102,11 +112,36 @@ const width = computed(() => toWidth(props.width ?? 'auto'));
       transform: translate(0, -50%);
     }
   }
-  
+
+  /* Fallback for browsers without anchor positioning support */
+  @supports not (anchor-name: --popover-anchor) {
+    position: absolute;
+
+    &--bottom {
+      top: 100%;
+      left: 50%;
+    }
+
+    &--top {
+      bottom: 100%;
+      left: 50%;
+    }
+
+    &--left {
+      right: 100%;
+      top: 50%;
+    }
+
+    &--right {
+      left: 100%;
+      top: 50%;
+    }
+  }
+
   &-wrapper {
     position: relative;
-    display: block;
     display: inline-block;
+    anchor-name: var(--anchor-name);
   }
 }
 </style>
