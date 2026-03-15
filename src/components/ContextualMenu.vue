@@ -12,8 +12,8 @@
         <slot name="group" :group="group.label">{{ group.label }}</slot>
       </em>
       <template v-for="action in group.actions" :key="action.label">
-        <slot :action="action">
-          <slot :name="action.id" :action="action">
+        <slot :name="action.id" :action="action">
+          <slot :action="action">
             <Button
               variant="flat"
               block
