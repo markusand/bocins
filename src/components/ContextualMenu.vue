@@ -7,11 +7,11 @@
         </Button>
       </slot>
     </template>
-    <article v-for="group, i in props.actions" :key="group.label ?? i" class="contextual__group">
-      <em v-if="group.label" class="contextual__group-label">
+    <article v-for="group, i in props.actions" :key="group.label ?? i" class="group">
+      <em v-if="group.label" class="label">
         <slot name="group" :group="group.label">{{ group.label }}</slot>
       </em>
-      <div class="contextual__group-actions">
+      <div class="actions">
         <template v-for="action in group.actions" :key="action.label">
           <slot :name="action.id" :action="action">
             <slot :action="action">
@@ -72,14 +72,14 @@ defineSlots<{
 
 .contextual {
   // stylelint-disable-next-line selector-pseudo-class-no-unknown
-  :deep(.dropdown__container) { @extend %panel; }
+  :deep(.container) { @extend %panel; }
 
-  &__group {
+  .group {
     padding: 0.25rem;
 
     & + & { border-top: 1px solid #8884; }
 
-    &-label {
+    .label {
       color: #888a;
       font-size: 0.8em;
       display: block;
@@ -87,7 +87,7 @@ defineSlots<{
       font-style: normal;
     }
 
-    &-actions {
+    .actions {
       display: flex;
       flex-direction: column;
     }

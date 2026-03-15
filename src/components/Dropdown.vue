@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown" :class="modifiers" :style="styles" @click.stop>
-    <div class="dropdown__toggler" tabindex="0">
+    <div class="toggler" tabindex="0">
       <slot name="toggler">
         <Button
           v-bind="props.toggler"
@@ -12,7 +12,7 @@
         </Button>
       </slot>
     </div>
-    <div v-if="!props.disabled" class="dropdown__container" tabindex="-1">
+    <div v-if="!props.disabled" class="container" tabindex="-1">
       <slot />
     </div>
   </div>
@@ -45,8 +45,8 @@ defineSlots<{
 const modifiers = computed(() => {
   const { disabled, top, right, block } = props;
   return {
-    'dropdown--top': top,
-    'dropdown--right': right,
+    top,
+    right,
     block,
     disabled,
   };
@@ -71,7 +71,7 @@ const styles = computed(() => {
   box-sizing: border-box;
   anchor-name: var(--anchor-name);
 
-  &__container {
+  .container {
     display: none;
     position: fixed;
     position-anchor: var(--position-anchor);
@@ -84,39 +84,39 @@ const styles = computed(() => {
     width: fit-content;
   }
 
-  &--top > &__container {
+  &.top > .container {
     bottom: anchor(top);
     top: unset;
   }
 
-  &--right > &__container {
+  &.right > .container {
     left: unset;
     right: anchor(right);
   }
 
   /* Fallback for browsers without anchor positioning support */
   @supports not (anchor-name: --dropdown-anchor) {
-    &__container {
+    .container {
       position: absolute;
       top: 100%;
       left: 0;
     }
 
-    &--top > &__container {
+    &.top > .container {
       bottom: 100%;
       top: unset;
     }
 
-    &--right > &__container {
+    &.right > .container {
       left: unset;
       right: 0;
     }
   }
 
-  &__toggler:focus-within + &__container,
-  &__container:hover,
-  &__container:focus,
-  &__container:focus-within { display: block; }
+  .toggler:focus-within + .container,
+  .container:hover,
+  .container:focus,
+  .container:focus-within { display: block; }
 
   &.disabled {
     cursor: not-allowed;

@@ -2,7 +2,7 @@
   <ul class="treelist">
     <li v-for="item, i in props.schema" :key="i">
       <details v-if="childrenNode in item" :open="props.open">
-        <summary class="treelist__title">
+        <summary class="title">
           <Icon
             :src="`${config.iconPath}/chevron-right.svg`"
             class="chevron" />
@@ -82,7 +82,7 @@ const path = (item: T): PropertyKey[] => [
 
   [open] > summary .chevron { transform: rotate(90deg); }
 
-  &__title {
+  .title {
     padding: var(--spacing) 0;
     display: flex;
     align-items: center;

@@ -14,9 +14,9 @@
       :options
       :disabled="props.disabled">
       <template #default="{ option }">
-        <div class="listbox__option">
+        <div class="option">
           <slot :option>
-            <div class="listbox__label">
+            <div class="label">
               {{ props.formatter?.(option) || option }}
             </div>
           </slot>
@@ -24,7 +24,7 @@
       </template>
     </Picker>
     <slot v-else name="empty">
-      <div class="listbox__empty">
+      <div class="empty">
         {{ props.emptyText || 'No options available' }}
       </div>
     </slot>
@@ -91,26 +91,26 @@ const modifiers = computed(() => {
     border-bottom-right-radius: 0;
   }
 
-  &__option {
+  .option {
     flex: 1;
     border-radius: 0.25rem;
 
     &:hover { background: color-mix(in srgb, var(--color) 10%, transparent); }
-
-    :checked + & {
-      background: var(--color);
-      color: var(--color-text-accent, #fff);
-    }
-
-    .invalid :checked + & {
-      background: var(--color-error, red);
-      color: #fff;
-    }
   }
 
-  &__label { padding: 0.35rem 0.5rem; }
+  :checked + .option {
+    background: var(--color);
+    color: var(--color-text-accent, #fff);
+  }
 
-  &__empty {
+  .invalid :checked + .option {
+    background: var(--color-error, red);
+    color: #fff;
+  }
+
+  .label { padding: 0.35rem 0.5rem; }
+
+  .empty {
     padding: 0.5rem;
     text-align:center;
     opacity: 0.25;
@@ -118,9 +118,9 @@ const modifiers = computed(() => {
   }
 
   &.invalid { @extend %invalid; }
-  
+
   &.disabled { @extend %disabled; }
-  
+
   &.disabled :checked + &__option {
     background: color-mix(in srgb, var(--color) 25%, transparent);
   }

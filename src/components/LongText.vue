@@ -7,7 +7,7 @@
       :maxlength="props.maxLength"
       :disabled="props.disabled"
       @keydown.tab="handleTab" />
-    <span v-if="props.maxLength" class="longtext__counter">
+    <span v-if="props.maxLength" class="counter">
       {{ text.length }} / {{ props.maxLength }}
     </span>
   </div>
@@ -85,7 +85,7 @@ const modifiers = computed(() => {
     white-space: pre-wrap;
   }
 
-  &__counter {
+  .counter {
     position: absolute;
     bottom: 0;
     right: 0;

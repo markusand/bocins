@@ -3,7 +3,7 @@
     <Avatar
       :name="`${props.user.name} ${props.user.surname}`"
       :src="props.user.avatar" />
-    <div class="user-profile__details">
+    <div class="details">
       <strong>{{ props.user.name }} {{ props.user.surname }}</strong>
       <em>{{ props.user.email }}</em>
     </div>
@@ -26,7 +26,7 @@ const props = defineProps<{
   padding: 0.25rem;
   flex: 1;
 
-  &__details {
+  .details {
     display: flex;
     flex-direction: column;
 

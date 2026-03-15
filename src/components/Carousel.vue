@@ -1,12 +1,12 @@
 <template>
   <div class="carousel">
-    <div ref="wrapper" class="carousel__wrapper" @scrollend="updateActive">
-      <div v-for="item, i in props.items" :key="i" class="carousel__slide">
+    <div ref="wrapper" class="wrapper" @scrollend="updateActive">
+      <div v-for="item, i in props.items" :key="i" class="slide">
         <slot :item />
       </div>
     </div>
     <slot v-if="props.controls" name="controls" :active="active" :goto="goto">
-      <ul :class="['controls', `controls--${props.controls}`]">
+      <ul :class="['controls', props.controls]">
         <li v-for="item, i in props.items" :key="i">
           <slot
             name="control"
@@ -79,7 +79,7 @@ onUnmounted(() => clearInterval(running.value));
 .carousel {
   position: relative;
   
-  &__wrapper {
+  .wrapper {
     display: flex;
     position: relative;
     height: 100%;
@@ -92,7 +92,7 @@ onUnmounted(() => clearInterval(running.value));
     &::-webkit-scrollbar { display: none;}
   }
 
-  &__slide {
+  .slide {
     scroll-snap-align: center;
     flex: 0 0 100%;
     position: relative;
@@ -106,26 +106,26 @@ onUnmounted(() => clearInterval(running.value));
     display: flex;
     gap: 0.5rem;
 
-    &--top-left { top: 0; }
-    &--bottom-left { bottom: 0; }
+    &.top-left { top: 0; }
+    &.bottom-left { bottom: 0; }
 
-    &--bottom {
+    &.bottom {
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
     }
 
-    &--bottom-right {
+    &.bottom-right {
       bottom: 0;
       right: 0;
     }
 
-    &--top-right {
+    &.top-right {
       top: 0;
       right: 0;
     }
 
-    &--top {
+    &.top {
       top: 0;
       left: 50%;
       transform: translateX(-50%);

@@ -6,7 +6,7 @@
       <em>{{ props.label || 'Click or Drop files' }}</em>
     </slot>
     <slot v-else name="files" :files="files" :remove="remove">
-      <ul class="file-drop__list">
+      <ul class="list">
         <li v-for="file in files" :key="file.name">
           <slot name="file" :file="file" :remove="remove">
             <span class="file-name">{{ file.name }}</span>
@@ -73,7 +73,7 @@ const size = computed(() => ({
 const modifiers = computed(() => {
   const { block, disabled } = props;
   return {
-    [`file-drop--${state.value}`]: state.value,
+    [state.value as string]: state.value,
     disabled,
     block,
   };
@@ -141,8 +141,8 @@ const remove = (file: File) => {
   box-sizing: border-box;
   cursor: pointer;
 
-  &--hover { --color: var(--color-accent, #333); }
-  &--invalid { --color: var(--color-error, red); }
+  &.hover { --color: var(--color-accent, #333); }
+  &.invalid { --color: var(--color-error, red); }
 
   & > em {
     font-style: normal;
@@ -152,7 +152,7 @@ const remove = (file: File) => {
 
   input { display: none; }
 
-  &__list {
+  .list {
     margin: 0;
     padding: 0.5rem 1rem;
     list-style: none;

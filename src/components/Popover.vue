@@ -1,6 +1,6 @@
 <template>
   <div class="popover-wrapper" :tabindex="props.click ? -1 : undefined" :style="anchorStyles">
-    <div :class="['popover', `popover--${props.position ?? 'top'}`]" :style="width">
+    <div :class="['popover', props.position || 'top']" :style="width">
       <slot />
     </div>
     <slot name="anchor" />
@@ -59,7 +59,7 @@ const anchorStyles = computed(() => {
     transform: translateX(-50%);
   }
 
-  &--bottom {
+  &.bottom {
     top: anchor(bottom);
     left: anchor(center);
     margin: 0.5rem 0 0;
@@ -72,7 +72,7 @@ const anchorStyles = computed(() => {
     }
   }
 
-  &--top {
+  &.top {
     bottom: anchor(top);
     left: anchor(center);
     margin: 0 0 0.5rem;
@@ -85,7 +85,7 @@ const anchorStyles = computed(() => {
     }
   }
 
-  &--left {
+  &.left {
     right: anchor(left);
     top: anchor(center);
     margin: 0 0.5rem 0 0;
@@ -99,7 +99,7 @@ const anchorStyles = computed(() => {
     }
   }
 
-  &--right {
+  &.right {
     left: anchor(right);
     top: anchor(center);
     margin: 0 0 0 0.5rem;
@@ -117,22 +117,22 @@ const anchorStyles = computed(() => {
   @supports not (anchor-name: --popover-anchor) {
     position: absolute;
 
-    &--bottom {
+    &.bottom {
       top: 100%;
       left: 50%;
     }
 
-    &--top {
+    &.top {
       bottom: 100%;
       left: 50%;
     }
 
-    &--left {
+    &.left {
       right: 100%;
       top: 50%;
     }
 
-    &--right {
+    &.right {
       left: 100%;
       top: 50%;
     }

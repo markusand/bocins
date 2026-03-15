@@ -1,5 +1,5 @@
 <template>
-  <picture class="icon" :class="{ [`icon--${props.size}`]: props.size }">
+  <picture :class="['icon', props.size || '']">
     <img v-svg-inline :src="props.src">
   </picture> 
 </template>
@@ -34,8 +34,8 @@ const props = defineProps<IconProps>();
     color: var(--color);
   }
 
-  &--small { --size: 1rem; }
-  &--medium { --size: 1.5rem; }
-  &--large { --size: 2rem; }
+  &.small { --size: 1rem; }
+  &.medium { --size: 1.5rem; }
+  &.large { --size: 2rem; }
 }
 </style>
