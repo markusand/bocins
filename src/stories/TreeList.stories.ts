@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { TreeList, type TreeNode, type TreeListProps } from '/@/components';
+import { TreeList } from '/@/components';
 import UserProfile from './UserProfile.vue';
 import { users, type User } from './assets/users';
 import './assets/styles.scss';
@@ -14,7 +14,7 @@ type Department = {
   users: (Team | User)[];
 };
 
-const teams: TreeNode<Department, 'users'>[] = [...Array(3).keys()].map(i => ({
+const teams: Department[] = [...Array(3).keys()].map(i => ({
   name: `Department #${i}`,
   users: Object.values(users.reduce((acc, user) => {
     if (!acc[user.area]) acc[user.area] = { name: user.area, users: [] };
@@ -28,7 +28,7 @@ const props = {
   nameNode: 'name',
   childrenNode: 'users',
   open: false,
-} satisfies TreeListProps<Department, 'users'>;
+} as const;
 
 const meta = {
   title: 'TreeList',

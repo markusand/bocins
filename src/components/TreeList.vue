@@ -1,71 +1,63 @@
 <template>
   <ul class="treelist">
     <li v-for="item, i in props.schema" :key="i">
-      <details v-if="item[childrenNode as keyof T]" :open="props.open">
+      <details v-if="childrenNode in item" :open="props.open">
         <summary class="treelist__title">
           <Icon
             :src="`${config.iconPath}/chevron-right.svg`"
             class="chevron" />
-          <slot name="title" :item :parent :path="path(item)">
-            <slot :item :parent :path="path(item)">
-              {{ item[nameNode as keyof T] }}
+          <slot name="title" :parent :path="path(item)" :item>
+            <slot :parent :path="path(item)" :item>
+              {{ item[nameNode] }}
             </slot>
           </slot>
         </summary>
         <TreeList
           :parent="item"
-          :schema="(item[childrenNode as keyof T] as TreeNode<T, K>[])"
+          :schema="(item[childrenNode] as T[])"
           :name-node="nameNode"
           :children-node="childrenNode"
           :path="path(item)"
           :open="props.open">
-          <template #title="{ item: _item, parent: _parent, path: _path }">
-            <slot name="title" :item="_item" :parent="_parent" :path="_path" />
+          <template #title="attrs">
+            <slot name="title" v-bind="attrs" />
           </template>
-          <template #default="{ item: _item, parent: _parent, path: _path }">
-            <slot :item="_item" :parent="_parent" :path="_path" />
+          <template #default="attrs">
+            <slot v-bind="attrs" />
           </template>
         </TreeList>
       </details>
       <div v-else>
         <slot :item :parent :path="path(item)">
-          {{ item[nameNode as keyof T] }}
+          {{ item[nameNode] }}
         </slot>
       </div>
     </li>
   </ul>
 </template>
 
-<script setup lang="ts" generic="T extends object, K extends KeyOfAttribute<T, unknown[]>">
+<script setup lang="ts" generic="T extends object, K extends KoA<T, unknown[] | undefined>">
 import { config } from '/@/config';
 import Icon from './Icon.vue';
-import type { KeyOfAttribute, MaybeReadonly } from '/@/types';
+import type { KeyOfAttribute as KoA, MaybeReadonly } from '/@/types';
 
-export type TreeNode<
-  T extends object,
-  K extends keyof T,
-> = (T & { [k in K]?: TreeNode<T, K>[] }) | T;
+defineSlots<{
+  default?: (props: { item: T, parent?: T, path: PropertyKey[] }) => void;
+  title?: (props: { item: T, parent?: T, path: PropertyKey[] }) => void;
+}>();
 
-export type TreeListProps<T extends object, K extends KeyOfAttribute<T, unknown[]>> = {
-  schema: MaybeReadonly<TreeNode<T, K>[]>;
-  nameNode: KeyOfAttribute<T, string | number>;
+const props = defineProps<{
+  schema: MaybeReadonly<T[]>;
+  nameNode: KoA<T, PropertyKey>;
   childrenNode: K;
   parent?: T;
   open?: boolean;
-  path?: (string | number)[];
-};
-
-defineSlots<{
-  // @ts-expect-error Default prop may be any element of the children array
-  default?: (props: { item: T | T[K][number], parent?: T, path: (string | number)[] }) => void;
-  title?: (props: { item: T, parent?: T, path: (string | number)[] }) => void;
+  path?: PropertyKey[];
 }>();
 
-const props = defineProps<TreeListProps<T, K>>();
-
-const path = (item: TreeNode<T, K>): (string | number)[] => [
+const path = (item: T): PropertyKey[] => [
   ...(props.path || []),
-  item[props.nameNode] as string | number,
+  item[props.nameNode] as PropertyKey,
 ];
 </script>
 
