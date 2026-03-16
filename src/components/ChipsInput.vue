@@ -56,13 +56,20 @@ const onBackspace = (event: Event) => {
   gap: 0 var(--spacing);
 
   &__group {
-    margin: calc(0.5 * var(--spacing)) calc(-0.5 * var(--spacing));
+    margin: calc(0.25 * var(--spacing)) calc(-0.75 * var(--spacing));
     display: flex;
     flex-wrap: wrap;
     gap: 0.125rem;
 
     .chip { margin: 0; }
   }
+
+  :deep(input) {
+    padding: 0.375rem 0;
+    flex: 1 1 4rem;
+  }
+
+  :deep(> .icon) { padding: 0.5rem 0; }
 
   &:not(:focus-within).input--invalid .chip { --color: currentcolor; }
 }
