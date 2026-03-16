@@ -6,10 +6,10 @@
       <em>{{ props.label || 'Click or Drop files' }}</em>
     </slot>
     <slot v-else name="files" :files="files" :remove="remove">
-      <ul class="list">
+      <ul class="file-drop__list">
         <li v-for="file in files" :key="file.name">
           <slot name="file" :file="file" :remove="remove">
-            <span class="file-name">{{ file.name }}</span>
+            <span class="file-drop__file-name">{{ file.name }}</span>
             <button type="button" @click.prevent="remove(file)">&times;</button>
           </slot>
         </li>
@@ -73,9 +73,9 @@ const size = computed(() => ({
 const modifiers = computed(() => {
   const { block, disabled } = props;
   return {
-    [state.value as string]: state.value,
-    disabled,
-    block,
+    [`file-drop--${state.value}`]: state.value,
+    'file-drop--disabled': disabled,
+    'file-drop--block': block,
   };
 });
 
@@ -141,8 +141,8 @@ const remove = (file: File) => {
   box-sizing: border-box;
   cursor: pointer;
 
-  &.hover { --color: var(--color-accent, #333); }
-  &.invalid { --color: var(--color-error, red); }
+  &--hover { --color: var(--color-accent, #333); }
+  &--invalid { --color: var(--color-error, red); }
 
   & > em {
     font-style: normal;
@@ -152,7 +152,7 @@ const remove = (file: File) => {
 
   input { display: none; }
 
-  .list {
+  &__list {
     margin: 0;
     padding: 0.5rem 1rem;
     list-style: none;
@@ -165,21 +165,23 @@ const remove = (file: File) => {
       display: flex;
       width: 100%;
       gap: 0.5rem;
-
-      .file-name {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      
-        & + button {
-          all: unset;
-          color: var(--color-alert, red);
-          cursor: pointer;
-        }
-      }
     }
   }
 
-  &.disabled { @extend %disabled; }
+  &__file-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    & + button {
+      all: unset;
+      color: var(--color-alert, red);
+      cursor: pointer;
+    }
+  }
+
+  &--disabled { @extend %disabled; }
+
+  &--block { @extend %block; }
 }
 </style>

@@ -3,13 +3,13 @@
     class="datepicker"
     v-bind="datepickerProps">
     <template #toggler>
-      <div :class="['toggler', { invalid, disabled }]">
-        <div v-if="isSelected(selected)" class="selected">
+      <div :class="['datepicker__toggler', togglerModifiers]">
+        <div v-if="isSelected(selected)" class="datepicker__selected">
           <template v-if="isSelected(selected)">
             <slot v-if="Array.isArray(selected)" name="dates" :dates="selected">
-              <div class="range-dates">
+              <div class="datepicker__range-dates">
                 <span>{{ props.formatter?.(selected[0]) ?? selected[0] }}</span>
-                <Icon :src="`${config.iconPath}/arrow-right.svg`" class="separator" />
+                <Icon :src="`${config.iconPath}/arrow-right.svg`" />
                 <span>{{ props.formatter?.(selected[1]) ?? selected[1] }}</span>
               </div>
             </slot>
@@ -18,7 +18,7 @@
             </slot>
           </template>
         </div>
-        <div v-else class="placeholder">
+        <div v-else class="datepicker__placeholder">
           <slot name="placeholder">{{ props.placeholder || 'Select date' }}</slot>
         </div>
         <Icon
@@ -62,6 +62,11 @@ const datepickerProps = computed(() => {
   return { disabled, block, width, top, right };
 });
 
+const togglerModifiers = computed(() => ({
+  'datepicker__toggler--invalid': props.invalid,
+  'datepicker__toggler--disabled': props.disabled,
+}));
+
 defineSlots<{
   date?: (props: { date: Date }) => void;
   dates?: (props: { dates: [Date, Date] }) => void;
@@ -87,15 +92,16 @@ const clear = () => {
 @use  '../styles';
 
 .datepicker {
-  .toggler { @extend %selector-toggler; }
+  &__toggler { @extend %selector-toggler; }
+
   .calendar { @extend %panel; }
 
-  .range-dates {
+  &__range-dates {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-  }
 
-  .separator { opacity: 0.25; }
+    :deep(.icon) { opacity: 0.25; }
+  }
 }
 </style>

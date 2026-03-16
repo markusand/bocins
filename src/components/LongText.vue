@@ -7,7 +7,7 @@
       :maxlength="props.maxLength"
       :disabled="props.disabled"
       @keydown.tab="handleTab" />
-    <span v-if="props.maxLength" class="counter">
+    <span v-if="props.maxLength" class="longtext__counter">
       {{ text.length }} / {{ props.maxLength }}
     </span>
   </div>
@@ -61,7 +61,11 @@ const dimensions = computed(() => {
 
 const modifiers = computed(() => {
   const { block, disabled, invalid } = props;
-  return { block, disabled, invalid };
+  return {
+    'longtext--block': block,
+    'longtext--disabled': disabled,
+    'longtext--invalid': invalid,
+  };
 });
 </script>
 
@@ -85,7 +89,7 @@ const modifiers = computed(() => {
     white-space: pre-wrap;
   }
 
-  .counter {
+  &__counter {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -94,6 +98,8 @@ const modifiers = computed(() => {
     opacity: 0.5;
   }
 
-  &.disabled { @extend %disabled; }
+  &--disabled { @extend %disabled; }
+
+  &--block { @extend %block; }
 }
 </style>

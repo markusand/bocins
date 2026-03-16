@@ -69,8 +69,8 @@ const decrease = (step = +props.step) => increase(-1 * step);
       cursor: not-allowed;
       opacity: 0.25;
     }
-
-    .icon { --size: 1rem; }
   }
+
+  :deep(.icon) { --size: 1rem; }
 }
 </style>

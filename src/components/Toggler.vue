@@ -32,7 +32,10 @@ const selected = defineModel<T | T[] | undefined>({ required: true });
 
 const modifiers = computed(() => {
   const { invalid, block } = props;
-  return { invalid, block };
+  return {
+    'toggler--invalid': invalid,
+    'toggler--block': block,
+  };
 });
 
 const checkIconUrl = computed(() => `url(${config.iconPath}/check.svg)`);
@@ -89,7 +92,9 @@ const checkIconUrl = computed(() => `url(${config.iconPath}/check.svg)`);
 
   &:has(:checked) { --color-bg: var(--color-accent, #333); }
 
-  &.invalid { --color-bg: var(--color-error, red); }
+  &--invalid { --color-bg: var(--color-error, red); }
   &:has(:disabled) { @extend %disabled; }
+
+  &--block { @extend %block; }
 }
 </style>

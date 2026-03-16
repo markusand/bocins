@@ -1,6 +1,6 @@
 <template>
-  <div class="popover-wrapper" :tabindex="props.click ? -1 : undefined" :style="anchorStyles">
-    <div :class="['popover', props.position || 'top']" :style="width">
+  <div class="popover" :tabindex="props.click ? -1 : undefined" :style="anchorStyles">
+    <div :class="['popover__content', `popover__content--${props.position || 'top'}`]" :style="width">
       <slot />
     </div>
     <slot name="anchor" />
@@ -37,111 +37,111 @@ const anchorStyles = computed(() => {
 
 <style lang="scss" scoped>
 .popover {
-  position: fixed;
-  position-anchor: var(--position-anchor);
-  background: var(--color-bg, #fff);
-  color: var(--color-text, currentcolor);
-  padding: var(--spacing, 0);
-  border-radius: 0.25rem;
-  box-shadow: var(--shadow, 0 0 1rem 0.25rem #8882);
-  display: none;
-  z-index: 2;
-  position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+  position: relative;
+  display: inline-block;
+  anchor-name: var(--anchor-name);
 
-  &:hover,
-  :focus > &,
-  :not([tabindex]):hover > & { display: block; }
+  &__content {
+    position: fixed;
+    position-anchor: var(--position-anchor);
+    background: var(--color-bg, #fff);
+    color: var(--color-text, currentcolor);
+    padding: var(--spacing, 0);
+    border-radius: 0.25rem;
+    box-shadow: var(--shadow, 0 0 1rem 0.25rem #8882);
+    display: none;
+    z-index: 2;
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
 
-  &::before {
-    content: "";
-    position: absolute;
-    border: 0.5rem solid transparent;
-    transform: translateX(-50%);
-  }
-
-  &.bottom {
-    top: anchor(bottom);
-    left: anchor(center);
-    margin: 0.5rem 0 0;
-    transform: translateX(-50%);
+    &:hover,
+    :focus > &,
+    :not([tabindex]):hover > & { display: block; }
 
     &::before {
-      border-bottom-color: var(--color-bg, #fff);
-      bottom: 100%;
-      left: 50%;
-    }
-  }
-
-  &.top {
-    bottom: anchor(top);
-    left: anchor(center);
-    margin: 0 0 0.5rem;
-    transform: translateX(-50%);
-
-    &::before {
-      border-top-color: var(--color-bg, #fff);
-      top: 100%;
-      left: 50%;
-    }
-  }
-
-  &.left {
-    right: anchor(left);
-    top: anchor(center);
-    margin: 0 0.5rem 0 0;
-    transform: translateY(-50%);
-
-    &::before {
-      border-left-color: var(--color-bg, #fff);
-      top: 50%;
-      left: 100%;
-      transform: translate(0, -50%);
-    }
-  }
-
-  &.right {
-    left: anchor(right);
-    top: anchor(center);
-    margin: 0 0 0 0.5rem;
-    transform: translateY(-50%);
-
-    &::before {
-      border-right-color: var(--color-bg, #fff);
-      top: 50%;
-      right: 100%;
-      transform: translate(0, -50%);
-    }
-  }
-
-  /* Fallback for browsers without anchor positioning support */
-  @supports not (anchor-name: --popover-anchor) {
-    position: absolute;
-
-    &.bottom {
-      top: 100%;
-      left: 50%;
+      content: "";
+      position: absolute;
+      border: 0.5rem solid transparent;
+      transform: translateX(-50%);
     }
 
-    &.top {
-      bottom: 100%;
-      left: 50%;
+    &--bottom {
+      top: anchor(bottom);
+      left: anchor(center);
+      margin: 0.5rem 0 0;
+      transform: translateX(-50%);
+
+      &::before {
+        border-bottom-color: var(--color-bg, #fff);
+        bottom: 100%;
+        left: 50%;
+      }
     }
 
-    &.left {
-      right: 100%;
-      top: 50%;
+    &--top {
+      bottom: anchor(top);
+      left: anchor(center);
+      margin: 0 0 0.5rem;
+      transform: translateX(-50%);
+
+      &::before {
+        border-top-color: var(--color-bg, #fff);
+        top: 100%;
+        left: 50%;
+      }
     }
 
-    &.right {
-      left: 100%;
-      top: 50%;
-    }
-  }
+    &--left {
+      right: anchor(left);
+      top: anchor(center);
+      margin: 0 0.5rem 0 0;
+      transform: translateY(-50%);
 
-  &-wrapper {
-    position: relative;
-    display: inline-block;
-    anchor-name: var(--anchor-name);
+      &::before {
+        border-left-color: var(--color-bg, #fff);
+        top: 50%;
+        left: 100%;
+        transform: translate(0, -50%);
+      }
+    }
+
+    &--right {
+      left: anchor(right);
+      top: anchor(center);
+      margin: 0 0 0 0.5rem;
+      transform: translateY(-50%);
+
+      &::before {
+        border-right-color: var(--color-bg, #fff);
+        top: 50%;
+        right: 100%;
+        transform: translate(0, -50%);
+      }
+    }
+
+    /* Fallback for browsers without anchor positioning support */
+    @supports not (anchor-name: --popover-anchor) {
+      position: absolute;
+
+      &--bottom {
+        top: 100%;
+        left: 50%;
+      }
+
+      &--top {
+        bottom: 100%;
+        left: 50%;
+      }
+
+      &--left {
+        right: 100%;
+        top: 50%;
+      }
+
+      &--right {
+        left: 100%;
+        top: 50%;
+      }
+    }
   }
 }
 </style>

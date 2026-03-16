@@ -1,12 +1,12 @@
 
 <template>
   <div class="tabs">
-    <header>
+    <header class="tabs__header">
       <button
         v-for="{ id, label, active, disabled } in tabs"
         :key="id"
         :disabled="disabled"
-        :class="{ active }"
+        :class="['tabs__tab', { 'tabs__tab--active': active }]"
         type="button"
         @click.prevent="activate(id)">
         <slot v-bind="{ label, active }" :name="id">
@@ -49,7 +49,7 @@ onMounted(() => !activePanel.value && activate(tabs.value[0]?.id));
 .tabs {
   --spacing: var(--tabs-spacing, 0.75rem);
 
-  & > header {
+  &__header {
     padding: 0;
     margin: 0;
     list-style: none;
@@ -58,36 +58,36 @@ onMounted(() => !activePanel.value && activate(tabs.value[0]?.id));
     margin-bottom: var(--spacing);
     gap: calc(2 * var(--spacing));
     align-items: flex-end;
+  }
 
-    button {
-      --color-text: color-mix(in srgb, currentcolor 75%, transparent);
-  
-      all: unset;
-      padding: var(--spacing) 0;
-      color: var(--color-text);
-      margin-bottom: -1px;
-      position: relative;
-      cursor: pointer;
-      white-space: nowrap;
-      
-      &:hover { --color-text: var(--color-accent, #333); }
+  &__tab {
+    --color-text: color-mix(in srgb, currentcolor 75%, transparent);
 
-      &.active {
-        --color-text: var(--color-accent, #333);
+    all: unset;
+    padding: var(--spacing) 0;
+    color: var(--color-text);
+    margin-bottom: -1px;
+    position: relative;
+    cursor: pointer;
+    white-space: nowrap;
 
-        &::after {
-          content: '';
-          background: currentcolor;
-          height: 2px;
-          width: 100%;
-          position: absolute;
-          bottom: 0;
-          left: 0;
-        }
+    &:hover { --color-text: var(--color-accent, #333); }
+
+    &--active {
+      --color-text: var(--color-accent, #333);
+
+      &::after {
+        content: '';
+        background: currentcolor;
+        height: 2px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
       }
-
-      &:disabled { @extend %disabled; }
     }
+
+    &:disabled { @extend %disabled; }
   }
 }
 </style>

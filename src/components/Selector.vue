@@ -3,8 +3,8 @@
     class="selector"
     v-bind="selectorProps">
     <template #toggler>
-      <div :class="['toggler', { invalid, disabled }]">
-        <div v-if="isSelected(selected)" class="selected">
+      <div :class="['selector__toggler', togglerModifiers]">
+        <div v-if="isSelected(selected)" class="selector__selected">
           <template v-if="isSelected(selected)">
             <slot v-if="Array.isArray(selected)" name="selections" :items="selected">
               {{ selected.map(props.formatter ?? String).join(', ') }}
@@ -16,7 +16,7 @@
             </slot>
           </template>
         </div>
-        <div v-else class="placeholder">
+        <div v-else class="selector__placeholder">
           <slot name="placeholder">{{ props.placeholder || 'Select' }}</slot>
         </div>
         <Icon
@@ -58,6 +58,11 @@ const selectorProps = computed(() => {
   return { disabled, block, width, top, right };
 });
 
+const togglerModifiers = computed(() => ({
+  'selector__toggler--invalid': props.invalid,
+  'selector__toggler--disabled': props.disabled,
+}));
+
 defineSlots<{
   default?: (props: { item: T }) => void;
   selection?: (props: { item: T }) => void;
@@ -84,7 +89,7 @@ const clear = () => {
 .selector {
   --panel-border: none;
 
-  .toggler { @extend %selector-toggler; }
+  &__toggler { @extend %selector-toggler; }
 
   .listbox {
     display: flex;

@@ -4,7 +4,7 @@
     <button
       v-if="props.close"
       type="button"
-      class="close"
+      class="chip__close"
       @click.prevent="props.close">
       <slot name="close">&times;</slot>
     </button>
@@ -44,7 +44,7 @@ defineSlots<{
   font-size: var(--size);
   white-space: nowrap;
 
-  button.close {
+  &__close {
     all: unset;
     padding: 0 0.125rem;
     margin: 0 -0.2rem 0 0;

@@ -25,7 +25,7 @@ const modifiers = computed(() => {
   const { variant, block } = props;
   return {
     [`btn-group--${variant}`]: !!variant,
-    block,
+    'btn-group--block': block,
   };
 });
 
@@ -33,6 +33,8 @@ const width = computed(() => toWidth(props.width));
 </script>
 
 <style lang="scss">
+@use '../styles';
+
 .btn-group,
 .input-group {
   padding: 0;
@@ -63,6 +65,10 @@ const width = computed(() => toWidth(props.width));
     border-bottom-right-radius: 0 !important;
   }
 
-  &.block { display: flex; }
+  &--block {
+    @extend %block;
+
+    display: flex;
+  }
 }
 </style>

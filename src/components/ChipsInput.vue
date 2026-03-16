@@ -5,7 +5,7 @@
     class="chips-input"
     @keydown.backspace="onBackspace">
     <template #prefix>
-      <div v-if="items.length" class="chips-group">
+      <div v-if="items.length" class="chips-input__group">
         <Chip
           v-for="item in items"
           :key="item"
@@ -55,15 +55,15 @@ const onBackspace = (event: Event) => {
   flex-wrap: wrap;
   gap: 0 var(--spacing);
 
-  .chips-group {
+  &__group {
     margin: calc(0.5 * var(--spacing)) calc(-0.5 * var(--spacing));
     display: flex;
     flex-wrap: wrap;
     gap: 0.125rem;
-  
+
     .chip { margin: 0; }
   }
 
-  &:not(:focus-within).invalid .chip { --color: currentcolor; }
+  &:not(:focus-within).input--invalid .chip { --color: currentcolor; }
 }
 </style>

@@ -2,10 +2,8 @@
   <ul class="treelist">
     <li v-for="item, i in props.schema" :key="i">
       <details v-if="childrenNode in item" :open="props.open">
-        <summary class="title">
-          <Icon
-            :src="`${config.iconPath}/chevron-right.svg`"
-            class="chevron" />
+        <summary class="treelist__title">
+          <Icon :src="`${config.iconPath}/chevron-right.svg`" />
           <slot name="title" :parent :path="path(item)" :item>
             <slot :parent :path="path(item)" :item>
               {{ item[nameNode] }}
@@ -72,7 +70,7 @@ const path = (item: T): PropertyKey[] => [
 
   & & { margin-left: var(--indent); }
 
-  .chevron {
+  :deep(.icon) {
     --size: 1em;
 
     width: var(--indent);
@@ -80,9 +78,9 @@ const path = (item: T): PropertyKey[] => [
     margin-right: var(--spacing);
   }
 
-  [open] > summary .chevron { transform: rotate(90deg); }
+  [open] > &__title :deep(.icon) { transform: rotate(90deg); }
 
-  .title {
+  &__title {
     padding: var(--spacing) 0;
     display: flex;
     align-items: center;

@@ -1,5 +1,5 @@
 <template>
-  <div :class="['calendar', { disabled }]">
+  <div :class="['calendar', modifiers]">
     <header>
       <Button
         variant="flat"
@@ -7,7 +7,7 @@
         :disabled="props.disabled"
         even
         @click.prevent="month = month - 1">
-        <Icon :src="`${config.iconPath}/chevron-right.svg`" class="prev" />
+        <Icon :src="`${config.iconPath}/chevron-right.svg`" />
       </Button>
       <Selector
         v-model="month" 
@@ -24,11 +24,11 @@
         <Icon :src="`${config.iconPath}/chevron-right.svg`" />
       </Button>
     </header>
-    <ul class="weekdays">
+    <ul class="calendar__weekdays">
       <li v-for="day in weekDays" :key="day">{{ day }}</li>
     </ul>
-    <ul class="days">
-      <li v-for="day in days" :key="day.getTime()" :class="['day', status(day)]">
+    <ul class="calendar__days">
+      <li v-for="day in days" :key="day.getTime()" :class="['calendar__day', status(day)]">
         <slot name="day" :day="day" :select="select">
           <button type="button" @click.prevent="select(day)">
             {{ day.getDate() }}
@@ -115,18 +115,22 @@ const select = (day: Date) => {
 
 const status = (day: Date) => {
   return {
-    today: isEqual(day, new Date()),
-    start: Array.isArray(selected.value)
+    'calendar__day--today': isEqual(day, new Date()),
+    'calendar__day--start': Array.isArray(selected.value)
       ? isEqual(day, selected.value[0])
       : isEqual(day, selected.value),
-    end: Array.isArray(selected.value)
+    'calendar__day--end': Array.isArray(selected.value)
       ? isEqual(day, selected.value[1])
       : isEqual(day, selected.value),
-    range: Array.isArray(selected.value) && isBetween(day, selected.value[0], selected.value[1]),
-    off: !isBetween(day, monthStart(cursor.value), monthEnd(cursor.value), true),
-    disabled: isInvalid(day),
+    'calendar__day--range': Array.isArray(selected.value) && isBetween(day, selected.value[0], selected.value[1]),
+    'calendar__day--off': !isBetween(day, monthStart(cursor.value), monthEnd(cursor.value), true),
+    'calendar__day--disabled': isInvalid(day),
   };
 };
+
+const modifiers = computed(() => ({
+  'calendar--disabled': props.disabled,
+}));
 
 const weekDays = computed(() => CalendarNames.WEEKDAYS(props.locale, props.startSunday));
 const months = computed(() => CalendarNames.MONTHS(props.locale));
@@ -162,7 +166,7 @@ const years = computed(() => {
     justify-content: space-between;
 
     .selector {
-      :deep(.toggler) {
+      :deep(.selector__toggler) {
         --spacing: 0;
         --border-width: 0;
         --color-bg: none !important;
@@ -170,11 +174,11 @@ const years = computed(() => {
       :deep(.icon) { display: none; }
     }
 
-    .prev { transform: rotate(180deg); }
+    .btn:first-child .icon { transform: rotate(180deg); }
   }
 
-  .weekdays,
-  .days {
+  &__weekdays,
+  &__days {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -183,14 +187,14 @@ const years = computed(() => {
     gap: 1px 0;
   }
 
-  .weekdays {
+  &__weekdays {
     font-size: 0.65em;
     text-transform: uppercase;
     opacity: 0.5;
     text-align: center;
   }
 
-  .day {
+  &__day {
     button {
       all: unset;
       display: grid;
@@ -203,15 +207,15 @@ const years = computed(() => {
       cursor: pointer;
     }
 
-    &.today {
+    &--today {
       color: var(--color-accent, #333);
       font-weight: bold;
     }
-    
-    &.range button { --color-bg: var(--color-range); }
 
-    &.start,
-    &.end {
+    &--range button { --color-bg: var(--color-range); }
+
+    &--start,
+    &--end {
       button {
         background: var(--color-accent, #333);
         color: var(--color-text-accent, #fff);
@@ -219,35 +223,35 @@ const years = computed(() => {
       }
     }
 
-    &.start,
+    &--start,
     &:nth-child(7n + 1),
-    &:not(.disabled) + .day.disabled,
-    &.disabled + :not(.disabled) {
+    &:not(&--disabled) + &--disabled,
+    &--disabled + &:not(&--disabled) {
       button {
         border-top-left-radius: var(--radius);
         border-bottom-left-radius: var(--radius);
       }
     }
 
-    &.end,
+    &--end,
     &:nth-child(7n),
-    &.disabled:has(+ .day:not(.disabled)),
-    &:not(.disabled):has(+ .disabled) {
+    &--disabled:has(+ &:not(&--disabled)),
+    &:not(&--disabled):has(+ &--disabled) {
       button {
         border-top-right-radius: var(--radius);
         border-bottom-right-radius: var(--radius);
       }
     }
 
-    &.off { opacity: 0.25; }
+    &--off { opacity: 0.25; }
 
-    &.disabled { @extend %disabled; }
+    &--disabled { @extend %disabled; }
   }
 
-  &.disabled {
+  &--disabled {
     @extend %disabled;
-    
-    .day {
+
+    .calendar__day {
       --color-bg: none;
       --color: #8884;
       --color-range: #8882;

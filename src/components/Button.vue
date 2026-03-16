@@ -34,7 +34,7 @@ const modifiers = computed(() => {
     [`btn--${variant}`]: !!variant,
     [`btn--${size}`]: !!size,
     'btn--even': even,
-    block,
+    'btn--block': block,
   };
 });
 
@@ -42,6 +42,8 @@ const width = computed(() => toWidth(props.width));
 </script>
 
 <style lang="scss" scoped>
+@use '../styles';
+
 .btn {
   --spacing: var(--btn-spacing, 0.5rem);
   --radius: var(--btn-radius, 0.25em);
@@ -71,6 +73,11 @@ const width = computed(() => toWidth(props.width));
   &--large { --spacing: 0.75em; }
 
   &--even { padding: var(--spacing); }
+  &--block {
+    @extend %block;
+
+    display: flex;
+  }
 
   .btn-group--ghost &,
   &--ghost {
@@ -90,14 +97,14 @@ const width = computed(() => toWidth(props.width));
   .disabled &,
   &:disabled {
     --color-state: color-mix(in srgb, var(--color-disabled, #8886) 10%, transparent);
-
+    
     cursor: not-allowed;
     color: var(--color-disabled, #8886);
   }
 
-  &:not(:disabled) {
+  :not(:disabled), :not(.disabled), &:not(:disabled) {
     &:hover { --color-state: var(--color-hover); }
-  
+
     &:active,
     &.active { --color-state: var(--color-active); }
   }

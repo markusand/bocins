@@ -73,14 +73,14 @@ const button = (page: number) => ({
 });
 
 const prev = computed(() => ({
-  class: 'prev',
+  class: 'pagination__prev',
   disabled: props.disabled || selected.value === 0,
   variant: 'flat' as const,
   even: true,
 }));
 
 const next = computed(() => ({
-  class: 'next',
+  class: 'pagination__next',
   disabled: props.disabled || selected.value === props.pages - 1,
   variant: 'flat' as const,
   even: true,
@@ -120,6 +120,6 @@ const change = (num: number) => goTo(selected.value + num + 1);
 
   .btn:not(.btn--flat) { --color: var(--color-accent, #333); }
 
-  .prev .icon { transform: rotate(180deg); }
+  &__prev :deep(.icon) { transform: rotate(180deg); }
 }
 </style>

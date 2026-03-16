@@ -5,18 +5,18 @@
         <slot :option="option" />
       </template>
     </ListBox>
-    <div class="controls">
+    <div class="transfer__controls">
       <Button :disabled="!isAddable(pool)" even @click.prevent="addItems()">
         <Icon :src="`${config.iconPath}/chevrons-right.svg`" />
       </Button>
       <Button :disabled="!isAddable(toAdd)" even @click.prevent="addItems(toAdd)">
         <Icon :src="`${config.iconPath}/chevron-right.svg`" />
       </Button>
-      <Button :disabled="!isRemoveable(toRemove)" even @click.prevent="removeItems(toRemove)">
-        <Icon :src="`${config.iconPath}/chevron-right.svg`" class="remove" />
+      <Button class="transfer__remove" :disabled="!isRemoveable(toRemove)" even @click.prevent="removeItems(toRemove)">
+        <Icon :src="`${config.iconPath}/chevron-right.svg`" />
       </Button>
-      <Button :disabled="!isRemoveable(selected)" even @click.prevent="removeItems()">
-        <Icon :src="`${config.iconPath}/chevrons-right.svg`" class="remove" />
+      <Button class="transfer__remove" :disabled="!isRemoveable(selected)" even @click.prevent="removeItems()">
+        <Icon :src="`${config.iconPath}/chevrons-right.svg`" />
       </Button>
     </div>
     <ListBox v-bind="props" v-model="toRemove" :options="selected">
@@ -87,13 +87,13 @@ const removeItems = (items: T[] = selected.value) => {
     min-width: 0;
   }
 
-  .controls {
+  &__controls {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 0.125rem;
-
-    .icon.remove { transform: rotate(180deg); }
   }
+
+  &__remove :deep(.icon) { transform: rotate(180deg); }
 }
 </style>

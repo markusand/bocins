@@ -1,8 +1,8 @@
-.block {
+%block {
   width: 100% !important;
   margin-inline: 0 !important;
   flex: 0 0 100% !important;
-};
+}
 
 .placeholder,
 *::placeholder {
@@ -75,6 +75,8 @@
   text-align: left;
 
   &.disabled { @extend %disabled; }
+
+  & > .icon:last-child { margin-left: auto; }
 
   .selected,
   .placeholder {

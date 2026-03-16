@@ -1,8 +1,8 @@
 <template>
   <Teleport to="body" :disabled="!expanded">
-    <picture :class="['image-expand', { expanded }]">
+    <picture :class="['image-expand', modifiers]">
       <img :src="expanded ? props.src : props.thumbnail || props.src" :alt="props.alt">
-      <div class="controls">
+      <div class="image-expand__controls">
         <slot name="controls" />
         <ToggleButton v-model="expanded" even @click.stop>
           <Icon v-if="expanded" :src="`${config.iconPath}/collapse.svg`" />
@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { config } from '/@/config';
 import ToggleButton from './ToggleButton.vue';
 import Icon from './Icon.vue';
@@ -30,6 +30,10 @@ defineSlots<{
 }>();
 
 const expanded = ref(false);
+
+const modifiers = computed(() => ({
+  'image-expand--expanded': expanded.value,
+}));
 </script>
 
 <style lang="scss" scoped>
@@ -47,14 +51,14 @@ const expanded = ref(false);
     object-fit: contain;
   }
 
-  .controls {
+  &__controls {
     position: absolute;
     top: 0;
     right: 0;
     margin: 0.25rem;
   }
 
-  &.expanded {
+  &--expanded {
     position: fixed;
     top: 0;
     left: 0;

@@ -11,12 +11,12 @@
         <button
           v-if="props.closeable"
           type="button"
-          class="close"
+          class="modal__close"
           @click.stop="close">
           &times;
         </button>
       </slot>
-      <section v-if="!!isOpen" class="content">
+      <section v-if="!!isOpen" class="modal__content">
         <slot :close="close" />
       </section>
     </dialog>
@@ -106,7 +106,7 @@ onMounted(() => props.open && open());
   max-height: 80%;
   overflow: visible;
 
-  .close {
+  &__close {
     all: unset;
     position: absolute;
     top: 0;

@@ -1,12 +1,12 @@
 <template>
   <div class="carousel">
-    <div ref="wrapper" class="wrapper" @scrollend="updateActive">
-      <div v-for="item, i in props.items" :key="i" class="slide">
+    <div ref="wrapper" class="carousel__wrapper" @scrollend="updateActive">
+      <div v-for="item, i in props.items" :key="i" class="carousel__slide">
         <slot :item />
       </div>
     </div>
     <slot v-if="props.controls" name="controls" :active="active" :goto="goto">
-      <ul :class="['controls', props.controls]">
+      <ul :class="['carousel__controls', `carousel__controls--${props.controls}`]">
         <li v-for="item, i in props.items" :key="i">
           <slot
             name="control"
@@ -16,7 +16,7 @@
             :goto="() => goto(i)">
             <button
               type="button"
-              :class="{ active: isActive(i) }"
+              :class="['carousel__control', { 'carousel__control--active': isActive(i) }]"
               @click.prevent="goto(i)" />
           </slot>
         </li>
@@ -78,8 +78,8 @@ onUnmounted(() => clearInterval(running.value));
 <style lang="scss" scoped>
 .carousel {
   position: relative;
-  
-  .wrapper {
+
+  &__wrapper {
     display: flex;
     position: relative;
     height: 100%;
@@ -92,13 +92,13 @@ onUnmounted(() => clearInterval(running.value));
     &::-webkit-scrollbar { display: none;}
   }
 
-  .slide {
+  &__slide {
     scroll-snap-align: center;
     flex: 0 0 100%;
     position: relative;
   }
 
-  .controls {
+  &__controls {
     position: absolute;
     list-style: none;
     padding: 0.75rem 1rem;
@@ -106,49 +106,49 @@ onUnmounted(() => clearInterval(running.value));
     display: flex;
     gap: 0.5rem;
 
-    &.top-left { top: 0; }
-    &.bottom-left { bottom: 0; }
+    &--top-left { top: 0; }
+    &--bottom-left { bottom: 0; }
 
-    &.bottom {
+    &--bottom {
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
     }
 
-    &.bottom-right {
+    &--bottom-right {
       bottom: 0;
       right: 0;
     }
 
-    &.top-right {
+    &--top-right {
       top: 0;
       right: 0;
     }
 
-    &.top {
+    &--top {
       top: 0;
       left: 50%;
       transform: translateX(-50%);
     }
+  }
 
-    button {
-      all: unset;
-      background: var(--control-color, #fff);
-      height: var(--control-size, 0.5rem);
-      aspect-ratio: 1;
-      border-radius: 50%;
-      display: block;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      opacity: 0.75;
+  &__control {
+    all: unset;
+    background: var(--control-color, #fff);
+    height: var(--control-size, 0.5rem);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    display: block;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.75;
 
-      &:hover { transform: scale(1.25); }
+    &:hover { transform: scale(1.25); }
 
-      &.active {
-        transform: scale(1.55);
-        opacity: 1;
-        cursor: unset;
-      }
+    &--active {
+      transform: scale(1.55);
+      opacity: 1;
+      cursor: unset;
     }
   }
 }

@@ -1,14 +1,14 @@
 <template>
   <details class="collapser" :open="isOpen" @toggle.stop="toggle">
-    <summary class="toggler">
-      <div class="title">
+    <summary class="collapser__toggler">
+      <div class="collapser__title">
         <slot name="toggler" :open="hasBeenOpen">
           {{ props.title }}
         </slot>
       </div>
-      <Icon :src="`${config.iconPath}/chevron-down.svg`" class="chevron" />
+      <Icon :src="`${config.iconPath}/chevron-down.svg`" />
     </summary>
-    <div class="content">
+    <div class="collapser__content">
       <slot :open="hasBeenOpen" />
     </div>
   </details>
@@ -75,7 +75,7 @@ const toggle = (event: Event) => {
 
   & + & { border-top: 1px solid #8882; }
 
-  & > .toggler {
+  &__toggler {
     list-style: none;
     display: flex;
     align-items: center;
@@ -85,15 +85,15 @@ const toggle = (event: Event) => {
 
     &::-webkit-details-marker,
     &::marker { display: none; }
-
-    & > .title { flex: 1; }
   }
 
-  & > .content { margin: 0 var(--spacing) var(--spacing); }
+  &__title { flex: 1; }
 
-  
-  .chevron { --size: 1em; }
-  &[open] > summary .chevron { transform: rotate(180deg); }
+  &__content { margin: 0 var(--spacing) var(--spacing); }
+
+  :deep(.icon) { --size: 1em; }
+
+  &[open] > &__toggler :deep(.icon) { transform: rotate(180deg); }
 
   &[disabled="true"] {
     cursor: not-allowed;

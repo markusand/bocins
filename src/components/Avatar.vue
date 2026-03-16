@@ -1,8 +1,8 @@
 <template>
   <picture class="avatar">
     <img v-if="src" :src :alt="props.name">
-    <div v-else class="initials">{{ initials }}</div>
-    <div v-if="props.badge || props.badge === 0 || slots.badge" class="badge">
+    <div v-else class="avatar__initials">{{ initials }}</div>
+    <div v-if="props.badge || props.badge === 0 || slots.badge" class="avatar__badge">
       <slot name="badge">
         {{ typeof props.badge === 'boolean' ? '' : props.badge }}
       </slot>
@@ -51,7 +51,7 @@ const initials = computed(() => props.name.split(' ').slice(0, 2).map(str => str
     border-radius: var(--radius);
   }
 
-  .initials {
+  &__initials {
     display: grid;
     place-content: center;
     aspect-ratio: 1;
@@ -63,7 +63,7 @@ const initials = computed(() => props.name.split(' ').slice(0, 2).map(str => str
     font-family: sans-serif;
   }
 
-  .badge {
+  &__badge {
     display: inline-block;
     position: absolute;
     top: 0;

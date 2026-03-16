@@ -21,7 +21,6 @@
     <Icon
       v-if="props.clearable && value"
       :src="`${config.iconPath}/close.svg`"
-      class="close"
       @click.prevent="clear" />
     <slot name="suffix">{{ props.suffix }}</slot>
   </div>
@@ -83,7 +82,11 @@ const clear = () => { value.value = ''; };
 
 const modifiers = computed(() => {
   const { disabled, invalid, block } = props;
-  return { disabled, invalid, block };
+  return {
+    'input--disabled': disabled,
+    'input--invalid': invalid,
+    'input--block': block,
+  };
 });
 
 const width = computed(() => toWidth(props.width ?? 10));
@@ -124,9 +127,10 @@ const onClick = (event: Event) => {
     }
   }
 
-  &.disabled,
+  &--disabled,
   .disabled &,
   :disabled & { @extend %disabled; }
 
+  &--block { @extend %block; }
 }
 </style>

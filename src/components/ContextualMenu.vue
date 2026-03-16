@@ -7,11 +7,11 @@
         </Button>
       </slot>
     </template>
-    <article v-for="group, i in props.actions" :key="group.label ?? i" class="group">
-      <em v-if="group.label" class="label">
+    <article v-for="group, i in props.actions" :key="group.label ?? i" class="contextual__group">
+      <em v-if="group.label" class="contextual__label">
         <slot name="group" :group="group.label">{{ group.label }}</slot>
       </em>
-      <div class="actions">
+      <div class="contextual__actions">
         <template v-for="action in group.actions" :key="action.label">
           <slot :name="action.id" :action="action">
             <slot :action="action">
@@ -72,26 +72,26 @@ defineSlots<{
 
 .contextual {
   // stylelint-disable-next-line selector-pseudo-class-no-unknown
-  :deep(.container) { @extend %panel; }
+  :deep(.dropdown__content) { @extend %panel; }
 
-  .group {
+  &__group {
     padding: 0.25rem;
 
     & + & { border-top: 1px solid #8884; }
+  }
 
-    .label {
-      color: #888a;
-      font-size: 0.8em;
-      display: block;
-      margin: 0.5rem 0.5rem 0.25rem;
-      font-style: normal;
-    }
+  &__label {
+    color: #888a;
+    font-size: 0.8em;
+    display: block;
+    margin: 0.5rem 0.5rem 0.25rem;
+    font-style: normal;
+  }
 
-    .actions {
-      display: flex;
-      flex-direction: column;
-    }
-
+  &__actions {
+    display: flex;
+    flex-direction: column;
+  
     .btn {
       text-align: left;
       justify-content: left;
@@ -99,10 +99,10 @@ defineSlots<{
       margin: 0;
 
       &:hover { background: color-mix(in srgb, var(--color) 5%, transparent); }
-    
-      .keystrokes { margin: 0 calc(-0.5 * var(--spacing)) 0 auto; }
     }
   }
+
+  &__keystrokes { margin: 0 calc(-0.5 * var(--spacing)) 0 auto; }
 }
 </style>
 

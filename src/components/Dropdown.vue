@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown" :class="modifiers" :style="styles" @click.stop>
-    <div class="toggler" tabindex="0">
+    <div class="dropdown__toggler" tabindex="0">
       <slot name="toggler">
         <Button
           v-bind="props.toggler"
@@ -8,11 +8,11 @@
           :disabled="props.disabled"
           block>
           {{ props.label }}
-          <Icon :src="`${config.iconPath}/chevron-down.svg`" class="chevron" />
+          <Icon :src="`${config.iconPath}/chevron-down.svg`" />
         </Button>
       </slot>
     </div>
-    <div v-if="!props.disabled" class="container" tabindex="-1">
+    <div v-if="!props.disabled" class="dropdown__content" tabindex="-1">
       <slot />
     </div>
   </div>
@@ -45,10 +45,10 @@ defineSlots<{
 const modifiers = computed(() => {
   const { disabled, top, right, block } = props;
   return {
-    top,
-    right,
-    block,
-    disabled,
+    'dropdown--top': top,
+    'dropdown--right': right,
+    'dropdown--block': block,
+    'dropdown--disabled': disabled,
   };
 });
 
@@ -63,6 +63,8 @@ const styles = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+@use '../styles';
+
 .dropdown {
   display: inline-block;
   position: relative;
@@ -71,7 +73,7 @@ const styles = computed(() => {
   box-sizing: border-box;
   anchor-name: var(--anchor-name);
 
-  .container {
+  &__content {
     display: none;
     position: fixed;
     position-anchor: var(--position-anchor);
@@ -84,44 +86,48 @@ const styles = computed(() => {
     width: fit-content;
   }
 
-  &.top > .container {
+  &--top > &__content {
     bottom: anchor(top);
     top: unset;
   }
 
-  &.right > .container {
+  &--right > &__content {
     left: unset;
     right: anchor(right);
   }
 
   /* Fallback for browsers without anchor positioning support */
   @supports not (anchor-name: --dropdown-anchor) {
-    .container {
+    &__content {
       position: absolute;
       top: 100%;
       left: 0;
     }
 
-    &.top > .container {
+    &--top > &__content {
       bottom: 100%;
       top: unset;
     }
 
-    &.right > .container {
+    &--right > &__content {
       left: unset;
       right: 0;
     }
   }
 
-  .toggler:focus-within + .container,
-  .container:hover,
-  .container:focus,
-  .container:focus-within { display: block; }
+  &__toggler:focus-within + &__content,
+  &__content:hover,
+  &__content:focus,
+  &__content:focus-within { display: block; }
 
-  &.disabled {
+  &--disabled {
     cursor: not-allowed;
 
     & * { pointer-events: none; }
   }
+
+  &--block { @extend %block; }
+
+  :deep(.icon) { --size: 1em; }
 }
 </style>

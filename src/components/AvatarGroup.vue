@@ -1,10 +1,12 @@
 <template>
-  <span class="avatar-group" :class="props">
+  <span class="avatar-group" :class="modifiers">
     <slot />
   </span>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 export type AvatarGroupProps = {
   stacked?: boolean;
 };
@@ -12,6 +14,10 @@ export type AvatarGroupProps = {
 const props = defineProps<AvatarGroupProps>();
 
 defineSlots<{ default: () => void; }>();
+
+const modifiers = computed(() => ({
+  'avatar-group--stacked': props.stacked,
+}));
 </script>
 
 <style lang="scss" scoped>
@@ -30,7 +36,7 @@ defineSlots<{ default: () => void; }>();
     }
   }
 
-  &.stacked {
+  &--stacked {
     --overlap: 0.8;
     &:hover { --overlap: -0.125; }
   }
