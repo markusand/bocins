@@ -70,7 +70,7 @@ const path = (item: T): PropertyKey[] => [
 
   & & { margin-left: var(--indent); }
 
-  :deep(.icon) {
+  .icon {
     --size: 1em;
 
     width: var(--indent);
