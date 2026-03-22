@@ -36,13 +36,13 @@ Import styles in your app entry point file or in your styles entry point
 
 ```ts
 // main.ts
-import 'bocins/dist/style.css';
+import 'bocins/dist/index.css';
 
 // main.scss
-@import 'bocins/dist/style.css';
+@import 'bocins/dist/index.css';
 ```
 
-You can customize the theme using CSS variables and extending some base styles
+You can customize the theme using CSS custom properties and extending some base styles
 
 ```css
 :root {
