@@ -26,7 +26,7 @@ These are non-exhaustive examples of how to compose Bocins. Do not force these s
 ```html
 <Search v-model="searchBy" />
 <table>
-  <tr v-for="user in users">
+  <tr v-for="user in users" :key="user.id">
     <td><Avatar :src="user.avatar" /></td>
     <td>{{ user.name }}</td>
     <td><Chip>{{ user.status }}</Chip></td>
@@ -42,6 +42,7 @@ These are non-exhaustive examples of how to compose Bocins. Do not force these s
 <Tabs>
   <TabView id="profile" label="Profile">
     <UserProfile :user />
+  </TabView>
   <TabView id="badges" label="Badges">
     <UserBadges :badges="user.badges" />
   </TabView>
@@ -70,10 +71,10 @@ These are non-exhaustive examples of how to compose Bocins. Do not force these s
 <Search v-model="searchBy" />
 <Selector v-model="filterBy" :options="filterOptions">
   <template #selections="{ items: filters }">
-    <Chip v-for="filter in filters">{{ filter.label }}</Chip>
+    <Chip v-for="filter in filters" :key="filter.id">{{ filter.label }}</Chip>
   </template>
 </Selector>
-<div class="cards" data-empty="No results found">
+<div class="cards">
   <article v-for="item in items" :key="item.id">
     {{ item.name }} {{ item.qty }}
   </article>

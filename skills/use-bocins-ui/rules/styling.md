@@ -40,7 +40,7 @@ Each component exposes variables for customization:
 - **Avatar**: `--size`
 - **Icon**: `--size`, `--color`
 
-Refer to Storybook for complete variable lists.
+Refer to [bocins.netlify.app](https://bocins.netlify.app) for complete variable lists.
 
 ## Common Props
 

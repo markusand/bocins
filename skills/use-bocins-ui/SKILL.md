@@ -1,17 +1,21 @@
 ---
 name: use-bocins-ui
-description: Enforces best practices for Bocins UI. Use when Bocins is a dependency or user wants to use it.
+description: Best practices guide for Bocins, a Vue 3 UI component library. Use this skill whenever the user is working with Bocins components (Button, Input, Selector, Modal, Tabs, etc.), adding UI to a Vue project that has bocins as a dependency, asking how to style or customize bocins components, or building forms, tables, dialogs, or overlays in a Vue app. Trigger even when the user doesn't say "bocins" by name — if they ask to add a dropdown, modal, form, or table in a Vue project where bocins is installed, use this skill.
 ---
 
 Bocins: Vue 3 component library. Docs: https://bocins.netlify.app
 
+## Approach
+
+When the user asks to build or add UI, implement it directly using Bocins components if it's a dependency — don't ask whether they want Bocins or something else. If context is missing (e.g. data shape, filter options), make reasonable assumptions and note them inline.
+
 ## Critical Rules
 
-1. **Import from barrel**: `from "/@/components"`, NOT `from "bocins"` directly
-2. **Style with CSS vars**: Use `--btn-color`, never `!important` or direct overrides
+1. **Import from barrel**: Views and Partials import from the project's `components` barrel (e.g. `"/@/components"`, `"@/components"` — check the project alias), NOT from `"bocins"` directly. Only files inside `components/` may import from `"bocins"`.
+2. **Style with CSS vars**: Use `--btn-color`, never `!important` or direct property overrides
 3. **Use built-in props**: `variant="ghost"` `size="small"` `clearable` `block` `invalid`
 4. **Slots for composition**: Customize with slots, not new components for single use
-5. **Extract when repeated 3+**: Create custom component only when pattern repeats
+5. **Extract when repeated**: Create a custom component only when a pattern repeats in multiple places
 
 ## Component Categories
 
@@ -38,16 +42,18 @@ config.iconPath = "/my-icons";
 
 ## Key Patterns
 
-### Import (ALWAYS use barrel)
+### Import (ALWAYS use the barrel)
 
-Only `/@/components/` files may import directly from `bocins` to avoid circular dependencies. all Views and Partials must import from the `/@/components` barrel to maintain a single source of truth and ensure use of vetted wrappers.
+Only files inside the `components/` directory may import directly from `"bocins"`, to avoid circular dependencies. All Views and Partials must import from the barrel to maintain a single source of truth and use vetted wrappers.
+
+The barrel path depends on the project's path alias — check `vite.config.ts` or `tsconfig.json`:
 
 ```ts
 // components/index.ts
 export { Selector, Avatar } from "bocins";
 
 // views/UserZone.vue - ✓ Correct
-import { Avatar } from "/@/components";
+import { Avatar } from "/@/components"; // or "@/components", "~/components", etc.
 ```
 
 ### Props
@@ -55,6 +61,7 @@ import { Avatar } from "/@/components";
 - `block`, `disabled`, `invalid`, `clearable`
 - `variant`: `"ghost"` | `"flat"`
 - `size`: `"small"` | `"large"`
+- `keyAttr`: Required when options are objects — tells Selector/ListBox/Transfer which property to use as unique key (e.g. `keyAttr="id"`)
 
 ### Slots (Primary customization method)
 
@@ -141,10 +148,10 @@ Extract to a custom reusable component when:
 
 ## Common Mistakes
 
-❌ Import from `"bocins"` → ✅ Use `"/@/components"` barrel
+❌ Import from `"bocins"` in views/partials → ✅ Use the project's `components` barrel
 ❌ CSS `!important` → ✅ Use CSS vars (`--btn-color`)
 ❌ Wrapper divs → ✅ Style component directly
-❌ Repeated slots → ✅ Use `#default` as fallback when available
+❌ Repeated slots → ✅ Use `#default` slot as fallback when `#selection` and `#option` would be identical
 ❌ Custom component for single use → ✅ Use built-in props and slots first
 
 ## Performance & TypeScript
@@ -153,9 +160,11 @@ Extract to a custom reusable component when:
 - **Large lists**: Use `keyAttr` prop (Selector/ListBox/Transfer)
 - **A11y**: Built-in focus/keyboard. Add labels and ARIA where needed
 
-## Resources
+## Reference Files
 
-- **Forms/Validation**: `rules/forms.md`
-- **Styling/CSS Vars**: `rules/styling.md`
-- **Recipes/Patterns**: `rules/recipes.md`
+Read these when relevant — they contain details not duplicated here:
+
+- **`rules/forms.md`** — Read when working with forms, validation, or v-model bindings
+- **`rules/styling.md`** — Read when customizing appearance, theming, or CSS variables
+- **`rules/recipes.md`** — Read when building common patterns (tables, dialogs, search, file upload)
 - **Docs**: https://bocins.netlify.app
