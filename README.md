@@ -97,3 +97,7 @@ const user = ref<User>();
 .avatar { --size: 1.5rem; }
 </style>
 ```
+
+## Claude Code Skill
+
+A Claude Code skill is available in `skills/use-bocins-ui/` to help AI assistants follow Bocins best practices when working in projects that use this library. It enforces correct import patterns, component usage, styling conventions, and composition patterns.

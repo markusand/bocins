@@ -1,0 +1,9 @@
+# Exclude skill documentation from Prettier formatting
+skills/**/*.md
+
+# Standard ignores
+node_modules
+dist
+storybook-static
+*.min.js
+*.min.css
