@@ -46,21 +46,15 @@ const width = computed(() => toWidth(props.width));
   .btn,
   .input { flex: 1; };
 
-  & > :not(:first-child) .btn,
-  .btn:not(:first-child),
-  & > :not(:first-child) .input,
-  .input:not(:first-child),
-  & > :not(:first-child) .toggler {
+  & > :not(:first-child) :not(.dropdown__content *),
+  & > *:not(:first-child) {
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
     margin-left: calc(-1 * var(--border-width));
   }
 
-  & > :not(:last-child) .btn,
-  .btn:not(:last-child),
-  & > :not(:last-child) .input,
-  .input:not(:last-child),
-  & > :not(:last-child) .toggler {
+  & > :not(:last-child) :not(.dropdown__content *),
+  & > *:not(:last-child) {
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
   }
