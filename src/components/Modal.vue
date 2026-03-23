@@ -122,5 +122,9 @@ onMounted(() => props.open && open());
 
   &::backdrop { background: var(--color-fade, #0006); }
 
+  &__content {
+    height: 100%;
+    box-sizing: border-box;
+  }
 }
 </style>
