@@ -7,28 +7,30 @@
         </Button>
       </slot>
     </template>
-    <article v-for="group, i in props.actions" :key="group.label ?? i" class="contextual__group">
-      <em v-if="group.label" class="contextual__label">
-        <slot name="group" :group="group.label">{{ group.label }}</slot>
-      </em>
-      <div class="contextual__actions">
-        <template v-for="action in group.actions" :key="action.label">
-          <slot :name="action.id" :action="action">
-            <slot :action="action">
-              <Button
-                variant="flat"
-                block
-                v-bind="action.attributes ?? {}"
-                :disabled="action.disabled"
-                @click.prevent.stop="action.onClick(props.item as I)">
-                <Icon v-if="action.icon" :src="action.icon" />
-                {{ action.label ?? action.id }}
-              </Button>
+    <div class="contextual__panel">
+      <article v-for="group, i in props.actions" :key="group.label ?? i" class="contextual__group">
+        <em v-if="group.label" class="contextual__label">
+          <slot name="group" :group="group.label">{{ group.label }}</slot>
+        </em>
+        <div class="contextual__actions">
+          <template v-for="action in group.actions" :key="action.label">
+            <slot :name="action.id" :action="action">
+              <slot :action="action">
+                <Button
+                  variant="flat"
+                  block
+                  v-bind="action.attributes ?? {}"
+                  :disabled="action.disabled"
+                  @click.prevent.stop="action.onClick(props.item as I)">
+                  <Icon v-if="action.icon" :src="action.icon" />
+                  {{ action.label ?? action.id }}
+                </Button>
+              </slot>
             </slot>
-          </slot>
-        </template>
-      </div>
-    </article>
+          </template>
+        </div>
+      </article>
+    </div>
   </Dropdown>
 </template>
 
@@ -71,8 +73,7 @@ defineSlots<{
 @use  '../styles';
 
 .contextual {
-  // stylelint-disable-next-line selector-pseudo-class-no-unknown
-  :deep(.dropdown__content) { @extend %panel; }
+  &__panel { @extend %panel; }
 
   &__group {
     padding: 0.25rem;
