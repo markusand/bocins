@@ -121,9 +121,6 @@ onMounted(() => props.open && open());
   }
 
   &::backdrop { background: var(--color-fade, #0006); }
-}
-</style>
 
-<style>
-dialog::backdrop { background: red; }
+}
 </style>
