@@ -122,3 +122,24 @@ export const Nested: Story = {
     </Modal>`,
   }),
 };
+
+export const CustomTo: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Move Modal to a custom element',
+      },
+    },
+  },
+  render: args => ({
+    components: { Modal, Button },
+    setup: () => ({ args }),
+    template: `<Modal v-bind="args" to="#anchor--modal--custom-to .docs-story">
+      <template #toggler="{ open }">
+        <Button @click="open">Open</Button>
+      </template>
+      <h2>Modal component</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, quidem</p>
+    </Modal>`,
+  }),
+};
