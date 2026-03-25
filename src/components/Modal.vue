@@ -1,5 +1,5 @@
 <template>
-  <Teleport to="body">
+  <Teleport :to="props.to ?? 'body'">
     <dialog
       ref="modal"
       class="modal"
@@ -31,6 +31,7 @@ import { toWidth, toHeight } from '/@/utils';
 type Action = () => void;
 
 export type ModalProps = {
+  to?: string;
   open?: boolean;
   closeable?: boolean;
   width?: number | string;
