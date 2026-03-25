@@ -32,7 +32,7 @@ const modifiers = computed(() => {
 const width = computed(() => toWidth(props.width));
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @use '../styles';
 
 .btn-group,
@@ -43,8 +43,10 @@ const width = computed(() => toWidth(props.width));
   display: inline-flex;
   vertical-align: middle;
 
-  .btn,
-  .input { flex: 1; };
+  & > * {
+    flex: 1 1 auto !important;
+    &:focus-within { z-index: 1; }
+  };
 
   & > :not(:first-child) :not(.dropdown__content *),
   & > *:not(:first-child) {
