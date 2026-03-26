@@ -128,6 +128,6 @@ const styles = computed(() => {
 
   &--block { @extend %block; }
 
-  :deep(.icon) { --size: 1em; }
+  .icon { --size: 1em; }
 }
 </style>

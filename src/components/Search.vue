@@ -25,5 +25,5 @@ const search = defineModel<string>({ required: true });
 </script>
 
 <style lang="scss" scoped>
-.search :deep(.icon) { --size: 1em; }
+.search .icon { --size: 1em; }
 </style>

@@ -65,7 +65,7 @@
   cursor: not-allowed !important;
 
   // stylelint-disable-next-line selector-pseudo-class-no-unknown
-  :deep(*) { pointer-events: none !important; }
+  * { pointer-events: none !important; }
 }
 
 %selector-toggler {

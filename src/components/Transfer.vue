@@ -94,6 +94,6 @@ const removeItems = (items: T[] = selected.value) => {
     gap: 0.125rem;
   }
 
-  &__remove :deep(.icon) { transform: rotate(180deg); }
+  &__remove .icon { transform: rotate(180deg); }
 }
 </style>

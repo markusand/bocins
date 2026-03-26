@@ -101,7 +101,7 @@ const clear = () => {
     align-items: center;
     gap: 0.5rem;
 
-    :deep(.icon) { opacity: 0.25; }
+    .icon { opacity: 0.25; }
   }
 }
 </style>
