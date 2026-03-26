@@ -1,6 +1,8 @@
 <template>
   <div class="popover" :tabindex="props.click ? -1 : undefined" :style="anchorStyles">
-    <div :class="['popover__content', `popover__content--${props.position || 'top'}`]" :style="width">
+    <div
+      :class="['popover__content', `popover__content--${props.position || 'top'}`]"
+      :style="width">
       <slot />
     </div>
     <slot name="anchor" />

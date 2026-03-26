@@ -12,10 +12,18 @@
       <Button :disabled="!isAddable(toAdd)" even @click.prevent="addItems(toAdd)">
         <Icon :src="`${config.iconPath}/chevron-right.svg`" />
       </Button>
-      <Button class="transfer__remove" :disabled="!isRemoveable(toRemove)" even @click.prevent="removeItems(toRemove)">
+      <Button
+        class="transfer__remove"
+        :disabled="!isRemoveable(toRemove)"
+        even
+        @click.prevent="removeItems(toRemove)">
         <Icon :src="`${config.iconPath}/chevron-right.svg`" />
       </Button>
-      <Button class="transfer__remove" :disabled="!isRemoveable(selected)" even @click.prevent="removeItems()">
+      <Button
+        class="transfer__remove"
+        :disabled="!isRemoveable(selected)"
+        even
+        @click.prevent="removeItems()">
         <Icon :src="`${config.iconPath}/chevrons-right.svg`" />
       </Button>
     </div>
