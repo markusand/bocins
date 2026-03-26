@@ -75,7 +75,8 @@
   align-items: left;
   text-align: left;
 
-  &[class*="--disabled"] { @extend %disabled; }
+  &[class*="--disabled"],
+  :disabled & { @extend %disabled; }
 
   & > .icon:last-child { margin-left: auto; }
 
