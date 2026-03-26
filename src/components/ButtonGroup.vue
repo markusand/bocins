@@ -48,14 +48,14 @@ const width = computed(() => toWidth(props.width));
     &:focus-within { z-index: 1; }
   };
 
-  & > :not(:first-child) :not(.dropdown__content *),
+  & > :not(:first-child) :not(.dropdown__content *, .popover__content *),
   & > *:not(:first-child) {
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
     margin-left: calc(-1 * var(--border-width));
   }
 
-  & > :not(:last-child) :not(.dropdown__content *),
+  & > :not(:last-child) :not(.dropdown__content *, .popover__content *),
   & > *:not(:last-child) {
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
