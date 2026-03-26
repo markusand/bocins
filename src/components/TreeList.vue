@@ -78,7 +78,7 @@ const path = (item: T): PropertyKey[] => [
     margin-right: var(--spacing);
   }
 
-  [open] > &__title :deep(.icon) { transform: rotate(90deg); }
+  [open] > &__title .icon { transform: rotate(90deg); }
 
   &__title {
     padding: var(--spacing) 0;

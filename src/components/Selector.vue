@@ -90,6 +90,7 @@ const clear = () => {
   --panel-border: none;
 
   &__toggler { @extend %selector-toggler; }
+  &:focus-within &__toggler { --color-border: var(--color-accent, #333); }
 
   .listbox {
     display: flex;

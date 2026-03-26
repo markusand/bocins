@@ -71,6 +71,6 @@ const decrease = (step = +props.step) => increase(-1 * step);
     }
   }
 
-  :deep(.icon) { --size: 1rem; }
+  .icon { --size: 1em; }
 }
 </style>

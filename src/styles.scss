@@ -53,7 +53,8 @@
 
   .invalid:not(:focus-within) &,
   &.invalid:not(:focus-within),
-  &:not(:focus-within):has(:invalid) { @extend %invalid; }
+  &:not(:focus-within):has(:invalid),
+  &[class*="--invalid"] { @extend %invalid; }
 }
 
 %disabled {
@@ -64,7 +65,7 @@
   cursor: not-allowed !important;
 
   // stylelint-disable-next-line selector-pseudo-class-no-unknown
-  :deep(*) { pointer-events: none !important; }
+  * { pointer-events: none !important; }
 }
 
 %selector-toggler {
@@ -74,7 +75,8 @@
   align-items: left;
   text-align: left;
 
-  &.disabled { @extend %disabled; }
+  &[class*="--disabled"],
+  :disabled & { @extend %disabled; }
 
   & > .icon:last-child { margin-left: auto; }
 

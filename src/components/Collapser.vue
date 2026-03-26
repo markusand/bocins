@@ -91,9 +91,8 @@ const toggle = (event: Event) => {
 
   &__content { margin: 0 var(--spacing) var(--spacing); }
 
-  :deep(.icon) { --size: 1em; }
-
-  &[open] > &__toggler :deep(.icon) { transform: rotate(180deg); }
+  .icon { --size: 1em; }
+  &[open] > &__toggler .icon { transform: rotate(180deg); }
 
   &[disabled="true"] {
     cursor: not-allowed;

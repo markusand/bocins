@@ -120,6 +120,6 @@ const change = (num: number) => goTo(selected.value + num + 1);
 
   .btn:not(.btn--flat) { --color: var(--color-accent, #333); }
 
-  &__prev :deep(.icon) { transform: rotate(180deg); }
+  &__prev .icon { transform: rotate(180deg); }
 }
 </style>

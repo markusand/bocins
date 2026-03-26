@@ -92,6 +92,8 @@ const modifiers = computed(() => {
   .search {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+
+    &:focus-within { --color-border: var(--color-border); }
   }
 
   &__option {

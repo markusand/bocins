@@ -120,7 +120,9 @@ const styles = computed(() => {
   &__content:focus,
   &__content:focus-within { display: block; }
 
-  &--disabled {
+  &--disabled,
+  :disabled &,
+  [class*="--disabled"] & {
     cursor: not-allowed;
 
     & * { pointer-events: none; }
@@ -128,6 +130,6 @@ const styles = computed(() => {
 
   &--block { @extend %block; }
 
-  :deep(.icon) { --size: 1em; }
+  .icon { --size: 1em; }
 }
 </style>
