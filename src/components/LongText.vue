@@ -1,5 +1,5 @@
 <template>
-  <div :class="['longtext', modifiers]">
+  <div :class="['longtext', 'is-input', modifiers]">
     <textarea
       v-model="text"
       v-bind="props"
@@ -51,7 +51,7 @@ const handleTab = (event: KeyboardEvent) => {
 const dimensions = computed(() => {
   const { height = 0 } = toHeight(props.height) ?? props;
   return {
-    ...toWidth(props.width),
+    ...(props.block ? { width: '100%', flex: 1 } : toWidth(props.width)),
     ...(props.expandable
       ? { minHeight: height, fieldSizing: 'content' as const }
       : { height }
@@ -65,16 +65,13 @@ const modifiers = computed(() => {
     'longtext--block': block,
     'longtext--disabled': disabled,
     'longtext--invalid': invalid,
+    'is-block': block,
   };
 });
 </script>
 
-<style lang="scss" scoped>
-@use  '../styles';
-
+<style scoped>
 .longtext {
-  @extend %input;
-
   display: inline-block;
   padding: 0;
   position: relative;
@@ -89,17 +86,14 @@ const modifiers = computed(() => {
     white-space: pre-wrap;
   }
 
-  &__counter {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    font-size: 0.75em;
-    padding: 0.25rem 0.5rem;
-    opacity: 0.5;
-  }
+}
 
-  &--disabled { @extend %disabled; }
-
-  &--block { @extend %block; }
+.longtext__counter {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 0.75em;
+  padding: 0.25rem 0.5rem;
+  opacity: 0.5;
 }
 </style>

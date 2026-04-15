@@ -26,14 +26,14 @@ const modifiers = computed(() => {
   return {
     [`btn-group--${variant}`]: !!variant,
     'btn-group--block': block,
+    'is-block': block,
   };
 });
 
 const width = computed(() => toWidth(props.width));
 </script>
 
-<style lang="scss" scoped>
-@use '../styles';
+<style scoped>
 
 .btn-group,
 .input-group {
@@ -43,10 +43,10 @@ const width = computed(() => toWidth(props.width));
   display: inline-flex;
   vertical-align: middle;
 
-  & > * {
+  /* &:deep(*) {
     flex: 1 1 auto !important;
     &:focus-within { z-index: 1; }
-  };
+  }; */
 
   & > :not(:first-child) :not(.dropdown__content *, .popover__content *),
   & > *:not(:first-child) {
@@ -60,11 +60,11 @@ const width = computed(() => toWidth(props.width));
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
   }
+}
 
-  &--block {
-    @extend %block;
-
-    display: flex;
-  }
+.btn-group--block,
+.input-group--block {
+  display: flex;
+  &:deep(> *) { flex: 1; }
 }
 </style>

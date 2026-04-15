@@ -7,7 +7,7 @@
         </Button>
       </slot>
     </template>
-    <div class="contextual__panel">
+    <div class="contextual__panel is-panel">
       <article v-for="group, i in props.actions" :key="group.label ?? i" class="contextual__group">
         <em v-if="group.label" class="contextual__label">
           <slot name="group" :group="group.label">{{ group.label }}</slot>
@@ -69,41 +69,35 @@ defineSlots<{
 } & Record<K, (props: { action: ContextualMenuAction<T, K, I> }) => void>>();
 </script>
 
-<style lang="scss" scoped>
-@use  '../styles';
+<style scoped>
+.contextual__group {
+  padding: 0.25rem;
 
-.contextual {
-  &__panel { @extend %panel; }
-
-  &__group {
-    padding: 0.25rem;
-
-    & + & { border-top: 1px solid #8884; }
-  }
-
-  &__label {
-    color: #888a;
-    font-size: 0.8em;
-    display: block;
-    margin: 0.5rem 0.5rem 0.25rem;
-    font-style: normal;
-  }
-
-  &__actions {
-    display: flex;
-    flex-direction: column;
-  
-    .btn {
-      text-align: left;
-      justify-content: left;
-      white-space: nowrap;
-      margin: 0;
-
-      &:hover { background: color-mix(in srgb, var(--color) 5%, transparent); }
-    }
-  }
-
-  &__keystrokes { margin: 0 calc(-0.5 * var(--spacing)) 0 auto; }
+  & + & { border-top: 1px solid #8884; }
 }
+
+.contextual__label {
+  color: #888a;
+  font-size: 0.8em;
+  display: block;
+  margin: 0.5rem 0.5rem 0.25rem;
+  font-style: normal;
+}
+
+.contextual__actions {
+  display: flex;
+  flex-direction: column;
+
+  .btn {
+    text-align: left;
+    justify-content: left;
+    white-space: nowrap;
+    margin: 0;
+
+    &:hover { background: color-mix(in srgb, var(--color) 5%, transparent); }
+  }
+}
+
+.contextual__keystrokes { margin: 0 calc(-0.5 * var(--spacing)) 0 auto; }
 </style>
 

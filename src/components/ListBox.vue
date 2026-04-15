@@ -1,5 +1,5 @@
 <template>
-  <div class="listbox" :class="modifiers">
+  <div class="listbox is-panel" :class="modifiers">
     <header v-if="props.search">
       <Search
         v-model="searchBy"
@@ -60,17 +60,15 @@ const modifiers = computed(() => {
   return {
     'listbox--disabled': disabled,
     'listbox--invalid': invalid,
+    'is-disabled': disabled,
+    'is-invalid': invalid,
   };
 });
 </script>
 
-<style lang="scss" scoped>
-@use  '../styles';
-
+<style scoped>
 .listbox {
   --color: var(--color-accent, #333);
-
-  @extend %panel;
 
   display: flex;
   flex-direction: column;
@@ -86,7 +84,7 @@ const modifiers = computed(() => {
     max-height: 10rem; 
 
     /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
-    :deep(input) { display: none; }
+    &:deep(input) { display: none; }
   }
 
   .search {
@@ -96,38 +94,35 @@ const modifiers = computed(() => {
     &:focus-within { --color-border: var(--color-border); }
   }
 
-  &__option {
-    flex: 1;
-    border-radius: 0.25rem;
+}
 
-    &:hover { background: color-mix(in srgb, var(--color) 10%, transparent); }
-  }
+.listbox__option {
+  flex: 1;
+  border-radius: 0.25rem;
 
-  :checked + &__option {
-    background: var(--color);
-    color: var(--color-text-accent, #fff);
-  }
+  &:hover { background: color-mix(in srgb, var(--color) 10%, transparent); }
+}
 
-  &--invalid :checked + &__option {
-    background: var(--color-error, red);
-    color: #fff;
-  }
+:checked + .listbox__option {
+  background: var(--color);
+  color: var(--color-text-accent, #fff);
+}
 
-  &__label { padding: 0.35rem 0.5rem; }
+.listbox--invalid :checked + .listbox__option {
+  background: var(--color-error, red);
+  color: #fff;
+}
 
-  &__empty {
-    padding: 0.5rem;
-    text-align:center;
-    opacity: 0.25;
-    margin: auto;
-  }
+.listbox__label { padding: 0.35rem 0.5rem; }
 
-  &--invalid { @extend %invalid; }
+.listbox__empty {
+  padding: 0.5rem;
+  text-align:center;
+  opacity: 0.25;
+  margin: auto;
+}
 
-  &--disabled { @extend %disabled; }
-
-  &--disabled :checked + &__option {
-    background: color-mix(in srgb, var(--color) 25%, transparent);
-  }
+.listbox--disabled :checked + .listbox__option {
+  background: color-mix(in srgb, var(--color) 25%, transparent);
 }
 </style>

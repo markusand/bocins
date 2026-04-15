@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { Carousel } from '/@/components';
 import Cover from './Cover.vue';
-import './assets/styles.scss';
+import './assets/styles.css';
 
 const items = [
   { url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=900', author: 'Bailey Zindel' },

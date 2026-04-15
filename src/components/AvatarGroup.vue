@@ -20,14 +20,14 @@ const modifiers = computed(() => ({
 }));
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .avatar-group {
   display: inline-flex;
   flex-direction: row-reverse;
   vertical-align: middle;
 
-  // stylelint-disable-next-line selector-pseudo-class-no-unknown
-  :deep(.avatar) {
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+  &:deep(.avatar) {
     outline: 2px solid var(--color-bg, #fff);
 
     &:not(:first-child) {
@@ -36,7 +36,7 @@ const modifiers = computed(() => ({
     }
   }
 
-  &--stacked {
+  .avatar-group--stacked {
     --overlap: 0.8;
     &:hover { --overlap: -0.125; }
   }

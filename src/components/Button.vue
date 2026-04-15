@@ -35,14 +35,14 @@ const modifiers = computed(() => {
     [`btn--${size}`]: !!size,
     'btn--even': even,
     'btn--block': block,
+    'is-block': block,
   };
 });
 
 const width = computed(() => toWidth(props.width));
 </script>
 
-<style lang="scss" scoped>
-@use '../styles';
+<style scoped>
 
 .btn {
   --spacing: var(--btn-spacing, 0.5rem);
@@ -50,8 +50,8 @@ const width = computed(() => toWidth(props.width));
   --color: var(--btn-color, #333);
   --color-text: var(--btn-color-text, #fff);
   --color-state: var(--color);
-  --color-hover: color-mix(in srgb, var(--color) 85%, #000);
-  --color-active: var(--btn-color-active, color-mix(in srgb, var(--color) 85%, #fff));
+  --color-hover: color-mix(in srgb, var(--color) 90%, #000);
+  --color-active: var(--btn-color-active, color-mix(in srgb, var(--color) 75%, #000));
   --border-width: var(--btn-border-width, 1px);
 
   all: unset;
@@ -69,47 +69,51 @@ const width = computed(() => toWidth(props.width));
   line-height: 1;
   cursor: pointer;
 
-  &--small { --spacing: 0.25em; }
-  &--large { --spacing: 0.75em; }
-
-  &--even { padding: var(--spacing); }
-  &--block {
-    @extend %block;
-
-    display: flex;
-  }
-
-  .btn-group--ghost &,
-  &--ghost {
-    background: none;
-    color: var(--color-state);
-  }
-
-  .btn-group--flat &,
-  &--flat {
-    background: none;
-    box-shadow: none;
-    color: var(--color-state);
-  }
-
   /* States */
-  :disabled &,
-  .disabled &,
   &:disabled {
     --color-state: color-mix(in srgb, var(--color-disabled, #8886) 10%, transparent);
-    
+
     cursor: not-allowed;
     color: var(--color-disabled, #8886);
   }
 
-  :not(:disabled), :not(.disabled), &:not(:disabled) {
+  &:not(:disabled) {
     &:hover { --color-state: var(--color-hover); }
 
     &:active,
     &.active { --color-state: var(--color-active); }
   }
 
-  // stylelint-disable-next-line selector-pseudo-class-no-unknown
-  :deep(.icon) { --size: 1em; }
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+  &:deep(.icon) { --size: 1em; }
 }
+
+.btn--small { --spacing: 0.25em; }
+.btn--large { --spacing: 0.75em; }
+
+.btn--even { padding: var(--spacing); }
+.btn--block { display: flex; }
+
+/* stylelint-disable no-descending-specificity */
+:disabled .btn,
+.disabled .btn {
+  --color-state: color-mix(in srgb, var(--color-disabled, #8886) 10%, transparent) !important;
+
+  cursor: not-allowed;
+  color: var(--color-disabled, #8886);
+}
+
+.btn-group--ghost .btn,
+.btn--ghost {
+  background: none;
+  color: var(--color-state);
+}
+
+.btn-group--flat .btn,
+.btn--flat {
+  background: none;
+  box-shadow: none;
+  color: var(--color-state);
+}
+/* stylelint-enable no-descending-specificity */
 </style>

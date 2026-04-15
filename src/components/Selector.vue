@@ -3,7 +3,7 @@
     class="selector"
     v-bind="selectorProps">
     <template #toggler>
-      <div :class="['selector__toggler', togglerModifiers]">
+      <div :class="['selector__toggler', 'is-selector-toggler', togglerModifiers]">
         <div v-if="isSelected(selected)" class="selector__selected">
           <template v-if="isSelected(selected)">
             <slot v-if="Array.isArray(selected)" name="selections" :items="selected">
@@ -16,7 +16,7 @@
             </slot>
           </template>
         </div>
-        <div v-else class="selector__placeholder">
+        <div v-else class="placeholder">
           <slot name="placeholder">{{ props.placeholder || 'Select' }}</slot>
         </div>
         <Icon
@@ -83,14 +83,9 @@ const clear = () => {
 };
 </script>
 
-<style lang="scss" scoped>
-@use  '../styles';
-
+<style scoped>
 .selector {
   --panel-border: none;
-
-  &__toggler { @extend %selector-toggler; }
-  &:focus-within &__toggler { --color-border: var(--color-accent, #333); }
 
   .listbox {
     display: flex;
@@ -98,4 +93,6 @@ const clear = () => {
     width: fit-content;
   }
 }
+
+.selector:focus-within .selector__toggler { --color-border: var(--color-accent, #333); }
 </style>

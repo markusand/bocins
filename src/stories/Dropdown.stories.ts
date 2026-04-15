@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { Dropdown, Button, Icon } from '/@/components';
-import './assets/styles.scss';
+import './assets/styles.css';
 
 const meta = {
   title: 'Dropdown',

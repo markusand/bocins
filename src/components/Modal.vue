@@ -2,7 +2,7 @@
   <Teleport :to="props.to ?? 'body'">
     <dialog
       ref="modal"
-      class="modal"
+      class="modal is-panel"
       v-bind="props"
       :style="size"
       @cancel="handleEscape"
@@ -88,12 +88,8 @@ const handleEscape = (event: Event) => {
 onMounted(() => props.open && open());
 </script>
 
-<style lang="scss" scoped>
-@use  '../styles';
-
+<style scoped>
 .modal {
-  @extend %panel;
-
   position: fixed;
   left: 50%;
   top: 50%;
@@ -107,25 +103,25 @@ onMounted(() => props.open && open());
   max-height: 80%;
   overflow: visible;
 
-  &__close {
-    all: unset;
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.125rem;
-    margin: 0.25rem 0.5rem;
-    font-size: 1.25rem;
-    cursor: pointer;
-    opacity: 0.5;
-
-    &:hover { opacity: 1; }
-  }
-
   &::backdrop { background: var(--color-fade, #0006); }
+}
 
-  &__content {
-    height: 100%;
-    box-sizing: border-box;
-  }
+.modal__close {
+  all: unset;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.125rem;
+  margin: 0.25rem 0.5rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  opacity: 0.5;
+
+  &:hover { opacity: 1; }
+}
+
+.modal__content {
+  height: 100%;
+  box-sizing: border-box;
 }
 </style>

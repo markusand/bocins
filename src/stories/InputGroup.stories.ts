@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { InputGroup, Input, Stepper, Selector, Button } from '/@/components';
 import UserProfile from './UserProfile.vue';
 import { users } from './assets/users';
-import './assets/styles.scss';
+import './assets/styles.css';
 
 const meta = {
   title: 'InputGroup',
@@ -47,11 +47,13 @@ export const Base: Story = {
     template: `<InputGroup v-bind="args">
       <Input v-model="text" width="8" clearable />
       <Stepper v-model="number" width="6" />
-      <Selector v-model="user" :options="users" right>
-        <template #default="{ item: user }">
-          <div style="padding:0.25rem 0.5rem">{{ user.name }}</div>
-        </template>
-      </Selector>
+      <Selector
+        v-model="user"
+        :options="users"
+        :formatter="user => user.name"
+        width="10"
+        right
+      />
       <Button>Submit</Button>
     </InputGroup>`,
   }),

@@ -28,7 +28,7 @@ const slots = defineSlots<{
 const initials = computed(() => props.name.split(' ').slice(0, 2).map(str => str.charAt(0)).join(''));
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .avatar {
   --size: var(--avatar-size, 2rem);
   --radius: var(--avatar-radius, 15%);
@@ -51,7 +51,7 @@ const initials = computed(() => props.name.split(' ').slice(0, 2).map(str => str
     border-radius: var(--radius);
   }
 
-  &__initials {
+  .avatar__initials {
     display: grid;
     place-content: center;
     aspect-ratio: 1;
@@ -63,7 +63,7 @@ const initials = computed(() => props.name.split(' ').slice(0, 2).map(str => str
     font-family: sans-serif;
   }
 
-  &__badge {
+  .avatar__badge {
     display: inline-block;
     position: absolute;
     top: 0;

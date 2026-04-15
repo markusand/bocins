@@ -75,81 +75,81 @@ watch(() => props.interval, interval => {
 onUnmounted(() => clearInterval(running.value));
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .carousel {
   position: relative;
+}
 
-  &__wrapper {
-    display: flex;
-    position: relative;
-    height: 100%;
-    width: 100%;
-    overflow: auto hidden;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+.carousel__wrapper {
+  display: flex;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: auto hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
-    &::-webkit-scrollbar { display: none;}
-  }
+  &::-webkit-scrollbar { display: none;}
+}
 
-  &__slide {
-    scroll-snap-align: center;
-    flex: 0 0 100%;
-    position: relative;
-  }
+.carousel__slide {
+  scroll-snap-align: center;
+  flex: 0 0 100%;
+  position: relative;
+}
 
-  &__controls {
-    position: absolute;
-    list-style: none;
-    padding: 0.75rem 1rem;
-    margin: 0;
-    display: flex;
-    gap: 0.5rem;
+.carousel__controls {
+  position: absolute;
+  list-style: none;
+  padding: 0.75rem 1rem;
+  margin: 0;
+  display: flex;
+  gap: 0.5rem;
+}
 
-    &--top-left { top: 0; }
-    &--bottom-left { bottom: 0; }
+.carousel__controls--top-left { top: 0; }
+.carousel__controls--bottom-left { bottom: 0; }
 
-    &--bottom {
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+.carousel__controls--bottom {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-    &--bottom-right {
-      bottom: 0;
-      right: 0;
-    }
+.carousel__controls--bottom-right {
+  bottom: 0;
+  right: 0;
+}
 
-    &--top-right {
-      top: 0;
-      right: 0;
-    }
+.carousel__controls--top-right {
+  top: 0;
+  right: 0;
+}
 
-    &--top {
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
+.carousel__controls--top {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-  &__control {
-    all: unset;
-    background: var(--control-color, #fff);
-    height: var(--control-size, 0.5rem);
-    aspect-ratio: 1;
-    border-radius: 50%;
-    display: block;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    opacity: 0.75;
+.carousel__control {
+  all: unset;
+  background: var(--control-color, #fff);
+  height: var(--control-size, 0.5rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.75;
 
-    &:hover { transform: scale(1.25); }
+  &:hover { transform: scale(1.25); }
+}
 
-    &--active {
-      transform: scale(1.55);
-      opacity: 1;
-      cursor: unset;
-    }
-  }
+.carousel__control--active {
+  transform: scale(1.55);
+  opacity: 1;
+  cursor: unset;
 }
 </style>

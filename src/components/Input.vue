@@ -1,6 +1,6 @@
 <template>
   <div
-    class="input"
+    class="input is-input"
     :class="modifiers"
     :style="width"
     @click.prevent="onClick">
@@ -86,6 +86,7 @@ const modifiers = computed(() => {
     'input--disabled': disabled,
     'input--invalid': invalid,
     'input--block': block,
+    'is-block': block,
   };
 });
 
@@ -97,12 +98,8 @@ const onClick = (event: Event) => {
 };
 </script>
 
-<style lang="scss" scoped>
-@use  '../styles';
-
+<style scoped>
 .input {
-  @extend %input;
-
   input {
     all: unset;
     appearance: textfield;
@@ -127,10 +124,6 @@ const onClick = (event: Event) => {
     }
   }
 
-  &--disabled,
-  .disabled &,
-  :disabled & { @extend %disabled; }
-
-  &--block { @extend %block; }
+  &:deep(.icon) { --size: 1em }
 }
 </style>

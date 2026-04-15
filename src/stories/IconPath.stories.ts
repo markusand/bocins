@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { config, Input, Search, Selector, DatePicker, Rating, Password } from '/@/components';
-import './assets/styles.scss';
+import './assets/styles.css';
 
 const meta = {
   title: 'Configuration/Custom Icon Path',

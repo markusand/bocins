@@ -36,7 +36,7 @@ const modifiers = computed(() => ({
 }));
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .image-expand {
   display: inline-block;
   position: relative;
@@ -51,20 +51,21 @@ const modifiers = computed(() => ({
     object-fit: contain;
   }
 
-  &__controls {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0.25rem;
-  }
+}
 
-  &--expanded {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 9999;
-  }
+.image-expand__controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.25rem;
+}
+
+.image-expand--expanded {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
 }
 </style>

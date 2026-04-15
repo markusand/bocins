@@ -25,13 +25,12 @@ const type = computed(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .switch {
 	--size: var(--switch-size, 1.25rem);
 	--spacing: var(--switch-spacing, 0.125rem);
 
 	display: inline-flex;
-  align-items: center;
 	flex-shrink: 0;
 	height: var(--size);
 	border-radius: var(--size);
@@ -40,22 +39,19 @@ const type = computed(() => {
 	cursor: pointer;
 	aspect-ratio: 2 / 1;
 	overflow: hidden;
+  background: var(--color-off, #8884);
+
+  &:has(:checked) { background: var(--color-on, #7c7); }
 
   input {
     all: unset;
-    height: calc(100% - 2 * var(--spacing));
-    box-sizing: border-box;
     margin: var(--spacing);
     aspect-ratio: 1;
     border-radius: 50%;
     background: var(--color-thumb, #fff);
-    outline: calc(var(--size) + var(--spacing)) solid var(--color-off, #8884);
     transition: all 0.3s ease;
 
-    &:checked {
-      margin-left: calc(50% + var(--spacing));
-      outline-color: var(--color-on, #7c7);
-    }
+    &:checked { margin-left: calc(50% + var(--spacing)); }
 
     &:disabled {
       pointer-events: none;

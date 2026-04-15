@@ -1,0 +1,142 @@
+.is-block {
+  width: 100% !important;
+  margin-inline: 0 !important;
+  flex: 0 0 100% !important;
+}
+
+.is-invalid {
+  --color-border: var(--color-error, red) !important;
+  --color-text: var(--color-error, red) !important;
+  --color-bg: color-mix(in srgb, var(--color-error, red) 5%, transparent) !important;
+}
+
+.is-panel {
+  background: var(--color-bg, #fff);
+  color: var(--color-text, #333);
+  box-shadow: inset 0 0 0 var(--border-width, 1px) var(--color-border, #8884);
+  border-radius: var(--radius, 0.25rem);
+}
+
+.is-disabled {
+  --color-bg: color-mix(in srgb, var(--color-disabled, #8886) 10%, transparent) !important;
+  --color-text: var(--color-disabled, #8886) !important;
+  --border-width: 0 !important;
+
+  cursor: not-allowed !important;
+
+  * { pointer-events: none !important; }
+}
+
+.placeholder,
+*::placeholder {
+  color: var(--color-text, #888) !important;
+  opacity: 0.5 !important;
+}
+
+.is-input {
+  --spacing: 0.5rem;
+  --border-width: 1px;
+
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  gap: var(--spacing);
+  padding: 0 var(--spacing);
+  min-height: calc(1em + 2 * var(--spacing));
+  background: var(--color-bg, #fff);
+  color: var(--color-text, currentcolor);
+  box-sizing: border-box;
+  box-shadow: inset 0 0 0 var(--border-width) var(--color-border, #8886);
+  border-radius: var(--radius, 0.25em);
+  text-align: left;
+
+  &:focus-within { --color-border: var(--color-accent, #333); }
+
+  .icon {
+    --size: 1rem;
+
+    cursor: pointer;
+    display: inline-block;
+  }
+}
+
+.disabled .is-input,
+:disabled .is-input,
+.is-input[class*="--disabled"] {
+  --color-bg: color-mix(in srgb, var(--color-disabled, #8886) 10%, transparent) !important;
+  --color-text: var(--color-disabled, #8886) !important;
+  --border-width: 0 !important;
+
+  cursor: not-allowed !important;
+
+  * { pointer-events: none !important; }
+}
+
+.invalid:not(:focus-within) .is-input,
+.is-input.invalid:not(:focus-within),
+.is-input:not(:focus-within):has(:invalid),
+.is-input[class*="--invalid"] {
+  --color-border: var(--color-error, red) !important;
+  --color-text: var(--color-error, red) !important;
+  --color-bg: color-mix(in srgb, var(--color-error, red) 5%, transparent) !important;
+}
+
+.is-selector-toggler {
+  --spacing: 0.5rem;
+  --border-width: 1px;
+
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  gap: var(--spacing);
+  padding: 0 var(--spacing);
+  min-height: calc(1em + 2 * var(--spacing));
+  background: var(--color-bg, #fff);
+  color: var(--color-text, currentcolor);
+  box-sizing: border-box;
+  box-shadow: inset 0 0 0 var(--border-width) var(--color-border, #8886);
+  border-radius: var(--radius, 0.25em);
+  text-align: left;
+
+  &:focus-within { --color-border: var(--color-accent, #333); }
+
+  .placeholder { opacity: 1; }
+
+  .icon {
+    --size: 1em !important;
+
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  & > .icon:last-child { margin-left: auto !important; }
+
+  .selected,
+  .placeholder {
+    flex: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
+.disabled .is-selector-toggler,
+:disabled .is-selector-toggler,
+.is-selector-toggler[class*="--disabled"] {
+  --color-bg: color-mix(in srgb, var(--color-disabled, #8886) 10%, transparent) !important;
+  --color-text: var(--color-disabled, #8886) !important;
+  --border-width: 0 !important;
+
+  cursor: not-allowed !important;
+
+  * { pointer-events: none !important; }
+}
+
+.invalid:not(:focus-within) .is-selector-toggler,
+.is-selector-toggler.invalid:not(:focus-within),
+.is-selector-toggler:not(:focus-within):has(:invalid),
+.is-selector-toggler[class*="--invalid"] {
+  --color-border: var(--color-error, red) !important;
+  --color-text: var(--color-error, red) !important;
+  --color-bg: color-mix(in srgb, var(--color-error, red) 5%, transparent) !important;
+}

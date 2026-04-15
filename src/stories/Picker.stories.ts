@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { Picker, type PickerProps } from '/@/components';
 import UserProfile from './UserProfile.vue';
 import { users, type User } from './assets/users';
-import './assets/styles.scss';
+import './assets/styles.css';
 
 const formatters = [undefined, (item: { name: string }) => item.name];
 

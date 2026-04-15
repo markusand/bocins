@@ -82,7 +82,7 @@ const removeItems = (items: T[] = selected.value) => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .transfer {
   --btn-color: var(--color, #333);
   
@@ -95,13 +95,14 @@ const removeItems = (items: T[] = selected.value) => {
     min-width: 0;
   }
 
-  &__controls {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.125rem;
-  }
-
-  &__remove .icon { transform: rotate(180deg); }
 }
+
+.transfer__controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.125rem;
+}
+
+.transfer__remove .icon { transform: rotate(180deg); }
 </style>

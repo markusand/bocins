@@ -93,9 +93,7 @@ const goTo = (page: number) => {
 const change = (num: number) => goTo(selected.value + num + 1);
 </script>
 
-<style lang="scss" scoped>
-@use  '../styles';
-
+<style scoped>
 .pagination {
   display: inline-flex;
   align-items: center;
@@ -109,17 +107,9 @@ const change = (num: number) => goTo(selected.value + num + 1);
     color: #8888;
   }
 
-  .input {
-    @extend %input;
-  
-    input {
-      all: unset;
-      appearance: textfield;
-    }
-  }
-
   .btn:not(.btn--flat) { --color: var(--color-accent, #333); }
 
-  &__prev .icon { transform: rotate(180deg); }
 }
+
+.pagination__prev .icon { transform: rotate(180deg); }
 </style>
