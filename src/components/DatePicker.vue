@@ -3,7 +3,7 @@
     class="datepicker"
     v-bind="datepickerProps">
     <template #toggler>
-      <div :class="['datepicker__toggler', togglerModifiers]">
+      <div :class="['datepicker__toggler', 'is-selector-toggler', togglerModifiers]">
         <div v-if="isSelected(selected)" class="datepicker__selected">
           <template v-if="isSelected(selected)">
             <slot v-if="Array.isArray(selected)" name="dates" :dates="selected">
@@ -18,7 +18,7 @@
             </slot>
           </template>
         </div>
-        <div v-else class="datepicker__placeholder">
+        <div v-else class="placeholder">
           <slot name="placeholder">{{ props.placeholder || 'Select date' }}</slot>
         </div>
         <Icon
@@ -28,7 +28,7 @@
         <Icon v-else :src="`${config.iconPath}/chevron-down.svg`" />
       </div>
     </template>
-    <Calendar v-model="selected" v-bind="props">
+    <Calendar v-model="selected" class="is-panel" v-bind="props">
       <template #day="{ day }">
         <slot name="day" :day="day" />
       </template>
@@ -88,20 +88,12 @@ const clear = () => {
 };
 </script>
 
-<style lang="scss" scoped>
-@use  '../styles';
+<style scoped>
+.datepicker__range-dates {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 
-.datepicker {
-  &__toggler { @extend %selector-toggler; }
-
-  .calendar { @extend %panel; }
-
-  &__range-dates {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    .icon { opacity: 0.25; }
-  }
+  .icon { opacity: 0.25; }
 }
 </style>

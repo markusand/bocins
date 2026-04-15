@@ -125,11 +125,13 @@ const status = (day: Date) => {
     'calendar__day--range': Array.isArray(selected.value) && isBetween(day, selected.value[0], selected.value[1]),
     'calendar__day--off': !isBetween(day, monthStart(cursor.value), monthEnd(cursor.value), true),
     'calendar__day--disabled': isInvalid(day),
+    'is-disabled': isInvalid(day),
   };
 };
 
 const modifiers = computed(() => ({
   'calendar--disabled': props.disabled,
+  'is-disabled': props.disabled,
 }));
 
 const weekDays = computed(() => CalendarNames.WEEKDAYS(props.locale, props.startSunday));
@@ -142,8 +144,7 @@ const years = computed(() => {
 });
 </script>
 
-<style lang="scss" scoped>
-@use '../styles';
+<style scoped>
 
 /* stylelint-disable no-descending-specificity */
 /* stylelint-disable selector-pseudo-class-no-unknown */
@@ -166,96 +167,92 @@ const years = computed(() => {
     justify-content: space-between;
 
     .selector {
-      :deep(.selector__toggler) {
+      &:deep(.selector__toggler) {
         --spacing: 0;
         --border-width: 0;
         --color-bg: none !important;
       }
-      :deep(.icon) { display: none; }
+      &:deep(.icon) { display: none; }
     }
 
     .btn:first-child .icon { transform: rotate(180deg); }
   }
+}
 
-  &__weekdays,
-  &__days {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.calendar__weekdays,
+.calendar__days {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px 0;
+}
+
+.calendar__weekdays {
+  font-size: 0.65em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  text-align: center;
+}
+
+.calendar__day {
+  button {
+    all: unset;
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px 0;
+    width: 100%;
+    aspect-ratio: 1;
+    place-items: center;
+    padding: calc(0.5 * var(--spacing));
+    box-sizing: border-box;
+    background: var(--color-bg);
+    cursor: pointer;
   }
+}
 
-  &__weekdays {
-    font-size: 0.65em;
-    text-transform: uppercase;
-    opacity: 0.5;
-    text-align: center;
+.calendar__day--today {
+  color: var(--color-accent, #333);
+  font-weight: bold;
+}
+
+.calendar__day--range button { --color-bg: var(--color-range); }
+
+.calendar__day--start,
+.calendar__day--end {
+  button {
+    background: var(--color-accent, #333);
+    color: var(--color-text-accent, #fff);
+    cursor: default;
   }
+}
 
-  &__day {
-    button {
-      all: unset;
-      display: grid;
-      width: 100%;
-      aspect-ratio: 1;
-      place-items: center;
-      padding: calc(0.5 * var(--spacing));
-      box-sizing: border-box;
-      background: var(--color-bg);
-      cursor: pointer;
-    }
-
-    &--today {
-      color: var(--color-accent, #333);
-      font-weight: bold;
-    }
-
-    &--range button { --color-bg: var(--color-range); }
-
-    &--start,
-    &--end {
-      button {
-        background: var(--color-accent, #333);
-        color: var(--color-text-accent, #fff);
-        cursor: default;
-      }
-    }
-
-    &--start,
-    &:nth-child(7n + 1),
-    &:not(&--disabled) + &--disabled,
-    &--disabled + &:not(&--disabled) {
-      button {
-        border-top-left-radius: var(--radius);
-        border-bottom-left-radius: var(--radius);
-      }
-    }
-
-    &--end,
-    &:nth-child(7n),
-    &--disabled:has(+ &:not(&--disabled)),
-    &:not(&--disabled):has(+ &--disabled) {
-      button {
-        border-top-right-radius: var(--radius);
-        border-bottom-right-radius: var(--radius);
-      }
-    }
-
-    &--off { opacity: 0.25; }
-
-    &--disabled { @extend %disabled; }
+.calendar__day--start,
+.calendar__day:nth-child(7n + 1),
+.calendar__day:not(.calendar__day--disabled) + .calendar__day--disabled,
+.calendar__day--disabled + .calendar__day:not(.calendar__day--disabled) {
+  button {
+    border-top-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
   }
+}
 
-  &--disabled {
-    @extend %disabled;
+.calendar__day--end,
+.calendar__day:nth-child(7n),
+.calendar__day--disabled:has(+ .calendar__day:not(.calendar__day--disabled)),
+.calendar__day:not(.calendar__day--disabled):has(+ .calendar__day--disabled) {
+  button {
+    border-top-right-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
+  }
+}
 
-    .calendar__day {
-      --color-bg: none;
-      --color: #8884;
-      --color-range: #8882;
-    }
+.calendar__day--off { opacity: 0.25; }
+
+.calendar--disabled {
+  .calendar__day {
+    --color-bg: none;
+    --color: #8884;
+    --color-range: #8882;
   }
 }
 </style>

@@ -64,7 +64,7 @@ const toggle = (event: Event) => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .collapser {
   --color: var(--collapser-color, transparent);
   --border: var(--collapser-border, none);
@@ -75,24 +75,7 @@ const toggle = (event: Event) => {
 
   & + & { border-top: 1px solid #8882; }
 
-  &__toggler {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: var(--spacing);
-    padding: var(--spacing);
-    cursor: pointer;
-
-    &::-webkit-details-marker,
-    &::marker { display: none; }
-  }
-
-  &__title { flex: 1; }
-
-  &__content { margin: 0 var(--spacing) var(--spacing); }
-
   .icon { --size: 1em; }
-  &[open] > &__toggler .icon { transform: rotate(180deg); }
 
   &[disabled="true"] {
     cursor: not-allowed;
@@ -103,4 +86,22 @@ const toggle = (event: Event) => {
     }
   }
 }
+
+.collapser__toggler {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing);
+  padding: var(--spacing);
+  cursor: pointer;
+
+  &::-webkit-details-marker,
+  &::marker { display: none; }
+}
+
+.collapser__title { flex: 1; }
+
+.collapser__content { margin: 0 var(--spacing) var(--spacing); }
+
+.collapser[open] > .collapser__toggler .icon { transform: rotate(180deg); }
 </style>

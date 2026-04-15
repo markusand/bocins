@@ -49,6 +49,7 @@ const modifiers = computed(() => {
     'dropdown--right': right,
     'dropdown--block': block,
     'dropdown--disabled': disabled,
+    'is-block': block,
   };
 });
 
@@ -62,8 +63,7 @@ const styles = computed(() => {
 });
 </script>
 
-<style lang="scss" scoped>
-@use '../styles';
+<style scoped>
 
 .dropdown {
   display: inline-block;
@@ -73,63 +73,61 @@ const styles = computed(() => {
   box-sizing: border-box;
   anchor-name: var(--anchor-name);
 
-  &__content {
-    display: none;
-    position: fixed;
-    position-anchor: var(--position-anchor);
-    top: anchor(bottom);
-    left: anchor(left);
-    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-    z-index: 2;
-    box-sizing: border-box;
-    margin: 0.125rem 0;
-    width: fit-content;
+  .icon { --size: 1em; }
+}
+
+.dropdown__content {
+  display: none;
+  position: fixed;
+  position-anchor: var(--position-anchor);
+  top: anchor(bottom);
+  left: anchor(left);
+  position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+  z-index: 2;
+  box-sizing: border-box;
+  margin: 0.125rem 0;
+  width: fit-content;
+}
+
+.dropdown--top > .dropdown__content {
+  bottom: anchor(top);
+  top: unset;
+}
+
+.dropdown--right > .dropdown__content {
+  left: unset;
+  right: anchor(right);
+}
+
+/* Fallback for browsers without anchor positioning support */
+@supports not (anchor-name: --dropdown-anchor) {
+  .dropdown__content {
+    position: absolute;
+    top: 100%;
+    left: 0;
   }
 
-  &--top > &__content {
-    bottom: anchor(top);
+  .dropdown--top > .dropdown__content {
+    bottom: 100%;
     top: unset;
   }
 
-  &--right > &__content {
+  .dropdown--right > .dropdown__content {
     left: unset;
-    right: anchor(right);
+    right: 0;
   }
+}
 
-  /* Fallback for browsers without anchor positioning support */
-  @supports not (anchor-name: --dropdown-anchor) {
-    &__content {
-      position: absolute;
-      top: 100%;
-      left: 0;
-    }
+.dropdown__content:hover,
+.dropdown__content:focus,
+.dropdown__content:focus-within,
+.dropdown__toggler:focus-within + .dropdown__content { display: block; }
 
-    &--top > &__content {
-      bottom: 100%;
-      top: unset;
-    }
+.dropdown--disabled,
+:disabled .dropdown,
+[class*="--disabled"] .dropdown {
+  cursor: not-allowed;
 
-    &--right > &__content {
-      left: unset;
-      right: 0;
-    }
-  }
-
-  &__toggler:focus-within + &__content,
-  &__content:hover,
-  &__content:focus,
-  &__content:focus-within { display: block; }
-
-  &--disabled,
-  :disabled &,
-  [class*="--disabled"] & {
-    cursor: not-allowed;
-
-    & * { pointer-events: none; }
-  }
-
-  &--block { @extend %block; }
-
-  .icon { --size: 1em; }
+  & * { pointer-events: none; }
 }
 </style>

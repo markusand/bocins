@@ -38,7 +38,7 @@ Import styles in your app entry point file or in your styles entry point
 // main.ts
 import 'bocins/dist/index.css';
 
-// main.scss
+// main.css
 @import 'bocins/dist/index.css';
 ```
 

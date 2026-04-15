@@ -14,7 +14,7 @@ defineSlots<{
 }>();
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .divider {
   --color: var(--color-border, #8888);
   --margin: var(--divider-margin, 2rem);

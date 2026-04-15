@@ -25,7 +25,7 @@ defineSlots<{
 }>();
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .chip {
   --color: var(--color-accent, #888);
   --opacity: var(--chip-opacity, 15%);
@@ -44,15 +44,16 @@ defineSlots<{
   font-size: var(--size);
   white-space: nowrap;
 
-  &__close {
-    all: unset;
-    padding: 0 0.125rem;
-    margin: 0 -0.2rem 0 0;
-    border-radius: 0.125rem;
-    cursor: pointer;
+}
 
-    &:hover,
-    &:focus { background: var(--color-shade); }
-  }
+.chip__close {
+  all: unset;
+  padding: 0 0.125rem;
+  margin: 0 -0.2rem 0 0;
+  border-radius: 0.125rem;
+  cursor: pointer;
+
+  &:hover,
+  &:focus { background: var(--color-shade); }
 }
 </style>

@@ -31,18 +31,19 @@ defineSlots<{
 const selected = defineModel<T | T[] | undefined>({ required: true });
 
 const modifiers = computed(() => {
-  const { invalid, block } = props;
+  const { invalid, block, disabled } = props;
   return {
     'toggler--invalid': invalid,
     'toggler--block': block,
+    'is-disabled': disabled,
+    'is-block': block,
   };
 });
 
 const checkIconUrl = computed(() => `url(${config.iconPath}/check.svg)`);
 </script>
 
-<style lang="scss" scoped>
-@use  '../styles';
+<style scoped>
 
 /* stylelint-disable no-descending-specificity */
 
@@ -72,12 +73,14 @@ const checkIconUrl = computed(() => `url(${config.iconPath}/check.svg)`);
     cursor: pointer;
 
     &:checked {
+      /* stylelint-disable value-keyword-case */
       background:
         var(--color-bg)
         v-bind(checkIconUrl)
         no-repeat
         center center
         !important;
+      /* stylelint-enable value-keyword-case */
       transform: none;
     }
   }
@@ -92,9 +95,7 @@ const checkIconUrl = computed(() => `url(${config.iconPath}/check.svg)`);
 
   &:has(:checked) { --color-bg: var(--color-accent, #333); }
 
-  &--invalid { --color-bg: var(--color-error, red); }
-  &:has(:disabled) { @extend %disabled; }
-
-  &--block { @extend %block; }
 }
+
+.toggler--invalid { --color-bg: var(--color-error, red); }
 </style>

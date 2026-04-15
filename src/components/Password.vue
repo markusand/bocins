@@ -47,7 +47,7 @@ const strength = computed(() => {
 
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .password {
   position: relative;
 

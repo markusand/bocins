@@ -59,7 +59,7 @@ const path = (item: T): PropertyKey[] => [
 ];
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .treelist {
   --indent: var(--treelist-indent, 1rem);
   --spacing: var(--treelist-spacing, 0.25rem);
@@ -78,19 +78,20 @@ const path = (item: T): PropertyKey[] => [
     margin-right: var(--spacing);
   }
 
-  [open] > &__title .icon { transform: rotate(90deg); }
+}
 
-  &__title {
-    padding: var(--spacing) 0;
-    display: flex;
-    align-items: center;
-    list-style: none;
-    outline: none;
-    cursor: pointer;
+[open] > .treelist__title .icon { transform: rotate(90deg); }
 
-    &::-webkit-details-marker,
-    &::marker { display: none; }
-  }
+.treelist__title {
+  padding: var(--spacing) 0;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  outline: none;
+  cursor: pointer;
+
+  &::-webkit-details-marker,
+  &::marker { display: none; }
 }
 
 </style>

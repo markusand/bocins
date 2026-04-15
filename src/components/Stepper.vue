@@ -53,7 +53,7 @@ const increase = (step = +props.step) => {
 const decrease = (step = +props.step) => increase(-1 * step);
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .stepper {
   text-align: center;
 
@@ -61,7 +61,7 @@ const decrease = (step = +props.step) => increase(-1 * step);
     all: unset;
     cursor: pointer;
     border-radius: 0.125rem;
-    display: block;
+    display: flex;
 
     &:focus { background: #8882; }
 

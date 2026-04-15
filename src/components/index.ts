@@ -1,4 +1,4 @@
-import '../styles.scss';
+import '../styles.css';
 
 export { config } from '../config';
 

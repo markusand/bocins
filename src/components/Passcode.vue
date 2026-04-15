@@ -7,6 +7,7 @@
       v-for="i in props.length"
       :key="i"
       v-model="passcode[i - 1]"
+      :class="{ 'is-invalid': props.invalid, 'is-disabled': props.disabled }"
       type="password"
       maxlength="1"
       placeholder=" "
@@ -65,8 +66,7 @@ const focusLast = (event: Event) => {
 };
 </script>
 
-<style lang="scss" scoped>
-@use  '../styles';
+<style scoped>
 
 .passcode {
   --size: 2rem;
@@ -98,7 +98,5 @@ const focusLast = (event: Event) => {
     }
   }
 
-  &.invalid input { @extend %invalid; }
-  &:disabled input { @extend %disabled; }
 }
 </style>

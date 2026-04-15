@@ -76,6 +76,8 @@ const modifiers = computed(() => {
     [`file-drop--${state.value}`]: state.value,
     'file-drop--disabled': disabled,
     'file-drop--block': block,
+    'is-disabled': disabled,
+    'is-block': block,
   };
 });
 
@@ -120,8 +122,7 @@ const remove = (file: File) => {
 };
 </script>
 
-<style lang="scss" scoped>
-@use  '../styles';
+<style scoped>
 
 .file-drop {
   --color: var(--filedrop-color, #888);
@@ -141,9 +142,6 @@ const remove = (file: File) => {
   box-sizing: border-box;
   cursor: pointer;
 
-  &--hover { --color: var(--color-accent, #333); }
-  &--invalid { --color: var(--color-error, red); }
-
   & > em {
     font-style: normal;
     font-size: 0.9em;
@@ -151,37 +149,36 @@ const remove = (file: File) => {
   }
 
   input { display: none; }
+}
 
-  &__list {
-    margin: 0;
-    padding: 0.5rem 1rem;
-    list-style: none;
-    max-height: 100%;
-    max-width: 100%;
-    overflow: auto;
-    box-sizing: border-box;
+.file-drop--hover { --color: var(--color-accent, #333); }
+.file-drop--invalid { --color: var(--color-error, red); }
 
-    li {
-      display: flex;
-      width: 100%;
-      gap: 0.5rem;
-    }
+.file-drop__list {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  list-style: none;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+
+  li {
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;
   }
+}
 
-  &__file-name {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.file-drop__file-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
-    & + button {
-      all: unset;
-      color: var(--color-alert, red);
-      cursor: pointer;
-    }
+  & + button {
+    all: unset;
+    color: var(--color-alert, red);
+    cursor: pointer;
   }
-
-  &--disabled { @extend %disabled; }
-
-  &--block { @extend %block; }
 }
 </style>

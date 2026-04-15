@@ -24,6 +24,6 @@ const props = withDefaults(defineProps<SearchProps>(), {
 const search = defineModel<string>({ required: true });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .search .icon { --size: 1em; }
 </style>

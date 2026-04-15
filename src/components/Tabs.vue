@@ -6,7 +6,7 @@
         v-for="{ id, label, active, disabled } in tabs"
         :key="id"
         :disabled="disabled"
-        :class="['tabs__tab', { 'tabs__tab--active': active }]"
+        :class="['tabs__tab', { 'tabs__tab--active': active, 'is-disabled': disabled }]"
         type="button"
         @click.prevent="activate(id)">
         <slot v-bind="{ label, active }" :name="id">
@@ -43,51 +43,48 @@ const tabs = computed(() => slots.default()
 onMounted(() => !activePanel.value && activate(tabs.value[0]?.id));
 </script>
 
-<style lang="scss" scoped>
-@use  '../styles';
+<style scoped>
 
 .tabs {
   --spacing: var(--tabs-spacing, 0.75rem);
+}
 
-  &__header {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    display: flex;
-    border-bottom: 1px solid var(--tabs-color-border, var(--color-border, #8883));
-    margin-bottom: var(--spacing);
-    gap: calc(2 * var(--spacing));
-    align-items: flex-end;
-  }
+.tabs__header {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  border-bottom: 1px solid var(--tabs-color-border, var(--color-border, #8883));
+  margin-bottom: var(--spacing);
+  gap: calc(2 * var(--spacing));
+  align-items: flex-end;
+}
 
-  &__tab {
-    --color-text: color-mix(in srgb, currentcolor 75%, transparent);
+.tabs__tab {
+  --color-text: color-mix(in srgb, currentcolor 75%, transparent);
 
-    all: unset;
-    padding: var(--spacing) 0;
-    color: var(--color-text);
-    margin-bottom: -1px;
-    position: relative;
-    cursor: pointer;
-    white-space: nowrap;
+  all: unset;
+  padding: var(--spacing) 0;
+  color: var(--color-text);
+  margin-bottom: -1px;
+  position: relative;
+  cursor: pointer;
+  white-space: nowrap;
 
-    &:hover { --color-text: var(--color-accent, #333); }
+  &:hover { --color-text: var(--color-accent, #333); }
+}
 
-    &--active {
-      --color-text: var(--color-accent, #333);
+.tabs__tab--active {
+  --color-text: var(--color-accent, #333);
 
-      &::after {
-        content: '';
-        background: currentcolor;
-        height: 2px;
-        width: 100%;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-      }
-    }
-
-    &:disabled { @extend %disabled; }
+  &::after {
+    content: '';
+    background: currentcolor;
+    height: 2px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
   }
 }
 </style>

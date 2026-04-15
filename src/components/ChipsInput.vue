@@ -50,27 +50,30 @@ const onBackspace = (event: Event) => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .chips-input {
   flex-wrap: wrap;
   gap: 0 var(--spacing);
 
-  &__group {
-    margin: calc(0.25 * var(--spacing)) calc(-0.75 * var(--spacing));
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.125rem;
-
-    .chip { margin: 0; }
-  }
-
-  :deep(input) {
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+  &:deep(input) {
     padding: 0.375rem 0;
     flex: 1 1 4rem;
   }
 
-  :deep(> .icon) { padding: 0.5rem 0; }
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+  &:deep(> .icon) { padding: 0; }
 
   &:not(:focus-within).input--invalid .chip { --color: currentcolor; }
+}
+
+.chips-input__group {
+  margin: calc(0.25 * var(--spacing)) calc(-0.75 * var(--spacing));
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.125rem;
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  .chip { margin: 0; }
 }
 </style>

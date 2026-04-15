@@ -18,7 +18,7 @@ defineSlots<{
 }>();
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .tooltip {
   --color-bg: var(--tooltip-color, #333);
   --color-text: var(--tooltip-text-color, #fff);

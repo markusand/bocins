@@ -19,7 +19,7 @@ const props = defineProps<{
 }>();
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .user-profile {
   display: flex;
   gap: 0.5rem;

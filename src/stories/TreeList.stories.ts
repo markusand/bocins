@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { TreeList } from '/@/components';
 import UserProfile from './UserProfile.vue';
 import { users, type User } from './assets/users';
-import './assets/styles.scss';
+import './assets/styles.css';
 
 type Team = {
   name: string;

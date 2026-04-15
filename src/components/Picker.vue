@@ -38,7 +38,7 @@ defineSlots<{
 const selected = defineModel<T | T[] | undefined>({ required: true });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .picker {
   --spacing: var(--picker-spacing, 0.25rem);
 

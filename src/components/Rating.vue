@@ -28,7 +28,7 @@ const rating = defineModel<number | undefined>({ required: false, default: 0 });
 watch(rating, value => value && emit('rate', value));
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .rating {
   --size: var(--rating-size, 1.25rem);
   --color: var(--rating-color, #fdcf10);
@@ -63,8 +63,8 @@ watch(rating, value => value && emit('rate', value));
       cursor: inherit;
     }
 
-    // stylelint-disable-next-line selector-pseudo-class-no-unknown
-    :deep(.icon) {
+    /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+    &:deep(.icon) {
       --size: 1em;
 
       position: absolute;
@@ -78,10 +78,10 @@ watch(rating, value => value && emit('rate', value));
 
   label:has(:checked),
   label:has(:checked) ~ label {
-    // stylelint-disable-next-line no-descending-specificity
+    /* stylelint-disable-next-line no-descending-specificity */
     input { transform: scale(0); }
-    // stylelint-disable-next-line selector-pseudo-class-no-unknown
-    :deep(.icon) { transform: none; }
+    /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+    &:deep(.icon) { transform: none; }
   }
 
   &:disabled {

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { Popover } from '/@/components';
 import UserProfile from './UserProfile.vue';
 import { users } from './assets/users';
-import './assets/styles.scss';
+import './assets/styles.css';
 
 const meta = {
   title: 'Popover',

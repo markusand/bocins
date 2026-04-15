@@ -15,7 +15,7 @@ export type IconProps = {
 const props = defineProps<IconProps>();
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .icon {
   --color: var(--icon-color, currentcolor);
   --size: var(--icon-size, 1.25rem);
