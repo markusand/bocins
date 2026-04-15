@@ -51,7 +51,7 @@ const handleTab = (event: KeyboardEvent) => {
 const dimensions = computed(() => {
   const { height = 0 } = toHeight(props.height) ?? props;
   return {
-    ...toWidth(props.width),
+    ...(props.block ? { width: '100%', flex: 1 } : toWidth(props.width)),
     ...(props.expandable
       ? { minHeight: height, fieldSizing: 'content' as const }
       : { height }
