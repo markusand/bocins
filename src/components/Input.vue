@@ -126,6 +126,7 @@ const onClick = (event: Event) => {
     }
   }
 
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
   &:deep(.icon) { --size: 1em }
 }
 </style>

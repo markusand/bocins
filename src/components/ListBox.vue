@@ -52,8 +52,8 @@ defineSlots<{
 
 const selected = defineModel<T | T[] | undefined>({ required: true });
 
-const { searchBy, search } = useSearcher<T>(toRef(props, 'search'));
-const options = search(toRef(props, 'options'));
+const { searchBy, search } = useSearcher<T>(toRef(() => props.search));
+const options = search(toRef(() => props.options));
 
 const modifiers = computed(() => {
   const { disabled, invalid } = props;

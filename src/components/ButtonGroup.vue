@@ -43,10 +43,11 @@ const width = computed(() => toWidth(props.width));
   display: inline-flex;
   vertical-align: middle;
 
-  /* &:deep(*) {
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+  &:deep(*) {
     flex: 1 1 auto !important;
     &:focus-within { z-index: 1; }
-  }; */
+  };
 
   & > :not(:first-child) :not(.dropdown__content *, .popover__content *),
   & > *:not(:first-child) {
@@ -65,6 +66,8 @@ const width = computed(() => toWidth(props.width));
 .btn-group--block,
 .input-group--block {
   display: flex;
+
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
   &:deep(> *) { flex: 1; }
 }
 </style>

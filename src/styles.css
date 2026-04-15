@@ -109,7 +109,10 @@
     display: inline-block;
   }
 
-  & > .icon:last-child { margin-left: auto !important; }
+  .icon:last-child {
+    flex: 0 !important;
+    margin-left: auto !important;
+  }
 
   .selected,
   .placeholder {

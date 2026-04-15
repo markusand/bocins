@@ -77,15 +77,15 @@ const width = computed(() => toWidth(props.width));
     color: var(--color-disabled, #8886);
   }
 
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+  &:deep(.icon) { --size: 1em; }
+
   &:not(:disabled) {
     &:hover { --color-state: var(--color-hover); }
 
     &:active,
     &.active { --color-state: var(--color-active); }
   }
-
-  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
-  &:deep(.icon) { --size: 1em; }
 }
 
 .btn--small { --spacing: 0.25em; }
