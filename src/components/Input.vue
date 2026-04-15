@@ -9,6 +9,7 @@
       v-model="value"
       :placeholder="props.placeholder"
       :type="props.type ?? 'text'"
+      :autocomplete="props.autocomplete"
       :disabled="props.disabled"
       @input="emit('input', $event)"
       @change="emit('change', $event)"
@@ -53,6 +54,7 @@ export type InputProps = {
   clearable?: boolean;
   prefix?: string;
   suffix?: string;
+  autocomplete?: string;
   disabled?: boolean;
   invalid?: boolean;
   block?: boolean;

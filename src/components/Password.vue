@@ -3,6 +3,7 @@
     v-model="value"
     v-bind="props"
     :type
+    :autocomplete="props.autocomplete ? 'current-password' : 'new-password'"
     :class="['password', strength.level]">
     <template #suffix>
       <Icon v-if="revealed" :src="`${config.iconPath}/eye.svg`" @click.prevent="toggle" />
@@ -18,8 +19,9 @@ import Input, { type InputProps } from './Input.vue';
 import Icon from './Icon.vue';
 
 export type PasswordProps = {
-  strength?: ((password: string) => boolean)[], 
-} & Omit<InputProps, 'type' | 'suffix'>;
+  strength?: ((password: string) => boolean)[];
+  autocomplete?: boolean;
+} & Omit<InputProps, 'type' | 'suffix' | 'autocomplete'>;
 
 const props = defineProps<PasswordProps>();
 
