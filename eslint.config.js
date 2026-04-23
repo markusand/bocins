@@ -11,6 +11,8 @@ export default [
     languageOptions: {
       globals: {
         window: 'readonly',
+        document: 'readonly',
+        navigator: 'readonly',
         setInterval: 'readonly',
         clearInterval: 'readonly',
         setTimeout: 'readonly',
