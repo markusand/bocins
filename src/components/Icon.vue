@@ -1,11 +1,13 @@
 <template>
   <picture :class="['icon', props.size || '']">
-    <img v-svg-inline :src="props.src">
-  </picture> 
+    <img v-svg-inline :src>
+  </picture>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { vSvgInline } from '/@/utils';
+import { config } from '/@/config';
 
 export type IconProps = {
   src: string;
@@ -13,6 +15,12 @@ export type IconProps = {
 };
 
 const props = defineProps<IconProps>();
+
+const src = computed(() => (
+  /^(https?:)?\//.test(props.src)
+    ? props.src
+    : `${config.iconPath}/${props.src}`
+));
 </script>
 
 <style scoped>

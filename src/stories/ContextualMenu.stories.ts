@@ -65,7 +65,7 @@ export const CustomToggler: Story = {
     template: `<ContextualMenu v-bind="args">
       <template #toggler>
         <Button flat even>
-          <Icon src="/@/stories/assets/more.svg" />
+          <Icon src="ellipsis.svg" />
         </Button>
       </template>
     </ContextualMenu>`,

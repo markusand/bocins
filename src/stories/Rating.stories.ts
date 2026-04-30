@@ -47,11 +47,14 @@ export const HeartsRange: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Use custom icons to represent your rating range.',
+        story: 'Use custom icons and styles to represent your rating range.',
       },
     },
   },
-  args: { modelValue: undefined },
+  args: {
+    modelValue: undefined,
+    style:"--color:red; --size:3rem;",
+  },
   render: args => ({
     components: { Rating, Icon },
     setup: () => {
@@ -59,7 +62,7 @@ export const HeartsRange: Story = {
       return { args, rating };
     },
     template: `<Rating v-bind="args" v-model="rating">
-      <Icon src="/@/stories/assets/heart.svg" />
+      <Icon src="heart.svg" />
     </Rating>`,
   }),
 };

@@ -12,7 +12,7 @@ These are non-exhaustive examples of how to compose Bocins. Do not force these s
     <Button @click="open">Delete</Button>
   </template>
   <template #default="{ close }">
-    <p><Icon src="/icons/alert.svg" /> Are you sure?</p>
+    <p><Icon src="alert.svg" /> Are you sure?</p>
     <footer>
       <Button alert @click="deleteItem();close()">Delete</Button>
       <Button ghost @click="close">Cancel</Button>
@@ -60,7 +60,7 @@ These are non-exhaustive examples of how to compose Bocins. Do not force these s
 <FileDrop @change="onDrop">
   <div v-for="file in previews" class="preview">
     <img :src="file.url" />
-    <Button @click="remove(file)"><Icon src="/icons/x.svg" /></Button>
+    <Button @click="remove(file)"><Icon src="x.svg" /></Button>
   </div>
 </FileDrop>
 ```

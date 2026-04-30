@@ -78,7 +78,7 @@ export const Prefix: Story = {
     },
     template: `<Input v-bind="args" v-model="input">
       <template #prefix>
-        <Icon src="/@/stories/assets/feather.svg" />
+        <Icon src="feather.svg" />
       </template>`,
   }),
 };

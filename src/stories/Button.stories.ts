@@ -62,7 +62,7 @@ export const WithIcon: Story = {
     components: { Button, Icon },
     setup: () => ({ args }),
     template: `<Button>
-      <Icon src="/@/stories/assets/feather.svg" />
+      <Icon src="feather.svg" />
       Button
     </Button>`,
   }),
@@ -80,7 +80,7 @@ export const OnlyIcon: Story = {
     components: { Button, Icon },
     setup: () => ({ args }),
     template: `<Button even>
-      <Icon src="/@/stories/assets/feather.svg" />
+      <Icon src="feather.svg" />
     </Button>`,
   }),
 };

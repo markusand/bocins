@@ -44,9 +44,9 @@ export const CustomTabs: Story = {
     components: { Tabs, TabView, Icon },
     setup: () => {
       const tabs = {
-        drafts: { icon: '/@/stories/assets/feather.svg' },
-        archive: { icon: '/@/stories/assets/archive.svg', badge: 3 },
-        downloads: { icon: '/@/stories/assets/download.svg' },
+        drafts: { icon: 'feather.svg' },
+        archive: { icon: 'archive.svg', badge: 3 },
+        downloads: { icon: 'download.svg' },
       };
       return { args, tabs };
     },
@@ -59,7 +59,7 @@ export const CustomTabs: Story = {
         </span>
       </template>
       <template #trash="{ label }">
-        <Icon src="/@/stories/assets/trash.svg" style="--color:red" />
+        <Icon src="trash-2.svg" style="--color:red" />
       </template>
       <TabView id="drafts" label="Drafts"><h2>Drafts</h2></TabView>
       <TabView id="archive" label="Archive"><h2>Archive</h2></TabView>

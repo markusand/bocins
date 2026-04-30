@@ -35,9 +35,9 @@ When the user asks to build or add UI, implement it directly using Bocins compon
 // main.ts
 import "bocins/dist/index.css";
 
-// Optional: custom icon path 
+// Optional: override default icon path (defaults to Lucide GitHub source)
 import { config } from "bocins";
-config.iconPath = "/my-icons"; 
+config.iconPath = "/my-icons";
 ```
 
 ## Key Patterns
@@ -87,7 +87,7 @@ import { Avatar } from "/@/components"; // or "@/components", "~/components", et
 
 <!-- Input with icon -->
 <Input v-model="price">
-  <template #prefix><Icon src="/icons/dollar.svg" /></template>
+  <template #prefix><Icon src="dollar.svg" /></template>
 </Input>
 ```
 

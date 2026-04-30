@@ -16,7 +16,7 @@ const preview: Preview = {
 export const decorators = [
   (story: any) => {
     // Always reset to default before rendering any story
-    config.iconPath = '/icons';
+    config.iconPath = 'https://raw.githubusercontent.com/lucide-icons/lucide/refs/heads/main/icons';
     return story();
   },
 ];

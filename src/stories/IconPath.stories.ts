@@ -11,7 +11,7 @@ const meta = {
       description: {
         component: `Configure the icon path to load icons from a custom location.
 
-By default, icons load from \`/icons/\`. You can change this by setting \`config.iconPath\`
+By default, icons load from the Lucide GitHub source. You can change this by setting \`config.iconPath\`
 before using components.
 
 **Important:** This must be set before components are rendered, typically in your \`main.ts\`.`,
@@ -28,7 +28,7 @@ export const DefaultPath: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default behavior - icons load from `/icons/`',
+        story: 'Default behavior - icons load from Lucide GitHub source.',
       },
     },
   },
@@ -48,7 +48,7 @@ export const DefaultPath: Story = {
       <div>
         <div style="padding: 1rem; background: #f0f0f0;
           border-radius: 0.25rem; margin-bottom: 1rem;">
-          <strong>Icon Path:</strong> <code>/icons/</code> (default)
+          <strong>Icon Path:</strong> <code>https://raw.githubusercontent.com/lucide-icons/lucide/refs/heads/main/icons</code> (default)
         </div>
 
         <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
@@ -69,26 +69,14 @@ export const DefaultPath: Story = {
 export const CustomPath: Story = {
   decorators: [
     story => {
-      // Set custom path only for this story
-      const originalPath = config.iconPath;
-      config.iconPath = '/_icons';
-
-      const result = story();
-
-      // Reset after rendering
-      setTimeout(() => {
-        config.iconPath = originalPath;
-      }, 0);
-
-      return result;
+      config.iconPath = '/icons';
+      return story();
     },
   ],
   parameters: {
     docs: {
       description: {
-        story: `Custom icon path example - icons load from \`/_icons/\`.
-
-This story demonstrates loading icons from \`/_icons/\` instead of \`/icons/\`.`,
+        story: 'Custom icon path example - icons load from local Font Awesome',
       },
     },
   },
@@ -108,7 +96,7 @@ This story demonstrates loading icons from \`/_icons/\` instead of \`/icons/\`.`
       <div>
         <div style="padding: 1rem; background: #f0f0f0;
           border-radius: 0.25rem; margin-bottom: 1rem;">
-          <strong>Icon Path:</strong> <code>/_icons/</code>
+          <strong>Icon Path:</strong> <code>/icons</code>
         </div>
 
         <div style="display: flex; flex-wrap: wrap; gap: 1rem;">

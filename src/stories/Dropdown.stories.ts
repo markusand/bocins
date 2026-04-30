@@ -60,7 +60,7 @@ export const CustomToggler: Story = {
     template: `<Dropdown v-bind="args">
       <template #toggler>
         <Button even>
-          <Icon src="/@/stories/assets/more.svg" />
+          <Icon src="more.svg" />
         </Button>
       </template>
       Content

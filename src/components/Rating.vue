@@ -2,14 +2,13 @@
   <fieldset class="rating" :disabled="props.disabled">
     <label v-for="i in +props.max" :key="i">
       <input v-model="rating" :value="+props.max + 1 - i" type="radio">
-      <slot><Icon :src="`${config.iconPath}/star.svg`" /></slot>
+      <slot><Icon src="star.svg" /></slot>
     </label>
   </fieldset>
 </template>
 
 <script setup lang="ts">
 import { watch } from 'vue';
-import { config } from '/@/config';
 import Icon from './Icon.vue';
 
 const props = withDefaults(defineProps<{
@@ -71,6 +70,11 @@ watch(rating, value => value && emit('rate', value));
       top: 0;
       transform: scale(0);
       transition: all 0.3s ease;
+
+      svg { 
+        fill: var(--color);
+        stroke: none;
+      }
     }
   }
 
@@ -79,7 +83,7 @@ watch(rating, value => value && emit('rate', value));
   label:has(:checked),
   label:has(:checked) ~ label {
     /* stylelint-disable-next-line no-descending-specificity */
-    input { transform: scale(0); }
+    input { transform: scale(0) !important; }
     /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
     &:deep(.icon) { transform: none; }
   }

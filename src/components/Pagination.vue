@@ -1,7 +1,7 @@
 <template>
   <div class="pagination">
     <Button v-if="props.controls" v-bind="prev" @click.prevent="change(-1)">
-      <Icon :src="`${config.iconPath}/chevron-right.svg`" />
+      <Icon src="chevron-right.svg" />
     </Button>
     <!-- First page always visible -->
     <slot :page="1" :go-to="goTo">
@@ -26,14 +26,13 @@
       </ToggleButton>
     </slot>
     <Button v-if="props.controls" v-bind="next" @click.prevent="change(1)">
-      <Icon :src="`${config.iconPath}/chevron-right.svg`" />
+      <Icon src="chevron-right.svg" />
     </Button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { config } from '/@/config';
 import Button from './Button.vue';
 import Icon from './Icon.vue';
 import ToggleButton from './ToggleButton.vue';

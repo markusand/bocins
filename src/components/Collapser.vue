@@ -6,7 +6,7 @@
           {{ props.title }}
         </slot>
       </div>
-      <Icon :src="`${config.iconPath}/chevron-down.svg`" />
+      <Icon src="chevron-down.svg" />
     </summary>
     <div class="collapser__content">
       <slot :open="hasBeenOpen" />
@@ -16,7 +16,6 @@
 
 <script setup lang="ts">
 import { ref, computed, inject, type Ref } from 'vue';
-import { config } from '/@/config';
 import Icon from './Icon.vue';
 
 export type CollapserProps = {

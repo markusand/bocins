@@ -9,7 +9,7 @@
             <slot v-if="Array.isArray(selected)" name="dates" :dates="selected">
               <div class="datepicker__range-dates">
                 <span>{{ props.formatter?.(selected[0]) ?? selected[0] }}</span>
-                <Icon :src="`${config.iconPath}/arrow-right.svg`" />
+                <Icon src="arrow-right.svg" />
                 <span>{{ props.formatter?.(selected[1]) ?? selected[1] }}</span>
               </div>
             </slot>
@@ -23,9 +23,9 @@
         </div>
         <Icon
           v-if="props.clearable && isSelected(selected)"
-          :src="`${config.iconPath}/close.svg`"
+          src="close.svg"
           @click.prevent="clear" />
-        <Icon v-else :src="`${config.iconPath}/chevron-down.svg`" />
+        <Icon v-else src="chevron-down.svg" />
       </div>
     </template>
     <Calendar v-model="selected" class="is-panel" v-bind="props">
@@ -38,7 +38,6 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { config } from '/@/config';
 import Dropdown from './Dropdown.vue';
 import Calendar, { type CalendarProps, type SelectedDate } from './Calendar.vue';
 import Icon from './Icon.vue';

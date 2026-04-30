@@ -1,7 +1,7 @@
 <template>
   <div :class="['hotkey', { active }]">
     <kbd v-for="key in combo" :key>
-      <Icon v-if="ICONS[key]" :src="`/icons/${ICONS[key]}.svg`" />
+      <Icon v-if="ICONS[key]" :src="`${ICONS[key]}.svg`" />
       <small v-else-if="key === 'escape'" class="small">ESC</small>
       <span v-else>{{ key }}</span>
     </kbd>

@@ -3,7 +3,7 @@
     <li v-for="item, i in props.schema" :key="i">
       <details v-if="childrenNode in item" :open="props.open">
         <summary class="treelist__title">
-          <Icon :src="`${config.iconPath}/chevron-right.svg`" />
+          <Icon src="chevron-right.svg" />
           <slot name="title" :parent :path="path(item)" :item>
             <slot :parent :path="path(item)" :item>
               {{ item[nameNode] }}
@@ -35,7 +35,6 @@
 </template>
 
 <script setup lang="ts" generic="T extends object, K extends KoA<T, unknown[] | undefined>">
-import { config } from '/@/config';
 import Icon from './Icon.vue';
 import type { KeyOfAttribute as KoA, MaybeReadonly } from '/@/types';
 

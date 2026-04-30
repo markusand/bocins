@@ -81,7 +81,7 @@ export const ImagePreview: Story = {
         <ImageExpand :src="toImage(file)" :alt="file.name">
           <template #controls>
             <Button even @click.prevent="remove(file)">
-              <Icon src="/@/stories/assets/trash.svg" />
+              <Icon src="trash.svg" />
             </Button">
           </template>
         </ImageExpand>
