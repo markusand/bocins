@@ -15,7 +15,7 @@ These are non-exhaustive examples of how to compose Bocins. Do not force these s
     <p><Icon src="/icons/alert.svg" /> Are you sure?</p>
     <footer>
       <Button alert @click="deleteItem();close()">Delete</Button>
-      <Button variant="ghost" @click="close">Cancel</Button>
+      <Button ghost @click="close">Cancel</Button>
     </footer>
   </template>
 </Modal>

@@ -45,3 +45,18 @@ const toggle = () => {
         : props.value;
 };
 </script>
+
+<style scoped>
+.toggle-button {
+  --color-active: var(--btn-color-active, color-mix(in srgb, var(--color) 75%, #000));
+
+  &.active {
+    --color-state: var(--color-active);
+  }
+
+  &.is-ghost.active {
+    background: var(--color-state);
+    color: var(--color-text);
+  }
+}
+</style>

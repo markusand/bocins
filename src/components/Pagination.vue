@@ -66,7 +66,7 @@ const range = computed(() => {
 
 const button = (page: number) => ({
   value: page - 1,
-  variant: page - 1 === selected.value ? undefined : 'flat' as const,
+  flat: page - 1 !== selected.value,
   even: page > 9,
   disabled: props.disabled,
   required: true,
@@ -75,14 +75,14 @@ const button = (page: number) => ({
 const prev = computed(() => ({
   class: 'pagination__prev',
   disabled: props.disabled || selected.value === 0,
-  variant: 'flat' as const,
+  flat: true,
   even: true,
 }));
 
 const next = computed(() => ({
   class: 'pagination__next',
   disabled: props.disabled || selected.value === props.pages - 1,
-  variant: 'flat' as const,
+  flat: true,
   even: true,
 }));
 
@@ -107,7 +107,7 @@ const change = (num: number) => goTo(selected.value + num + 1);
     color: #8888;
   }
 
-  .btn:not(.btn--flat) { --color: var(--color-accent, #333); }
+  .btn:not(.is-flat) { --color: var(--color-accent, #333); }
 
 }
 

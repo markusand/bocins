@@ -13,7 +13,7 @@ When the user asks to build or add UI, implement it directly using Bocins compon
 
 1. **Import from barrel**: Views and Partials import from the project's `components` barrel (e.g. `"/@/components"`, `"@/components"` — check the project alias), NOT from `"bocins"` directly. Only files inside `components/` may import from `"bocins"`.
 2. **Style with CSS vars**: Use `--btn-color`, never `!important` or direct property overrides
-3. **Use built-in props**: `variant="ghost"` `size="small"` `clearable` `block` `invalid`
+3. **Use built-in props**: `ghost` `flat` `sm` `lg` `clearable` `block` `invalid`
 4. **Slots for composition**: Customize with slots, not new components for single use
 5. **Extract when repeated**: Create a custom component only when a pattern repeats in multiple places
 
@@ -59,8 +59,8 @@ import { Avatar } from "/@/components"; // or "@/components", "~/components", et
 ### Props
 - `width`: `15` (rem) | `"200px"` | `"50%"`
 - `block`, `disabled`, `invalid`, `clearable`
-- `variant`: `"ghost"` | `"flat"`
-- `size`: `"small"` | `"large"`
+- Button variants: `ghost` | `flat` (boolean props)
+- Button sizes: `sm` | `lg` (boolean props)
 - `keyAttr`: Required when options are objects — tells Selector/ListBox/Transfer which property to use as unique key (e.g. `keyAttr="id"`)
 
 ### Slots (Primary customization method)

@@ -1,7 +1,7 @@
 <template>
   <fieldset
     class="btn-group"
-    :class="modifiers"
+    :class="{ 'is-block': $props.block }"
     :style="width"
     :disabled="props.disabled">
     <slot />
@@ -13,7 +13,7 @@ import { computed } from 'vue';
 import type { ButtonProps } from './Button.vue';
 import { toWidth } from '/@/utils';
 
-export type ButtonGroupProps = Pick<ButtonProps, 'variant' | 'block' | 'width' | 'disabled'>;
+export type ButtonGroupProps = Pick<ButtonProps, 'block' | 'width' | 'disabled'>;
 
 const props = defineProps<ButtonGroupProps>();
 
@@ -21,20 +21,10 @@ defineSlots<{
   default: () => void;
 }>();
 
-const modifiers = computed(() => {
-  const { variant, block } = props;
-  return {
-    [`btn-group--${variant}`]: !!variant,
-    'btn-group--block': block,
-    'is-block': block,
-  };
-});
-
 const width = computed(() => toWidth(props.width));
 </script>
 
 <style scoped>
-
 .btn-group,
 .input-group {
   padding: 0;
@@ -63,8 +53,8 @@ const width = computed(() => toWidth(props.width));
   }
 }
 
-.btn-group--block,
-.input-group--block {
+.btn-group.is-block,
+.input-group.is-block {
   display: flex;
 
   /* stylelint-disable-next-line selector-pseudo-class-no-unknown */

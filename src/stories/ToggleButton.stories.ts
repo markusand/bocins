@@ -19,16 +19,10 @@ const meta = {
     disabled: { description: 'Disable the button.' },
     even: { description: 'Display as an even button.' },
     required: { description: 'Button cannot toggle to undefined.' },
-    variant: {
-      description: 'The appearance of the button.',
-      control: 'select',
-      options: [undefined, 'ghost', 'flat'],
-    },
-    size: {
-      description: 'The size of the button.',
-      control: 'select',
-      options: [undefined, 'small', 'large'],
-    },
+    ghost: { description: 'Display the button with a ghost variant (no background, colored border).' },
+    flat: { description: 'Display the button with a flat variant (no background, no border).' },
+    sm: { description: 'Display the button in small size.' },
+    lg: { description: 'Display the button in large size.' },
     width: {
       description: 'The width of the button. Can be a number (in rem) or any string representing length and unit.',
       control: 'text',
@@ -36,8 +30,10 @@ const meta = {
     value: { description: 'The value of the toggler.' },
   },
   args: {
-    variant: undefined,
-    size: undefined,
+    ghost: false,
+    flat: false,
+    sm: false,
+    lg: false,
     width: undefined,
     block: false,
     even: false,
@@ -129,6 +125,25 @@ export const MultipleChoices: Story = {
   }),
 };
 
-
-
-
+export const GhostButtons: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use ghost toggle buttons',
+      },
+    },
+  },
+  args: { modelValue: [] },
+  render: args => ({
+    components: { ToggleButton, ButtonGroup },
+    setup: () => {
+      const value = ref(args.modelValue);
+      return { args, value };
+    },
+    template: `<ButtonGroup>
+      <ToggleButton v-model="value" value="good" ghost>Good</ToggleButton>
+      <ToggleButton v-model="value" value="cheap" ghost>Cheap</ToggleButton>
+      <ToggleButton v-model="value" value="pretty" ghost>Pretty</ToggleButton>
+    </ButtonGroup>`,
+  }),
+};

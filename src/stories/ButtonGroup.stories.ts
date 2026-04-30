@@ -14,11 +14,6 @@ const meta = {
     },
   },
   argTypes: {
-    variant: {
-      description: 'The variant to use for the button.',
-      control: 'radio',
-      options: [undefined, 'ghost', 'flat'],
-    },
     width: {
       description: 'The width of the button group. Can be a number (in rem) or any string representing length and unit.',
       control: 'text',
@@ -27,7 +22,6 @@ const meta = {
     disabled: { description: 'Disable the buttons.' },
   },
   args: {
-    variant: undefined,
     block: false,
     disabled: false,
     width: '',

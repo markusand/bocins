@@ -17,7 +17,7 @@
             <slot :name="action.id" :action="action">
               <slot :action="action">
                 <Button
-                  variant="flat"
+                  flat
                   block
                   v-bind="action.attributes ?? {}"
                   :disabled="action.disabled"

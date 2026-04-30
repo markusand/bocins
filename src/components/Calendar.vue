@@ -2,8 +2,8 @@
   <div :class="['calendar', modifiers]">
     <header>
       <Button
-        variant="flat"
-        size="small"
+        flat
+        small
         :disabled="props.disabled"
         even
         @click.prevent="month = month - 1">
@@ -16,8 +16,8 @@
         :disabled="props.disabled" />
       <Selector v-model="year" :options="years" :disabled="props.disabled" />
       <Button
-        variant="flat"
-        size="small"
+        flat
+        small
         :disabled="props.disabled"
         even
         @click.prevent="month = month + 1">

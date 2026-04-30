@@ -14,16 +14,10 @@ const meta = {
     },
   },
   argTypes: {
-    variant: {
-      description: 'The variant to use for the button.',
-      control: 'select',
-      options: [undefined, 'ghost', 'flat'],
-    },
-    size: {
-      description: 'The size of the button.',
-      control: 'select',
-      options: [undefined, 'small', 'large'],
-    },
+    ghost: { description: 'Display the button with a ghost variant (no background, colored border).' },
+    flat: { description: 'Display the button with a flat variant (no background, no border).' },
+    sm: { description: 'Display the button in small size.' },
+    lg: { description: 'Display the button in large size.' },
     width: {
       description: 'The width of the button. Can be a number (in rem) or any string representing length and unit.',
       control: 'text',
@@ -33,8 +27,10 @@ const meta = {
     disabled: { description: 'Disable the button.' },
   },
   args: {
-    variant: undefined,
-    size: undefined,
+    ghost: false,
+    flat: false,
+    sm: false,
+    lg: false,
     width: undefined,
     block: false,
     even: false,
@@ -54,7 +50,7 @@ export const Base: Story = {
   }),
 };
 
-export const IconButton: Story = {
+export const WithIcon: Story = {
   parameters: {
     docs: {
       description: {
@@ -65,7 +61,47 @@ export const IconButton: Story = {
   render: args => ({
     components: { Button, Icon },
     setup: () => ({ args }),
-    template: '<Button even><Icon src="/@/stories/assets/feather.svg" /></Button>',
+    template: `<Button>
+      <Icon src="/@/stories/assets/feather.svg" />
+      Button
+    </Button>`,
   }),
 };
 
+export const OnlyIcon: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Display a button with only an icon.',
+      },
+    },
+  },
+  render: args => ({
+    components: { Button, Icon },
+    setup: () => ({ args }),
+    template: `<Button even>
+      <Icon src="/@/stories/assets/feather.svg" />
+    </Button>`,
+  }),
+};
+
+export const CustomColor: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Customize the button color using the `--btn-color` CSS custom property.',
+      },
+    },
+  },
+  render: args => ({
+    components: { Button },
+    setup: () => ({ args }),
+    template: `
+      <Button v-bind="args" style="--btn-color: #e34">Button</Button>
+      &nbsp;
+      <Button v-bind="args" style="--btn-color: #e34" ghost>Button</Button>
+      &nbsp;
+      <Button v-bind="args" style="--btn-color: #e34" flat>Button</Button>
+    `,
+  }),
+};
