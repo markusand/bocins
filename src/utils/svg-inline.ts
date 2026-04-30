@@ -1,23 +1,34 @@
 import type { DirectiveBinding } from 'vue';
 
 const CACHE = new Map<string, SVGElement>();
+const RENDERED = new WeakMap<HTMLImageElement, SVGElement>();
+
+const applyAttrs = (img: HTMLImageElement, svg: SVGElement) => {
+  Array.from(img.attributes).forEach(({ nodeName, nodeValue }) => {
+    if (nodeName !== 'src') svg.setAttribute(nodeName, nodeValue || '');
+  });
+};
 
 const replace = (img: HTMLImageElement) => {
-  if (CACHE.has(img.src)) img.replaceWith(CACHE.get(img.src)?.cloneNode(true) as SVGElement);
-  else {
-    fetch(img.src)
+  const url = img.src;
+  if (CACHE.has(url)) {
+    const svg = CACHE.get(url)!.cloneNode(true) as SVGElement;
+    applyAttrs(img, svg);
+    img.replaceWith(svg);
+    RENDERED.set(img, svg);
+  } else {
+    fetch(url)
       .then(resp => resp.text())
       .then(text => {
         const template = document.createElement('template');
         template.innerHTML = text.replace(/<\?xml.+>/, '').trim();
         const svg: SVGElement = template.content.firstChild as SVGElement;
-        Array.from(img.attributes).forEach(({ nodeName, nodeValue }) => {
-          if (nodeName !== 'src') svg.setAttribute(nodeName, nodeValue || '');
-        });
+        applyAttrs(img, svg);
         img.replaceWith(svg);
-        CACHE.set(img.src, svg);
+        RENDERED.set(img, svg);
+        CACHE.set(url, svg.cloneNode(true) as SVGElement);
       })
-      .catch(error => console.warn(`Cannot replace ${img.src} ${error.message}`));
+      .catch(error => console.warn(`Cannot replace ${url} ${error.message}`));
   }
 };
 
@@ -38,7 +49,15 @@ export const vSvgInline = {
     else replace(el);
   },
 
+  updated(el: HTMLImageElement) {
+    const current = RENDERED.get(el);
+    if (current?.isConnected) current.replaceWith(el);
+    RENDERED.delete(el);
+    replace(el);
+  },
+
   unmounted(el: HTMLImageElement) {
     observer.unobserve(el);
+    RENDERED.delete(el);
   },
 };
