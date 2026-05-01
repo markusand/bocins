@@ -25,6 +25,10 @@ const ICONS: Record<string, string> = {
   enter: 'corner-down-left',
   shift: 'arrow-big-up',
   meta: 'layout-grid',
+  arrowdown: 'arrow-down',
+  arrowup: 'arrow-up',
+  arrowleft: 'arrow-left',
+  arrowright: 'arrow-right',
   ...(isMac && {
     ctrl: 'chevron-up',
     meta: 'command',
