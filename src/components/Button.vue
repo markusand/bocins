@@ -112,7 +112,7 @@ const width = computed(() => toWidth(props.width));
 
 .btn:disabled,
 :disabled .btn,
-.disabled .btn {
+.is-disabled .btn {
   --color-state: color-mix(in srgb, var(--color-disabled, #8886) 10%, transparent) !important;
   
   cursor: not-allowed !important;

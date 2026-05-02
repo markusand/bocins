@@ -18,6 +18,7 @@ const meta = {
   },
   args: {
     keys: 'ctrl+k',
+    disabled: false,
   },
 } satisfies Meta<typeof HotKey>;
 

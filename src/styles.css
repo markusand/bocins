@@ -60,7 +60,7 @@
   }
 }
 
-.disabled .is-input,
+.is-disabled .is-input,
 :disabled .is-input,
 .is-input[class*="--disabled"] {
   --color-bg: color-mix(in srgb, var(--color-disabled, #8886) 10%, transparent) !important;
@@ -123,7 +123,7 @@
   }
 }
 
-.disabled .is-selector-toggler,
+.is-disabled .is-selector-toggler,
 :disabled .is-selector-toggler,
 .is-selector-toggler[class*="--disabled"] {
   --color-bg: color-mix(in srgb, var(--color-disabled, #8886) 10%, transparent) !important;
@@ -132,7 +132,7 @@
 
   cursor: not-allowed !important;
 
-  * { pointer-events: none !important; }
+  & * { pointer-events: none !important; }
 }
 
 .invalid:not(:focus-within) .is-selector-toggler,
