@@ -28,13 +28,11 @@ defineSlots<{
 
 const width = computed(() => toWidth(props.width ?? 'auto'));
 
-const anchorStyles = computed(() => {
-  const anchorId = useId();
-  return {
-    '--anchor-name': `--popover-${anchorId}`,
-    '--position-anchor': `--popover-${anchorId}`,
-  };
-});
+const anchorId = useId();
+const anchorStyles = computed(() => ({
+  '--anchor-name': `--popover-${anchorId}`,
+  '--position-anchor': `--popover-${anchorId}`,
+}));
 </script>
 
 <style scoped>
