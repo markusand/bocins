@@ -5,7 +5,7 @@
       <div class="image-expand__controls">
         <slot name="controls" />
         <ToggleButton v-model="expanded" even @click.stop>
-          <Icon v-if="expanded" src="collapse.svg" />
+          <Icon v-if="expanded" src="shrink.svg" />
           <Icon v-else src="expand.svg" />
         </ToggleButton>
       </div>
