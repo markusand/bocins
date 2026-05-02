@@ -25,14 +25,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { toWidth, toHeight } from '/@/utils';
 
 type Action = () => void;
 
 export type ModalProps = {
   to?: string;
-  open?: boolean;
   closeable?: boolean;
   width?: number | string;
   height?: number | string;
@@ -41,13 +40,11 @@ export type ModalProps = {
 
 const props = withDefaults(defineProps<ModalProps>(), {
   to: 'body',
-  open: false,
   width: 20,
   height: 'content-fit',
 });
 
 const emit = defineEmits<{
-  'update:open': [isOpen: boolean];
   open: [];
   close: [];
 }>();
@@ -59,25 +56,25 @@ defineSlots<{
 }>();
 
 const modal = ref<HTMLDialogElement>();
-const isOpen = ref(props.open);
+const isOpen = defineModel<boolean>('open', { default: false });
 
 const size = computed(() => ({
   ...toWidth(props.width),
   ...toHeight(props.height),
 }));
 
-watch(() => props.open, open => { isOpen.value = open; });
 watch(isOpen, open => {
   if (open) {
-    if (props.plain) modal.value?.show();
-    else modal.value?.showModal();
+    if (!modal.value?.open) {
+      if (props.plain) modal.value?.show();
+      else modal.value?.showModal();
+    }
     emit('open');
   } else {
     modal.value?.close();
     emit('close');
   }
-  emit('update:open', open);
-});
+}, { immediate: true, flush: 'post' });
 
 const open = () => { isOpen.value = true; };
 const close = () => { isOpen.value = false; };
@@ -89,8 +86,6 @@ const handleEscape = (event: Event) => {
     event.stopPropagation();
   }
 };
-
-onMounted(() => props.open && open());
 </script>
 
 <style scoped>

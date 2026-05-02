@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
+import { ref } from 'vue';
 import { Modal, Button } from '/@/components';
 import './assets/styles.css';
 
@@ -15,7 +16,7 @@ const meta = {
   },
   argTypes: {
     closeable: { description: 'Enable the close button.' },
-    open: { description: 'Open state of the modal.' },
+    open: { description: 'Two-way binding for the open state. Use v-model:open for external control or the #toggler slot for self-contained usage.' },
     plain: { description: 'Display a modal without a backdrop.' },
     width: { description: 'The width of the modal. Can be a number (in rem) or any string representing length and unit.' },
     height: { description: 'The height of the modal. Can be a number (in rem) or any string representing length and unit.' },
@@ -120,6 +121,29 @@ export const Nested: Story = {
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, quidem.</p>
       </Modal>
     </Modal>`,
+  }),
+};
+
+export const ExternalControl: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Control the modal state externally using <code>v-model:open</code>.',
+      },
+    },
+  },
+  render: args => ({
+    components: { Modal, Button },
+    setup: () => ({ args, isOpen: ref(false) }),
+    template: `<div style="display:flex; gap: 0.5rem; align-items: center;">
+      <Button @click="isOpen = true">Open</Button>
+      <Button @click="isOpen = false">Close</Button>
+      <span style="opacity: 0.5">Modal is {{ isOpen ? 'open' : 'closed' }}</span>
+      <Modal v-bind="args" v-model:open="isOpen">
+        <h2>Modal component</h2>
+        <p>Controlled externally via v-model:open.</p>
+      </Modal>
+    </div>`,
   }),
 };
 
