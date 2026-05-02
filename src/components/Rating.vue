@@ -64,7 +64,6 @@ watch(rating, value => value && emit('rate', value));
       cursor: inherit;
     }
 
-    /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
     &:deep(.icon) {
       --size: 1em;
 
@@ -86,7 +85,6 @@ watch(rating, value => value && emit('rate', value));
   label:has(:checked) ~ label {
     /* stylelint-disable-next-line no-descending-specificity */
     input { transform: scale(0) !important; }
-    /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
     &:deep(.icon) { transform: none; }
   }
 

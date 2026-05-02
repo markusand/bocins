@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, type CSSProperties } from 'vue';
 import { toWidth } from '/@/utils';
 import Icon from './Icon.vue';
 
@@ -61,7 +61,7 @@ export type InputProps = {
 
 const props = withDefaults(defineProps<InputProps>(), {
   type: 'text',
-  width: undefined,
+  width: 10,
   placeholder: '',
   prefix: undefined,
   suffix: undefined,
@@ -98,7 +98,7 @@ const modifiers = computed(() => {
   };
 });
 
-const width = computed(() => toWidth(props.width ?? 10));
+const width = computed((): CSSProperties | null => toWidth(props.width));
 
 const onClick = (event: Event) => {
   const target = event.currentTarget as HTMLDivElement;
@@ -132,7 +132,6 @@ const onClick = (event: Event) => {
     }
   }
 
-  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
   &:deep(.icon) { --size: 1em }
 }
 </style>

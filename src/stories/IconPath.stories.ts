@@ -11,7 +11,8 @@ const meta = {
       description: {
         component: `Configure the icon path to load icons from a custom location.
 
-By default, icons load from the Lucide GitHub source. You can change this by setting \`config.iconPath\`
+By default, icons load from the Lucide GitHub source.
+You can change this by setting \`config.iconPath\`
 before using components.
 
 **Important:** This must be set before components are rendered, typically in your \`main.ts\`.`,

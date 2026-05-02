@@ -21,7 +21,6 @@ defineSlots<{ default: () => void; }>();
   flex-direction: row-reverse;
   vertical-align: middle;
 
-  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
   &:deep(.avatar) {
     outline: 2px solid var(--color-bg, #fff);
 

@@ -32,7 +32,6 @@ const width = computed(() => toWidth(props.width));
   display: inline-flex;
   vertical-align: middle;
 
-  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
   &:deep(*) {
     flex: 1 1 auto !important;
     &:focus-within { z-index: 1; }
@@ -56,7 +55,6 @@ const width = computed(() => toWidth(props.width));
 .input-group.is-block {
   display: flex;
 
-  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
   &:deep(> *) { flex: 1; }
 }
 </style>

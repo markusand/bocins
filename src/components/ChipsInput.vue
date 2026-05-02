@@ -55,13 +55,11 @@ const onBackspace = (event: Event) => {
   flex-wrap: wrap;
   gap: 0 var(--spacing);
 
-  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
   &:deep(input) {
     padding: 0.375rem 0;
     flex: 1 1 4rem;
   }
 
-  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
   &:deep(> .icon) { padding: 0; }
 
   &:not(:focus-within).input--invalid .chip { --color: currentcolor; }

@@ -102,11 +102,12 @@ const subactions = (action: Action<T>): Action<T>[] => {
 
       .hotkey {
         --size: 0.65em;
+
         margin-left: 0.5rem;
       }
     }
 
-    .action-menu > .btn:after {
+    .action-menu > .btn::after {
       content: '';
       display: block;
       height: 0.25rem;

@@ -104,7 +104,11 @@ onUnmounted(() => {
     box-sizing: border-box;
     text-transform: capitalize;
 
-    .icon { --size: 1em; display: block; }
+    .icon {
+      --size: 1em;
+    
+      display: block;
+    }
   }
 
   &.active { color: var(--color-active); }

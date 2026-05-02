@@ -86,7 +86,6 @@ const modifiers = computed(() => {
     overflow: auto;
     max-height: 10rem; 
 
-    /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
     &:deep(input) { display: none; }
   }
 

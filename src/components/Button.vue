@@ -76,11 +76,13 @@ const width = computed(() => toWidth(props.width));
 
   &.is-small {
     --spacing: calc(0.75 * var(--btn-spacing, 0.5rem));
+
     font-size: 0.75em;
   }
 
   &.is-large {
     --spacing: calc(1.25 * var(--btn-spacing, 0.5rem));
+
     font-size: 1.25em;
   }
   
@@ -104,9 +106,6 @@ const width = computed(() => toWidth(props.width));
     }
   }
 
-  &:not(:disabled):hover { --color-state: var(--color-hover); }
-
-  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
   &:deep(.icon) { --size: 1em; }
 }
 
@@ -118,4 +117,6 @@ const width = computed(() => toWidth(props.width));
   cursor: not-allowed !important;
   color: var(--color-disabled, #8886) !important;
 }
+
+.btn:not(:disabled):hover { --color-state: var(--color-hover); }
 </style>

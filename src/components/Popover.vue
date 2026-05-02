@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useId } from 'vue';
+import { computed, useId, type CSSProperties } from 'vue';
 import { toWidth } from '../utils';
 
 export type PopoverProps = {
@@ -29,7 +29,7 @@ defineSlots<{
   anchor: () => void
 }>();
 
-const width = computed(() => toWidth(props.width));
+const width = computed((): CSSProperties | null => toWidth(props.width));
 
 const anchorId = useId();
 const anchorStyles = computed(() => ({
