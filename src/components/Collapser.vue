@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, inject, type Ref } from 'vue';
+import { ref, computed, inject, useId, type Ref } from 'vue';
 import Icon from './Icon.vue';
 
 export type CollapserProps = {
@@ -27,7 +27,7 @@ export type CollapserProps = {
 const props = withDefaults(defineProps<CollapserProps>(), {
   title: '',
   open: false,
-  name: () => Math.random().toString(36).slice(2),
+  name: () => useId(),
 });
 
 defineSlots<{
