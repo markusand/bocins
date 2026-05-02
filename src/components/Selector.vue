@@ -5,16 +5,14 @@
     <template #toggler>
       <div :class="['selector__toggler', 'is-selector-toggler', togglerModifiers]">
         <div v-if="isSelected(selected)" class="selector__selected">
-          <template v-if="isSelected(selected)">
-            <slot v-if="Array.isArray(selected)" name="selections" :items="selected">
-              {{ selected.map(formatter).join(', ') }}
+          <slot v-if="Array.isArray(selected)" name="selections" :items="selected">
+            {{ selected.map(formatter).join(', ') }}
+          </slot>
+          <slot v-else name="selection" :item="selected">
+            <slot :item="selected">
+              {{ formatter?.(selected) || selected }}
             </slot>
-            <slot v-else name="selection" :item="selected">
-              <slot :item="selected">
-                {{ formatter?.(selected) || selected }}
-              </slot>
-            </slot>
-          </template>
+          </slot>
         </div>
         <div v-else class="placeholder">
           <slot name="placeholder">{{ placeholder }}</slot>
