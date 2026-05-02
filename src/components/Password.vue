@@ -3,7 +3,7 @@
     v-model="value"
     v-bind="props"
     :type
-    :autocomplete="props.autocomplete ? 'current-password' : 'new-password'"
+    :autocomplete="autocomplete ? 'current-password' : 'new-password'"
     :class="['password', strength.level]">
     <template #suffix>
       <Icon v-if="revealed" src="eye.svg" @click.prevent="toggle" />

@@ -1,7 +1,7 @@
 <template>
   <ul class="treelist">
-    <li v-for="item, i in props.schema" :key="i">
-      <details v-if="childrenNode in item" :open="props.open">
+    <li v-for="item, i in schema" :key="i">
+      <details v-if="childrenNode in item" :open>
         <summary class="treelist__title">
           <Icon src="chevron-right.svg" />
           <slot name="title" :parent :path="path(item)" :item>
@@ -16,7 +16,7 @@
           :name-node="nameNode"
           :children-node="childrenNode"
           :path="path(item)"
-          :open="props.open">
+          :open>
           <template #title="attrs">
             <slot name="title" v-bind="attrs" />
           </template>
@@ -38,22 +38,24 @@
 import Icon from './Icon.vue';
 import type { KeyOfAttribute as KoA, MaybeReadonly } from '/@/types';
 
-defineSlots<{
-  default?: (props: { item: T, parent?: T, path: PropertyKey[] }) => void;
-  title?: (props: { item: T, parent?: T, path: PropertyKey[] }) => void;
-}>();
-
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   schema: MaybeReadonly<T[]>;
   nameNode: KoA<T, PropertyKey>;
   childrenNode: K;
   parent?: T;
   open?: boolean;
   path?: PropertyKey[];
+}>(), {
+  path: () => [],
+});
+
+defineSlots<{
+  default?: (props: { item: T, parent?: T, path: PropertyKey[] }) => void;
+  title?: (props: { item: T, parent?: T, path: PropertyKey[] }) => void;
 }>();
 
 const path = (item: T): PropertyKey[] => [
-  ...(props.path || []),
+  ...props.path,
   item[props.nameNode] as PropertyKey,
 ];
 </script>

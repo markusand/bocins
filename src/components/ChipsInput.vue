@@ -23,19 +23,19 @@ import { ref, watch } from 'vue';
 import Input, { type InputProps } from './Input.vue';
 import Chip from './Chip.vue';
 
-const SEPARATOR = ',';
-
 export type ChipsInputProps = {
   separator?: string;
 } & Omit<InputProps, 'prefix' | 'type'>;
 
-const props = defineProps<ChipsInputProps>();
+const props = withDefaults(defineProps<ChipsInputProps>(), {
+  separator: ','
+});
 
 const items = defineModel<string[]>({ required: true });
 const input = ref('');
 
 watch(input, text => {
-  const parts = text.split(props.separator || SEPARATOR).map(part => part.trim());
+  const parts = text.split(props.separator).map(part => part.trim());
   if (parts.length > 1) {
     items.value = [...new Set([...items.value, ...parts.filter(Boolean)])];
     input.value = '';

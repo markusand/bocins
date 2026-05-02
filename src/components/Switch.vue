@@ -2,9 +2,9 @@
   <label class="switch">
     <input
       v-model="selected"
-      :disabled="props.disabled"
-      :value="props.value"
-      :type="type">
+      :disabled
+      :value
+      :type>
   </label>
 </template>
 
@@ -12,7 +12,7 @@
 import { computed } from 'vue';
 import type { MaybeReadonly } from '/@/types';
 
-const props = defineProps<{
+defineProps<{
   value?: MaybeReadonly<T>;
   disabled?: boolean;
 }>();

@@ -8,21 +8,21 @@
           <template v-if="isSelected(selected)">
             <slot v-if="Array.isArray(selected)" name="dates" :dates="selected">
               <div class="datepicker__range-dates">
-                <span>{{ props.formatter?.(selected[0]) ?? selected[0] }}</span>
+                <span>{{ formatter?.(selected[0]) ?? selected[0] }}</span>
                 <Icon src="arrow-right.svg" />
-                <span>{{ props.formatter?.(selected[1]) ?? selected[1] }}</span>
+                <span>{{ formatter?.(selected[1]) ?? selected[1] }}</span>
               </div>
             </slot>
             <slot v-else name="date" :date="selected">
-              {{ props.formatter?.(selected) || selected }}
+              {{ formatter?.(selected) || selected }}
             </slot>
           </template>
         </div>
         <div v-else class="placeholder">
-          <slot name="placeholder">{{ props.placeholder || 'Select date' }}</slot>
+          <slot name="placeholder">{{ placeholder }}</slot>
         </div>
         <Icon
-          v-if="props.clearable && isSelected(selected)"
+          v-if="clearable && isSelected(selected)"
           src="x.svg"
           @click.prevent="clear" />
         <Icon v-else src="chevron-down.svg" />
@@ -54,7 +54,9 @@ export type DatePickerProps = {
   right?: boolean;
 } & CalendarProps;
 
-const props = defineProps<DatePickerProps>();
+const props = withDefaults(defineProps<DatePickerProps>(), {
+  placeholder: 'Select date',
+});
 
 const datepickerProps = computed(() => {
   const { disabled, block, width, top, right } = props;

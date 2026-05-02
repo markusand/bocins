@@ -7,7 +7,7 @@
     @focusout="onFocus">
     <slot name="toggler">
       <Button :even="!label">
-        <Icon v-if="icon || !label" :src="icon ?? 'chevron-down.svg'" />
+        <Icon v-if="icon || !label" :src="icon" />
         {{ label }}
       </Button>
     </slot>
@@ -33,7 +33,11 @@ export type DropdownProps = {
   width?: number | string;
 };
 
-const props = defineProps<DropdownProps>();
+const props = withDefaults(defineProps<DropdownProps>(), {
+  width: undefined,
+  icon: 'chevron-down.svg',
+  label: '',
+});
 
 defineSlots<{
   default?: () => void;

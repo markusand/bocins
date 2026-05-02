@@ -1,11 +1,11 @@
 <template>
   <div class="user-profile">
     <Avatar
-      :name="`${props.user.name} ${props.user.surname}`"
-      :src="props.user.avatar" />
+      :name="`${user.name} ${user.surname}`"
+      :src="user.avatar" />
     <div class="details">
-      <strong>{{ props.user.name }} {{ props.user.surname }}</strong>
-      <em>{{ props.user.email }}</em>
+      <strong>{{ user.name }} {{ user.surname }}</strong>
+      <em>{{ user.email }}</em>
     </div>
   </div>
 </template>
@@ -14,9 +14,7 @@
 import { Avatar } from '/@/components';
 import type { User } from './assets/users';
 
-const props = defineProps<{
-  user: User;
-}>();
+defineProps<{ user: User }>();
 </script>
 
 <style scoped>

@@ -49,6 +49,7 @@ export default [
       }],
       'vue/singleline-html-element-content-newline': 'off',
       'vue/no-dupe-keys': 'off',
+      'vue/require-default-prop': 'off',
     },
   },
   {

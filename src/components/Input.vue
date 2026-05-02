@@ -4,13 +4,13 @@
     :class="modifiers"
     :style="width"
     @click.prevent="onClick">
-    <slot name="prefix">{{ props.prefix }}</slot>
+    <slot name="prefix">{{ prefix }}</slot>
     <input
       v-model="value"
-      :placeholder="props.placeholder"
-      :type="props.type ?? 'text'"
-      :autocomplete="props.autocomplete"
-      :disabled="props.disabled"
+      :placeholder
+      :autocomplete
+      :disabled
+      :type
       @input="emit('input', $event)"
       @change="emit('change', $event)"
       @focus="emit('focus', $event)"
@@ -20,10 +20,10 @@
       @paste="emit('paste', $event)"
       @copy="emit('copy', $event)">
     <Icon
-      v-if="props.clearable && value"
+      v-if="clearable && value"
       src="x.svg"
       @click.prevent="clear" />
-    <slot name="suffix">{{ props.suffix }}</slot>
+    <slot name="suffix">{{ suffix }}</slot>
   </div>
 </template>
 
@@ -59,7 +59,14 @@ export type InputProps = {
   block?: boolean;
 };
 
-const props = defineProps<InputProps>();
+const props = withDefaults(defineProps<InputProps>(), {
+  type: 'text',
+  width: undefined,
+  placeholder: '',
+  prefix: undefined,
+  suffix: undefined,
+  autocomplete: undefined,
+});
 
 defineSlots<{
   prefix: () => void;
@@ -74,7 +81,7 @@ const emit = defineEmits<{
   keydown: [event: KeyboardEvent];
   keyup: [event: KeyboardEvent];
   paste: [event: ClipboardEvent];
-  copy: [envent: ClipboardEvent];
+  copy: [event: ClipboardEvent];
 }>();
 
 const value = defineModel<string | number | undefined>({ required: true });

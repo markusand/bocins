@@ -4,7 +4,7 @@
       <Button
         flat
         small
-        :disabled="props.disabled"
+        :disabled
         even
         @click.prevent="month = month - 1">
         <Icon src="chevron-right.svg" />
@@ -13,12 +13,12 @@
         v-model="month" 
         :options="[...Array(12)].map((_, i) => i)"
         :formatter="i => months[i]"
-        :disabled="props.disabled" />
-      <Selector v-model="year" :options="years" :disabled="props.disabled" />
+        :disabled />
+      <Selector v-model="year" :options="years" :disabled />
       <Button
         flat
         small
-        :disabled="props.disabled"
+        :disabled
         even
         @click.prevent="month = month + 1">
         <Icon src="chevron-right.svg" />
@@ -79,7 +79,9 @@ const emit = defineEmits<{
   select: [date: SelectedDate],
 }>();
 
-const props = defineProps<CalendarProps>();
+const props = withDefaults(defineProps<CalendarProps>(), {
+  years: '-5:+5',
+});
 
 const selected = defineModel<SelectedDate>({ required: true });
 const { cursor, days, month, year } = useCalendarCursor(selected, toRef(props, 'startSunday'));
@@ -136,7 +138,7 @@ const modifiers = computed(() => ({
 const weekDays = computed(() => CalendarNames.WEEKDAYS(props.locale, props.startSunday));
 const months = computed(() => CalendarNames.MONTHS(props.locale));
 const years = computed(() => {
-  const [min, max] = props.years?.split(':') || ['-5', '+5'];
+  const [min, max] = props.years.split(':');
   const minYear = min.startsWith('-') ? addYears(new Date(), +min).getFullYear() : +min;
   const maxYear = max.startsWith('+') ? addYears(new Date(), +max).getFullYear() : +max;
   return [...Array(maxYear - minYear + 1)].map((_, i) => minYear + i);

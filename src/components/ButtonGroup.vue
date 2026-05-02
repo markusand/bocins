@@ -1,9 +1,8 @@
 <template>
   <fieldset
-    class="btn-group"
-    :class="{ 'is-block': $props.block }"
+    :class="['btn-group', { 'is-block': block }]"
     :style="width"
-    :disabled="props.disabled">
+    :disabled>
     <slot />
   </fieldset>
 </template>

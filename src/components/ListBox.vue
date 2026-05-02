@@ -3,21 +3,21 @@
     <header v-if="props.search">
       <Search
         v-model="searchBy"
-        :placeholder="props.searchText"
+        :placeholder="searchText"
         clearable
         block />
     </header>
     <Picker
       v-if="options.length"
       v-model="selected"
-      :key-attr="props.keyAttr"
+      :key-attr="keyAttr"
       :options
-      :disabled="props.disabled">
+      :disabled>
       <template #default="{ option }">
         <div class="listbox__option">
           <slot :option>
             <div class="listbox__label">
-              {{ props.formatter?.(option) || option }}
+              {{ formatter?.(option) || option }}
             </div>
           </slot>
         </div>
@@ -25,7 +25,7 @@
     </Picker>
     <slot v-else name="empty">
       <div class="listbox__empty">
-        {{ props.emptyText || 'No options available' }}
+        {{ emptyText }}
       </div>
     </slot>
   </div>
@@ -43,7 +43,10 @@ export type ListBoxProps<T> = {
   emptyText?: string;
 } & Omit<PickerProps<T>, 'columns'>;
 
-const props = defineProps<ListBoxProps<T>>();
+const props = withDefaults(defineProps<ListBoxProps<T>>(), {
+  searchText: 'Search',
+  emptyText: 'No options available',
+});
 
 defineSlots<{
   default: (props: { option: T }) => void;

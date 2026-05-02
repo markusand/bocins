@@ -4,11 +4,11 @@
       v-model="text"
       v-bind="props"
       :style="dimensions"
-      :maxlength="props.maxLength"
-      :disabled="props.disabled"
+      :maxlength="maxLength"
+      :disabled
       @keydown.tab="handleTab" />
-    <span v-if="props.maxLength" class="longtext__counter">
-      {{ text.length }} / {{ props.maxLength }}
+    <span v-if="maxLength" class="longtext__counter">
+      {{ text.length }} / {{ maxLength }}
     </span>
   </div>
 </template>

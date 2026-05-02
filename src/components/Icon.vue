@@ -1,5 +1,5 @@
 <template>
-  <picture :class="['icon', props.size || '']">
+  <picture :class="['icon', size || '']">
     <img v-svg-inline :src>
   </picture>
 </template>

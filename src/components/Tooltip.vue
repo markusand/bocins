@@ -1,6 +1,6 @@
 <template>
   <Popover class="tooltip" v-bind="props">
-    <slot name="content">{{ props.text }}</slot>
+    <slot name="content">{{ text }}</slot>
     <template #anchor><slot /></template>
   </Popover>
 </template>

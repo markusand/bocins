@@ -3,7 +3,7 @@
     <input v-bind="input" type="file" @change="onChange">
     <slot v-if="!files.length">
       <Icon src="plus.svg" size="medium" />
-      <em>{{ props.label || 'Click or Drop files' }}</em>
+      <em>{{ label }}</em>
     </slot>
     <slot v-else name="files" :files="files" :remove="remove">
       <ul class="file-drop__list">
@@ -36,7 +36,12 @@ type FileDropProps = {
   block?: boolean;
 };
 
-const props = defineProps<FileDropProps>();
+const props = withDefaults(defineProps<FileDropProps>(), {
+  label: 'Click or Drop files',
+  multiple: false,
+  width: 10,
+  height: 7,
+});
 
 const emit = defineEmits<{
   'update:modelValue': [files: File[]],
@@ -65,8 +70,8 @@ const { files, addFiles, removeFile } = useFiles(props, onError);
 watch(files, value => emit('update:modelValue', value));
 
 const size = computed(() => ({
-  ...toWidth(props.width ?? 10),
-  ...toHeight(props.height ?? 7),
+  ...toWidth(props.width),
+  ...toHeight(props.height),
 }));
 
 const modifiers = computed(() => {

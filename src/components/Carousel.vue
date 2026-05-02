@@ -1,13 +1,13 @@
 <template>
   <div class="carousel">
     <div ref="wrapper" class="carousel__wrapper" @scrollend="updateActive">
-      <div v-for="item, i in props.items" :key="i" class="carousel__slide">
+      <div v-for="item, i in items" :key="i" class="carousel__slide">
         <slot :item />
       </div>
     </div>
-    <slot v-if="props.controls" name="controls" :active="active" :goto="goto">
-      <ul :class="['carousel__controls', `carousel__controls--${props.controls}`]">
-        <li v-for="item, i in props.items" :key="i">
+    <slot v-if="controls" name="controls" :active="active" :goto="goto">
+      <ul :class="['carousel__controls', `carousel__controls--${controls}`]">
+        <li v-for="item, i in items" :key="i">
           <slot
             name="control"
             :item

@@ -1,5 +1,5 @@
 <template>
-  <Teleport :to="props.to ?? 'body'">
+  <Teleport :to>
     <dialog
       ref="modal"
       class="modal is-panel"
@@ -9,7 +9,7 @@
       @close="close">
       <slot name="close" :close="close">
         <button
-          v-if="props.closeable"
+          v-if="closeable"
           type="button"
           class="modal__close"
           @click.stop="close">
@@ -39,7 +39,12 @@ export type ModalProps = {
   plain?: boolean;
 };
 
-const props = defineProps<ModalProps>();
+const props = withDefaults(defineProps<ModalProps>(), {
+  to: 'body',
+  open: false,
+  width: 20,
+  height: 'content-fit',
+});
 
 const emit = defineEmits<{
   'update:open': [isOpen: boolean];
@@ -54,11 +59,11 @@ defineSlots<{
 }>();
 
 const modal = ref<HTMLDialogElement>();
-const isOpen = ref(props.open ?? false);
+const isOpen = ref(props.open);
 
 const size = computed(() => ({
-  ...toWidth(props.width ?? 20),
-  ...toHeight(props.height ?? 'content-fit'),
+  ...toWidth(props.width),
+  ...toHeight(props.height),
 }));
 
 watch(() => props.open, open => { isOpen.value = open; });

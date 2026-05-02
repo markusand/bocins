@@ -1,14 +1,14 @@
 <template>
-  <fieldset class="picker" :disabled="props.disabled" tabindex="-1">
+  <fieldset class="picker" tabindex="-1" :disabled>
     <Toggler
-      v-for="option, i in props.options"
-      :key="props.keyAttr ? option[props.keyAttr] as string : i"
+      v-for="option, i in options"
+      :key="keyAttr ? option[keyAttr] as string : i"
       v-model="selected"
       :value="option"
-      :invalid="props.invalid"
-      :radio="!Array.isArray(selected)">
+      :radio="!Array.isArray(selected)"
+      :invalid>
       <slot :option>
-        {{ props.formatter?.(option) || option }}
+        {{ formatter?.(option) || option }}
       </slot>
     </Toggler>
   </fieldset>
@@ -29,7 +29,7 @@ export type PickerProps<T> = {
   disabled?: boolean;
 };
 
-const props = defineProps<PickerProps<T>>();
+defineProps<PickerProps<T>>();
 
 defineSlots<{
   default?: (props: { option: T }) => void;

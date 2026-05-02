@@ -1,10 +1,10 @@
 <template>
   <picture class="avatar">
-    <img v-if="src" :src :alt="props.name">
+    <img v-if="src" :src :alt="name">
     <div v-else class="avatar__initials">{{ initials }}</div>
-    <div v-if="props.badge || props.badge === 0 || slots.badge" class="avatar__badge">
+    <div v-if="badge || badge === 0 || slots.badge" class="avatar__badge">
       <slot name="badge">
-        {{ typeof props.badge === 'boolean' ? '' : props.badge }}
+        {{ typeof badge === 'boolean' ? '' : badge }}
       </slot>
     </div>
   </picture>

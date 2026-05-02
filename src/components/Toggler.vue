@@ -2,10 +2,10 @@
   <label class="toggler" :class="modifiers" tabindex="0">
     <input
       v-model="selected"
-      :value="props.value"
       :type="props.radio ? 'radio' : 'checkbox'"
-      :disabled="props.disabled">
-    <slot>{{ props.label }}</slot>
+      :value
+      :disabled>
+    <slot>{{ label }}</slot>
   </label>
 </template>
 

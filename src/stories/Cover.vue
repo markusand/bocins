@@ -1,14 +1,12 @@
 <template>
   <picture class="cover">
-    <img :src="props.src">
-    <div class="license">
-      {{ props.license }}
-    </div>
+    <img :src>
+    <div class="license">{{ license }}</div>
   </picture>
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   src: string;
   license: string;
 }>();

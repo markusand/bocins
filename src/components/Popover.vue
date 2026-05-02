@@ -1,7 +1,7 @@
 <template>
   <div class="popover" :tabindex="props.click ? -1 : undefined" :style="anchorStyles">
     <div
-      :class="['popover__content', `popover__content--${props.position || 'top'}`]"
+      :class="['popover__content', `popover__content--${props.position}`]"
       :style="width">
       <slot />
     </div>
@@ -19,14 +19,17 @@ export type PopoverProps = {
   width?: string | number;
 };
 
-const props = defineProps<PopoverProps>();
+const props = withDefaults(defineProps<PopoverProps>(), {
+  position: 'top',
+  width: 'auto',
+});
 
 defineSlots<{
   default: () => void;
   anchor: () => void
 }>();
 
-const width = computed(() => toWidth(props.width ?? 'auto'));
+const width = computed(() => toWidth(props.width));
 
 const anchorId = useId();
 const anchorStyles = computed(() => ({

@@ -3,7 +3,7 @@
     <summary class="collapser__toggler">
       <div class="collapser__title">
         <slot name="toggler" :open="hasBeenOpen">
-          {{ props.title }}
+          {{ title }}
         </slot>
       </div>
       <Icon src="chevron-down.svg" />

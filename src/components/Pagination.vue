@@ -1,6 +1,6 @@
 <template>
   <div class="pagination">
-    <Button v-if="props.controls" v-bind="prev" @click.prevent="change(-1)">
+    <Button v-if="controls" v-bind="prev" @click.prevent="change(-1)">
       <Icon src="chevron-right.svg" />
     </Button>
     <!-- First page always visible -->
@@ -18,14 +18,14 @@
       </ToggleButton>
     </slot>
     <!-- Separator if last page not in range -->
-    <em v-if="range.base + range.length < props.pages - 1">...</em>
+    <em v-if="range.base + range.length < pages - 1">...</em>
     <!-- Last page always visible -->
-    <slot :page="props.pages" :go-to="goTo">
-      <ToggleButton v-model="selected" v-bind="button(props.pages)">
-        {{ props.pages }}
+    <slot :page="pages" :go-to="goTo">
+      <ToggleButton v-model="selected" v-bind="button(pages)">
+        {{ pages }}
       </ToggleButton>
     </slot>
-    <Button v-if="props.controls" v-bind="next" @click.prevent="change(1)">
+    <Button v-if="controls" v-bind="next" @click.prevent="change(1)">
       <Icon src="chevron-right.svg" />
     </Button>
   </div>

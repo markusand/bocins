@@ -1,11 +1,11 @@
 <template>
   <div class="divider">
-    <slot>{{ props.label }}</slot>
+    <slot>{{ label }}</slot>
   </div>
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   label?: string;
 }>();
 

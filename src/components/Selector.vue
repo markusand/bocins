@@ -7,20 +7,20 @@
         <div v-if="isSelected(selected)" class="selector__selected">
           <template v-if="isSelected(selected)">
             <slot v-if="Array.isArray(selected)" name="selections" :items="selected">
-              {{ selected.map(props.formatter ?? String).join(', ') }}
+              {{ selected.map(formatter).join(', ') }}
             </slot>
             <slot v-else name="selection" :item="selected">
               <slot :item="selected">
-                {{ props.formatter?.(selected) || selected }}
+                {{ formatter?.(selected) || selected }}
               </slot>
             </slot>
           </template>
         </div>
         <div v-else class="placeholder">
-          <slot name="placeholder">{{ props.placeholder || 'Select' }}</slot>
+          <slot name="placeholder">{{ placeholder }}</slot>
         </div>
         <Icon
-          v-if="props.clearable && isSelected(selected)"
+          v-if="clearable && isSelected(selected)"
           src="x.svg"
           @click.stop="clear" />
         <Icon v-else src="chevron-down.svg" />
@@ -50,7 +50,10 @@ export type SelectorProps<T> = {
   placeholder?: string;
 } & Omit<DropdownProps, 'toggler'> & ListBoxProps<T>;
 
-const props = defineProps<SelectorProps<T>>();
+const props = withDefaults(defineProps<SelectorProps<T>>(), {
+  formatter: String,
+  placeholder: 'Select',
+});
 
 const selectorProps = computed(() => {
   const { disabled, block, width, top, right } = props;

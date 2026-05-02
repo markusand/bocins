@@ -1,5 +1,5 @@
 <template>
-  <div v-if="props.id === active" class="tab-view">
+  <div v-if="id === active" class="tab-view">
     <slot />
   </div>
 </template>
@@ -13,6 +13,7 @@ export type Tab = {
   disabled?: boolean;
 };
 
-const props = defineProps<Tab>();
+defineProps<Tab>();
+  
 const active = inject<string | undefined>('active');
 </script>

@@ -4,7 +4,7 @@
     type="button"
     :class="modifiers"
     :style="width"
-    :disabled="props.disabled">
+    :disabled>
     <slot />
   </button>
 </template>

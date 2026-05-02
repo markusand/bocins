@@ -1,11 +1,11 @@
 <template>
   <span class="chip">
-    <slot>{{ props.text }}</slot>
+    <slot>{{ text }}</slot>
     <button
-      v-if="props.close"
+      v-if="close"
       type="button"
       class="chip__close"
-      @click.prevent="props.close">
+      @click.prevent="close">
       <slot name="close">&times;</slot>
     </button>
   </span>
@@ -17,7 +17,7 @@ export type ChipProps = {
   close?: () => void;
 };
 
-const props = defineProps<ChipProps>();
+defineProps<ChipProps>();
 
 defineSlots<{
   default?: () => void;

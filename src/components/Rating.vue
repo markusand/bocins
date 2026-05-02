@@ -1,7 +1,7 @@
 <template>
-  <fieldset class="rating" :disabled="props.disabled">
-    <label v-for="i in +props.max" :key="i">
-      <input v-model="rating" :value="+props.max + 1 - i" type="radio">
+  <fieldset class="rating" :disabled>
+    <label v-for="i in +max" :key="i">
+      <input v-model="rating" :value="+max + 1 - i" type="radio">
       <slot><Icon src="star.svg" /></slot>
     </label>
   </fieldset>
@@ -11,10 +11,12 @@
 import { watch } from 'vue';
 import Icon from './Icon.vue';
 
-const props = withDefaults(defineProps<{
+export type RatingProps = {
   max?: number | string;
   disabled?: boolean;
-}>(), {
+};
+
+withDefaults(defineProps<RatingProps>(), {
   max: 5,
 });
 

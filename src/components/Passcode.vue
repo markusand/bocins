@@ -1,18 +1,18 @@
 <template>
   <fieldset
     :class="['passcode', { invalid }]"
-    :disabled="props.disabled"
+    :disabled
     @click.prevent="focusLast">
     <input
-      v-for="i in props.length"
+      v-for="i in length"
       :key="i"
       v-model="passcode[i - 1]"
-      :class="{ 'is-invalid': props.invalid, 'is-disabled': props.disabled }"
+      :class="{ 'is-invalid': invalid, 'is-disabled': disabled }"
       type="password"
       maxlength="1"
       placeholder=" "
       autocomplete="off"
-      :inputmode="props.numeric ? 'numeric' : 'text'"
+      :inputmode="numeric ? 'numeric' : 'text'"
       @input="next"
       @keydown.backspace="prev">
   </fieldset>
