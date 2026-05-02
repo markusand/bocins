@@ -94,7 +94,7 @@ onUnmounted(() => {
     align-items: center;
     justify-content: center;
     gap: 0.125em;
-    font-size: 0.75em;
+    font-size: var(--size, 0.75em);
     background: color-mix(in srgb, currentcolor 10%, transparent);
     box-shadow: inset 0 0 0 1px color-mix(in srgb, currentcolor 10%, transparent);
     border-radius: 0.25em;
