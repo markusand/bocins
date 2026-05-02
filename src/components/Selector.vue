@@ -21,7 +21,7 @@
         </div>
         <Icon
           v-if="props.clearable && isSelected(selected)"
-          src="close.svg"
+          src="x.svg"
           @click.stop="clear" />
         <Icon v-else src="chevron-down.svg" />
       </div>
