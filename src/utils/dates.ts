@@ -76,11 +76,11 @@ export const fromRange = (start: Day, end: Day) => {
 };
 
 export const CalendarNames = {
-  WEEKDAYS: (locale = 'en', onSunday = false) => [...Array(7)].map((_, i) => {
+  WEEKDAYS: (locale = navigator.language, onSunday = false) => [...Array(7)].map((_, i) => {
     const day = new Date(Date.UTC(2022, 1, i - Number(onSunday))); // 2022-02-01 is Tuesday
     return day.toLocaleDateString(locale, { weekday: 'short' });
   }),
-  MONTHS: (locale = 'en') => [...Array(12)].map((_, i) => {
+  MONTHS: (locale = navigator.language) => [...Array(12)].map((_, i) => {
     const date = new Date(1970, i, 1);
     return date.toLocaleString(locale, { month: 'long' });
   }),
