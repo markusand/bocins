@@ -1,37 +1,36 @@
 <template>
-  <div class="dropdown" :class="modifiers" :style="styles" @click.stop>
-    <div class="dropdown__toggler" tabindex="0">
-      <slot name="toggler">
-        <Button
-          v-bind="props.toggler"
-          :even="!props.label"
-          :disabled="props.disabled"
-          block>
-          {{ props.label }}
-          <Icon src="chevron-down.svg" />
-        </Button>
-      </slot>
-    </div>
-    <div v-if="!props.disabled" class="dropdown__content" tabindex="-1">
+  <div
+    :class="classes"
+    :style
+    tabindex="0"
+    @focusin="onFocus"
+    @focusout="onFocus">
+    <slot name="toggler">
+      <Button :even="!label">
+        <Icon v-if="icon || !label" :src="icon ?? 'chevron-down.svg'" />
+        {{ label }}
+      </Button>
+    </slot>
+    <div v-if="isOpen" class="overlay">
       <slot />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, useId } from 'vue';
+import { ref, computed, useId } from 'vue';
 import Icon from './Icon.vue';
-import Button, { type ButtonProps } from './Button.vue';
+import Button from './Button.vue';
 import { toWidth } from '/@/utils';
 
 export type DropdownProps = {
+  icon?: string;
   label?: string;
   top?: boolean;
   right?: boolean;
   disabled?: boolean;
   block?: boolean;
   width?: number | string;
-  toggler?: Omit<ButtonProps, 'block' | 'width' | 'disabled'>;
 };
 
 const props = defineProps<DropdownProps>();
@@ -41,92 +40,89 @@ defineSlots<{
   toggler?: () => void;
 }>();
 
-const modifiers = computed(() => {
+const emit = defineEmits<{
+  open: [];
+  close: [];
+}>();
+
+const classes = computed(() => {
   const { disabled, top, right, block } = props;
-  return {
-    'dropdown--top': top,
-    'dropdown--right': right,
-    'dropdown--block': block,
-    'dropdown--disabled': disabled,
+  return ['dropdown', {
+    'is-top': top,
+    'is-right': right,
     'is-block': block,
-  };
+    'is-disabled': disabled,
+  }];
 });
 
-const styles = computed(() => {
-  const anchorId = useId();
-  return {
-    ...toWidth(props.width),
-    '--anchor-name': `--dropdown-${anchorId}`,
-    '--position-anchor': `--dropdown-${anchorId}`,
-  };
-});
+const anchorId = useId();
+const style = computed(() => ({
+  ...toWidth(props.width),
+  '--anchor-name': `--dropdown-${anchorId}`,
+  '--position-anchor': `--dropdown-${anchorId}`,
+}));
+
+const isOpen = ref(false);
+
+const onFocus = (event: FocusEvent) => {
+  if (props.disabled) return;
+  const current = event.currentTarget as HTMLElement;
+  const related = event.relatedTarget as HTMLElement;
+  if (!current?.contains(related)) {
+    isOpen.value = event.type === 'focusin'
+    if (isOpen.value) emit('open')
+    else emit('close');
+  }
+};
 </script>
 
 <style scoped>
-
 .dropdown {
-  display: inline-block;
-  position: relative;
-  vertical-align: middle;
-  overflow: visible;
-  box-sizing: border-box;
+  display: inline-flex;
+  flex-direction: column;
   anchor-name: var(--anchor-name);
 
-  .icon { --size: 1em; }
+  .overlay {
+    position: absolute;
+    top: anchor(bottom);
+    left: anchor(left);
+    position-anchor: var(--position-anchor);
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+    min-width: anchor-size(width, 0); /* var(--min-width, 0); */
+    max-width: var(--max-width, 100dvw);
+    margin: 0.125rem 0;
+    z-index: 2;
+  }
 }
 
-.dropdown__content {
-  display: none;
-  position: fixed;
-  position-anchor: var(--position-anchor);
-  top: anchor(bottom);
-  left: anchor(left);
-  position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-  z-index: 2;
-  box-sizing: border-box;
-  margin: 0.125rem 0;
-  width: fit-content;
-}
+:disabled .overlay,
+.is-disabled .overlay { display: none; }
 
-.dropdown--top > .dropdown__content {
+.is-top > .overlay {
   bottom: anchor(top);
   top: unset;
 }
 
-.dropdown--right > .dropdown__content {
+.is-right > .overlay {
   left: unset;
   right: anchor(right);
 }
 
-/* Fallback for browsers without anchor positioning support */
-@supports not (anchor-name: --dropdown-anchor) {
-  .dropdown__content {
+@supports not (anchor-name: --position-anchor) {
+  .overlay {
     position: absolute;
     top: 100%;
     left: 0;
   }
 
-  .dropdown--top > .dropdown__content {
+  .is-top > .overlay {
     bottom: 100%;
     top: unset;
   }
 
-  .dropdown--right > .dropdown__content {
+  .is-right > .overlay {
     left: unset;
     right: 0;
   }
-}
-
-.dropdown__content:hover,
-.dropdown__content:focus,
-.dropdown__content:focus-within,
-.dropdown__toggler:focus-within + .dropdown__content { display: block; }
-
-.dropdown--disabled,
-:disabled .dropdown,
-[class*="--disabled"] .dropdown {
-  cursor: not-allowed;
-
-  & * { pointer-events: none; }
 }
 </style>

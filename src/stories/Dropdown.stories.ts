@@ -15,10 +15,6 @@ const meta = {
   },
   argTypes: {
     label: { description: 'The text to display on the toggler button.' },
-    width: {
-      description: 'The width of the dropdown. Can be a number (in rem) or any string representing length and unit.',
-      control: 'text',
-    },
     top: { description: 'Align the dropdown menu to the top of the button.' },
     right: { description: 'Align the dropdown menu to the right of the button.' },
     block: { description: 'Display the dropdown menu as a block full width element.' },
@@ -31,11 +27,6 @@ const meta = {
     right: false,
     block: false,
     disabled: false,
-    toggler: {
-      variant: undefined,
-      size: undefined,
-    },
-    width: '',
   },
 } satisfies Meta<typeof Dropdown>;
 
@@ -60,7 +51,7 @@ export const CustomToggler: Story = {
     template: `<Dropdown v-bind="args">
       <template #toggler>
         <Button even>
-          <Icon src="more.svg" />
+          <Icon src="ellipsis.svg" />
         </Button>
       </template>
       Content

@@ -1,5 +1,5 @@
 <template>
-  <fieldset class="picker" :disabled="props.disabled">
+  <fieldset class="picker" :disabled="props.disabled" tabindex="-1">
     <Toggler
       v-for="option, i in props.options"
       :key="props.keyAttr ? option[props.keyAttr] as string : i"
