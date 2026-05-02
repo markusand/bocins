@@ -12,12 +12,7 @@ export { default as Divider } from './Divider.vue';
 export { default as Carousel } from './Carousel.vue';
 export { default as ImageExpand } from './ImageExpand.vue';
 export { default as Dropdown } from './Dropdown.vue';
-export {
-  default as ContextualMenu,
-  type ContextualMenuProps,
-  type ContextualMenuActions,
-  type ContextualMenuAction,
-} from './ContextualMenu.vue';
+export { default as ActionMenu, type Action, type ActionGroup } from './ActionMenu.vue';
 export { default as Accordion } from './Accordion.vue';
 export { default as Collapser, type CollapserProps } from './Collapser.vue';
 export { default as Tabs } from './Tabs.vue';

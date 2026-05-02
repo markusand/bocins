@@ -21,7 +21,7 @@ When the user asks to build or add UI, implement it directly using Bocins compon
 
 **Forms**: Input, Password, Search, LongText, ChipsInput, Stepper, Rating, Selector, ListBox, Picker, Transfer, DatePicker, Calendar, Switch, ToggleButton, Toggler, FileDrop, Passcode
 
-**Actions**: Button, ButtonGroup, InputGroup, ContextualMenu
+**Actions**: Button, ButtonGroup, InputGroup, ActionMenu
 
 **Display**: Avatar, AvatarGroup, Chip, Icon, Divider, ImageExpand, Carousel
 

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { ButtonGroup, Button, Dropdown, ContextualMenu } from '/@/components';
+import { ButtonGroup, Button, Icon, Dropdown, ActionMenu } from '/@/components';
 import './assets/styles.css';
 
 const meta = {
@@ -46,7 +46,7 @@ export const Base: Story = {
 
 export const WithDropdowns: Story = {
   render: args => ({
-    components: { ButtonGroup, Button, Dropdown, ContextualMenu },
+    components: { ButtonGroup, Button, Icon, Dropdown, ActionMenu },
     setup: () => ({
       args,
       actions: [{
@@ -59,12 +59,18 @@ export const WithDropdowns: Story = {
     }),
     template: `<ButtonGroup v-bind="args">
       <Button>Action</Button>
-      <Dropdown label="More">
+      <Dropdown label="More" icon="chevron-down.svg">
         <Button block>Edit</Button>
         <Button block>Duplicate</Button>
         <Button block>Archive</Button>
       </Dropdown>
-      <ContextualMenu :item="{}" :actions="actions" />
+      <ActionMenu :item="{}" :actions="actions">
+        <template #toggler>
+          <Button even>
+            <Icon src="ellipsis.svg" />
+          </Button>
+        </template>
+      </ActionMenu>
     </ButtonGroup>`,
   }),
 };

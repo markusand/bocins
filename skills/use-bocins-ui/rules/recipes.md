@@ -30,7 +30,7 @@ These are non-exhaustive examples of how to compose Bocins. Do not force these s
     <td><Avatar :src="user.avatar" /></td>
     <td>{{ user.name }}</td>
     <td><Chip>{{ user.status }}</Chip></td>
-    <td><ContextualMenu :item="user" :items="actions" /></td>
+    <td><ActionMenu :item="user" :items="actions" /></td>
   </tr>
 </table>
 <Pagination v-model="page" :total="totalPages" />
