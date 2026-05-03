@@ -36,7 +36,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import Dropdown from './Dropdown.vue';
+import Dropdown, { type DropdownProps } from './Dropdown.vue';
 import Calendar, { type CalendarProps, type SelectedDate } from './Calendar.vue';
 import Icon from './Icon.vue';
 
@@ -44,13 +44,10 @@ export type { SelectedDate };
 
 export type DatePickerProps = {
   formatter?: (date: Date) => string;
-  block?: boolean;
-  width?: number | string;
   placeholder?: string;
   clearable?: boolean;
-  top?: boolean;
-  right?: boolean;
-} & CalendarProps;
+} & Pick<DropdownProps, 'block' | 'width' | 'top' | 'right'>
+  & CalendarProps;
 
 const props = withDefaults(defineProps<DatePickerProps>(), {
   placeholder: 'Select date',
