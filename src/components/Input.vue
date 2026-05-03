@@ -63,9 +63,6 @@ const props = withDefaults(defineProps<InputProps>(), {
   type: 'text',
   width: 10,
   placeholder: '',
-  prefix: undefined,
-  suffix: undefined,
-  autocomplete: undefined,
 });
 
 defineSlots<{

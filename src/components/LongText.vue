@@ -30,7 +30,6 @@ export type LongTextProps = {
 };
 
 const props = withDefaults(defineProps<LongTextProps>(), {
-  maxLength: undefined,
   width: 20,
   height: 5,
   placeholder: '',

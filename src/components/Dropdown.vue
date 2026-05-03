@@ -34,7 +34,6 @@ export type DropdownProps = {
 };
 
 const props = withDefaults(defineProps<DropdownProps>(), {
-  width: undefined,
   icon: 'chevron-down.svg',
   label: '',
 });
