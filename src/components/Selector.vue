@@ -46,7 +46,8 @@ import Icon from './Icon.vue';
 export type SelectorProps<T> = {
   clearable?: boolean;
   placeholder?: string;
-} & Omit<DropdownProps, 'toggler'> & ListBoxProps<T>;
+} & Pick<DropdownProps, 'disabled' | 'block' | 'width' | 'top' | 'right'>
+  & ListBoxProps<T>;
 
 const props = withDefaults(defineProps<SelectorProps<T>>(), {
   formatter: String,
