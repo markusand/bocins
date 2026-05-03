@@ -66,7 +66,7 @@ const onKeyup = (event: KeyboardEvent) => {
     emit('release');
     active.value = false;
   }
-}
+};
 
 onMounted(() => {
   document.addEventListener('keydown', onKeydown);

@@ -72,8 +72,8 @@ const onFocus = (event: FocusEvent) => {
   const current = event.currentTarget as HTMLElement;
   const related = event.relatedTarget as HTMLElement;
   if (!current?.contains(related)) {
-    isOpen.value = event.type === 'focusin'
-    if (isOpen.value) emit('open')
+    isOpen.value = event.type === 'focusin';
+    if (isOpen.value) emit('open');
     else emit('close');
   }
 };
