@@ -13,11 +13,10 @@
 import { computed } from 'vue';
 import { toWidth } from '/@/utils';
 
-export type ButtonProps = {
-  flat?: boolean;
-  ghost?: boolean;
-  sm?: boolean;
-  lg?: boolean; 
+type VariantProps = { flat?: true; ghost?: false } | { flat?: false; ghost?: true };
+type SizeProps    = { sm?: true;   lg?: false }    | { sm?: false;   lg?: true };
+
+export type ButtonProps = VariantProps & SizeProps & {
   width?: number | string;
   even?: boolean;
   block?: boolean;
