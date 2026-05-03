@@ -5,18 +5,16 @@
     <template #toggler>
       <div :class="['datepicker__toggler', 'is-selector-toggler', togglerModifiers]">
         <div v-if="isSelected(selected)" class="datepicker__selected">
-          <template v-if="isSelected(selected)">
-            <slot v-if="Array.isArray(selected)" name="dates" :dates="selected">
-              <div class="datepicker__range-dates">
-                <span>{{ formatter?.(selected[0]) ?? selected[0] }}</span>
-                <Icon src="arrow-right.svg" />
-                <span>{{ formatter?.(selected[1]) ?? selected[1] }}</span>
-              </div>
-            </slot>
-            <slot v-else name="date" :date="selected">
-              {{ formatter?.(selected) || selected }}
-            </slot>
-          </template>
+          <slot v-if="Array.isArray(selected)" name="dates" :dates="selected">
+            <div class="datepicker__range-dates">
+              <span>{{ formatter?.(selected[0]) ?? selected[0] }}</span>
+              <Icon src="arrow-right.svg" />
+              <span>{{ formatter?.(selected[1]) ?? selected[1] }}</span>
+            </div>
+          </slot>
+          <slot v-else name="date" :date="selected">
+            {{ formatter?.(selected) || selected }}
+          </slot>
         </div>
         <div v-else class="placeholder">
           <slot name="placeholder">{{ placeholder }}</slot>
