@@ -86,7 +86,11 @@ const modifiers = computed(() => {
     overflow: auto;
     max-height: 10rem; 
 
-    &:deep(input) { display: none; }
+    &:deep(input) {
+      opacity: 0;
+      position: absolute;
+      pointer-events: none;
+    }
   }
 
   .search {

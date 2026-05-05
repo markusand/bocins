@@ -1,5 +1,5 @@
 <template>
-  <label class="toggler" :class="modifiers" tabindex="0">
+  <label class="toggler" :class="modifiers">
     <input
       v-model="selected"
       :type="props.radio ? 'radio' : 'checkbox'"
