@@ -1,6 +1,6 @@
 <template>
   <fieldset
-    :class="['btn-group', { 'is-block': block }]"
+    :class="['btn-group', { 'btn-group--block': block }]"
     :style="width"
     :disabled>
     <slot />
@@ -37,23 +37,24 @@ const width = computed(() => toWidth(props.width));
     &:focus-within { z-index: 1; }
   };
 
-  & > :not(:first-child) :not(.dropdown__content *, .popover__content *),
+  & > :not(:first-child) :not(.dropdown__overlay *, .popover__content *),
   & > *:not(:first-child) {
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
     margin-left: calc(-1 * var(--border-width));
   }
 
-  & > :not(:last-child) :not(.dropdown__content *, .popover__content *),
+  & > :not(:last-child) :not(.dropdown__overlay *, .popover__content *),
   & > *:not(:last-child) {
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
   }
 }
 
-.btn-group.is-block,
-.input-group.is-block {
+.btn-group.btn-group--block,
+.input-group.input-group--block {
   display: flex;
+  width: 100%;
 
   &:deep(> *) { flex: 1; }
 }

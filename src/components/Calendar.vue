@@ -1,26 +1,15 @@
 <template>
-  <div :class="['calendar', modifiers]">
+  <div :class="['calendar', { 'is-disabled': disabled }]">
     <header>
-      <Button
-        flat
-        small
-        :disabled
-        even
-        @click.prevent="month = month - 1">
+      <Button flat small even @click.prevent="month = month - 1">
         <Icon src="chevron-right.svg" />
       </Button>
       <Selector
         v-model="month" 
         :options="[...Array(12)].map((_, i) => i)"
-        :formatter="i => months[i]"
-        :disabled />
-      <Selector v-model="year" :options="years" :disabled />
-      <Button
-        flat
-        small
-        :disabled
-        even
-        @click.prevent="month = month + 1">
+        :formatter="i => months[i]" />
+      <Selector v-model="year" :options="years" />
+      <Button flat small even @click.prevent="month = month + 1">
         <Icon src="chevron-right.svg" />
       </Button>
     </header>
@@ -125,15 +114,9 @@ const status = (day: Date) => {
       : isEqual(day, selected.value),
     'calendar__day--range': Array.isArray(selected.value) && isBetween(day, selected.value[0], selected.value[1]),
     'calendar__day--off': !isBetween(day, monthStart(cursor.value), monthEnd(cursor.value), true),
-    'calendar__day--disabled': isInvalid(day),
     'is-disabled': isInvalid(day),
   };
 };
-
-const modifiers = computed(() => ({
-  'calendar--disabled': props.disabled,
-  'is-disabled': props.disabled,
-}));
 
 const weekDays = computed(() => CalendarNames.WEEKDAYS(props.locale, props.startSunday));
 const months = computed(() => CalendarNames.MONTHS(props.locale));
@@ -197,6 +180,8 @@ const years = computed(() => {
 }
 
 .calendar__day {
+  color: var(--color-text, currentcolor);
+  
   button {
     all: unset;
     display: grid;
@@ -207,11 +192,12 @@ const years = computed(() => {
     box-sizing: border-box;
     background: var(--color-bg);
     cursor: pointer;
+    color: inherit;
   }
 }
 
 .calendar__day--today {
-  color: var(--color-accent, #333);
+  --color-text: var(--color-accent, #333);
   font-weight: bold;
 }
 
@@ -228,8 +214,8 @@ const years = computed(() => {
 
 .calendar__day--start,
 .calendar__day:nth-child(7n + 1),
-.calendar__day:not(.calendar__day--disabled) + .calendar__day--disabled,
-.calendar__day--disabled + .calendar__day:not(.calendar__day--disabled) {
+.calendar__day:not(.is-disabled) + .is-disabled,
+.is-disabled + .calendar__day:not(.is-disabled) {
   button {
     border-top-left-radius: var(--radius);
     border-bottom-left-radius: var(--radius);
@@ -238,8 +224,8 @@ const years = computed(() => {
 
 .calendar__day--end,
 .calendar__day:nth-child(7n),
-.calendar__day--disabled:has(+ .calendar__day:not(.calendar__day--disabled)),
-.calendar__day:not(.calendar__day--disabled):has(+ .calendar__day--disabled) {
+.is-disabled:has(+ .calendar__day:not(.is-disabled)),
+.calendar__day:not(.is-disabled):has(+ .is-disabled) {
   button {
     border-top-right-radius: var(--radius);
     border-bottom-right-radius: var(--radius);
@@ -247,12 +233,4 @@ const years = computed(() => {
 }
 
 .calendar__day--off { opacity: 0.25; }
-
-.calendar--disabled {
-  .calendar__day {
-    --color-bg: none;
-    --color: #8884;
-    --color-range: #8882;
-  }
-}
 </style>

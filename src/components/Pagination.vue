@@ -106,7 +106,7 @@ const change = (num: number) => goTo(selected.value + num + 1);
     color: #8888;
   }
 
-  .btn:not(.is-flat) { --color: var(--color-accent, #333); }
+  .btn:not(.btn--flat) { --color: var(--color-accent, #333); }
 
 }
 

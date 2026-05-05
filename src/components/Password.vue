@@ -4,7 +4,7 @@
     v-bind="props"
     :type
     :autocomplete="autocomplete ? 'current-password' : 'new-password'"
-    :class="['password', strength.level]">
+    :class="['password', `password--${strength.level}`]">
     <template #suffix>
       <Icon v-if="revealed" src="eye.svg" @click.prevent="toggle" />
       <Icon v-else src="eye-off.svg" @click.prevent="toggle" />
@@ -69,8 +69,8 @@ const strength = computed(() => {
     border-radius: 0.125rem;
   }
 
-  &.strong::after { background: #5aa45d; }
-  &.moderate::after { background: #e2a140; }
-  &.low::after { background: #ce4d44; }
+  &.password--strong::after { background: #5aa45d; }
+  &.password--moderate::after { background: #e2a140; }
+  &.password--low::after { background: #ce4d44; }
 }
 </style>

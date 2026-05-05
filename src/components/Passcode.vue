@@ -1,6 +1,6 @@
 <template>
   <fieldset
-    :class="['passcode', { invalid }]"
+    :class="['passcode', { 'passcode--invalid': invalid }]"
     :disabled
     @click.prevent="focusLast">
     <input

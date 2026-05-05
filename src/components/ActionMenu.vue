@@ -2,20 +2,20 @@
   <Dropdown class="action-menu" :disabled>
     <template #toggler>
       <slot name="toggler">
-        <Button flat even>
+        <Button flat even :disabled>
           <Icon src="ellipsis-vertical.svg" />
         </Button>
       </slot>
     </template>
     <div class="is-panel">
-      <div v-for="group, i in actions" :key="group.name ?? i" class="action-list">
-        <span v-if="group.name" class="group">{{ group.name }}</span>
+      <div v-for="group, i in actions" :key="group.name ?? i" class="action-menu__list">
+        <span v-if="group.name" class="action-menu__group">{{ group.name }}</span>
         <slot v-for="action in group.actions" :key="action.id" :name="action.id" :action>
           <ActionMenu v-if="action.groups" :item :actions="action.groups">
             <template #toggler>
               <Button flat v-bind="action.attrs" @click="action.onClick?.(item)">
                 <Icon v-if="action.icon" :src="action.icon" />
-                <span class="label">{{ action.label }}</span>
+                <span class="action-menu__label">{{ action.label }}</span>
               </Button>
             </template>
             <template v-for="subaction in subactions(action)" #[subaction.id]>
@@ -24,7 +24,7 @@
           </ActionMenu>
           <Button v-else flat v-bind="action.attrs" @click="action.onClick?.(item)">
             <Icon v-if="action.icon" :src="action.icon" />
-            <span class="label">{{ action.label }}</span>
+            <span class="action-menu__label">{{ action.label }}</span>
             <HotKey
               v-if="action.hotkey && action.onClick"
               :keys="action.hotkey"
@@ -74,7 +74,7 @@ const subactions = (action: Action<T>): Action<T>[] => {
 
 <style scoped>
 .action-menu {
-  .action-list {
+  .action-menu__list {
     display: flex;
     flex-direction: column;
     gap: 1px;
@@ -84,7 +84,7 @@ const subactions = (action: Action<T>): Action<T>[] => {
 
     &:not(:first-child) { border-top: 1px solid var(--color-border, #8886); }
 
-    .group {
+    .action-menu__group {
       padding: 0.5rem 0.5rem 0.25rem;
       font-size: 0.6rem;
       text-transform: uppercase;
@@ -92,7 +92,7 @@ const subactions = (action: Action<T>): Action<T>[] => {
     }
 
     .btn {
-      .label {
+      .action-menu__label {
         display: block;
         flex: 1;
         white-space: nowrap;
@@ -119,7 +119,7 @@ const subactions = (action: Action<T>): Action<T>[] => {
       opacity: 0.75;
     }
 
-    &:deep(.overlay) {
+    &:deep(.dropdown__overlay) {
       top: anchor(top);
       left: anchor(right);
       margin: 0 0.25rem;

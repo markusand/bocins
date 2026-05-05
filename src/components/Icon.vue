@@ -1,5 +1,5 @@
 <template>
-  <picture :class="['icon', size || '']">
+  <picture :class="['icon', size && `icon--${size}`]">
     <img v-svg-inline :src>
   </picture>
 </template>
@@ -42,8 +42,8 @@ const src = computed(() => (
     color: var(--color);
   }
 
-  &.small { --size: 1rem; }
-  &.medium { --size: 1.5rem; }
-  &.large { --size: 2rem; }
+  &.icon--small { --size: 1rem; }
+  &.icon--medium { --size: 1.5rem; }
+  &.icon--large { --size: 2rem; }
 }
 </style>

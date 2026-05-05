@@ -34,9 +34,9 @@ const modifiers = computed(() => {
   const variant = flat ? 'flat' : ghost ? 'ghost' : false;
   const size = sm ? 'small' : lg ? 'large' : false;
   return {
-    [`is-${variant}`]: !!variant,
-    [`is-${size}`]: !!size,
-    'is-even': even,
+    [`btn--${variant}`]: !!variant,
+    [`btn--${size}`]: !!size,
+    'btn--even': even,
     'is-block': block,
   };
 });
@@ -70,22 +70,22 @@ const width = computed(() => toWidth(props.width));
   cursor: pointer;
 
   /* States */
-  &.is-even { padding: var(--spacing); }
-  &.is-block { display: flex; }
+  &.btn--even { padding: var(--spacing); }
+  &.btn--block { display: flex; }
 
-  &.is-small {
+  &.btn--small {
     --spacing: calc(0.75 * var(--btn-spacing, 0.5rem));
 
     font-size: 0.75em;
   }
 
-  &.is-large {
+  &.btn--large {
     --spacing: calc(1.25 * var(--btn-spacing, 0.5rem));
 
     font-size: 1.25em;
   }
-  
-  &.is-ghost {
+
+  &.btn--ghost {
     background: none;
     color: var(--color-state);
 
@@ -95,7 +95,7 @@ const width = computed(() => toWidth(props.width));
     }
   }
 
-  &.is-flat {
+  &.btn--flat {
     background: transparent;
     border-color: transparent;
     color: var(--color-state);

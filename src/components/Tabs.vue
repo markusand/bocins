@@ -5,8 +5,8 @@
       <button
         v-for="{ id, label, active, disabled } in tabs"
         :key="id"
-        :disabled="disabled"
         :class="['tabs__tab', { 'tabs__tab--active': active, 'is-disabled': disabled }]"
+        :disabled
         type="button"
         @click.prevent="activate(id)">
         <slot v-bind="{ label, active }" :name="id">
@@ -37,7 +37,9 @@ const tabs = computed(() => slots.default()
   // @ts-expect-error TS does not know __name property in type
   .filter(node => node.type.__name === 'TabView')
   .map(({ props }) => {
-    return { ...props, active: props?.id === activePanel.value };
+    const active = props?.id === activePanel.value;
+    const disabled = props?.disabled != null && props.disabled !== false;
+    return { ...props, active, disabled };
   }) as (Tab & { active: boolean })[]);
 
 onMounted(() => !activePanel.value && activate(tabs.value[0]?.id));

@@ -1,8 +1,8 @@
 <template>
-  <div :class="['hotkey', { active }]">
+  <div :class="['hotkey', { 'hotkey--active': active }]">
     <kbd v-for="key in combo" :key>
       <Icon v-if="ICONS[key]" :src="`${ICONS[key]}.svg`" />
-      <small v-else-if="key === 'escape'" class="small">ESC</small>
+      <small v-else-if="key === 'escape'">ESC</small>
       <span v-else>{{ key }}</span>
     </kbd>
   </div>
@@ -111,6 +111,6 @@ onUnmounted(() => {
     }
   }
 
-  &.active { color: var(--color-active); }
+  &.hotkey--active { color: var(--color-active); }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <span :class="['avatar-group', { stacked }]">
+  <span :class="['avatar-group', { 'avatar-group--stacked': stacked }]">
     <slot />
   </span>
 </template>
@@ -30,7 +30,7 @@ defineSlots<{ default: () => void; }>();
     }
   }
 
-  &.stacked {
+  &.avatar-group--stacked {
     --overlap: 0.8;
     &:hover { --overlap: -0.125; }
   }

@@ -1,6 +1,6 @@
 <template>
   <Button
-    :class="['toggle-button', { active }]"
+    :class="['toggle-button', { 'toggle-button--active': active }]"
     v-bind="props"
     @click.prevent.stop="toggle">
     <slot />
@@ -50,11 +50,11 @@ const toggle = () => {
 .toggle-button {
   --color-active: var(--btn-color-active, color-mix(in srgb, var(--color) 75%, #000));
 
-  &.active {
+  &.toggle-button--active {
     --color-state: var(--color-active);
   }
 
-  &.is-ghost.active {
+  &.btn--ghost.toggle-button--active {
     background: var(--color-state);
     color: var(--color-text);
   }

@@ -6,12 +6,12 @@
     @focusin="onFocus"
     @focusout="onFocus">
     <slot name="toggler">
-      <Button :even="!label">
+      <Button :even="!label" :disabled>
         <Icon v-if="icon || !label" :src="icon" />
         {{ label }}
       </Button>
     </slot>
-    <div v-if="isOpen" class="overlay">
+    <div v-if="isOpen" class="dropdown__overlay">
       <slot />
     </div>
   </div>
@@ -51,10 +51,10 @@ const emit = defineEmits<{
 const classes = computed(() => {
   const { disabled, top, right, block } = props;
   return ['dropdown', {
-    'is-top': top,
-    'is-right': right,
-    'is-block': block,
-    'is-disabled': disabled,
+    'dropdown--top': top,
+    'dropdown--right': right,
+    'dropdown--block': block,
+    'dropdown--disabled': disabled,
   }];
 });
 
@@ -85,7 +85,13 @@ const onFocus = (event: FocusEvent) => {
   flex-direction: column;
   anchor-name: var(--anchor-name);
 
-  .overlay {
+  &.dropdown--block {
+    width: 100%;
+    margin-inline: 0;
+    flex: 0 0 100%;
+  }
+
+  .dropdown__overlay {
     position: absolute;
     top: anchor(bottom);
     left: anchor(left);
@@ -98,32 +104,32 @@ const onFocus = (event: FocusEvent) => {
   }
 }
 
-:disabled .overlay,
-.is-disabled .overlay { display: none; }
+:disabled .dropdown__overlay,
+.dropdown--disabled .dropdown__overlay { display: none; }
 
-.is-top > .overlay {
+.dropdown--top > .dropdown__overlay {
   bottom: anchor(top);
   top: unset;
 }
 
-.is-right > .overlay {
+.dropdown--right > .dropdown__overlay {
   left: unset;
   right: anchor(right);
 }
 
 @supports not (anchor-name: --position-anchor) {
-  .overlay {
+  .dropdown__overlay {
     position: absolute;
     top: 100%;
     left: 0;
   }
 
-  .is-top > .overlay {
+  .dropdown--top > .dropdown__overlay {
     bottom: 100%;
     top: unset;
   }
 
-  .is-right > .overlay {
+  .dropdown--right > .dropdown__overlay {
     left: unset;
     right: 0;
   }
