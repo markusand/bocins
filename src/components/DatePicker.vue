@@ -73,7 +73,7 @@ defineSlots<{
 
 const selected = defineModel<SelectedDate>();
 
-const isSelected = (item: SelectedDate): item is Date | [Date, Date] => {
+const isSelected = (item: SelectedDate | undefined): item is Date | [Date, Date] => {
   return Array.isArray(item) ? !!item.filter(Boolean).length : item != null;
 };
 

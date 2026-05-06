@@ -78,3 +78,47 @@ export const RangeCalendar: Story = {
   }),
 };
 
+export const InvalidDates: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Specific dates or ranges that cannot be selected.',
+      },
+    },
+  },
+  args: {
+    modelValue: undefined,
+    invalid: ['2026-05-04', '2026-05-07', ['2026-05-16', '2026-05-25']],
+  },
+  render: args => ({
+    components: { Calendar },
+    setup() {
+      const date = ref(new Date('2026-05-10'));
+      return { args, date };
+    },
+    template: '<Calendar v-bind="args" v-model="date" />',
+  }),
+};
+
+export const ValidDates: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Only specific dates or ranges are selectable.',
+      },
+    },
+  },
+  args: {
+    modelValue: undefined,
+    valid: ['2026-05-04', '2026-05-07', ['2026-05-16', '2026-05-25']],
+  },
+  render: args => ({
+    components: { Calendar },
+    setup() {
+      const date = ref(new Date('2026-05-21'));
+      return { args, date };
+    },
+    template: '<Calendar v-bind="args" v-model="date" />',
+  }),
+};
+

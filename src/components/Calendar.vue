@@ -17,10 +17,10 @@
       <li v-for="day in weekDays" :key="day">{{ day }}</li>
     </ul>
     <ul class="calendar__days">
-      <li v-for="day in days" :key="day.getTime()" :class="['calendar__day', status(day)]">
-        <slot name="day" :day="day" :select="select">
-          <button type="button" @click.prevent="select(day)">
-            {{ day.getDate() }}
+      <li v-for="day in days" :key="day.date.getTime()" :class="day.classes">
+        <slot name="day" :day="day.date" :select="select">
+          <button type="button" :disabled="day.disabled" @click.prevent="select(day.date)">
+            {{ day.date.getDate() }}
           </button>
         </slot>
       </li>
@@ -29,31 +29,26 @@
 </template>
 
 <script setup lang="ts">
-import { toRef, computed } from 'vue';
+import { ref, watch, computed } from 'vue';
 import {
-  isEqual,
-  isBefore,
-  isAfter,
-  isBetween,
-  addYears,
-  monthStart,
-  monthEnd,
-  CalendarNames,
-  useCalendarCursor,
+  isEqual, isBefore, isAfter, isBetween,
+  weekStart, weekEnd, monthStart, monthEnd,
+  fromRange, addYears, CalendarNames,
   type Day,
 } from '/@/utils';
+import type { MaybeReadonly } from '/@/types';
 import Button from './Button.vue';
 import Icon from './Icon.vue';
 import Selector from './Selector.vue';
-import type { MaybeReadonly } from '/@/types';
 
-export type SelectedDate = Date | undefined | [Date | undefined, Date | undefined];
+export type MaybeDates = Day | [Day, Day];
+export type SelectedDate = Date | [Date | undefined, Date | undefined];
 
 export type CalendarProps = {
   notBefore?: Day;
   notAfter?: Day;
-  invalid?: MaybeReadonly<(Day | [Day, Day])[]>;
-  valid?: MaybeReadonly<(Day | [Day, Day])[]>;
+  invalid?: MaybeReadonly<MaybeDates[]>;
+  valid?: MaybeReadonly<MaybeDates[]>;
   locale?: string;
   years?: `${number}:${number}`;
   disabled?: boolean;
@@ -72,51 +67,26 @@ const props = withDefaults(defineProps<CalendarProps>(), {
   years: '-5:+5',
 });
 
-const selected = defineModel<SelectedDate>({ required: true });
-const { cursor, days, month, year } = useCalendarCursor(selected, toRef(props, 'startSunday'));
+const selected = defineModel<SelectedDate>();
 
-const isInvalid = (day: Date) => {
-  const match = (dates: Day | [Day, Day]) => {
-    return Array.isArray(dates)
-      ? isBetween(day, ...dates, true)
-      : isEqual(day, dates);
-  };
-  if (isBefore(day, props.notBefore)) return true;
-  if (isAfter(day, props.notAfter)) return true;
-  if (props.invalid) return props.invalid.some(match);
-  if (props.valid) return !props.valid.some(match);
-};
+/* Header */
+const cursor = ref<Date>(new Date());
 
-let activeRange = false;
-const select = (day: Date) => {
-  if (props.disabled || isInvalid(day)) return;
-  if (Array.isArray(selected.value)) {
-    const start = activeRange ? selected.value[0] : undefined;
-    selected.value = start
-      ? isBefore(day, start) ? [day, start] : [start, day]
-      : [day, day];
-    activeRange = !activeRange;
-    emit('select', [start, day]);
-  } else {
-    selected.value = day;
-    emit('select', day);
-  }
-};
+watch(selected, date => {
+  cursor.value = new Date(Array.isArray(date)
+    ? date[1] ?? Date.now()
+    : date ?? Date.now());
+}, { immediate: true });
 
-const status = (day: Date) => {
-  return {
-    'calendar__day--today': isEqual(day, new Date()),
-    'calendar__day--start': Array.isArray(selected.value)
-      ? isEqual(day, selected.value[0])
-      : isEqual(day, selected.value),
-    'calendar__day--end': Array.isArray(selected.value)
-      ? isEqual(day, selected.value[1])
-      : isEqual(day, selected.value),
-    'calendar__day--range': Array.isArray(selected.value) && isBetween(day, selected.value[0], selected.value[1]),
-    'calendar__day--off': !isBetween(day, monthStart(cursor.value), monthEnd(cursor.value), true),
-    'is-disabled': isInvalid(day),
-  };
-};
+const month = computed({
+  get: () => cursor.value.getMonth(),
+  set: value => cursor.value = new Date(cursor.value.setMonth(value)),
+});
+
+const year = computed({
+  get: () => cursor.value.getFullYear(),
+  set: value => cursor.value = new Date(cursor.value.setFullYear(value)),
+});
 
 const weekDays = computed(() => CalendarNames.WEEKDAYS(props.locale, props.startSunday));
 const months = computed(() => CalendarNames.MONTHS(props.locale));
@@ -126,6 +96,64 @@ const years = computed(() => {
   const maxYear = max.startsWith('+') ? addYears(new Date(), +max).getFullYear() : +max;
   return [...Array(maxYear - minYear + 1)].map((_, i) => minYear + i);
 });
+
+/* Days */
+const isInvalid = (date: Date): boolean => {
+  const { notBefore, notAfter, invalid = [], valid } = props;
+  const match = (dates: MaybeDates) => Array.isArray(dates)
+    ? isBetween(date, ...dates, true)
+    : isEqual(date, dates);
+  return isBefore(date, notBefore)
+    || isAfter(date, notAfter)
+    || invalid.some(match)
+    || (valid ? !valid.some(match) : false);
+};
+
+const days = computed(() => {
+  const start = monthStart(cursor.value);
+  const end = monthEnd(cursor.value);
+
+  const [first, last] = Array.isArray(selected.value)
+    ? selected.value
+    : [selected.value, selected.value];
+
+  return fromRange(
+    weekStart(start, props.startSunday),
+    weekEnd(end, props.startSunday),
+  ).map(day => {
+    const disabled = isInvalid(day);
+    return {
+      date: day,
+      disabled,
+      classes: ['calendar__day', {
+        'calendar__day--today': isEqual(day, new Date()),
+        'calendar__day--start': isEqual(day, first),
+        'calendar__day--end': isEqual(day, last),
+        'calendar__day--range': first !== last && isBetween(day, first, last),
+        'calendar__day--off': !isBetween(day, start, end, true),
+        'is-disabled': disabled,
+      }],
+    };
+  });
+});
+
+/* Selection */
+let activeRange = false;
+const select = (date: Date) => {
+  const entry = days.value.find(day => day.date.getTime() === date.getTime());
+  if (props.disabled || entry?.disabled) return;
+  if (Array.isArray(selected.value)) {
+    const start = activeRange ? selected.value[0] : undefined;
+    selected.value = start
+      ? isBefore(date, start) ? [date, start] : [start, date]
+      : [date, date];
+    activeRange = !activeRange;
+    emit('select', [start, date]);
+  } else {
+    selected.value = date;
+    emit('select', date);
+  }
+};
 </script>
 
 <style scoped>
@@ -179,6 +207,8 @@ const years = computed(() => {
 }
 
 .calendar__day {
+  position: relative;
+  background: var(--color-bg);
   color: var(--color-text, currentcolor);
   
   button {
@@ -187,15 +217,14 @@ const years = computed(() => {
     width: 100%;
     aspect-ratio: 1;
     place-items: center;
-    padding: calc(0.5 * var(--spacing));
-    box-sizing: border-box;
-    background: var(--color-bg);
     cursor: pointer;
     color: inherit;
-
+    border-radius: var(--radius);
+    padding: calc(0.5 * var(--spacing));
+    box-sizing: border-box;
+    
     &:is(:hover, :focus) {
-      --color-bg: color-mix(in srgb, var(--color-accent, #333) 5%, transparent);
-
+      background: color-mix(in srgb, var(--color-accent, #333) 10%, transparent);
       border-radius: var(--radius);
     }
   }
@@ -207,35 +236,28 @@ const years = computed(() => {
   font-weight: bold;
 }
 
-.calendar__day--range button { --color-bg: var(--color-range); }
-
 .calendar__day--start,
-.calendar__day--end {
-  button {
-    background: var(--color-accent, #333);
-    color: var(--color-text-accent, #fff);
-    cursor: default;
-  }
+.calendar__day--end,
+.calendar__day--range {
+  background: var(--color-accent, #333) !important;
+  color: var(--color-text-accent, #fff);
+  cursor: default;
 }
 
 .calendar__day--start,
 .calendar__day:nth-child(7n + 1),
 .calendar__day:not(.is-disabled) + .is-disabled,
 .is-disabled + .calendar__day:not(.is-disabled) {
-  button {
-    border-top-left-radius: var(--radius);
-    border-bottom-left-radius: var(--radius);
-  }
+  border-top-left-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
 }
 
 .calendar__day--end,
 .calendar__day:nth-child(7n),
 .is-disabled:has(+ .calendar__day:not(.is-disabled)),
 .calendar__day:not(.is-disabled):has(+ .is-disabled) {
-  button {
-    border-top-right-radius: var(--radius);
-    border-bottom-right-radius: var(--radius);
-  }
+  border-top-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
 }
 
 .calendar__day--off { opacity: 0.25; }
