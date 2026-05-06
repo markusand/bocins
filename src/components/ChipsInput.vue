@@ -9,8 +9,7 @@
         <Chip
           v-for="item in items"
           :key="item"
-          :close="() => remove(item)"
-          primary>
+          :close="() => remove(item)">
           {{ item }}
         </Chip>
       </div>
