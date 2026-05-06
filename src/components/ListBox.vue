@@ -99,7 +99,6 @@ const modifiers = computed(() => {
 
     &:focus-within { --color-border: var(--color-border); }
   }
-
 }
 
 .listbox__option {

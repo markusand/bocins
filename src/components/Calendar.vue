@@ -129,7 +129,6 @@ const years = computed(() => {
 </script>
 
 <style scoped>
-
 /* stylelint-disable no-descending-specificity */
 .calendar {
   --spacing: var(--calendar-spacing, 0.5rem);
@@ -196,6 +195,7 @@ const years = computed(() => {
 
     &:is(:hover, :focus) {
       --color-bg: color-mix(in srgb, var(--color-accent, #333) 5%, transparent);
+
       border-radius: var(--radius);
     }
   }
@@ -203,6 +203,7 @@ const years = computed(() => {
 
 .calendar__day--today {
   --color-text: var(--color-accent, #333);
+  
   font-weight: bold;
 }
 

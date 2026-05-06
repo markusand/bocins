@@ -97,7 +97,7 @@ const onFocus = (event: FocusEvent) => {
     left: anchor(left);
     position-anchor: var(--position-anchor);
     position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-    min-width: anchor-size(width, 0); /* var(--min-width, 0); */
+    min-width: anchor-size(width, 0);
     max-width: var(--max-width, 100dvw);
     margin: 0.125rem 0;
     z-index: 2;

@@ -80,8 +80,8 @@ watch(rating, value => value && emit('rate', value));
     }
   }
 
-  &:not(:disabled) > label:hover input,
-  input:focus { transform: none; }
+  input:focus,
+  &:not(:disabled) > label:hover input { transform: none; }
 
   label:has(:checked),
   label:has(:checked) ~ label {

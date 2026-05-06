@@ -40,13 +40,10 @@ const modifiers = computed(() => {
   };
 });
 
-const checkIconUrl = `url('data:image/svg+xml,${encodeURIComponent(checkSvg)}')`;
+const checkiconurl = `url('data:image/svg+xml,${encodeURIComponent(checkSvg)}')`;
 </script>
 
 <style scoped>
-
-/* stylelint-disable no-descending-specificity */
-
 .toggler { 
   --color-bg: var(--toggler-color, var(--color-border, #888));
   --scaledown: var(--toggle-scale, 0.5);
@@ -56,6 +53,8 @@ const checkIconUrl = `url('data:image/svg+xml,${encodeURIComponent(checkSvg)}')`
   gap: 0.25rem;
   cursor: pointer;
   transition: all 0.3s ease;
+
+  input[type="radio"] { border-radius: 50% !important; }
 
   input[type="checkbox"],
   input[type="radio"] {
@@ -73,19 +72,15 @@ const checkIconUrl = `url('data:image/svg+xml,${encodeURIComponent(checkSvg)}')`
     cursor: pointer;
 
     &:checked {
-      /* stylelint-disable value-keyword-case */
       background:
         var(--color-bg)
-        v-bind(checkIconUrl)
+        v-bind(checkiconurl)
         no-repeat
         center center
         !important;
-      /* stylelint-enable value-keyword-case */
       transform: none;
     }
   }
-
-  input[type="radio"] { border-radius: 50%; }
 
   &:focus-within,
   &:hover {
@@ -97,7 +92,6 @@ const checkIconUrl = `url('data:image/svg+xml,${encodeURIComponent(checkSvg)}')`
   }
 
   &:has(:checked) { --color-bg: var(--color-accent, #333); }
-
 }
 
 .toggler--invalid { --color-bg: var(--color-error, red); }
