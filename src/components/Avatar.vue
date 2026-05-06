@@ -1,13 +1,15 @@
 <template>
-  <picture class="avatar">
+  <div class="avatar">
     <img v-if="src" :src :alt="name">
-    <div v-else class="avatar__initials">{{ initials }}</div>
-    <div v-if="badge || badge === 0 || slots.badge" class="avatar__badge">
+    <div v-else class="avatar__initials" role="img" :aria-label="name">
+      {{ initials }}
+    </div>
+    <div v-if="hasBadge" class="avatar__badge">
       <slot name="badge">
         {{ typeof badge === 'boolean' ? '' : badge }}
       </slot>
     </div>
-  </picture>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -26,6 +28,10 @@ const slots = defineSlots<{
 }>();
 
 const initials = computed(() => props.name.split(' ').slice(0, 2).map(str => str.charAt(0)).join(''));
+const hasBadge = computed(() => {
+  const { badge } = props;
+  return (badge !== undefined && badge !== false) || !!slots.badge;
+});
 </script>
 
 <style scoped>
@@ -76,7 +82,7 @@ const initials = computed(() => props.name.split(' ').slice(0, 2).map(str => str
     color: #fff;
     border: 1px solid var(--color-bg, #fff);
     line-height: 1;
-    font-family: monospace;
+    font-variant-numeric: tabular-nums;
 
     &:empty { padding: 0.25rem; }
   }
