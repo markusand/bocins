@@ -31,7 +31,7 @@ const meta = {
     locale: {
       description: 'The locale to use for the calendar.',
       control: 'select',
-      options: ['en', 'ca', 'zh', 'he'],
+      options: ['en', 'ca', 'zh'],
     },
     startSunday: { description: 'Start the week on Sunday instead of Monday.' },
     disabled: { description: 'Disable the calendar.' },
