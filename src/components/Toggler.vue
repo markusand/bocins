@@ -11,7 +11,7 @@
 
 <script setup lang="ts" generic="T">
 import { computed } from 'vue';
-import { config } from '/@/config';
+import checkSvg from '/@/assets/check.svg?raw';
 
 export type TogglerProps<T> = {
   label?: string;
@@ -40,7 +40,7 @@ const modifiers = computed(() => {
   };
 });
 
-const checkIconUrl = computed(() => `url(${config.iconPath}/check.svg)`);
+const checkIconUrl = `url('data:image/svg+xml,${encodeURIComponent(checkSvg)}')`;
 </script>
 
 <style scoped>
