@@ -87,10 +87,13 @@ const checkIconUrl = `url('data:image/svg+xml,${encodeURIComponent(checkSvg)}')`
 
   input[type="radio"] { border-radius: 50%; }
 
-  &:hover input:not(:disabled) {
-    transform: none;
-    background: none;
-    border-color: var(--color-bg);
+  &:focus-within,
+  &:hover {
+    input:not(:disabled) {
+      transform: none;
+      background: none;
+      border-color: var(--color-bg);
+    }
   }
 
   &:has(:checked) { --color-bg: var(--color-accent, #333); }

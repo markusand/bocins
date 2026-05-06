@@ -109,6 +109,10 @@ const modifiers = computed(() => {
   &:hover { background: color-mix(in srgb, var(--color) 10%, transparent); }
 }
 
+:focus + .listbox__option {
+  background: color-mix(in srgb, var(--color) 10%, transparent);
+}
+
 :checked + .listbox__option {
   background: var(--color);
   color: var(--color-text-accent, #fff);

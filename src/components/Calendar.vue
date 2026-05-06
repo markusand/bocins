@@ -193,6 +193,11 @@ const years = computed(() => {
     background: var(--color-bg);
     cursor: pointer;
     color: inherit;
+
+    &:is(:hover, :focus) {
+      --color-bg: color-mix(in srgb, var(--color-accent, #333) 5%, transparent);
+      border-radius: var(--radius);
+    }
   }
 }
 

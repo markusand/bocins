@@ -62,6 +62,7 @@ watch(rating, value => value && emit('rate', value));
       transform: scale(0.6);
       transition: all 0.3s ease;
       cursor: inherit;
+      outline: none;
     }
 
     &:deep(.icon) {
@@ -79,7 +80,8 @@ watch(rating, value => value && emit('rate', value));
     }
   }
 
-  &:not(:disabled) > label:hover input { transform: none; }
+  &:not(:disabled) > label:hover input,
+  input:focus { transform: none; }
 
   label:has(:checked),
   label:has(:checked) ~ label {

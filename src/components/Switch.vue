@@ -43,6 +43,8 @@ const type = computed(() => {
 
   &:has(:checked) { background: var(--color-on, #7c7); }
 
+  &:focus-within { box-shadow: inset 0 0 0 1px var(--color-off, #8884); }
+
   input {
     all: unset;
     margin: var(--spacing);

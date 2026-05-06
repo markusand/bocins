@@ -58,7 +58,6 @@ onMounted(() => !activePanel.value && activate(tabs.value[0]?.id));
   display: flex;
   border-bottom: 1px solid var(--tabs-color-border, var(--color-border, #8883));
   margin-bottom: var(--spacing);
-  gap: calc(2 * var(--spacing));
   align-items: flex-end;
 }
 
@@ -66,14 +65,14 @@ onMounted(() => !activePanel.value && activate(tabs.value[0]?.id));
   --color-text: color-mix(in srgb, currentcolor 75%, transparent);
 
   all: unset;
-  padding: var(--spacing) 0;
+  padding: var(--spacing);
   color: var(--color-text);
   margin-bottom: -1px;
   position: relative;
   cursor: pointer;
   white-space: nowrap;
 
-  &:hover { --color-text: var(--color-accent, #333); }
+  &:hover, &:focus { --color-text: var(--color-accent, #333) }
 }
 
 .tabs__tab--active {
