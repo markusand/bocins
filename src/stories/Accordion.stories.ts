@@ -29,7 +29,9 @@ export const Base: Story = {
     },
     template: `<Accordion v-model="active">
       <Collapser name="1">
-        <template #toggler="{ open }">Collapser #1 ({{ open ? 'open' : 'closed' }})</template>
+        <template #toggler="{ open }">
+          Collapser #1 ({{ open ? 'open' : 'closed' }})
+        </template>
         Lorem ipsum dolor sit amet consectetur adipisicing elit.
       </Collapser>
       <Collapser title="Collapser #2" name="collapser2">

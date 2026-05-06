@@ -1,6 +1,6 @@
 <template>
   <div class="accordion">
-    <slot :active :activate />
+    <slot :active />
   </div>
 </template>
 
@@ -8,14 +8,10 @@
 import { provide } from 'vue';
 
 defineSlots<{
-  default: (props: { active: string | undefined, activate: (name?: string) => void }) => void;
+  default: (props: { active: string | undefined }) => void;
 }>();
 
 const active = defineModel<string>();
 
-const activate = (name?: string) => {
-  active.value = name;
-};
-
-provide('accordion', { active, activate });
+provide('accordion', active);
 </script>

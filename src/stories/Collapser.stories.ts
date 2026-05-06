@@ -17,10 +17,12 @@ const meta = {
     title: { description: 'The title of the collapser.' },
     open: { description: 'The open state of the collapser.' },
     name: { description: 'The name of the collapser. Used as identifier in Accordion' },
+    disabled: { description: 'The collapser is disabled' },
   },
   args: {
     title: 'Collapser',
     open: false,
+    disabled: false,
   },
 } satisfies Meta<typeof Collapser>;
 

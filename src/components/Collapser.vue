@@ -1,27 +1,31 @@
 <template>
-  <details class="collapser" :open="isOpen" @toggle.stop="toggle">
+  <details
+    :class="['collapser', { 'is-disabled': disabled }]"
+    :open="isOpen"
+    @toggle.stop="toggle">
     <summary class="collapser__toggler">
       <div class="collapser__title">
-        <slot name="toggler" :open="hasBeenOpen">
+        <slot name="toggler" :open="isOpen">
           {{ title }}
         </slot>
       </div>
       <Icon src="chevron-down.svg" />
     </summary>
     <div class="collapser__content">
-      <slot :open="hasBeenOpen" />
+      <slot :open="isOpen" />
     </div>
   </details>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, inject, useId, type Ref } from 'vue';
+import { ref, watch, watchEffect, inject, useId, type Ref } from 'vue';
 import Icon from './Icon.vue';
 
 export type CollapserProps = {
   title?: string;
   open?: boolean; 
   name?: string;
+  disabled?: boolean;
 };
 
 const props = withDefaults(defineProps<CollapserProps>(), {
@@ -41,26 +45,28 @@ const emit = defineEmits<{
   toggle: [name: string];
 }>();
 
-const accordion = inject<{
-  active: Ref<string | undefined>,
-  activate: (nam?: string) => void,
-} | null>('accordion', null);
-
-const hasBeenOpen = ref(props.open); // Triggered programmatically
-const isOpen = computed(() => props.open || accordion?.active.value === props.name); // Triggered automatically
+const isOpen = ref(props.open);
 
 const toggle = (event: Event) => {
   const { open } = event.target as HTMLDetailsElement;
-  if (open) {
-    accordion?.activate(props.name);
-    emit('open', props.name);
-  } else {
-    if (accordion?.active.value === props.name) accordion.activate();
-    emit('close', props.name);
-  }
-  hasBeenOpen.value = open;
-  emit('toggle', props.name);
+  isOpen.value = open;
 };
+
+// Inject state from (possible) Accordion parent
+const accordion = inject<Ref<string> | null>('accordion', null);
+
+// Update current Collapser state from props or Accordion
+watchEffect(() => { isOpen.value = props.open || props.name === accordion?.value; });
+
+watch(isOpen, open => {
+  // Emit events
+  if (open) emit('open', props.name);
+  else emit('close', props.name);
+  emit('toggle', props.name);
+
+  // Update Accordion
+  if (accordion && open) accordion.value = props.name;
+});
 </script>
 
 <style scoped>
@@ -71,19 +77,12 @@ const toggle = (event: Event) => {
   --spacing: var(--collapser-spacing, 0.75rem);
 
   padding: 0 0 0.1px;
+  color: var(--color-text);
+  background: var(--color-bg);
 
   & + & { border-top: 1px solid #8882; }
 
   .icon { --size: 1em; }
-
-  &[disabled="true"] {
-    cursor: not-allowed;
-
-    summary {
-      pointer-events: none;
-      opacity: 0.5;
-    }
-  }
 }
 
 .collapser__toggler {
