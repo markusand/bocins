@@ -97,6 +97,7 @@ onUnmounted(() => clearInterval(running.value));
   scroll-snap-align: center;
   flex: 0 0 100%;
   position: relative;
+  z-index: 0;
 }
 
 .carousel__controls {
@@ -106,6 +107,7 @@ onUnmounted(() => clearInterval(running.value));
   margin: 0;
   display: flex;
   gap: 0.5rem;
+  z-index: 1;
 }
 
 .carousel__controls--top-left { top: 0; }
