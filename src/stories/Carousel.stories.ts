@@ -12,6 +12,7 @@ const items = [
 
 const meta = {
   title: 'Carousel',
+  // @ts-expect-error generic component
   component: Carousel,
   tags: ['autodocs'],
   parameters: {
@@ -52,6 +53,69 @@ export const Base: Story = {
     template: `<Carousel v-bind="args">
       <template #default="{ item }">
         <Cover :src="item.url" :license="\`photo by \${item.author} on Unsplash\`" />
+      </template>
+    </Carousel>`,
+  }),
+};
+
+export const CustomControls: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Replace the entire navigation bar with a custom layout using the <code>#controls</code> slot.',
+      },
+    },
+  },
+  render: args => ({
+    components: { Carousel, Cover },
+    setup: () => ({ args }),
+    template: `<Carousel v-bind="args">
+      <template #default="{ item }">
+        <Cover :src="item.url" :license="\`photo by \${item.author} on Unsplash\`" />
+      </template>
+      <template #controls="{ active, goto }">
+        <div style="display:flex;align-items:center;justify-content:center;gap:1rem;padding:0.5rem">
+          <button type="button" :disabled="active === 0" @click.prevent="goto(active - 1)">&#8592;</button>
+          <span>{{ active + 1 }} / {{ args.items.length }}</span>
+          <button type="button" :disabled="active === args.items.length - 1" @click.prevent="goto(active + 1)">&#8594;</button>
+        </div>
+      </template>
+    </Carousel>`,
+  }),
+};
+
+export const CustomIndicators: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Customize each individual navigation indicator using the <code>#control</code> slot.',
+      },
+    },
+  },
+  args: { interval: 5 },
+  render: args => ({
+    components: { Carousel, Cover },
+    setup: () => ({ args }),
+    template: `<Carousel v-bind="args">
+      <template #default="{ item }">
+        <Cover :src="item.url" :license="\`photo by \${item.author} on Unsplash\`" />
+      </template>
+      <template #control="{ item, current, active, goto }">
+        <button
+          type="button"
+          :style="{
+            width: '3rem',
+            aspectRatio: '1',
+            border: 'none',
+            borderRadius: '0.25rem',
+            cursor: 'pointer',
+            opacity: current === active ? 1 : 0.5,
+            padding: 0,
+            overflow: 'hidden',
+          }"
+          @click.prevent="goto()">
+          <img :src="item.url" style="width:100%;height:100%;object-fit:cover" />
+        </button>
       </template>
     </Carousel>`,
   }),
