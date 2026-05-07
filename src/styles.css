@@ -124,8 +124,7 @@
 }
 
 .is-disabled .is-selector-toggler,
-:disabled .is-selector-toggler,
-.is-selector-toggler[class*="--disabled"] {
+:disabled .is-selector-toggler {
   --color-bg: color-mix(in srgb, var(--color-disabled, #8886) 10%, transparent) !important;
   --color-text: var(--color-disabled, #8886) !important;
   --border-width: 0 !important;

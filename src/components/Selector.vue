@@ -59,7 +59,7 @@ const selectorProps = computed(() => {
   return { disabled, block, width, top, right };
 });
 
-const classes = computed(() => ['selector__toggler', 'is-selector-toggler', {
+const classes = computed(() => ['is-selector-toggler', {
   'selector__toggler--invalid': props.invalid,
   'selector__toggler--disabled': props.disabled,
 }]);
@@ -94,6 +94,4 @@ const clear = () => {
     width: fit-content;
   }
 }
-
-.selector:focus-within .selector__toggler { --color-border: var(--color-accent, #333); }
 </style>

@@ -80,6 +80,7 @@ const onFocus = (event: FocusEvent) => {
 .dropdown {
   display: inline-flex;
   flex-direction: column;
+  outline: none;
   anchor-name: var(--anchor-name);
 
   .dropdown__overlay {

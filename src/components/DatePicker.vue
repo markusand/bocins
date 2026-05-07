@@ -58,14 +58,10 @@ const datepickerProps = computed(() => {
   return { disabled, block, width, top, right };
 });
 
-const togglerClasses = computed(() => [
-  'datepicker__toggler',
-  'is-selector-toggler',
-  {
-    'datepicker__toggler--invalid': props.invalid,
-    'datepicker__toggler--disabled': props.disabled,
-  }
-]);
+const togglerClasses = computed(() => ['is-selector-toggler', {
+  'datepicker__toggler--invalid': props.invalid,
+  'datepicker__toggler--disabled': props.disabled,
+}]);
 
 defineSlots<{
   date?: (props: { date: Date }) => void;
