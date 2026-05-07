@@ -11,12 +11,12 @@
 import { watch } from 'vue';
 import Icon from './Icon.vue';
 
-export type Props = {
+export type RatingProps = {
   max?: number | string;
   disabled?: boolean;
 };
 
-withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<RatingProps>(), {
   max: 5,
 });
 

@@ -17,7 +17,7 @@
 import { computed } from 'vue';
 import { toWidth, toHeight } from '/@/utils';
 
-export type Props = {
+export type LongTextProps = {
   maxLength?: number | string;
   width?: number | string;
   height?: number | string;
@@ -29,7 +29,7 @@ export type Props = {
   expandable?: boolean;
 };
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<LongTextProps>(), {
   width: 20,
   height: 5,
   placeholder: '',

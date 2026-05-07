@@ -12,12 +12,12 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import Icon from './Icon.vue';
 
-export type Props = {
+export type HotKeyProps = {
   keys: string;
   disabled?: boolean;
 };
 
-const props = defineProps<Props>();
+const props = defineProps<HotKeyProps>();
 
 const isMac = navigator.platform.toUpperCase().includes('MAC');
 

@@ -15,13 +15,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-export type Props = {
+export type AvatarProps = {
   name: string;
   src: string | null | undefined;
   badge?: boolean | number;
 };
 
-const props = defineProps<Props>();
+const props = defineProps<AvatarProps>();
 
 const slots = defineSlots<{
   badge?: () => void;

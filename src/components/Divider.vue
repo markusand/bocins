@@ -5,11 +5,11 @@
 </template>
 
 <script setup lang="ts">
-export type Props = {
+export type DividerProps = {
   label?: string;
 };
 
-defineProps<Props>();
+defineProps<DividerProps>();
 
 defineSlots<{
   default?: () => void;

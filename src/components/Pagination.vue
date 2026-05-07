@@ -37,14 +37,14 @@ import Button from './Button.vue';
 import Icon from './Icon.vue';
 import ToggleButton from './ToggleButton.vue';
 
-export type Props = {
+export type PaginationProps = {
   pages: number;
   truncate?: number;
   disabled?: boolean;
   controls?: boolean;
 };
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<PaginationProps>(), {
   truncate: 5,
 });
 

@@ -6,13 +6,13 @@
 </template>
 
 <script setup lang="ts">
-import Popover, { type Props as PopoverProps } from './Popover.vue';
+import Popover, { type PopoverProps } from './Popover.vue';
 
-export type Props = {
+export type TooltipProps = {
   text?: string;
 } & PopoverProps;
 
-const props = defineProps<Props>();
+const props = defineProps<TooltipProps>();
 
 defineSlots<{
   default: () => void;

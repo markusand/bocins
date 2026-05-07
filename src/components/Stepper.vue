@@ -20,16 +20,16 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import Input, { type Props as InputProps } from './Input.vue';
+import Input, { type InputProps } from './Input.vue';
 import Icon from './Icon.vue';
 
-export type Props = {
+export type StepperProps = {
   min?: number | string;
   max?: number | string;
   step?: number | string;
 } & Omit<InputProps, 'type' | 'prefix' | 'suffix'>;
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<StepperProps>(), {
   min: -Infinity,
   max: Infinity,
   step: 1,

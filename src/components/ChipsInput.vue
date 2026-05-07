@@ -19,14 +19,14 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import Input, { type Props as InputProps } from './Input.vue';
+import Input, { type InputProps } from './Input.vue';
 import Chip from './Chip.vue';
 
-export type Props = {
+export type ChipsInputProps = {
   separator?: string;
 } & Omit<InputProps, 'prefix' | 'type'>;
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<ChipsInputProps>(), {
   separator: ','
 });
 

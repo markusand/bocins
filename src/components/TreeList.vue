@@ -38,7 +38,7 @@
 import Icon from './Icon.vue';
 import type { KeyOfAttribute as KoA, MaybeReadonly } from '/@/types';
 
-export type Props<T, K> = {
+export type TreeListProps<T, K> = {
   schema: MaybeReadonly<T[]>;
   nameNode: KoA<T, PropertyKey>;
   childrenNode: K;
@@ -47,7 +47,7 @@ export type Props<T, K> = {
   path?: PropertyKey[];
 };
 
-const props = withDefaults(defineProps<Props<T, K>>(), {
+const props = withDefaults(defineProps<TreeListProps<T, K>>(), {
   path: () => [],
 });
 

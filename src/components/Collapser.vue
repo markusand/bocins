@@ -18,14 +18,14 @@
 import { ref, watch, computed, watchEffect, inject, useId, type Ref } from 'vue';
 import Icon from './Icon.vue';
 
-export type Props = {
+export type CollapserProps = {
   title?: string;
   open?: boolean; 
   name?: string;
   disabled?: boolean;
 };
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<CollapserProps>(), {
   title: '',
   open: false,
   name: () => useId(),

@@ -9,12 +9,12 @@ import { computed } from 'vue';
 import { vSvgInline } from '/@/utils';
 import { config } from '/@/config';
 
-export type Props = {
+export type IconProps = {
   src: string;
   size?: 'small' | 'medium' | 'large';
 };
 
-const props = defineProps<Props>();
+const props = defineProps<IconProps>();
 
 const src = computed(() => (
   /^(https?:)?\//.test(props.src)

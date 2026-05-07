@@ -58,13 +58,13 @@ export type ActionGroup<T, K extends string> = {
   actions: MaybeReadonly<Action<T, K>[]>;
 }
 
-export type Props<T, K extends string> = {
+export type ActionMenuProps<T, K extends string> = {
   item: T,
   actions: MaybeReadonly<ActionGroup<T, K>[]>;
   disabled?: boolean;
 };
 
-defineProps<Props<T, K>>();
+defineProps<ActionMenuProps<T, K>>();
 
 defineSlots<{
   toggler?: () => void;

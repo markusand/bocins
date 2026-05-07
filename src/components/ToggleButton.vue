@@ -6,15 +6,15 @@
 
 <script setup lang="ts" generic="T">
 import { computed } from 'vue';
-import Button, { type Props as ButtonProps } from './Button.vue';
+import Button, { type ButtonProps } from './Button.vue';
 import type { MaybeReadonly } from '/@/types';
 
-export type Props<T> = {
+export type ToggleButtonProps<T> = {
   value?: MaybeReadonly<T>;
   required?: boolean; 
 } & ButtonProps;
 
-const props = defineProps<Props<T>>();
+const props = defineProps<ToggleButtonProps<T>>();
 
 const selected = defineModel<T | T[] | undefined>({ required: true });
 

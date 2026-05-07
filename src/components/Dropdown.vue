@@ -23,7 +23,7 @@ import Icon from './Icon.vue';
 import Button from './Button.vue';
 import { toWidth } from '/@/utils';
 
-export type Props = {
+export type DropdownProps = {
   icon?: string;
   label?: string;
   top?: boolean;
@@ -33,7 +33,7 @@ export type Props = {
   width?: number | string;
 };
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<DropdownProps>(), {
   icon: 'chevron-down.svg',
   label: '',
 });

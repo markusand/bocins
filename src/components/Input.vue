@@ -45,7 +45,7 @@ export type InputType =
   | 'url'
   | 'week';
 
-export type Props = {
+export type InputProps = {
   type?: InputType;
   width?: number | string;
   placeholder?: string;
@@ -58,7 +58,7 @@ export type Props = {
   block?: boolean;
 };
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<InputProps>(), {
   type: 'text',
   width: 10,
   placeholder: '',

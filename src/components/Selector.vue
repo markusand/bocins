@@ -39,17 +39,17 @@
 
 <script setup lang="ts" generic="T">
 import { computed } from 'vue';
-import Dropdown, { type Props as DropdownProps } from './Dropdown.vue';
-import ListBox, { type Props as ListBoxProps } from './ListBox.vue';
+import Dropdown, { type DropdownProps } from './Dropdown.vue';
+import ListBox, { type ListBoxProps } from './ListBox.vue';
 import Icon from './Icon.vue';
 
-export type Props<T> = {
+export type SelectorProps<T> = {
   clearable?: boolean;
   placeholder?: string;
 } & Pick<DropdownProps, 'disabled' | 'block' | 'width' | 'top' | 'right'>
   & ListBoxProps<T>;
 
-const props = withDefaults(defineProps<Props<T>>(), {
+const props = withDefaults(defineProps<SelectorProps<T>>(), {
   formatter: String,
   placeholder: 'Select',
 });

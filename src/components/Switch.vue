@@ -12,12 +12,12 @@
 import { computed } from 'vue';
 import type { MaybeReadonly } from '/@/types';
 
-export type Props<T> = {
+export type SwitchProps<T> = {
   value?: MaybeReadonly<T>;
   disabled?: boolean;
 };
 
-defineProps<Props<T>>();
+defineProps<SwitchProps<T>>();
 
 const selected = defineModel<T | T[] | undefined>({ required: true });
 
