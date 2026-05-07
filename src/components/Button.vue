@@ -69,7 +69,6 @@ const width = computed(() => toWidth(props.width));
 
   /* States */
   &.btn--even { padding: var(--spacing); }
-  &.btn--block { display: flex; }
 
   &.btn--small {
     --spacing: calc(0.75 * var(--btn-spacing, 0.5rem));

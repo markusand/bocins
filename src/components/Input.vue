@@ -87,7 +87,6 @@ const clear = () => { value.value = ''; };
 const classes = computed(() => ['input', 'is-input', {
   'input--disabled': props.disabled,
   'input--invalid': props.invalid,
-  'input--block': props.block,
   'is-block': props.block,
 }]);
 

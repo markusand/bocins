@@ -51,8 +51,8 @@ const emit = defineEmits<{
 const classes = computed(() => ['dropdown', {
   'dropdown--top': props.top,
   'dropdown--right': props.right,
-  'dropdown--block': props.block,
-  'dropdown--disabled': props.disabled,
+  'is-block': props.block,
+  'is-disabled': props.disabled,
 }]);
 
 const anchorId = useId();
@@ -82,12 +82,6 @@ const onFocus = (event: FocusEvent) => {
   flex-direction: column;
   anchor-name: var(--anchor-name);
 
-  &.dropdown--block {
-    width: 100%;
-    margin-inline: 0;
-    flex: 0 0 100%;
-  }
-
   .dropdown__overlay {
     position: absolute;
     top: anchor(bottom);
@@ -102,7 +96,7 @@ const onFocus = (event: FocusEvent) => {
 }
 
 :disabled .dropdown__overlay,
-.dropdown--disabled .dropdown__overlay { display: none; }
+.is-disabled .dropdown__overlay { display: none; }
 
 .dropdown--top > .dropdown__overlay {
   bottom: anchor(top);

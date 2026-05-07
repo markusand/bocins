@@ -32,7 +32,6 @@ const selected = defineModel<T | T[] | undefined>({ required: true });
 
 const classes = computed(() => ['toggler', {
   'toggler--invalid': props.invalid,
-  'toggler--block': props.block,
   'is-disabled': props.disabled,
   'is-block': props.block,
 }]);
