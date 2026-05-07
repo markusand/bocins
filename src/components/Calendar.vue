@@ -181,7 +181,7 @@ const select = (date: Date) => {
     justify-content: space-between;
 
     .selector {
-      &:deep(.selector__toggler) {
+      &:deep(.is-selector-toggler) {
         --spacing: 0;
         --border-width: 0;
         --color-bg: none !important;
