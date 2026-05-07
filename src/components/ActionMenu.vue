@@ -36,14 +36,14 @@
   </Dropdown>
 </template>
 
-<script setup lang="ts" generic="T, K extends string">
+<script setup lang="ts" generic="T, K extends string = string">
 import type { MaybeReadonly } from '/@/types';
 import Dropdown from './Dropdown.vue';
 import Button from './Button.vue';
 import Icon from './Icon.vue';
 import HotKey from './HotKey.vue';
 
-export type Action<T, K extends string> = {
+export type Action<T, K extends string = string> = {
   id: K;
   label: string;
   icon?: string;
@@ -53,7 +53,7 @@ export type Action<T, K extends string> = {
   groups?: ActionGroup<T, K>[];
 };
 
-export type ActionGroup<T, K extends string> = {
+export type ActionGroup<T, K extends string = string> = {
   name?: string;
   actions: MaybeReadonly<Action<T, K>[]>;
 }

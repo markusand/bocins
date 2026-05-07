@@ -21,7 +21,7 @@ const actions: ActionGroup<User>[] = [
       { id: 'delete', label: 'Delete', icon: 'trash.svg', attrs: { delete: true }, onClick: console.log },
     ],
   },
-];
+] as const;
 
 const meta = {
   title: 'ActionMenu',
