@@ -45,8 +45,7 @@ const isMin = computed(() => value.value != null && value.value <= +props.min);
 const isMax = computed(() => value.value != null && value.value >= +props.max); 
 
 const increase = (step = +props.step) => {
-  const { min, max } = props;
-  value.value = Math.max(+min, Math.min(+max, (value.value || 0) + step));
+  value.value = Math.max(+props.min, Math.min(+props.max, (value.value || 0) + step));
 };
 
 const decrease = (step = +props.step) => increase(-1 * step);

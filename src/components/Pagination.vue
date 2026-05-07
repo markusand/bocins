@@ -55,9 +55,8 @@ defineSlots<{
 }>();
 
 const range = computed(() => {
-  const { pages, truncate } = props;
-  const length = Math.min(truncate, pages);
-  const max = Math.max(1, pages - length - 1);
+  const length = Math.min(props.truncate, props.pages);
+  const max = Math.max(1, props.pages - length - 1);
   const min = Math.max(1, selected.value - Math.floor(length / 2));
   const base = Math.min(max, min);
   return { base, length };
