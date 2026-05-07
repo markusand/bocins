@@ -43,6 +43,7 @@ const classes = computed(() => ['popover__content', `popover__content--${props.p
   position: relative;
   display: inline-block;
   anchor-name: var(--anchor-name);
+  outline: 0;
 }
 
 .popover__content {
@@ -52,18 +53,26 @@ const classes = computed(() => ['popover__content', `popover__content--${props.p
   color: var(--color-text, currentcolor);
   padding: var(--spacing, 0);
   border-radius: 0.25rem;
-  box-shadow: var(--shadow, 0 0 1rem 0.25rem #8882);
+  box-shadow: 0 0 0 1px var(--color-border, #8882);
   display: none;
   z-index: 2;
   position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
 
   &:hover { display: block; }
 
-  &::before {
+  &::before, &::after {
+    --color: var(--color-bg, #fff);
+ 
     content: "";
     position: absolute;
     border: 0.5rem solid transparent;
     transform: translateX(-50%);
+  }
+
+  &::before {
+    --color: var(--color-border, #8882);
+
+    border-width: calc(0.5rem + 1.5px);
   }
 }
 
@@ -76,8 +85,8 @@ const classes = computed(() => ['popover__content', `popover__content--${props.p
   margin: 0.5rem 0 0;
   transform: translateX(-50%);
 
-  &::before {
-    border-bottom-color: var(--color-bg, #fff);
+  &::before, &::after {
+    border-bottom-color: var(--color);
     bottom: 100%;
     left: 50%;
   }
@@ -89,8 +98,8 @@ const classes = computed(() => ['popover__content', `popover__content--${props.p
   margin: 0 0 0.5rem;
   transform: translateX(-50%);
 
-  &::before {
-    border-top-color: var(--color-bg, #fff);
+  &::before, &::after {
+    border-top-color: var(--color);
     top: 100%;
     left: 50%;
   }
@@ -102,8 +111,8 @@ const classes = computed(() => ['popover__content', `popover__content--${props.p
   margin: 0 0.5rem 0 0;
   transform: translateY(-50%);
 
-  &::before {
-    border-left-color: var(--color-bg, #fff);
+  &::before, &::after {
+    border-left-color: var(--color);
     top: 50%;
     left: 100%;
     transform: translate(0, -50%);
@@ -116,8 +125,8 @@ const classes = computed(() => ['popover__content', `popover__content--${props.p
   margin: 0 0 0 0.5rem;
   transform: translateY(-50%);
 
-  &::before {
-    border-right-color: var(--color-bg, #fff);
+  &::before, &::after {
+    border-right-color: var(--color);
     top: 50%;
     right: 100%;
     transform: translate(0, -50%);
