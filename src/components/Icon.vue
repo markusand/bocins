@@ -1,7 +1,7 @@
 <template>
-  <picture :class="['icon', size && `icon--${size}`]">
+  <span :class="classes">
     <img v-svg-inline :src>
-  </picture>
+  </span>
 </template>
 
 <script setup lang="ts">
@@ -21,6 +21,8 @@ const src = computed(() => (
     ? props.src
     : `${config.iconPath}/${props.src}`
 ));
+
+const classes = computed(() => ['icon', props.size && `icon--${props.size}`]);
 </script>
 
 <style scoped>

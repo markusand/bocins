@@ -6,7 +6,7 @@
       </div>
     </div>
     <slot v-if="controls" name="controls" :active="active" :goto="goto">
-      <ul :class="['carousel__controls', `carousel__controls--${controls}`]">
+      <ul :class="controls">
         <li v-for="item, i in items" :key="i">
           <slot
             name="control"
@@ -16,7 +16,7 @@
             :goto="() => goto(i)">
             <button
               type="button"
-              :class="['carousel__control', { 'carousel__control--active': isActive(i) }]"
+              :class="control(i)"
               @click.prevent="goto(i)" />
           </slot>
         </li>
@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { ref, watch, onUnmounted } from 'vue';
+import { ref, computed, watch, onUnmounted } from 'vue';
 import type { MaybeReadonly } from '/@/types';
 
 export type CarouselProps<T> = {
@@ -46,7 +46,6 @@ defineSlots<{
 const active = defineModel<number>({ default: 0 });
 
 const wrapper = ref<HTMLDivElement>();
-const isActive = (i: number) => i === active.value;
 
 const goto = (i: number) => { active.value = i; };
 
@@ -61,6 +60,18 @@ watch(active, i => {
   wrapper.value?.children[index]?.scrollIntoView({ behavior: 'smooth' });
   window.scroll(scrollX, scrollY);
 });
+
+const controls = computed(() => {
+  if (!props.controls) return false;
+  return [
+    'carousel__controls',
+    `carousel__controls--${props.controls}`
+  ];
+});
+
+const control = (i: number) => ['carousel__control', {
+  'carousel__control--active': i === active.value,
+}];
 
 const running = ref<ReturnType<typeof setInterval>>();
 

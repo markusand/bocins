@@ -1,13 +1,10 @@
 <template>
-  <fieldset
-    :class="['passcode', { 'passcode--invalid': invalid }]"
-    :disabled
-    @click.prevent="focusLast">
+  <fieldset :class="classes" :disabled @click.prevent="focusLast">
     <input
       v-for="i in length"
       :key="i"
       v-model="passcode[i - 1]"
-      :class="{ 'is-invalid': invalid, 'is-disabled': disabled }"
+      class="is-input"
       type="password"
       maxlength="1"
       placeholder=" "
@@ -19,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 export type PasscodeProps = {
   length: number;
@@ -34,6 +31,10 @@ const emit = defineEmits<{
   change: [passcode: string];
   fill: [passcode: string];
 }>();
+
+const classes = computed(() => ['passcode', {
+  'is-invalid': props.invalid,
+}]);
 
 const passcode = ref<string[]>(Array(props.length).fill(''));
 
@@ -67,7 +68,6 @@ const focusLast = (event: Event) => {
 </script>
 
 <style scoped>
-
 .passcode {
   --size: 2rem;
 
@@ -97,6 +97,5 @@ const focusLast = (event: Event) => {
       outline: 0.125em solid color-mix(in srgb, var(--color-accent, #333) 10%, transparent);
     }
   }
-
 }
 </style>

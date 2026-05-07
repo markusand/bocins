@@ -1,8 +1,7 @@
 <template>
   <button
-    class="btn"
     type="button"
-    :class="modifiers"
+    :class="classes"
     :style="width"
     :disabled>
     <slot />
@@ -29,16 +28,15 @@ defineSlots<{
   default: () => void;
 }>();
 
-const modifiers = computed(() => {
-  const { flat, ghost, sm, lg, even, block } = props;
-  const variant = flat ? 'flat' : ghost ? 'ghost' : false;
-  const size = sm ? 'small' : lg ? 'large' : false;
-  return {
+const classes = computed(() => {
+  const variant = props.flat ? 'flat' : props.ghost ? 'ghost' : false;
+  const size = props.sm ? 'small' : props.lg ? 'large' : false;
+  return ['btn', {
     [`btn--${variant}`]: !!variant,
     [`btn--${size}`]: !!size,
-    'btn--even': even,
-    'is-block': block,
-  };
+    'btn--even': props.even,
+    'is-block': props.block,
+  }];
 });
 
 const width = computed(() => toWidth(props.width));

@@ -1,18 +1,23 @@
 <template>
-  <span :class="['avatar-group', { 'avatar-group--stacked': stacked }]">
+  <span :class="classes">
     <slot />
   </span>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 
 export type AvatarGroupProps = {
   stacked?: boolean;
 };
 
-defineProps<AvatarGroupProps>();
+const props = defineProps<AvatarGroupProps>();
 
 defineSlots<{ default: () => void; }>();
+
+const classes = computed(() => ['avatar-group', {
+  'avatar-group--stacked': props.stacked,
+}]);
 </script>
 
 <style scoped>

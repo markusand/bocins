@@ -3,7 +3,7 @@
     class="selector"
     v-bind="selectorProps">
     <template #toggler>
-      <div :class="['selector__toggler', 'is-selector-toggler', togglerModifiers]">
+      <div :class="classes">
         <div v-if="isSelected(selected)" class="selector__selected">
           <slot v-if="Array.isArray(selected)" name="selections" :items="selected">
             {{ selected.map(formatter).join(', ') }}
@@ -59,10 +59,10 @@ const selectorProps = computed(() => {
   return { disabled, block, width, top, right };
 });
 
-const togglerModifiers = computed(() => ({
+const classes = computed(() => ['selector__toggler', 'is-selector-toggler', {
   'selector__toggler--invalid': props.invalid,
   'selector__toggler--disabled': props.disabled,
-}));
+}]);
 
 defineSlots<{
   default?: (props: { item: T }) => void;

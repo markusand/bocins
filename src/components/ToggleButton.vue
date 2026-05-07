@@ -1,8 +1,5 @@
 <template>
-  <Button
-    :class="['toggle-button', { 'toggle-button--active': active }]"
-    v-bind="props"
-    @click.prevent.stop="toggle">
+  <Button :class="classes" v-bind="props" @click.prevent.stop="toggle">
     <slot />
   </Button>
 </template>
@@ -25,13 +22,17 @@ defineSlots<{
   default: () => void;
 }>();
 
-const active = computed(() => (
-  typeof selected.value === 'boolean'
+const classes = computed(() => {
+  const active = typeof selected.value === 'boolean'
     ? selected.value
     : Array.isArray(selected.value)
       ? props.value && selected.value.includes(props.value)
-      : selected.value === props.value
-));
+      : selected.value === props.value;
+  
+  return ['toggle-button', {
+    'toggle-button--active': active
+  }];
+});
 
 const toggle = () => {
   selected.value = typeof selected.value === 'boolean'

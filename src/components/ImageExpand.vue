@@ -1,6 +1,6 @@
 <template>
   <Teleport to="body" :disabled="!expanded">
-    <picture :class="['image-expand', modifiers]">
+    <picture :class="classes">
       <img :src="expanded ? src : thumbnail || src" :alt>
       <div class="image-expand__controls">
         <slot name="controls" />
@@ -30,9 +30,9 @@ defineSlots<{
 
 const expanded = ref(false);
 
-const modifiers = computed(() => ({
+const classes = computed(() => ['image-expand', {
   'image-expand--expanded': expanded.value,
-}));
+}]);
 </script>
 
 <style scoped>

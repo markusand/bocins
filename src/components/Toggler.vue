@@ -1,5 +1,5 @@
 <template>
-  <label class="toggler" :class="modifiers">
+  <label :class="classes">
     <input
       v-model="selected"
       :type="props.radio ? 'radio' : 'checkbox'"
@@ -30,15 +30,12 @@ defineSlots<{
 
 const selected = defineModel<T | T[] | undefined>({ required: true });
 
-const modifiers = computed(() => {
-  const { invalid, block, disabled } = props;
-  return {
-    'toggler--invalid': invalid,
-    'toggler--block': block,
-    'is-disabled': disabled,
-    'is-block': block,
-  };
-});
+const classes = computed(() => ['toggler', {
+  'toggler--invalid': props.invalid,
+  'toggler--block': props.block,
+  'is-disabled': props.disabled,
+  'is-block': props.block,
+}]);
 
 const checkiconurl = `url('data:image/svg+xml,${encodeURIComponent(checkSvg)}')`;
 </script>

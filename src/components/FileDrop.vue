@@ -1,5 +1,5 @@
 <template>
-  <label :class="['file-drop', modifiers]" :style="size" v-on="onDragDrop">
+  <label :class="classes" :style="size" v-on="onDragDrop">
     <input v-bind="input" type="file" @change="onChange">
     <slot v-if="!files.length">
       <Icon src="plus.svg" size="medium" />
@@ -74,16 +74,13 @@ const size = computed(() => ({
   ...toHeight(props.height),
 }));
 
-const modifiers = computed(() => {
-  const { block, disabled } = props;
-  return {
-    [`file-drop--${state.value}`]: state.value,
-    'file-drop--disabled': disabled,
-    'file-drop--block': block,
-    'is-disabled': disabled,
-    'is-block': block,
-  };
-});
+const classes = computed(() => ['file-drop', {
+  [`file-drop--${state.value}`]: state.value,
+  'file-drop--disabled': props.disabled,
+  'file-drop--block': props.block,
+  'is-disabled': props.disabled,
+  'is-block': props.block,
+}]);
 
 const input = computed(() => {
   const { multiple, formats: accept, capture, disabled } = props;

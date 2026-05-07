@@ -1,17 +1,16 @@
-
 <template>
   <div class="tabs">
     <header class="tabs__header">
       <button
-        v-for="{ id, label, active, disabled } in tabs"
-        :key="id"
-        :class="['tabs__tab', { 'tabs__tab--active': active, 'is-disabled': disabled }]"
-        :disabled
+        v-for="tab in tabs"
+        :key="tab.id"
+        :class="classes(tab)"
+        :disabled="tab.disabled"
         type="button"
-        @click.prevent="activate(id)">
-        <slot v-bind="{ label, active }" :name="id">
-          <slot v-bind="{ id, label, active }" name="tab">
-            {{ label ?? id }}
+        @click.prevent="activate(tab.id)">
+        <slot v-bind="tab" :name="tab.id">
+          <slot v-bind="tab" name="tab">
+            {{ tab.label ?? tab.id }}
           </slot>
         </slot>
       </button>
@@ -41,6 +40,11 @@ const tabs = computed(() => slots.default()
     const disabled = props?.disabled != null && props.disabled !== false;
     return { ...props, active, disabled };
   }) as (Tab & { active: boolean })[]);
+
+const classes = (tab: Tab & { active: boolean }) => ['tabs__tab', {
+  'tabs__tab--active': tab.active,
+  'is-disabled': tab.disabled,
+}];
 
 onMounted(() => !activePanel.value && activate(tabs.value[0]?.id));
 </script>

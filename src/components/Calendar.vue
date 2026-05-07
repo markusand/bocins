@@ -1,5 +1,5 @@
 <template>
-  <div :class="['calendar', { 'is-disabled': disabled }]">
+  <div :class="classes">
     <header>
       <Button flat small even @click.prevent="month = month - 1">
         <Icon src="chevron-right.svg" />
@@ -68,6 +68,10 @@ const props = withDefaults(defineProps<CalendarProps>(), {
 });
 
 const selected = defineModel<SelectedDate>();
+
+const classes = computed(() => ['calendar', {
+  'is-disabled': props.disabled,
+}]);
 
 /* Header */
 const cursor = ref<Date>(new Date());

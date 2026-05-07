@@ -3,7 +3,7 @@
     class="datepicker"
     v-bind="datepickerProps">
     <template #toggler>
-      <div :class="['datepicker__toggler', 'is-selector-toggler', togglerModifiers]">
+      <div :class="togglerClasses">
         <div v-if="isSelected(selected)" class="datepicker__selected">
           <slot v-if="Array.isArray(selected)" name="dates" :dates="selected">
             <div class="datepicker__range-dates">
@@ -58,10 +58,14 @@ const datepickerProps = computed(() => {
   return { disabled, block, width, top, right };
 });
 
-const togglerModifiers = computed(() => ({
-  'datepicker__toggler--invalid': props.invalid,
-  'datepicker__toggler--disabled': props.disabled,
-}));
+const togglerClasses = computed(() => [
+  'datepicker__toggler',
+  'is-selector-toggler',
+  {
+    'datepicker__toggler--invalid': props.invalid,
+    'datepicker__toggler--disabled': props.disabled,
+  }
+]);
 
 defineSlots<{
   date?: (props: { date: Date }) => void;

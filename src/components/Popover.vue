@@ -1,8 +1,6 @@
 <template>
   <div class="popover" :tabindex="props.click ? -1 : undefined" :style="anchorStyles">
-    <div
-      :class="['popover__content', `popover__content--${props.position}`]"
-      :style="width">
+    <div :class="classes" :style="width">
       <slot />
     </div>
     <slot name="anchor" />
@@ -36,6 +34,8 @@ const anchorStyles = computed(() => ({
   '--anchor-name': `--popover-${anchorId}`,
   '--position-anchor': `--popover-${anchorId}`,
 }));
+
+const classes = computed(() => ['popover__content', `popover__content--${props.position}`]);
 </script>
 
 <style scoped>

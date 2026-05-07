@@ -1,5 +1,5 @@
 <template>
-  <div :class="['hotkey', { 'hotkey--active': active }]">
+  <div :class="classes">
     <kbd v-for="key in combo" :key>
       <Icon v-if="ICONS[key]" :src="`${ICONS[key]}.svg`" />
       <small v-else-if="key === 'escape'">ESC</small>
@@ -43,6 +43,10 @@ const emit = defineEmits<{
 
 const active = ref(false);
 const combo = computed(() => props.keys.split('+').map(key => key.trim().toLocaleLowerCase()));
+
+const classes = computed(() => ['hotkey', {
+  'hotkey--active': active.value,
+}]);
 
 const onKeydown = (event: KeyboardEvent) => {
   if (props.disabled) return;

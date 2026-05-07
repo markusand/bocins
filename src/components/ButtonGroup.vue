@@ -1,6 +1,6 @@
 <template>
   <fieldset
-    :class="['btn-group', { 'btn-group--block': block }]"
+    :class="classes"
     :style="width"
     :disabled>
     <slot />
@@ -19,6 +19,10 @@ const props = defineProps<ButtonGroupProps>();
 defineSlots<{
   default: () => void;
 }>();
+
+const classes = computed(() => ['btn-group', {
+  'btn-group--block': props.block,
+}]);
 
 const width = computed(() => toWidth(props.width));
 </script>
@@ -51,8 +55,8 @@ const width = computed(() => toWidth(props.width));
   }
 }
 
-.btn-group.btn-group--block,
-.input-group.input-group--block {
+.btn-group--block,
+.input-group--block {
   display: flex;
   width: 100%;
 

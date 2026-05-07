@@ -1,5 +1,5 @@
 <template>
-  <div :class="['longtext', 'is-input', modifiers]">
+  <div :class="classes">
     <textarea
       v-model="text"
       v-bind="props"
@@ -58,15 +58,12 @@ const dimensions = computed(() => {
   };
 });
 
-const modifiers = computed(() => {
-  const { block, disabled, invalid } = props;
-  return {
-    'longtext--block': block,
-    'longtext--disabled': disabled,
-    'longtext--invalid': invalid,
-    'is-block': block,
-  };
-});
+const classes = computed(() => ['longtext', 'is-input', {
+  'longtext--block': props.block,
+  'longtext--disabled': props.disabled,
+  'longtext--invalid': props.invalid,
+  'is-block': props.block,
+}]);
 </script>
 
 <style scoped>

@@ -1,8 +1,5 @@
 <template>
-  <details
-    :class="['collapser', { 'is-disabled': disabled }]"
-    :open="isOpen"
-    @toggle.stop="toggle">
+  <details :class="classes" :open="isOpen" @toggle.stop="toggle">
     <summary class="collapser__toggler">
       <div class="collapser__title">
         <slot name="toggler" :open="isOpen">
@@ -18,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, watchEffect, inject, useId, type Ref } from 'vue';
+import { ref, watch, computed, watchEffect, inject, useId, type Ref } from 'vue';
 import Icon from './Icon.vue';
 
 export type CollapserProps = {
@@ -46,6 +43,10 @@ const emit = defineEmits<{
 }>();
 
 const isOpen = ref(props.open);
+
+const classes = computed(() => ['collapser', {
+  'is-disabled': props.disabled,
+}]);
 
 const toggle = (event: Event) => {
   const { open } = event.target as HTMLDetailsElement;

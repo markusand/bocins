@@ -1,5 +1,5 @@
 <template>
-  <div class="listbox is-panel" :class="modifiers">
+  <div :class="classes">
     <header v-if="props.search">
       <Search
         v-model="searchBy"
@@ -58,15 +58,12 @@ const selected = defineModel<T | T[] | undefined>({ required: true });
 const { searchBy, search } = useSearcher<T>(toRef(() => props.search));
 const options = search(toRef(() => props.options));
 
-const modifiers = computed(() => {
-  const { disabled, invalid } = props;
-  return {
-    'listbox--disabled': disabled,
-    'listbox--invalid': invalid,
-    'is-disabled': disabled,
-    'is-invalid': invalid,
-  };
-});
+const classes = computed(() => ['listbox', 'is-panel', {
+  'listbox--disabled': props.disabled,
+  'listbox--invalid': props.invalid,
+  'is-disabled': props.disabled,
+  'is-invalid': props.invalid,
+}]);
 </script>
 
 <style scoped>

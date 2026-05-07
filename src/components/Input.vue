@@ -1,7 +1,6 @@
 <template>
   <div
-    class="input is-input"
-    :class="modifiers"
+    :class="classes"
     :style="width"
     @click.prevent="onClick">
     <slot name="prefix">{{ prefix }}</slot>
@@ -85,15 +84,12 @@ const value = defineModel<string | number | undefined>({ required: true });
 
 const clear = () => { value.value = ''; };
 
-const modifiers = computed(() => {
-  const { disabled, invalid, block } = props;
-  return {
-    'input--disabled': disabled,
-    'input--invalid': invalid,
-    'input--block': block,
-    'is-block': block,
-  };
-});
+const classes = computed(() => ['input', 'is-input', {
+  'input--disabled': props.disabled,
+  'input--invalid': props.invalid,
+  'input--block': props.block,
+  'is-block': props.block,
+}]);
 
 const width = computed((): CSSProperties | null => toWidth(props.width));
 

@@ -48,15 +48,12 @@ const emit = defineEmits<{
   close: [];
 }>();
 
-const classes = computed(() => {
-  const { disabled, top, right, block } = props;
-  return ['dropdown', {
-    'dropdown--top': top,
-    'dropdown--right': right,
-    'dropdown--block': block,
-    'dropdown--disabled': disabled,
-  }];
-});
+const classes = computed(() => ['dropdown', {
+  'dropdown--top': props.top,
+  'dropdown--right': props.right,
+  'dropdown--block': props.block,
+  'dropdown--disabled': props.disabled,
+}]);
 
 const anchorId = useId();
 const style = computed(() => ({
