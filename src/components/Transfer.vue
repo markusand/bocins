@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { ref, computed, type Ref } from 'vue';
+import { ref, computed, type Ref, type CSSProperties } from 'vue';
 import ListBox, { type ListBoxProps } from './ListBox.vue';
 import Button from './Button.vue';
 import Icon from './Icon.vue';
@@ -53,7 +53,7 @@ defineSlots<{
   default?: (props: { option: T }) => void;
 }>();
 
-const width = computed(() => toWidth(props.width));
+const width = computed((): CSSProperties | null => toWidth(props.width));
 
 const selected = defineModel<T[]>({ required: true });
 const toRemove = ref<T[]>([]) as Ref<T[]>;
