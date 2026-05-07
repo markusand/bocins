@@ -34,7 +34,8 @@ const meta = {
       options: ['en', 'ca', 'zh'],
     },
     startSunday: { description: 'Start the week on Sunday instead of Monday.' },
-    disabled: { description: 'Disable the calendar.' },
+    disabled: { description: 'Disable the date picker.' },
+    invalid: { description: 'Mark the date picker as invalid' },
     clearable: { description: 'Enable the clear button.' },
     top: { description: 'Display the calendar upwards.' },
     right: { description: 'Display the calendar anchored to the right.' },
@@ -44,6 +45,7 @@ const meta = {
   args: {
     locale: 'en',
     disabled: false,
+    invalid: false,
     startSunday: false,
     clearable: true,
     top: false,

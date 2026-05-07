@@ -85,8 +85,8 @@ const value = defineModel<string | number | undefined>({ required: true });
 const clear = () => { value.value = ''; };
 
 const classes = computed(() => ['input', 'is-input', {
-  'input--disabled': props.disabled,
-  'input--invalid': props.invalid,
+  'is-disabled': props.disabled,
+  'is-invalid': props.invalid,
   'is-block': props.block,
 }]);
 

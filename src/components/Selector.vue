@@ -60,8 +60,8 @@ const selectorProps = computed(() => {
 });
 
 const classes = computed(() => ['is-selector-toggler', {
-  'selector__toggler--invalid': props.invalid,
-  'selector__toggler--disabled': props.disabled,
+  'is-invalid': props.invalid,
+  'is-disabled': props.disabled,
 }]);
 
 defineSlots<{

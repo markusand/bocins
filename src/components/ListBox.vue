@@ -59,8 +59,6 @@ const { searchBy, search } = useSearcher<T>(toRef(() => props.search));
 const options = search(toRef(() => props.options));
 
 const classes = computed(() => ['listbox', 'is-panel', {
-  'listbox--disabled': props.disabled,
-  'listbox--invalid': props.invalid,
   'is-disabled': props.disabled,
   'is-invalid': props.invalid,
 }]);
@@ -126,9 +124,5 @@ const classes = computed(() => ['listbox', 'is-panel', {
   text-align:center;
   opacity: 0.25;
   margin: auto;
-}
-
-.listbox--disabled :checked + .listbox__option {
-  background: color-mix(in srgb, var(--color) 25%, transparent);
 }
 </style>

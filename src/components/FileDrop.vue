@@ -76,7 +76,6 @@ const size = computed(() => ({
 
 const classes = computed(() => ['file-drop', {
   [`file-drop--${state.value}`]: state.value,
-  'file-drop--disabled': props.disabled,
   'is-disabled': props.disabled,
   'is-block': props.block,
 }]);

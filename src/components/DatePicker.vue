@@ -46,6 +46,7 @@ export type DatePickerProps = {
   formatter?: (date: Date) => string;
   placeholder?: string;
   clearable?: boolean;
+  invalid?: boolean;
 } & Pick<DropdownProps, 'block' | 'width' | 'top' | 'right'>
   & CalendarProps;
 
@@ -59,8 +60,8 @@ const datepickerProps = computed(() => {
 });
 
 const togglerClasses = computed(() => ['is-selector-toggler', {
-  'datepicker__toggler--invalid': props.invalid,
-  'datepicker__toggler--disabled': props.disabled,
+  'is-invalid': props.invalid,
+  'is-disabled': props.disabled,
 }]);
 
 defineSlots<{

@@ -59,8 +59,8 @@ const dimensions = computed(() => {
 });
 
 const classes = computed(() => ['longtext', 'is-input', {
-  'longtext--disabled': props.disabled,
-  'longtext--invalid': props.invalid,
+  'is-disabled': props.disabled,
+  'is-invalid': props.invalid,
   'is-block': props.block,
 }]);
 </script>
