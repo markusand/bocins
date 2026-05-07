@@ -36,7 +36,7 @@ const width = computed(() => toWidth(props.width));
   &:deep(*) {
     flex: 1 1 auto !important;
     &:focus-within { z-index: 1; }
-  };
+  }
 
   & > :not(:first-child) :not(.dropdown__overlay *, .popover__content *),
   & > *:not(:first-child) {
