@@ -44,7 +44,7 @@ import Selector from './Selector.vue';
 export type MaybeDates = Day | [Day, Day];
 export type SelectedDate = Date | [Date | undefined, Date | undefined];
 
-export type CalendarProps = {
+export type Props = {
   notBefore?: Day;
   notAfter?: Day;
   excluded?: MaybeReadonly<MaybeDates[]>;
@@ -63,7 +63,7 @@ const emit = defineEmits<{
   select: [date: SelectedDate],
 }>();
 
-const props = withDefaults(defineProps<CalendarProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   years: '-5:+5',
 });
 

@@ -15,14 +15,14 @@ import { toWidth } from '/@/utils';
 type VariantProps = { flat?: true; ghost?: false } | { flat?: false; ghost?: true };
 type SizeProps    = { sm?: true;   lg?: false }    | { sm?: false;   lg?: true };
 
-export type ButtonProps = VariantProps & SizeProps & {
+export type Props = VariantProps & SizeProps & {
   width?: number | string;
   even?: boolean;
   block?: boolean;
   disabled?: boolean;
 };
 
-const props = defineProps<ButtonProps>();
+const props = defineProps<Props>();
 
 defineSlots<{
   default: () => void;

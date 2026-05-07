@@ -23,7 +23,7 @@ import { ref, computed, watch } from 'vue';
 import { toWidth, toHeight, useFiles } from '/@/utils';
 import Icon from './Icon.vue';
 
-type FileDropProps = {
+export type Props = {
   modelValue?: File[];
   formats?: string;
   capture?: boolean | 'user' | 'environment';
@@ -36,7 +36,7 @@ type FileDropProps = {
   block?: boolean;
 };
 
-const props = withDefaults(defineProps<FileDropProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   label: 'Click or Drop files',
   multiple: false,
   width: 10,

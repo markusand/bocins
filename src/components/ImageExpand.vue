@@ -18,11 +18,13 @@ import { ref, computed } from 'vue';
 import ToggleButton from './ToggleButton.vue';
 import Icon from './Icon.vue';
 
-defineProps<{
+export type Props = {
   src: string;
   thumbnail?: string;
   alt: string;
-}>();
+};
+
+defineProps<Props>();
 
 defineSlots<{
   controls: () => void;

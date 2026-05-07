@@ -11,12 +11,12 @@
 </template>
 
 <script setup lang="ts">
-import Input, { type InputProps } from './Input.vue';
+import Input, { type Props as InputProps } from './Input.vue';
 import Icon from './Icon.vue';
 
-export type SearchProps = Omit<InputProps, 'type' | 'prefix'>;
+export type Props = Omit<InputProps, 'type' | 'prefix'>;
 
-const props = withDefaults(defineProps<SearchProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   placeholder: 'Search...',
 });
 

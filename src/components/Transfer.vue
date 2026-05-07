@@ -37,17 +37,17 @@
 
 <script setup lang="ts" generic="T">
 import { ref, computed, type Ref, type CSSProperties } from 'vue';
-import ListBox, { type ListBoxProps } from './ListBox.vue';
+import ListBox, { type Props as ListBoxProps } from './ListBox.vue';
 import Button from './Button.vue';
 import Icon from './Icon.vue';
 import { toWidth } from '/@/utils';
 
-export type TransferProps<T> = {
+export type Props<T> = {
   limit?: number | string;
   width?: string | number; 
 } & ListBoxProps<T>;
 
-const props = defineProps<TransferProps<T>>();
+const props = defineProps<Props<T>>();
 
 defineSlots<{
   default?: (props: { option: T }) => void;

@@ -7,13 +7,13 @@
 <script setup lang="ts">
 import { inject } from 'vue';
 
-export type Tab = {
+export type Props = {
   id: string;
   label?: string;
   disabled?: boolean;
 };
 
-defineProps<Tab>();
+defineProps<Props>();
   
 defineSlots<{
   default: () => void;

@@ -13,7 +13,7 @@
 import { computed } from 'vue';
 import checkSvg from '/@/assets/check.svg?raw';
 
-export type TogglerProps<T> = {
+export type Props<T> = {
   label?: string;
   value?: T;
   radio?: boolean;
@@ -22,7 +22,7 @@ export type TogglerProps<T> = {
   block?: boolean;
 };
 
-const props = defineProps<TogglerProps<T>>();
+const props = defineProps<Props<T>>();
 
 defineSlots<{
   default?: () => void;

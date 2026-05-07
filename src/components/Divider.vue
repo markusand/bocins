@@ -5,9 +5,11 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+export type Props = {
   label?: string;
-}>();
+};
+
+defineProps<Props>();
 
 defineSlots<{
   default: () => void;

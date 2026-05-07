@@ -14,15 +14,15 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import Input, { type InputProps } from './Input.vue';
+import Input, { type Props as InputProps } from './Input.vue';
 import Icon from './Icon.vue';
 
-export type PasswordProps = {
+export type Props = {
   strength?: ((password: string) => boolean)[];
   autocomplete?: boolean;
 } & Omit<InputProps, 'type' | 'suffix' | 'autocomplete'>;
 
-const props = defineProps<PasswordProps>();
+const props = defineProps<Props>();
 
 const value = defineModel<string>({ required: true });
 

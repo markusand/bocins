@@ -12,10 +12,12 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import Icon from './Icon.vue';
 
-const props = defineProps<{
+export type Props = {
   keys: string;
   disabled?: boolean;
-}>();
+};
+
+const props = defineProps<Props>();
 
 const isMac = navigator.platform.toUpperCase().includes('MAC');
 

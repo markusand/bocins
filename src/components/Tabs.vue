@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { computed, provide, onMounted, type VNode } from 'vue';
-import type { Tab } from './TabView.vue';
+import type { Props } from './TabView.vue';
 
 const activePanel = defineModel<string>();
 const activate = (panel: string) => activePanel.value = panel;
@@ -39,9 +39,9 @@ const tabs = computed(() => slots.default()
     const active = props?.id === activePanel.value;
     const disabled = props?.disabled != null && props.disabled !== false;
     return { ...props, active, disabled };
-  }) as (Tab & { active: boolean })[]);
+  }) as (Props & { active: boolean })[]);
 
-const classes = (tab: Tab & { active: boolean }) => ['tabs__tab', {
+const classes = (tab: Props & { active: boolean }) => ['tabs__tab', {
   'tabs__tab--active': tab.active,
   'is-disabled': tab.disabled,
 }];

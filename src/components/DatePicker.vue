@@ -36,13 +36,13 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import Dropdown, { type DropdownProps } from './Dropdown.vue';
-import Calendar, { type CalendarProps, type SelectedDate } from './Calendar.vue';
+import Dropdown, { type Props as DropdownProps } from './Dropdown.vue';
+import Calendar, { type Props as CalendarProps, type SelectedDate } from './Calendar.vue';
 import Icon from './Icon.vue';
 
 export type { SelectedDate };
 
-export type DatePickerProps = {
+export type Props = {
   formatter?: (date: Date) => string;
   placeholder?: string;
   clearable?: boolean;
@@ -50,7 +50,7 @@ export type DatePickerProps = {
 } & Pick<DropdownProps, 'block' | 'width' | 'top' | 'right'>
   & CalendarProps;
 
-const props = withDefaults(defineProps<DatePickerProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   placeholder: 'Select date',
 });
 

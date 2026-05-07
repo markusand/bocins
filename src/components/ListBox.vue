@@ -34,16 +34,16 @@
 <script setup lang="ts" generic="T">
 import { toRef, computed } from 'vue';
 import Search from './Search.vue';
-import Picker, { type PickerProps } from './Picker.vue';
+import Picker, { type Props as PickerProps } from './Picker.vue';
 import { useSearcher } from '/@/utils';
 
-export type ListBoxProps<T> = {
+export type Props<T> = {
   search?: (option: T) => string;
   searchText?: string;
   emptyText?: string;
 } & Omit<PickerProps<T>, 'columns'>;
 
-const props = withDefaults(defineProps<ListBoxProps<T>>(), {
+const props = withDefaults(defineProps<Props<T>>(), {
   searchText: 'Search',
   emptyText: 'No options available',
 });

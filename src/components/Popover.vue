@@ -11,13 +11,13 @@
 import { computed, useId, type CSSProperties } from 'vue';
 import { toWidth } from '../utils';
 
-export type PopoverProps = {
+export type Props = {
   position?: 'bottom' | 'top' | 'left' | 'right';
   click?: boolean;
   width?: string | number;
 };
 
-const props = withDefaults(defineProps<PopoverProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   position: 'top',
   width: 'auto',
 });

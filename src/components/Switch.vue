@@ -12,10 +12,12 @@
 import { computed } from 'vue';
 import type { MaybeReadonly } from '/@/types';
 
-defineProps<{
+export type Props<T> = {
   value?: MaybeReadonly<T>;
   disabled?: boolean;
-}>();
+};
+
+defineProps<Props<T>>();
 
 const selected = defineModel<T | T[] | undefined>({ required: true });
 

@@ -18,14 +18,14 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
 
-export type PasscodeProps = {
+export type Props = {
   length: number;
   invalid?: boolean;
   disabled?: boolean;
   numeric?: boolean
 };
 
-const props = defineProps<PasscodeProps>();
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
   change: [passcode: string];

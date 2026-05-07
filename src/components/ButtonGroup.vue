@@ -6,12 +6,12 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { ButtonProps } from './Button.vue';
+import type { Props as ButtonProps } from './Button.vue';
 import { toWidth } from '/@/utils';
 
-export type ButtonGroupProps = Pick<ButtonProps, 'block' | 'width' | 'disabled'>;
+export type Props = Pick<ButtonProps, 'block' | 'width' | 'disabled'>;
 
-const props = defineProps<ButtonGroupProps>();
+const props = defineProps<Props>();
 
 defineSlots<{
   default: () => void;

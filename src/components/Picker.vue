@@ -18,7 +18,7 @@
 import Toggler from './Toggler.vue';
 import type { KeyOfAttribute, MaybeReadonly } from '/@/types';
 
-export type PickerProps<T> = {
+export type Props<T> = {
   options: MaybeReadonly<T[]>,
   keyAttr?: T extends object
     ? KeyOfAttribute<T, string | number | symbol>
@@ -29,7 +29,7 @@ export type PickerProps<T> = {
   disabled?: boolean;
 };
 
-defineProps<PickerProps<T>>();
+defineProps<Props<T>>();
 
 defineSlots<{
   default?: (props: { option: T }) => void;

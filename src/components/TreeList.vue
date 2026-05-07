@@ -38,14 +38,16 @@
 import Icon from './Icon.vue';
 import type { KeyOfAttribute as KoA, MaybeReadonly } from '/@/types';
 
-const props = withDefaults(defineProps<{
+export type Props<T, K> = {
   schema: MaybeReadonly<T[]>;
   nameNode: KoA<T, PropertyKey>;
   childrenNode: K;
   parent?: T;
   open?: boolean;
   path?: PropertyKey[];
-}>(), {
+};
+
+const props = withDefaults(defineProps<Props<T, K>>(), {
   path: () => [],
 });
 

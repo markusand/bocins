@@ -7,11 +7,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-export type AvatarGroupProps = {
+export type Props = {
   stacked?: boolean;
 };
 
-const props = defineProps<AvatarGroupProps>();
+const props = defineProps<Props>();
 
 defineSlots<{ default: () => void; }>();
 

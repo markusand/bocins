@@ -29,13 +29,13 @@
 import { ref, computed, watch, onUnmounted } from 'vue';
 import type { MaybeReadonly } from '/@/types';
 
-export type CarouselProps<T> = {
+export type Props<T> = {
   items: MaybeReadonly<T[]>;
   controls?: 'top' | 'bottom' | 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
   interval?: number;
 };
 
-const props = defineProps<CarouselProps<T>>();
+const props = defineProps<Props<T>>();
 
 defineSlots<{
   default: (props: { item: T }) => void;

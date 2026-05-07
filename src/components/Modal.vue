@@ -30,7 +30,7 @@ import { toWidth, toHeight } from '/@/utils';
 
 type Action = () => void;
 
-export type ModalProps = {
+export type Props = {
   to?: string;
   closeable?: boolean;
   width?: number | string;
@@ -38,7 +38,7 @@ export type ModalProps = {
   plain?: boolean;
 };
 
-const props = withDefaults(defineProps<ModalProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   to: 'body',
   width: 20,
   height: 'content-fit',

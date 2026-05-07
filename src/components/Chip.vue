@@ -12,12 +12,12 @@
 </template>
 
 <script setup lang="ts">
-export type ChipProps = {
+export type Props = {
   text?: string;
   close?: () => void;
 };
 
-defineProps<ChipProps>();
+defineProps<Props>();
 
 defineSlots<{
   default?: () => void;
