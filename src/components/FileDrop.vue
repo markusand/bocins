@@ -1,8 +1,8 @@
 <template>
   <label :class="classes" :style="size" v-on="onDragDrop">
     <input v-bind="input" type="file" @change="onChange">
-    <slot v-if="!files.length">
-      <Icon src="plus.svg" size="medium" />
+    <slot v-if="!files.length" :dragging="state === 'dragging'">
+      <Icon src="upload.svg" size="medium" />
       <em>{{ label }}</em>
     </slot>
     <slot v-else name="files" :files="files" :remove="remove">
@@ -24,7 +24,6 @@ import { toWidth, toHeight, useFiles } from '/@/utils';
 import Icon from './Icon.vue';
 
 export type FileDropProps = {
-  modelValue?: File[];
   formats?: string;
   capture?: boolean | 'user' | 'environment';
   multiple?: boolean | number;
@@ -44,7 +43,6 @@ const props = withDefaults(defineProps<FileDropProps>(), {
 });
 
 const emit = defineEmits<{
-  'update:modelValue': [files: File[]],
   dragover: [event: DragEvent],
   dragleave: [event: DragEvent],
   drop: [files: File[], event: DragEvent],
@@ -54,20 +52,23 @@ const emit = defineEmits<{
 }>();
 
 defineSlots<{
-  default?: () => void;
+  default?: (props: { dragging: boolean }) => void;
   files?: (props: { files: File[], remove: (file: File) => void }) => void,
   file?: (props: { file: File, remove: (file: File) => void }) => void
 }>();
 
-const state = ref<'hover' | 'invalid'>();
+const model = defineModel<File[]>();
+
+const state = ref<'dragging' | 'invalid'>();
 
 const onError = (code: string, file?: File) => {
   state.value = 'invalid';
   setTimeout(() => { state.value = undefined; }, 1000);
   emit('error', new Error(code), file);
 };
+
 const { files, addFiles, removeFile } = useFiles(props, onError);
-watch(files, value => emit('update:modelValue', value));
+watch(files, value => model.value = value);
 
 const size = computed(() => ({
   ...toWidth(props.width),
@@ -75,7 +76,7 @@ const size = computed(() => ({
 }));
 
 const classes = computed(() => ['file-drop', {
-  [`file-drop--${state.value}`]: state.value,
+  [`is-${state.value}`]: !!state.value,
   'is-disabled': props.disabled,
   'is-block': props.block,
 }]);
@@ -89,7 +90,7 @@ const onDragDrop = {
   dragover: (event: DragEvent) => {
     event.preventDefault();
     if (props.disabled) return;
-    state.value = 'hover';
+    state.value = 'dragging';
     emit('dragover', event);
   },
   dragleave: (event: DragEvent) => {
@@ -125,7 +126,7 @@ const remove = (file: File) => {
 
 .file-drop {
   --color: var(--filedrop-color, #888);
-  --color-bg: color-mix(in srgb, var(--color) 5%, transparent);
+  --color-bg: color-mix(in srgb, var(--color) 2%, transparent);
   --color-border: color-mix(in srgb, var(--color) 50%, transparent);
   --color-text: var(--color);
 
@@ -147,37 +148,44 @@ const remove = (file: File) => {
     padding: 0 1rem;
   }
 
-  input { display: none; }
-}
-
-.file-drop--hover { --color: var(--color-accent, #333); }
-.file-drop--invalid { --color: var(--color-error, red); }
-
-.file-drop__list {
-  margin: 0;
-  padding: 0.5rem 1rem;
-  list-style: none;
-  max-height: 100%;
-  max-width: 100%;
-  overflow: auto;
-  box-sizing: border-box;
-
-  li {
-    display: flex;
-    width: 100%;
-    gap: 0.5rem;
-  }
-}
-
-.file-drop__file-name {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  & + button {
+  input {
     all: unset;
-    color: var(--color-alert, red);
-    cursor: pointer;
+    height: 0;
+    width: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  &:focus-within,
+  &.is-dragging { --color: var(--color-accent, #333); }
+
+  .file-drop__list {
+    margin: 0;
+    padding: 0.5rem 1rem;
+    list-style: none;
+    max-height: 100%;
+    max-width: 100%;
+    overflow: auto;
+    box-sizing: border-box;
+
+    li {
+      display: flex;
+      width: 100%;
+      gap: 0.5rem;
+    }
+  }
+
+  .file-drop__file-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    & + button {
+      all: unset;
+      color: var(--color-alert, red);
+      cursor: pointer;
+    }
   }
 }
 </style>
