@@ -15,5 +15,9 @@ export type Tab = {
 
 defineProps<Tab>();
   
+defineSlots<{
+  default: () => void;
+}>();
+
 const active = inject<string | undefined>('active');
 </script>

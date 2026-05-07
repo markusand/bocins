@@ -36,34 +36,41 @@
   </Dropdown>
 </template>
 
-<script setup lang="ts" generic="T">
+<script setup lang="ts" generic="T, K extends string">
+import type { MaybeReadonly } from '/@/types';
 import Dropdown from './Dropdown.vue';
 import Button from './Button.vue';
 import Icon from './Icon.vue';
 import HotKey from './HotKey.vue';
 
-export type Action<T> = {
-  id: string;
+export type Action<T, K extends string> = {
+  id: K;
   label: string;
   icon?: string;
   attrs?: Record<string, string | number | boolean>;
   hotkey?: string;
   onClick?: (item: T) => void;
-  groups?: ActionGroup<T>[];
+  groups?: ActionGroup<T, K>[];
 };
 
-export type ActionGroup<T> = {
+export type ActionGroup<T, K extends string> = {
   name?: string;
-  actions: Action<T>[];
+  actions: MaybeReadonly<Action<T, K>[]>;
 }
 
 defineProps<{
   item: T,
-  actions: ActionGroup<T>[];
+  actions: MaybeReadonly<ActionGroup<T, K>[]>;
   disabled?: boolean;
 }>();
 
-const subactions = (action: Action<T>): Action<T>[] => {
+defineSlots<{
+  toggler: () => void;
+} & {
+  [k in K]: (props: { action: Action<T, k>, key?: k }) => void;
+}>();
+
+const subactions = (action: Action<T, K>): Action<T, K>[] => {
   if (!action.groups) return [];
   return action.groups.flatMap(group => [
     ...group.actions,

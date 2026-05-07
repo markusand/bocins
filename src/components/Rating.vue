@@ -24,6 +24,10 @@ const emit = defineEmits<{
   rate: [rating: number];
 }>();
 
+defineSlots<{
+  default: () => void;
+}>();
+
 const rating = defineModel<number | undefined>({ required: false, default: 0 });
 
 watch(rating, value => value && emit('rate', value));
