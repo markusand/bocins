@@ -31,8 +31,8 @@ const meta = {
     },
     startSunday: { description: 'Start the week on Sunday instead of Monday.' },
     disabled: { description: 'Disable the calendar.' },
-    invalid: { description: 'Invalid dates that should not be selectable.' },
-    valid: { description: 'Only valid dates that should be selectable.' },
+    excluded: { description: 'Dates that should not be selectable.' },
+    allowed: { description: 'Only these dates should be selectable.' },
     years: { description: 'The years range available in the year selector.' },
   },
   args: {
@@ -78,7 +78,7 @@ export const RangeCalendar: Story = {
   }),
 };
 
-export const InvalidDates: Story = {
+export const ExcludedDates: Story = {
   parameters: {
     docs: {
       description: {
@@ -88,7 +88,7 @@ export const InvalidDates: Story = {
   },
   args: {
     modelValue: undefined,
-    invalid: ['2026-05-04', '2026-05-07', ['2026-05-16', '2026-05-25']],
+    excluded: ['2026-05-04', '2026-05-07', ['2026-05-16', '2026-05-25']],
   },
   render: args => ({
     components: { Calendar },
@@ -100,7 +100,7 @@ export const InvalidDates: Story = {
   }),
 };
 
-export const ValidDates: Story = {
+export const AllowedDates: Story = {
   parameters: {
     docs: {
       description: {
@@ -110,7 +110,7 @@ export const ValidDates: Story = {
   },
   args: {
     modelValue: undefined,
-    valid: ['2026-05-04', '2026-05-07', ['2026-05-16', '2026-05-25']],
+    allowed: ['2026-05-04', '2026-05-07', ['2026-05-16', '2026-05-25']],
   },
   render: args => ({
     components: { Calendar },

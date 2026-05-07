@@ -47,8 +47,8 @@ export type SelectedDate = Date | [Date | undefined, Date | undefined];
 export type CalendarProps = {
   notBefore?: Day;
   notAfter?: Day;
-  invalid?: MaybeReadonly<MaybeDates[]>;
-  valid?: MaybeReadonly<MaybeDates[]>;
+  excluded?: MaybeReadonly<MaybeDates[]>;
+  allowed?: MaybeReadonly<MaybeDates[]>;
   locale?: string;
   years?: `${number}:${number}`;
   disabled?: boolean;
@@ -103,14 +103,14 @@ const years = computed(() => {
 
 /* Days */
 const isInvalid = (date: Date): boolean => {
-  const { notBefore, notAfter, invalid = [], valid } = props;
+  const { notBefore, notAfter, excluded = [], allowed } = props;
   const match = (dates: MaybeDates) => Array.isArray(dates)
     ? isBetween(date, ...dates, true)
     : isEqual(date, dates);
   return isBefore(date, notBefore)
     || isAfter(date, notAfter)
-    || invalid.some(match)
-    || (valid ? !valid.some(match) : false);
+    || excluded.some(match)
+    || (allowed ? !allowed.some(match) : false);
 };
 
 const days = computed(() => {
