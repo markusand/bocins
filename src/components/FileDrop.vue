@@ -55,7 +55,7 @@ const emit = defineEmits<{
 
 defineSlots<{
   default?: () => void;
-  files: (props: { files: File[], remove: (file: File) => void }) => void,
+  files?: (props: { files: File[], remove: (file: File) => void }) => void,
   file?: (props: { file: File, remove: (file: File) => void }) => void
 }>();
 

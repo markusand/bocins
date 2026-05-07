@@ -16,7 +16,7 @@ const props = defineProps<Props>();
 
 defineSlots<{
   default: () => void;
-  content: () => void;
+  content?: () => void;
 }>();
 </script>
 

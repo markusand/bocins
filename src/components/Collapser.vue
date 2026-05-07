@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 defineSlots<{
-  toggler: (props: { open: boolean }) => void;
+  toggler?: (props: { open: boolean }) => void;
   default: (props: { open: boolean }) => void;
 }>();
 

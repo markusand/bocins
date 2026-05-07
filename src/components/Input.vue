@@ -65,8 +65,8 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 defineSlots<{
-  prefix: () => void;
-  suffix: () => void;
+  prefix?: () => void;
+  suffix?: () => void;
 }>();
 
 const emit = defineEmits<{

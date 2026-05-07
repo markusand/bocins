@@ -12,7 +12,7 @@ export type Props = {
 defineProps<Props>();
 
 defineSlots<{
-  default: () => void;
+  default?: () => void;
 }>();
 </script>
 

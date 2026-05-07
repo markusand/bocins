@@ -51,7 +51,7 @@ const props = withDefaults(defineProps<Props>(), {
 const selected = defineModel<number>({ default: 0 });
 
 defineSlots<{
-  default: (props: { page: number, goTo: (page: number) => void }) => void;
+  default?: (props: { page: number, goTo: (page: number) => void }) => void;
 }>();
 
 const range = computed(() => {

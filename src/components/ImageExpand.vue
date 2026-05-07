@@ -27,7 +27,7 @@ export type Props = {
 defineProps<Props>();
 
 defineSlots<{
-  controls: () => void;
+  controls?: () => void;
 }>();
 
 const expanded = ref(false);

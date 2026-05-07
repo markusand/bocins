@@ -49,7 +49,7 @@ const props = withDefaults(defineProps<Props<T>>(), {
 });
 
 defineSlots<{
-  default: (props: { option: T }) => void;
+  default?: (props: { option: T }) => void;
   empty?: () => void;
 }>();
 

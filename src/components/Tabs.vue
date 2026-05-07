@@ -29,7 +29,7 @@ provide('active', activePanel);
 
 const slots = defineSlots<{
   default: () => VNode[],
-  tab: (props: { id: string, label?: string, active: boolean }) => void
+  tab?: (props: { id: string, label?: string, active: boolean }) => void
 } & { [key: string]: (props: { label?: string, active: boolean }) => void }>();
 
 const tabs = computed(() => slots.default()

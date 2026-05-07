@@ -39,8 +39,8 @@ const props = defineProps<Props<T>>();
 
 defineSlots<{
   default: (props: { item: T }) => void;
-  controls: (props: { active: number, goto: (i: number) => void }) => void;
-  control: (props: { item: T, current: number, active: number, goto: () => void }) => void;
+  controls?: (props: { active: number, goto: (i: number) => void }) => void;
+  control?: (props: { item: T, current: number, active: number, goto: () => void }) => void;
 }>();
 
 const active = defineModel<number>({ default: 0 });

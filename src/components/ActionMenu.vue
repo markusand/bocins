@@ -67,9 +67,9 @@ export type Props<T, K extends string> = {
 defineProps<Props<T, K>>();
 
 defineSlots<{
-  toggler: () => void;
+  toggler?: () => void;
 } & {
-  [k in K]: (props: { action: Action<T, k>, key?: k }) => void;
+  [k in K]?: (props: { action: Action<T, k>, key?: k }) => void;
 }>();
 
 const subactions = (action: Action<T, K>): Action<T, K>[] => {

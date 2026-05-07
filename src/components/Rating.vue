@@ -25,7 +25,7 @@ const emit = defineEmits<{
 }>();
 
 defineSlots<{
-  default: () => void;
+  default?: () => void;
 }>();
 
 const rating = defineModel<number | undefined>({ required: false, default: 0 });
