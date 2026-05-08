@@ -6,7 +6,9 @@
     </div>
     <div v-if="hasBadge" class="avatar__badge">
       <slot name="badge">
-        {{ typeof badge === 'boolean' ? '' : badge }}
+        <div class="badge">
+          {{ typeof badge === 'boolean' ? '' : badge }}
+        </div>
       </slot>
     </div>
   </div>
@@ -70,21 +72,26 @@ const hasBadge = computed(() => {
   }
 
   .avatar__badge {
-    display: inline-block;
+    display: block;
     position: absolute;
     top: 0;
     right: 0;
-    padding: 0.25rem 0.35rem;
-    background: var(--color-badge, #66b132);
     transform: translate(50%, -50%);
-    border-radius: 1rem;
-    font-size: 0.5rem;
-    color: #fff;
-    border: 1px solid var(--color-bg, #fff);
-    line-height: 1;
-    font-variant-numeric: tabular-nums;
 
-    &:empty { padding: 0.25rem; }
+    .badge {
+      all: unset;
+      display: block;
+      padding: 0.25rem 0.35rem;
+      background: var(--color-badge, #66b132);
+      border-radius: 1rem;
+      font-size: 0.5rem;
+      color: #fff;
+      border: 1px solid var(--color-bg, #fff);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+
+      &:empty { padding: 0.25rem; }
+    }
   }
 }
 </style>
