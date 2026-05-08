@@ -1,5 +1,5 @@
 <template>
-  <div class="pagination">
+  <div class="pagination" @focusin="onFocusin" @keydown="onKeydown">
     <Button v-if="controls" v-bind="prev" @click.prevent="change(-1)">
       <Icon src="chevron-right.svg" />
     </Button>
@@ -33,6 +33,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useRovingTabindex } from '/@/utils';
 import Button from './Button.vue';
 import Icon from './Icon.vue';
 import ToggleButton from './ToggleButton.vue';
@@ -44,9 +45,7 @@ export type PaginationProps = {
   controls?: boolean;
 };
 
-const props = withDefaults(defineProps<PaginationProps>(), {
-  truncate: 5,
-});
+const props = defineProps<PaginationProps>();
 
 const selected = defineModel<number>({ default: 0 });
 
@@ -55,7 +54,7 @@ defineSlots<{
 }>();
 
 const range = computed(() => {
-  const length = Math.min(props.truncate, props.pages);
+  const length = Math.min(props.truncate ?? Infinity, props.pages - 2);
   const max = Math.max(1, props.pages - length - 1);
   const min = Math.max(1, selected.value - Math.floor(length / 2));
   const base = Math.min(max, min);
@@ -89,6 +88,8 @@ const goTo = (page: number) => {
 };
 
 const change = (num: number) => goTo(selected.value + num + 1);
+
+const { onFocusin, onKeydown } = useRovingTabindex({ wrap: false });
 </script>
 
 <style scoped>
