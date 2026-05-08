@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { Divider } from '/@/components';
+import { Divider, ButtonGroup, Button, Icon } from '/@/components';
 import './assets/styles.css';
 
 const meta = {
@@ -17,7 +17,7 @@ const meta = {
     label: { description: 'The text to display in the divider. If empty, the divider will not be shown.' },
   },
   args: {
-    label: '',
+    label: 'Divider',
   },
 } satisfies Meta<typeof Divider>;
 
@@ -29,8 +29,14 @@ export const Base: Story = {};
 
 export const DividerContent: Story = {
   render: args => ({
-    components: { Divider },
+    components: { Divider, ButtonGroup, Button, Icon },
     setup: () => ({ args }),
-    template: '<Divider>Divider Slot</Divider>',
+    template: `<Divider>
+      <ButtonGroup>
+        <Button flat><Icon src="arrow-left.svg" /></Button>
+        <Button flat><Icon src="plus.svg" /></Button>
+        <Button flat><Icon src="arrow-right.svg" /></Button>
+      </ButtonGroup>
+    </Divider>`,
   }),  
 };
