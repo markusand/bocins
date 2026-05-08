@@ -5,7 +5,7 @@
       :key="keyAttr ? option[keyAttr] as string : i"
       v-model="selected"
       :value="option"
-      :radio="!Array.isArray(selected)"
+      :group="!Array.isArray(selected) ? groupName : undefined"
       :invalid>
       <slot :option>
         {{ formatter?.(option) || option }}
@@ -15,6 +15,7 @@
 </template>
 
 <script setup lang="ts" generic="T">
+import { useId } from 'vue';
 import Toggler from './Toggler.vue';
 import type { KeyOfAttribute, MaybeReadonly } from '/@/types';
 
@@ -36,6 +37,7 @@ defineSlots<{
 }>();
 
 const selected = defineModel<T | T[] | undefined>({ required: true });
+const groupName = useId();
 </script>
 
 <style scoped>

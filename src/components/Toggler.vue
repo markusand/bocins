@@ -2,7 +2,8 @@
   <label :class="classes">
     <input
       v-model="selected"
-      :type="props.radio ? 'radio' : 'checkbox'"
+      :type="group ? 'radio' : 'checkbox'"
+      :name="group"
       :value
       :disabled>
     <slot>{{ label }}</slot>
@@ -16,7 +17,7 @@ import checkSvg from '/@/assets/check.svg?raw';
 export type TogglerProps<T> = {
   label?: string;
   value?: T;
-  radio?: boolean;
+  group?: string;
   invalid?: boolean;
   disabled?: boolean;
   block?: boolean;
