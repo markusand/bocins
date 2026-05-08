@@ -9,7 +9,7 @@
         <Chip
           v-for="item in items"
           :key="item"
-          :close="() => remove(item)">
+          :action="() => remove(item)">
           {{ item }}
         </Chip>
       </div>

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { Chip } from '/@/components';
+import { Chip, Icon } from '/@/components';
 import './assets/styles.css';
 
 const meta = {
@@ -14,7 +14,7 @@ const meta = {
     },
   },
   argTypes: {
-    close: { description: 'The function to be called when the close button is clicked. Enables the close button' },
+    action: { description: 'The function to be called when the action button is clicked. Enables the action button' },
     text: { description: 'The text to display on the chip.' },
   },
   args: {
@@ -28,24 +28,50 @@ type Story = StoryObj<typeof meta>;
 
 export const Base: Story = {};
 
-export const CloseFunction: Story = {
+export const Colored: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Specify a function to be called when the close button is clicked.',
+        story: 'Assign color to chips.',
       },
     },
   },
-  args: { close: console.log },
+  render: () => ({
+    components: { Chip },
+    setup: () => {
+      const colors = ['red', 'blue', 'green'];
+      return { colors };
+    },
+    template: `<div class="toolbar">
+      <Chip
+        v-for="i in colors.length"
+        :key="i"
+        :text="colors[i-1]"
+        :style="\`--color:\${colors[i-1]}\`" />
+    </div>`,
+  }),
 };
 
-export const CustomClose: Story = {
-  args: { close: console.log },
+export const ActionFunction: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Specify a function to be called when the action button is clicked.',
+      },
+    },
+  },
+  args: { action: console.log },
+};
+
+export const CustomAction: Story = {
+  args: { action: console.log },
   render: args => ({
-    components: { Chip },
+    components: { Chip, Icon },
     setup: () => ({ ...args }),
-    template: `<Chip :close="close">
-      <template #close>Close</template>
+    template: `<Chip :action="action">
+      <template #action>
+        <Icon src="arrow-right.svg" size="small" />
+      </template>
       Content
     </Chip>`,
   }),
