@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ActionMenu, type ActionGroup } from '/@/components';
-import { Button, Icon } from '/@/components';
+import { Button, Icon, Switch } from '/@/components';
 import './assets/styles.css';
 
 type User = { name: string; role: string };
@@ -14,6 +14,7 @@ const actions: ActionGroup<User>[] = [
       { id: 'copy', label: 'Copy', icon: 'copy.svg', onClick: console.log },
       { id: 'download', label: 'Download', icon: 'download.svg', onClick: console.log },
       { id: 'archive', label: 'Archive', icon: 'archive.svg', onClick: console.log },
+      { id: 'dark', label: 'Dark Mode', icon: 'moon.svg', onClick: console.log },
     ],
   },
   {
@@ -150,9 +151,18 @@ export const CustomAction: Story = {
     },
   },
   render: args => ({
-    components: { ActionMenu, Button },
-    setup: () => ({ args }),
+    components: { ActionMenu, Button, Switch },
+    setup: () => {
+
+      return { args };
+    },
     template: `<ActionMenu v-bind="args">
+      <template #dark="{ action }">
+        <label class="action-menu-item">
+          <span>{{ action.label }}</span>
+          <Switch @toggle="action.onClick" />
+        </label>
+      </template>
       <template #delete="{ action }">
         <Button flat block style="--color: #f65;">
           {{ action.label }} {{ args.item.name }}
