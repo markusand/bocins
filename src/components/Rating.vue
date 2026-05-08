@@ -1,5 +1,5 @@
 <template>
-  <fieldset class="rating" :disabled>
+  <fieldset class="rating" :disabled @focusin="onFocusin" @keydown="onKeydown">
     <label v-for="i in +max" :key="i">
       <input v-model="rating" :value="i" type="radio">
       <slot><Icon src="star.svg" /></slot>
@@ -10,6 +10,9 @@
 <script setup lang="ts">
 import { watch } from 'vue';
 import Icon from './Icon.vue';
+import { useRovingTabindex } from '/@/utils';
+
+const { onFocusin, onKeydown } = useRovingTabindex({ selector: 'input' });
 
 export type RatingProps = {
   max?: number | string;
@@ -81,8 +84,13 @@ watch(rating, value => value && emit('rate', value));
         stroke: none;
       }
     }
+
+    input:focus:deep(+ .icon svg) {
+      stroke: color-mix(in srgb, var(--color) 50%, #fff);
+    }
   }
 
+  /* stylelint-disable-next-line no-descending-specificity */
   input:focus,
   &:not(:disabled) > label:hover input { transform: none; }
 

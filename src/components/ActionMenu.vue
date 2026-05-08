@@ -7,7 +7,7 @@
         </Button>
       </slot>
     </template>
-    <div class="is-panel">
+    <div class="is-panel" @focusin="onFocusin" @keydown="onKeydown">
       <div v-for="group, i in actions" :key="group.name ?? i" class="action-menu__list">
         <span v-if="group.name" class="action-menu__group">{{ group.name }}</span>
         <slot v-for="action in group.actions" :key="action.id" :name="action.id" :action>
@@ -38,6 +38,7 @@
 
 <script setup lang="ts" generic="T, K extends string = string">
 import type { MaybeReadonly } from '/@/types';
+import { useRovingTabindex } from '/@/utils';
 import Dropdown from './Dropdown.vue';
 import Button from './Button.vue';
 import Icon from './Icon.vue';
@@ -71,6 +72,8 @@ defineSlots<{
 } & {
   [k in K]?: (props: { action: Action<T, k>, key?: k }) => void;
 }>();
+
+const { onFocusin, onKeydown } = useRovingTabindex({ selector: 'button, input', wrap: true });
 
 const subactions = (action: Action<T, K>): Action<T, K>[] => {
   if (!action.groups) return [];

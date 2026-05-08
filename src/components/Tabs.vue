@@ -1,6 +1,6 @@
 <template>
   <div class="tabs">
-    <header class="tabs__header">
+    <header class="tabs__header" @focusin="onFocusin" @keydown="onKeydown">
       <button
         v-for="tab in tabs"
         :key="tab.id"
@@ -22,6 +22,9 @@
 <script setup lang="ts">
 import { computed, provide, onMounted, type VNode } from 'vue';
 import type { Tab } from './TabView.vue';
+import { useRovingTabindex } from '/@/utils';
+
+const { onFocusin, onKeydown } = useRovingTabindex({ wrap: true });
 
 const activePanel = defineModel<string>();
 const activate = (panel: string) => activePanel.value = panel;

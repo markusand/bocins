@@ -1,5 +1,10 @@
 <template>
-  <fieldset class="picker" tabindex="-1" :disabled>
+  <fieldset
+    class="picker"
+    tabindex="-1"
+    :disabled
+    @keydown="onKeydown"
+    @focusin="onFocusin">
     <Toggler
       v-for="option, i in options"
       :key="keyAttr ? option[keyAttr] as string : i"
@@ -17,6 +22,7 @@
 <script setup lang="ts" generic="T">
 import { useId } from 'vue';
 import Toggler from './Toggler.vue';
+import { useRovingTabindex } from '/@/utils';
 import type { KeyOfAttribute, MaybeReadonly } from '/@/types';
 
 export type PickerProps<T> = {
@@ -38,6 +44,8 @@ defineSlots<{
 
 const selected = defineModel<T | T[] | undefined>({ required: true });
 const groupName = useId();
+
+const { onFocusin, onKeydown } = useRovingTabindex({ selector: 'input', wrap: true });
 </script>
 
 <style scoped>

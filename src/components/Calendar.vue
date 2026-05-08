@@ -16,7 +16,7 @@
     <ul class="calendar__weekdays">
       <li v-for="day in weekDays" :key="day">{{ day }}</li>
     </ul>
-    <ul class="calendar__days">
+    <ul class="calendar__days" @focusin="onDayFocusin" @keydown="onDayKeydown">
       <li v-for="day in days" :key="day.date.getTime()" :class="day.classes">
         <slot name="day" :day="day.date" :select="select">
           <button type="button" :disabled="day.disabled" @click.prevent="select(day.date)">
@@ -34,6 +34,7 @@ import {
   isEqual, isBefore, isAfter, isBetween,
   weekStart, weekEnd, monthStart, monthEnd,
   fromRange, addYears, CalendarNames,
+  useRovingTabindex,
   type Day,
 } from '/@/utils';
 import type { MaybeReadonly } from '/@/types';
@@ -140,6 +141,8 @@ const days = computed(() => {
     };
   });
 });
+
+const { onFocusin: onDayFocusin, onKeydown: onDayKeydown } = useRovingTabindex({ columns: 7 });
 
 /* Selection */
 let activeRange = false;
