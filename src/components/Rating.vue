@@ -1,7 +1,7 @@
 <template>
   <fieldset class="rating" :disabled>
     <label v-for="i in +max" :key="i">
-      <input v-model="rating" :value="+max + 1 - i" type="radio">
+      <input v-model="rating" :value="i" type="radio">
       <slot><Icon src="star.svg" /></slot>
     </label>
   </fieldset>
@@ -43,7 +43,6 @@ watch(rating, value => value && emit('rate', value));
   margin: 0;
   display: inline-flex;
   gap: 0.25em;
-  flex-direction: row-reverse;
   align-items: center;
   vertical-align: middle;
   font-size: var(--size);
@@ -87,9 +86,7 @@ watch(rating, value => value && emit('rate', value));
   input:focus,
   &:not(:disabled) > label:hover input { transform: none; }
 
-  label:has(:checked),
-  label:has(:checked) ~ label {
-    /* stylelint-disable-next-line no-descending-specificity */
+  &:has(:checked) :not(label:has(:checked) ~ label) {
     input { transform: scale(0) !important; }
     &:deep(.icon) { transform: none; }
   }
