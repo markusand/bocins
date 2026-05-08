@@ -1,6 +1,7 @@
 import { ref } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { DatePicker } from '/@/components';
+import { DatePicker, Button } from '/@/components';
+import { addDays } from '/@/utils';
 import './assets/styles.css';
 
 const meta = {
@@ -41,11 +42,13 @@ const meta = {
     right: { description: 'Display the calendar anchored to the right.' },
     block: { description: 'Display the calendar as a block full width element.' },
     formatter: { description: 'The function used to format the date.' },
+    presets: { description: 'Display a list of preset dates and ranges', control: 'boolean' },
   },
   args: {
     locale: 'en',
     disabled: false,
     invalid: false,
+    presets: false,
     startSunday: false,
     clearable: true,
     top: false,
@@ -92,6 +95,45 @@ export const RangeDatePicker: Story = {
       return { args, dates };
     },
     template: '<DatePicker v-bind="args" v-model="dates" />',
+  }),
+};
+
+export const CustomPresets: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Provide custom preset shortcuts via the `presets` slot. The slot exposes a `select` function that accepts an array of dates.',
+      },
+    },
+  },
+  args: {
+    modelValue: [undefined, undefined],
+    placeholder: 'Select dates range',
+    formatter: (date: Date) => date.toLocaleDateString(),
+  },
+  render: args => ({
+    components: { DatePicker, Button },
+    setup() {
+      const dates = ref(args.modelValue);
+      const today = new Date();
+      const presets = {
+        '2002': [new Date(2002, 0, 1), new Date(2003, 0, 0)],
+        'Last 30 days': [addDays(today, 29), today],
+        'Last 7 days': [addDays(today, -6), today],
+        'Next 7 days': [today, addDays(today, 6)],
+        'Next 30 days': [today, addDays(today, 29)],
+      };
+      return { args, dates, presets };
+    },
+    template: `
+      <DatePicker v-bind="args" v-model="dates">
+        <template #presets="{ select }">
+          <Button v-for="dates, label in presets" :key="label" flat sm @click="select(dates)">
+            {{ label }}
+          </Button>
+        </template>
+      </DatePicker>
+    `,
   }),
 };
 

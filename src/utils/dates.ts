@@ -40,28 +40,38 @@ export const addYears = (day: Day, years: number) => {
   return date;
 };
 
-export const monthStart = (day: Day) => {
+export const yearStart = (day: Day = new Date()) => {
+  const date = new Date(day);
+  return new Date(date.getFullYear(), 0, 1);
+};
+
+export const yearEnd = (day: Day = new Date()) => {
+  const date = new Date(day);
+  return new Date(date.getFullYear() + 1, 0, 0);
+};
+
+export const monthStart = (day: Day = new Date()) => {
   const date = new Date(day);
   const year = date.getFullYear();
   const month = date.getMonth();
   return new Date(year, month, 1);
 };
 
-export const monthEnd = (day: Day) => {
+export const monthEnd = (day: Day = new Date()) => {
   const date = new Date(day);
   const year = date.getFullYear();
   const month = date.getMonth();
   return new Date(year, month + 1, 0);
 };
 
-export const weekStart = (day: Day, startOnSunday = false) => {
+export const weekStart = (day: Day = new Date(), startOnSunday = false) => {
   const start = new Date(day);
   const backward = ((7 + start.getDay() - 1 + Number(startOnSunday)) % 7);
   start.setDate(start.getDate() - backward);
   return asDay(start);
 };
 
-export const weekEnd = (day: Day, startOnSunday = false) => {
+export const weekEnd = (day: Day = new Date(), startOnSunday = false) => {
   const end = new Date(day);
   const forward = ((7 - end.getDay() - Number(startOnSunday)) % 7);
   end.setDate(end.getDate() + forward);
