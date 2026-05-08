@@ -53,43 +53,44 @@ onMounted(() => !activePanel.value && activate(tabs.value[0]?.id));
 
 .tabs {
   --spacing: var(--tabs-spacing, 0.75rem);
-}
 
-.tabs__header {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  display: flex;
-  border-bottom: 1px solid var(--tabs-color-border, var(--color-border, #8883));
-  margin-bottom: var(--spacing);
-  align-items: flex-end;
-}
-
-.tabs__tab {
-  --color-text: color-mix(in srgb, currentcolor 75%, transparent);
-
-  all: unset;
-  padding: var(--spacing);
-  color: var(--color-text);
-  margin-bottom: -1px;
-  position: relative;
-  cursor: pointer;
-  white-space: nowrap;
-
-  &:hover, &:focus { --color-text: var(--color-accent, #333) }
-}
-
-.tabs__tab--active {
-  --color-text: var(--color-accent, #333);
-
-  &::after {
-    content: '';
-    background: currentcolor;
-    height: 2px;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+  .tabs__header {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    border-bottom: 1px solid var(--tabs-color-border, var(--color-border, #8883));
+    margin-bottom: var(--spacing);
+    align-items: flex-end;
+  }
+  
+  .tabs__tab {
+    --color-text: color-mix(in srgb, currentcolor 75%, transparent);
+  
+    all: unset;
+    padding: var(--spacing);
+    color: var(--color-text);
+    margin-bottom: -1px;
+    position: relative;
+    cursor: pointer;
+    white-space: nowrap;
+  
+    &:hover { --color-text: var(--color-accent, #333) }
+  }
+  
+  .tabs__tab--active,
+  .tabs__tab:focus {
+    --color-text: var(--color-accent, #333);
+  
+    &::after {
+      content: '';
+      background: currentcolor;
+      height: 2px;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
   }
 }
 </style>
