@@ -4,7 +4,8 @@
       v-model="selected"
       :disabled
       :value
-      :type>
+      :type
+      @change="onChange">
   </label>
 </template>
 
@@ -17,14 +18,26 @@ export type SwitchProps<T> = {
   disabled?: boolean;
 };
 
-defineProps<SwitchProps<T>>();
+const props = defineProps<SwitchProps<T>>();
 
-const selected = defineModel<T | T[] | undefined>({ required: true });
+const emit = defineEmits<{
+  toggle: [value: T | T[] | undefined | boolean]
+}>();
+
+const selected = defineModel<T | T[] | boolean | undefined>();
 
 const type = computed(() => {
   const isCheckbox = typeof selected.value === 'boolean' || Array.isArray(selected.value);
   return isCheckbox ? 'checkbox' : 'radio';
 });
+
+const onChange = (event: Event) => {
+  const { checked } = event.target as HTMLInputElement;
+  const value = props.value
+    ? checked ? props.value : undefined
+    : selected.value ?? checked;
+  emit('toggle', value);
+};
 </script>
 
 <style scoped>
