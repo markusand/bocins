@@ -1,5 +1,5 @@
 <template>
-  <ul class="treelist">
+  <ul class="treelist" v-bind="!parent ? { onFocusin, onKeydown } : {}">
     <li v-for="item, i in schema" :key="i">
       <details v-if="childrenNode in item" :open>
         <summary class="treelist__title">
@@ -25,7 +25,7 @@
           </template>
         </TreeList>
       </details>
-      <div v-else>
+      <div v-else class="treelist__node">
         <slot :item :parent :path="path(item)">
           {{ item[nameNode] }}
         </slot>
@@ -35,8 +35,9 @@
 </template>
 
 <script setup lang="ts" generic="T extends object, K extends KoA<T, unknown[] | undefined>">
-import Icon from './Icon.vue';
+import { useRovingTabindex } from '/@/utils';
 import type { KeyOfAttribute as KoA, MaybeReadonly } from '/@/types';
+import Icon from './Icon.vue';
 
 export type TreeListProps<T, K> = {
   schema: MaybeReadonly<T[]>;
@@ -60,12 +61,19 @@ const path = (item: T): PropertyKey[] => [
   ...props.path,
   item[props.nameNode] as PropertyKey,
 ];
+
+// Target any tabable element within visible subtree: the browser hides details:not([open]) > ul,
+// while the <summary> direct child remains visible as the collapse toggle.
+const SELECTOR = ':is(summary, button, a[href], input, select, textarea, [tabindex])';
+const { onFocusin, onKeydown } = useRovingTabindex({
+  selector: `${SELECTOR}:not(details:not([open]) > ul ${SELECTOR})`,
+});
 </script>
 
 <style scoped>
 .treelist {
-  --indent: var(--treelist-indent, 1rem);
-  --spacing: var(--treelist-spacing, 0.25rem);
+  --indent: var(--treelist-indent, 1.25rem);
+  --spacing: var(--treelist-spacing, 0.35rem);
 
   margin: 0;
   list-style: none;
@@ -76,8 +84,6 @@ const path = (item: T): PropertyKey[] => [
   .icon {
     --size: 1em;
 
-    width: var(--indent);
-    flex: 0 0 var(--indent);
     margin-right: var(--spacing);
   }
 
@@ -86,15 +92,17 @@ const path = (item: T): PropertyKey[] => [
 [open] > .treelist__title .icon { transform: rotate(90deg); }
 
 .treelist__title {
-  padding: var(--spacing) 0;
+  padding: var(--spacing);
   display: flex;
   align-items: center;
   list-style: none;
   outline: none;
   cursor: pointer;
+  border-radius: var(--radius);
 
   &::-webkit-details-marker,
   &::marker { display: none; }
-}
 
+  &:focus { background: #8881; }
+}
 </style>
