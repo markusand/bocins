@@ -31,7 +31,7 @@ export const DividerContent: Story = {
   render: args => ({
     components: { Divider, ButtonGroup, Button, Icon },
     setup: () => ({ args }),
-    template: `<Divider>
+    template: `<Divider style="--btn-color:#888">
       <ButtonGroup>
         <Button flat><Icon src="arrow-left.svg" /></Button>
         <Button flat><Icon src="plus.svg" /></Button>
