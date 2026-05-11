@@ -246,9 +246,11 @@ const select = (date: Date) => {
 .calendar__day--start,
 .calendar__day--end,
 .calendar__day--range {
-  background: var(--color-accent, #333) !important;
-  color: var(--color-text-accent, #fff);
-  cursor: default;
+  &:not(.is-disabled) {
+    background: var(--selected-color) !important;
+    color: var(--selected-text-color);
+    cursor: default;
+  }
 }
 
 .calendar__day--start,
