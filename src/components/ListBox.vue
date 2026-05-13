@@ -66,20 +66,21 @@ const classes = computed(() => ['listbox', 'is-panel', {
 
 <style scoped>
 .listbox {
-  --color: var(--color-accent, #333);
+  --_color: var(--listbox-color, var(--color, var(--accent-color, #333)));
+  --max-height: var(--listbox-max-height, 10rem);
 
   display: flex;
   flex-direction: column;
-
+  overflow: hidden;
+  
   .picker {
     --spacing: 1px;
 
     flex: 1;
     flex-flow: column nowrap;
-    padding: 0.25rem;
-    border-radius: 0.25rem;
+    padding: 0.25em;
     overflow: auto;
-    max-height: 10rem; 
+    max-height: var(--max-height);
 
     &:deep(input) {
       opacity: 0;
@@ -89,10 +90,12 @@ const classes = computed(() => ['listbox', 'is-panel', {
   }
 
   .search {
+    border-inline-width: 0;
+    border-top-width: 0;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 
-    &:focus-within { --color-border: var(--color-border); }
+    &:focus-within { --border-color: var(--border-color); }
   }
 }
 
@@ -100,20 +103,20 @@ const classes = computed(() => ['listbox', 'is-panel', {
   flex: 1;
   border-radius: 0.25rem;
 
-  &:hover { background: color-mix(in srgb, var(--color) 10%, transparent); }
+  &:hover { background: color-mix(in srgb, var(--_color) 10%, transparent); }
 }
 
 :focus + .listbox__option {
-  background: color-mix(in srgb, var(--color) 10%, transparent);
+  background: color-mix(in srgb, var(--_color) 10%, transparent);
 }
 
 :checked + .listbox__option {
-  background: var(--color);
-  color: var(--color-text-accent, #fff);
+  background: var(--_color);
+  color: #fff;
 }
 
 .listbox--invalid :checked + .listbox__option {
-  background: var(--color-error, red);
+  background: var(--error-color, crimson);
   color: #fff;
 }
 

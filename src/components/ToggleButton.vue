@@ -49,15 +49,10 @@ const toggle = () => {
 
 <style scoped>
 .toggle-button {
-  --color-active: var(--btn-color-active, color-mix(in srgb, var(--color) 75%, #000));
+  --active-color: var(--toggle-btn-active-color, color-mix(in srgb, var(--color) 75%, #000));
 
   &.toggle-button--active {
-    --color-state: var(--color-active);
-  }
-
-  &.btn--ghost.toggle-button--active {
-    background: var(--color-state);
-    color: var(--color-text);
+    --_color-state: var(--active-color) !important;
   }
 }
 </style>

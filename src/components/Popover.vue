@@ -40,6 +40,8 @@ const classes = computed(() => ['popover__content', `popover__content--${props.p
 
 <style scoped>
 .popover {
+  --spacing: var(--popover-spacing, 0);
+
   position: relative;
   display: inline-block;
   anchor-name: var(--anchor-name);
@@ -49,11 +51,11 @@ const classes = computed(() => ['popover__content', `popover__content--${props.p
 .popover__content {
   position: fixed;
   position-anchor: var(--position-anchor);
-  background: var(--color-bg, #fff);
-  color: var(--color-text, currentcolor);
-  padding: var(--spacing, 0);
-  border-radius: 0.25rem;
-  box-shadow: 0 0 0 1px var(--color-border, #8882);
+  background: var(--bg-color, #fff);
+  color: var(--text-color, currentcolor);
+  padding: var(--spacing);
+  border-radius: var(--popover-radius, var(--radius, 0.25rem));
+  box-shadow: 0 0 0 1px var(--border-color, #8882);
   display: none;
   z-index: 2;
   position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
@@ -61,7 +63,7 @@ const classes = computed(() => ['popover__content', `popover__content--${props.p
   &:hover { display: block; }
 
   &::before, &::after {
-    --color: var(--color-bg, #fff);
+    --color: var(--bg-color, #fff);
  
     content: "";
     position: absolute;
@@ -70,7 +72,7 @@ const classes = computed(() => ['popover__content', `popover__content--${props.p
   }
 
   &::before {
-    --color: var(--color-border, #8882);
+    --color: var(--border-color, #8882);
 
     border-width: calc(0.5rem + 1.5px);
   }

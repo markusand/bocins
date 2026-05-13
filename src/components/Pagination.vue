@@ -10,7 +10,9 @@
       </ToggleButton>
     </slot>
     <!-- Separator if first page not in range -->
-    <em v-if="range.base > 1">...</em>
+    <em v-if="range.base > 1">
+      <slot name="separator">&middot;&middot;&middot;</slot>
+    </em>
     <!-- Range pages -->
     <slot v-for="page in range.length" :page="range.base + page" :go-to="goTo">
       <ToggleButton v-model="selected" v-bind="button(range.base + page)">
@@ -18,7 +20,9 @@
       </ToggleButton>
     </slot>
     <!-- Separator if last page not in range -->
-    <em v-if="range.base + range.length < pages - 1">...</em>
+    <em v-if="range.base + range.length < pages - 1">
+      <slot name="separator">&middot;&middot;&middot;</slot>
+    </em>
     <!-- Last page always visible -->
     <slot :page="pages" :go-to="goTo">
       <ToggleButton v-model="selected" v-bind="button(pages)">
@@ -51,6 +55,7 @@ const selected = defineModel<number>({ default: 0 });
 
 defineSlots<{
   default?: (props: { page: number, goTo: (page: number) => void }) => void;
+  separator?: () => void;
 }>();
 
 const range = computed(() => {
@@ -94,6 +99,8 @@ const { onFocusin, onKeydown } = useRovingTabindex({ wrap: false });
 
 <style scoped>
 .pagination {
+  --separator-color: var(--pagination-separator-color, #8888);
+
   display: inline-flex;
   align-items: center;
   list-style: none;
@@ -103,11 +110,10 @@ const { onFocusin, onKeydown } = useRovingTabindex({ wrap: false });
   em {
     display: block;
     padding-right: 0.125rem;
-    color: #8888;
+    color: var(--separator-color);
   }
 
-  .btn:not(.btn--flat) { --color: var(--color-accent, #333); }
-
+  .btn:not(.btn--flat) { --color: var(--accent-color, #333); }
 }
 
 .pagination__prev .icon { transform: rotate(180deg); }

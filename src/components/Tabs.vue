@@ -62,28 +62,28 @@ onMounted(() => !activePanel.value && activate(tabs.value[0]?.id));
     margin: 0;
     list-style: none;
     display: flex;
-    border-bottom: 1px solid var(--tabs-color-border, var(--color-border, #8883));
+    border-bottom: 1px solid var(--tabs-border-color, var(--border-color, #8883));
     margin-bottom: var(--spacing);
     align-items: flex-end;
   }
   
   .tabs__tab {
-    --color-text: color-mix(in srgb, currentcolor 75%, transparent);
+    --text-color: color-mix(in srgb, currentcolor 75%, transparent);
   
     all: unset;
     padding: var(--spacing);
-    color: var(--color-text);
+    color: var(--text-color);
     margin-bottom: -1px;
     position: relative;
     cursor: pointer;
     white-space: nowrap;
   
-    &:hover { --color-text: var(--color-accent, #333) }
+    &:hover { --text-color: var(--accent-color, #333) }
   }
   
   .tabs__tab--active,
   .tabs__tab:focus {
-    --color-text: var(--color-accent, #333);
+    --text-color: var(--accent-color, #333);
   
     &::after {
       content: '';

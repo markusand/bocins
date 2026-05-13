@@ -51,21 +51,25 @@ const onBackspace = (event: Event) => {
 
 <style scoped>
 .chips-input {
+  --spacing: var(--chips-input-spacing, 0.5rem);
+  --chip-color: var(--chips-input-color, #888);
+
   flex-wrap: wrap;
   gap: 0 var(--spacing);
 
   &:deep(input) {
-    padding: 0.375rem 0;
-    flex: 1 1 4rem;
+    padding: 0.375em 0;
+    flex: 1 1 4em;
   }
 
   &:deep(> .icon) { padding: 0; }
 
-  &:not(:focus-within).input--invalid .chip { --color: currentcolor; }
+  &.is-invalid .chip { --color: currentcolor; }
 }
 
 .chips-input__group {
-  margin: calc(0.25 * var(--spacing)) calc(-0.75 * var(--spacing));
+  margin: calc(0.25 * var(--spacing)) 0;
+  margin-left: calc(-0.75 * var(--spacing));
   display: flex;
   flex-wrap: wrap;
   gap: 0.125rem;

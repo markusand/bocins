@@ -167,16 +167,18 @@ const select = (date: Date) => {
 /* stylelint-disable no-descending-specificity */
 .calendar {
   --spacing: var(--calendar-spacing, 0.5rem);
-  --color-range: color-mix(in srgb, var(--color-accent, #333) 40%, transparent);
-  --radius: var(--calendar-radius, 0.25rem);
+  --selected-color: var(--calendar-selected-color, #333);
+  --selected-text-color: var(--calendar-selected-text-color, #fff);
+  --text-color: currentcolor;
+  --_radius: var(--calendar-radius, var(--radius, 0.25rem));
 
   display: inline-flex;
   flex-direction: column;
   gap: var(--spacing);
   padding: var(--spacing);
-  border-radius: var(--radius);
-  background: var(--color-bg);
-  color: var(--color-text, currentcolor);
+  border-radius: var(--_radius);
+  background: var(--bg-color);
+  color: var(--text-color);
 
   & > header {
     display: flex;
@@ -187,7 +189,7 @@ const select = (date: Date) => {
       &:deep(.is-selector-toggler) {
         --spacing: 0;
         --border-width: 0;
-        --color-bg: none !important;
+        --bg-color: none !important;
       }
       &:deep(.icon) { display: none; }
     }
@@ -215,8 +217,8 @@ const select = (date: Date) => {
 
 .calendar__day {
   position: relative;
-  background: var(--color-bg);
-  color: var(--color-text, currentcolor);
+  background: var(--bg-color);
+  color: var(--text-color, currentcolor);
   
   button {
     all: unset;
@@ -226,19 +228,19 @@ const select = (date: Date) => {
     place-items: center;
     cursor: pointer;
     color: inherit;
-    border-radius: var(--radius);
+    border-radius: var(--_radius);
     padding: calc(0.5 * var(--spacing));
     box-sizing: border-box;
     
     &:is(:hover, :focus) {
-      background: color-mix(in srgb, var(--color-accent, #333) 10%, transparent);
-      border-radius: var(--radius);
+      background: color-mix(in srgb, var(--selected-color) 10%, transparent);
+      border-radius: var(--_radius);
     }
   }
 }
 
 .calendar__day--today {
-  --color-text: var(--color-accent, #333);
+  --text-color: var(--selected-color);
   
   font-weight: bold;
 }
@@ -257,16 +259,16 @@ const select = (date: Date) => {
 .calendar__day:nth-child(7n + 1),
 .calendar__day:not(.is-disabled) + .is-disabled,
 .is-disabled + .calendar__day:not(.is-disabled) {
-  border-top-left-radius: var(--radius);
-  border-bottom-left-radius: var(--radius);
+  border-top-left-radius: var(--_radius);
+  border-bottom-left-radius: var(--_radius);
 }
 
 .calendar__day--end,
 .calendar__day:nth-child(7n),
 .is-disabled:has(+ .calendar__day:not(.is-disabled)),
 .calendar__day:not(.is-disabled):has(+ .is-disabled) {
-  border-top-right-radius: var(--radius);
-  border-bottom-right-radius: var(--radius);
+  border-top-right-radius: var(--_radius);
+  border-bottom-right-radius: var(--_radius);
 }
 
 .calendar__day--off { opacity: 0.25; }

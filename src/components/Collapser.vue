@@ -72,16 +72,14 @@ watch(isOpen, open => {
 
 <style scoped>
 .collapser {
-  --color: var(--collapser-color, transparent);
-  --border: var(--collapser-border, none);
-  --radius: var(--collapser-radius, 0.25rem);
   --spacing: var(--collapser-spacing, 0.75rem);
+  --separator-color: var(--collapser-separator-color, #8882);
 
   padding: 0 0 0.1px;
-  color: var(--color-text);
-  background: var(--color-bg);
+  color: var(--text-color);
+  background: var(--bg-color);
 
-  & + & { border-top: 1px solid #8882; }
+  & + & { border-top: 1px solid var(--separator-color); }
 
   .icon { --size: 1em; }
 }

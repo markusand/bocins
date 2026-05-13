@@ -74,6 +74,7 @@ const { onFocusin, onKeydown } = useRovingTabindex({
 .treelist {
   --indent: var(--treelist-indent, 1.25rem);
   --spacing: var(--treelist-spacing, 0.35rem);
+  --_radius: var(--treelist-radius, var(--radius, 0.25rem));
 
   margin: 0;
   list-style: none;
@@ -98,7 +99,7 @@ const { onFocusin, onKeydown } = useRovingTabindex({
   list-style: none;
   outline: none;
   cursor: pointer;
-  border-radius: var(--radius);
+  border-radius: var(--_radius);
 
   &::-webkit-details-marker,
   &::marker { display: none; }

@@ -45,12 +45,12 @@ const width = computed(() => toWidth(props.width));
 <style scoped>
 .btn {
   --spacing: var(--btn-spacing, 0.5rem);
-  --radius: var(--btn-radius, 0.25em);
   --color: var(--btn-color, #333);
-  --color-text: var(--btn-color-text, #fff);
-  --color-state: var(--color);
-  --color-hover: color-mix(in srgb, var(--color) 90%, #000);
+  --text-color: var(--btn-text-color, #fff);
   --border-width: var(--btn-border-width, 1px);
+  --_radius: var(--btn-radius, var(--radius, 0.25em));
+  --_hover-color: color-mix(in srgb, var(--color) 90%, #000);
+  --_color-state: var(--color);
 
   all: unset;
   display: inline-flex;
@@ -59,10 +59,10 @@ const width = computed(() => toWidth(props.width));
   vertical-align: middle;
   padding: var(--spacing) calc(1.25 * var(--spacing));
   gap: var(--spacing);
-  background: var(--color-state);
-  border: var(--border-width) solid var(--color-state);
-  color: var(--color-text);
-  border-radius: var(--radius);
+  background: var(--_color-state);
+  border: var(--border-width) solid var(--_color-state);
+  color: var(--text-color);
+  border-radius: var(--_radius);
   box-sizing: border-box;
   line-height: 1;
   cursor: pointer;
@@ -84,18 +84,18 @@ const width = computed(() => toWidth(props.width));
 
   &.btn--ghost {
     background: none;
-    color: var(--color-state);
+    color: var(--_color-state);
 
     &:not(:disabled):is(:hover, &:focus) {
-      background: var(--color-state);
-      color: var(--color-text);
+      background: var(--_color-state);
+      color: var(--text-color);
     }
   }
 
   &.btn--flat {
     background: transparent;
     border-color: transparent;
-    color: var(--color-state);
+    color: var(--_color-state);
 
     &:not(:disabled):is(:hover, :focus) {
       background: color-mix(in srgb, var(--color) 5%, transparent);
@@ -108,11 +108,11 @@ const width = computed(() => toWidth(props.width));
 .btn:disabled,
 :disabled .btn,
 .is-disabled .btn {
-  --color-state: color-mix(in srgb, var(--color-disabled, #8886) 10%, transparent) !important;
+  --_color-state: color-mix(in srgb, var(--disabled-color, #8886) 10%, transparent) !important;
   
   cursor: not-allowed !important;
-  color: var(--color-disabled, #8886) !important;
+  color: var(--disabled-color, #8886) !important;
 }
 
-.btn:not(:disabled):is(:hover, :focus) { --color-state: var(--color-hover); }
+.btn:not(:disabled):is(:hover, :focus) { --_color-state: var(--_hover-color); }
 </style>

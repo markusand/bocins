@@ -32,7 +32,7 @@ defineSlots<{
 const selected = defineModel<T | T[] | undefined>({ required: true });
 
 const classes = computed(() => ['toggler', {
-  'toggler--invalid': props.invalid,
+  'is-invalid': props.invalid,
   'is-disabled': props.disabled,
   'is-block': props.block,
 }]);
@@ -41,9 +41,9 @@ const checkiconurl = `url('data:image/svg+xml,${encodeURIComponent(checkSvg)}')`
 </script>
 
 <style scoped>
-.toggler { 
-  --color-bg: var(--toggler-color, var(--color-border, #888));
-  --scaledown: var(--toggle-scale, 0.5);
+.toggler {
+  --color: var(--toggler-color, #8888);
+  --scale: var(--toggler-scale, 0.5);
 
   display: inline-flex;
   align-items: center;
@@ -62,15 +62,15 @@ const checkiconurl = `url('data:image/svg+xml,${encodeURIComponent(checkSvg)}')`
     width: var(--size, 0.75em);
     flex: 0 0 var(--size, 0.75em);
     border-radius: 20%;
-    transform: scale(var(--scaledown));
-    background: var(--color-bg);
+    transform: scale(var(--scale));
+    background: var(--color);
     border: 1px solid transparent;
     transition: all 0.3s ease;
     cursor: pointer;
 
     &:checked {
       background:
-        var(--color-bg)
+        var(--color)
         v-bind(checkiconurl)
         no-repeat
         center center
@@ -84,12 +84,10 @@ const checkiconurl = `url('data:image/svg+xml,${encodeURIComponent(checkSvg)}')`
     input:not(:disabled) {
       transform: none;
       background: none;
-      border-color: var(--color-bg);
+      border-color: var(--color);
     }
   }
 
-  &:has(:checked) { --color-bg: var(--color-accent, #333); }
+  &:has(:checked) { --color: var(--accent-color, #333); }
 }
-
-.toggler--invalid { --color-bg: var(--color-error, red); }
 </style>

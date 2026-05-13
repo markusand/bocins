@@ -90,6 +90,10 @@ const handleEscape = (event: Event) => {
 
 <style scoped>
 .modal {
+  --max-width: var(--modal-max-width, 90%);
+  --max-height: var(--modal-max-height, 80%);
+  --backdrop-color: var(--modal-backdrop-color, #0006);
+
   position: fixed;
   left: 50%;
   top: 50%;
@@ -99,11 +103,11 @@ const handleEscape = (event: Event) => {
   padding: 0;
   color: inherit;
   border: none;
-  max-width: 90%;
-  max-height: 80%;
+  max-width: var(--max-width);
+  max-height: var(--max-height);
   overflow: visible;
 
-  &::backdrop { background: var(--color-fade, #0006); }
+  &::backdrop { background: var(--backdrop-color); }
 }
 
 .modal__close {

@@ -86,8 +86,6 @@ const clear = () => {
 
 <style scoped>
 .selector {
-  --panel-border: none;
-
   .listbox {
     display: flex;
     min-width: 100%;

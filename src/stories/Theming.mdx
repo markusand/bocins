@@ -1,0 +1,353 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Configuration/Theming" />
+
+# Theming
+
+Bocins is styled entirely through CSS custom properties — no preprocessors, no overrides, no `!important`. Drop in your design tokens and components adapt automatically.
+
+Each component exposes two levels of customization:
+
+- **Theme var** (`--{component}-*`) — set on `:root` to style all instances globally
+- **Instance var** (shorter internal name) — set on a specific element to override just that one
+
+```css
+/* Theme all buttons */
+:root {
+  --btn-color: royalblue;
+}
+
+/* Override a specific button */
+.btn-danger {
+  --color: crimson;
+}
+```
+
+A set of **global design tokens** flow through every component. Set them once and the entire UI responds:
+
+| Token              | Used for                   |
+| ------------------ | -------------------------- |
+| `--bg-color`       | Panel / input background   |
+| `--text-color`     | Text color                 |
+| `--border-color`   | Input / panel border       |
+| `--border-width`   | Input / panel border width |
+| `--radius`         | Border radius fallback     |
+| `--accent-color`   | Focus / active highlight   |
+| `--disabled-color` | Disabled state             |
+| `--error-color`    | Invalid / error state      |
+
+Components that respond to these tokens are noted in each section below.
+
+## Accordion
+
+No own vars. Wraps Collapser — see Collapser for styling.
+
+## ActionMenu
+
+| Theme var                 | Instance var  | Default  | Description          |
+| ------------------------- | ------------- | -------- | -------------------- |
+| `--action-menu-spacing`   | `--spacing`   | `0.25em` | List padding and gap |
+| `--action-menu-min-width` | `--min-width` | `7rem`   | Minimum list width   |
+| `--action-menu-max-width` | `--max-width` | `12rem`  | Maximum list width   |
+
+_Also responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-width`, `--radius`
+
+## Avatar
+
+| Theme var              | Instance var    | Default   | Description         |
+| ---------------------- | --------------- | --------- | ------------------- |
+| `--avatar-size`        | `--size`        | `2rem`    | Width and height    |
+| `--avatar-radius`      | `--radius`      | `15%`     | Border radius       |
+| `--avatar-color`       | `--color`       | `#8883`   | Initials background |
+| `--avatar-text-color`  | `--text-color`  | `#888`    | Initials text color |
+| `--avatar-badge-color` | `--badge-color` | `#66b132` | Badge background    |
+
+_Also responds to:_ `--bg-color` (badge border)
+
+## AvatarGroup
+
+| Theme var                | Instance var | Default | Description          |
+| ------------------------ | ------------ | ------- | -------------------- |
+| `--avatar-group-overlap` | `--overlap`  | `0.35`  | Overlap factor (0–1) |
+
+_Also responds to:_ `--bg-color` (avatar outline)
+
+## Button
+
+| Theme var            | Instance var     | Default  | Description                 |
+| -------------------- | ---------------- | -------- | --------------------------- |
+| `--btn-color`        | `--color`        | `#333`   | Background and border color |
+| `--btn-text-color`   | `--text-color`   | `#fff`   | Text color                  |
+| `--btn-spacing`      | `--spacing`      | `0.5rem` | Padding                     |
+| `--btn-radius`       | `--radius`       | `0.25em` | Border radius               |
+| `--btn-border-width` | `--border-width` | `1px`    | Border width                |
+
+_Also responds to:_ `--disabled-color`
+
+## ButtonGroup
+
+No own vars. Lays out Button and Input children side by side — see Button and Input for styling.
+
+## Calendar
+
+| Theme var                        | Instance var            | Default   | Description             |
+| -------------------------------- | ----------------------- | --------- | ----------------------- |
+| `--calendar-selected-color`      | `--selected-color`      | `#333`    | Selected day background |
+| `--calendar-selected-text-color` | `--selected-text-color` | `#fff`    | Selected day text       |
+| `--calendar-spacing`             | `--spacing`             | `0.5rem`  | Padding and gaps        |
+| `--calendar-radius`              | `--radius`              | `0.25rem` | Border radius           |
+
+_Also responds to:_ `--bg-color`
+
+## Carousel
+
+| Theme var                    | Instance var        | Default            | Description       |
+| ---------------------------- | ------------------- | ------------------ | ----------------- |
+| `--carousel-control-color`   | `--control-color`   | `#fff`             | Control dot color |
+| `--carousel-control-size`    | `--control-size`    | `0.5rem`           | Control dot size  |
+| `--carousel-control-spacing` | `--control-spacing` | `= --control-size` | Gap between dots  |
+
+## Chip
+
+| Theme var        | Instance var    | Default      | Description             |
+| ---------------- | --------------- | ------------ | ----------------------- |
+| `--chip-color`   | `--color`       | `#888`       | Text and accent color   |
+| `--chip-opacity` | `--opacity`     | `5%`         | Background fill opacity |
+| `--chip-size`    | `--size`        | `0.8em`      | Font size               |
+| `--chip-border`  | `--border`      | inset shadow | Box-shadow border style |
+| `--chip-radius`  | `--chip-radius` | `0.25em`     | Border radius           |
+
+_Also responds to:_ `--radius` (fallback for `--chip-radius`)
+
+## ChipsInput
+
+| Theme var               | Instance var   | Default  | Description       |
+| ----------------------- | -------------- | -------- | ----------------- |
+| `--chips-input-color`   | `--chip-color` | `#888`   | Chip color        |
+| `--chips-input-spacing` | `--spacing`    | `0.5rem` | Gap between chips |
+
+_Also responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-width`, `--radius`, `--spacing`, `--accent-color`, `--disabled-color`, `--error-color`
+
+## Collapser
+
+| Theme var                     | Instance var        | Default   | Description               |
+| ----------------------------- | ------------------- | --------- | ------------------------- |
+| `--collapser-spacing`         | `--spacing`         | `0.75rem` | Padding                   |
+| `--collapser-separator-color` | `--separator-color` | `#8882`   | Border between collapsers |
+
+_Also responds to:_ `--bg-color`, `--text-color`
+
+## DatePicker
+
+No own vars. Wraps Calendar and Dropdown — see Calendar for date styling.
+
+_Also responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-width`, `--radius`, `--spacing`, `--accent-color`, `--disabled-color`, `--error-color`
+
+## Divider
+
+| Theme var                | Instance var     | Default | Description         |
+| ------------------------ | ---------------- | ------- | ------------------- |
+| `--divider-color`        | `--color`        | `#8888` | Text and line color |
+| `--divider-margin`       | `--margin`       | `2rem`  | Vertical margin     |
+| `--divider-line-opacity` | `--line-opacity` | `75%`   | Line opacity        |
+
+## Dropdown
+
+No own vars. Uses Button vars for the default toggle button — see Button for styling.
+
+## FileDrop
+
+| Theme var            | Instance var         | Default   | Description                                       |
+| -------------------- | -------------------- | --------- | ------------------------------------------------- |
+| `--file-drop-color`  | `--color`            | `#888`    | Base color (derives background, border, and text) |
+| `--file-drop-radius` | `--file-drop-radius` | `0.25rem` | Border radius                                     |
+
+_Also responds to:_ `--radius` (fallback for `--file-drop-radius`), `--border-width`, `--accent-color` (focus / drag active), `--error-color` (remove button)
+
+## HotKey
+
+| Theme var               | Instance var     | Default  | Description       |
+| ----------------------- | ---------------- | -------- | ----------------- |
+| `--hotkey-color`        | `--color`        | `#888`   | Default key color |
+| `--hotkey-active-color` | `--active-color` | `#333`   | Active key color  |
+| `--hotkey-size`         | `--size`         | `0.75em` | Key font size     |
+
+## Icon
+
+| Theme var      | Instance var | Default        | Description             |
+| -------------- | ------------ | -------------- | ----------------------- |
+| `--icon-color` | `--color`    | `currentcolor` | SVG fill / stroke color |
+| `--icon-size`  | `--size`     | `1.25rem`      | Width and height        |
+
+## ImageExpand
+
+| Theme var                 | Instance var              | Default                | Description              |
+| ------------------------- | ------------------------- | ---------------------- | ------------------------ |
+| `--image-expand-bg-color` | `--image-expand-bg-color` | `--bg-color` / `#000d` | Overlay background color |
+
+_Also responds to:_ `--bg-color` (fallback for `--image-expand-bg-color`)
+
+## Input
+
+No own vars.
+
+_Responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-width`, `--radius`, `--spacing`, `--accent-color` (focus), `--disabled-color`, `--error-color`
+
+## ListBox
+
+| Theme var              | Instance var   | Default                   | Description                       |
+| ---------------------- | -------------- | ------------------------- | --------------------------------- |
+| `--listbox-color`      | `--color`      | `--accent-color` / `#333` | Selected and hovered option color |
+| `--listbox-max-height` | `--max-height` | `10rem`                   | Maximum scrollable height         |
+
+_Also responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-width`, `--radius`, `--accent-color`, `--error-color`
+
+## LongText
+
+No own vars.
+
+_Responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-width`, `--radius`, `--spacing`, `--accent-color` (focus), `--disabled-color`, `--error-color`
+
+## Modal
+
+| Theme var                | Instance var       | Default | Description            |
+| ------------------------ | ------------------ | ------- | ---------------------- |
+| `--modal-max-width`      | `--max-width`      | `90%`   | Maximum width          |
+| `--modal-max-height`     | `--max-height`     | `80%`   | Maximum height         |
+| `--modal-backdrop-color` | `--backdrop-color` | `#0006` | Backdrop overlay color |
+
+_Also responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-width`, `--radius`
+
+## Pagination
+
+| Theme var                      | Instance var        | Default | Description    |
+| ------------------------------ | ------------------- | ------- | -------------- |
+| `--pagination-separator-color` | `--separator-color` | `#8888` | Ellipsis color |
+
+_Also responds to:_ `--accent-color` (active page button)
+
+## Passcode
+
+| Theme var           | Instance var        | Default  | Description        |
+| ------------------- | ------------------- | -------- | ------------------ |
+| `--passcode-size`   | `--size`            | `2rem`   | Cell font size     |
+| `--passcode-gap`    | `--gap`             | `0.5em`  | Gap between cells  |
+| `--passcode-radius` | `--passcode-radius` | `0.25em` | Cell border radius |
+
+_Also responds to:_ `--radius` (fallback for `--passcode-radius`), `--bg-color`, `--text-color`, `--border-color`, `--border-width`, `--accent-color`
+
+## Password
+
+| Theme var                   | Instance var       | Default   | Description                 |
+| --------------------------- | ------------------ | --------- | --------------------------- |
+| `--password-strong-color`   | `--strong-color`   | `#5aa45d` | Strong strength indicator   |
+| `--password-moderate-color` | `--moderate-color` | `#e2a140` | Moderate strength indicator |
+| `--password-low-color`      | `--low-color`      | `#ce4d44` | Low strength indicator      |
+
+_Also responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-width`, `--radius`, `--spacing`, `--accent-color`, `--disabled-color`, `--error-color`
+
+## Picker
+
+| Theme var          | Instance var | Default   | Description                     |
+| ------------------ | ------------ | --------- | ------------------------------- |
+| `--picker-spacing` | `--spacing`  | `0.25rem` | Padding and gap between options |
+
+_Also responds to:_ `--border-color`, `--accent-color`, `--error-color`
+
+## Popover
+
+| Theme var           | Instance var | Default   | Description   |
+| ------------------- | ------------ | --------- | ------------- |
+| `--popover-radius`  | `--radius`   | `0.25rem` | Border radius |
+| `--popover-spacing` | `--spacing`  | `0`       | Inner spacing |
+
+_Also responds to:_ `--bg-color`, `--text-color`, `--border-color`
+
+## Rating
+
+| Theme var        | Instance var | Default   | Description |
+| ---------------- | ------------ | --------- | ----------- |
+| `--rating-color` | `--color`    | `#fdcf10` | Star color  |
+| `--rating-size`  | `--size`     | `1.25rem` | Star size   |
+
+## Search
+
+No own vars. Extends Input.
+
+_Responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-width`, `--radius`, `--spacing`, `--accent-color` (focus), `--disabled-color`, `--error-color`
+
+## Selector
+
+No own vars. Wraps ListBox and Dropdown — see ListBox for option styling.
+
+_Responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-width`, `--radius`, `--spacing`, `--accent-color`, `--disabled-color`, `--error-color`
+
+## Stepper
+
+No own vars. Extends Input.
+
+_Responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-width`, `--radius`, `--spacing`, `--accent-color` (focus), `--disabled-color`, `--error-color`
+
+## Switch
+
+| Theme var              | Instance var    | Default    | Description          |
+| ---------------------- | --------------- | ---------- | -------------------- |
+| `--switch-size`        | `--size`        | `1.25rem`  | Height               |
+| `--switch-spacing`     | `--spacing`     | `0.125rem` | Thumb inset padding  |
+| `--switch-on-color`    | `--on-color`    | `#7c7`     | Checked background   |
+| `--switch-off-color`   | `--off-color`   | `#8884`    | Unchecked background |
+| `--switch-thumb-color` | `--thumb-color` | `#fff`     | Thumb color          |
+
+## Tabs
+
+| Theme var             | Instance var          | Default                    | Description            |
+| --------------------- | --------------------- | -------------------------- | ---------------------- |
+| `--tabs-spacing`      | `--spacing`           | `0.75rem`                  | Tab padding            |
+| `--tabs-border-color` | `--tabs-border-color` | `--border-color` / `#8883` | Header underline color |
+
+_Also responds to:_ `--border-color` (fallback for `--tabs-border-color`), `--accent-color` (active / hover tab)
+
+## TabView
+
+No own vars. Managed by Tabs — see Tabs for styling.
+
+## ToggleButton
+
+Inherits all `--btn-*` theme vars and instance vars from Button.
+
+| Theme var                   | Instance var     | Default                    | Description                       |
+| --------------------------- | ---------------- | -------------------------- | --------------------------------- |
+| `--toggle-btn-active-color` | `--active-color` | 75% darkened `--btn-color` | Active state color (all variants) |
+
+_Also responds to:_ `--disabled-color`
+
+## Toggler
+
+| Theme var         | Instance var | Default                   | Description                 |
+| ----------------- | ------------ | ------------------------- | --------------------------- |
+| `--toggler-color` | `--color`    | `--border-color` / `#888` | Checkbox / radio color      |
+| `--toggler-scale` | `--scale`    | `0.5`                     | Unchecked scale-down factor |
+
+_Also responds to:_ `--border-color` (fallback for `--toggler-color`), `--accent-color` (checked state), `--error-color` (invalid state)
+
+## Tooltip
+
+| Theme var              | Instance var   | Default          | Description        |
+| ---------------------- | -------------- | ---------------- | ------------------ |
+| `--tooltip-bg-color`   | `--bg-color`   | `#333`           | Tooltip background |
+| `--tooltip-text-color` | `--text-color` | `#fff`           | Tooltip text color |
+| `--tooltip-spacing`    | `--spacing`    | `0.5rem 0.75rem` | Padding            |
+
+## Transfer
+
+| Theme var          | Instance var                      | Default | Description                             |
+| ------------------ | --------------------------------- | ------- | --------------------------------------- |
+| `--transfer-color` | `--btn-color` / `--listbox-color` | `#333`  | Control button and listbox accent color |
+
+## TreeList
+
+| Theme var            | Instance var | Default   | Description          |
+| -------------------- | ------------ | --------- | -------------------- |
+| `--treelist-indent`  | `--indent`   | `1.25rem` | Child nesting indent |
+| `--treelist-spacing` | `--spacing`  | `0.35rem` | Node padding         |
+| `--treelist-radius`  | `--radius`   | `0.25rem` | Node border radius   |

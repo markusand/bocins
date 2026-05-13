@@ -49,23 +49,23 @@ You can customize the theme using CSS custom properties and extending some base 
 
   color-scheme: light dark;
 
-  --color-bg: light-dark(#f8f8f8, #333);
-  --color-text: light-dark(#333, #efefec);
-  --color-error: #d33;
-  --color-accent: #39f;
-  --btn-color: var(--color-accent);
+  --bg-color: light-dark(#f8f8f8, #333);
+  --text-color: light-dark(#333, #efefec);
+  --error-color: #d33;
+  --accent-color: #39f;
+  --btn-color: var(--accent-color);
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
-.btn[alert] { --color: var(--color-error); }
+.btn[alert] { --color: var(--error-color); }
 
 .switch {
   --color-on: lightgreen;
-  --color-off: var(--color-error);
+  --color-off: var(--error-color);
 }
 ```
 

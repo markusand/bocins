@@ -41,7 +41,7 @@ const classes = computed(() => ['image-expand', {
 .image-expand {
   display: inline-block;
   position: relative;
-  background: var(--color-bg, #000d);
+  background: var(--image-expand-bg-color, var(--bg-color, #000d));
   overflow: hidden;
   max-width: 100%;
 

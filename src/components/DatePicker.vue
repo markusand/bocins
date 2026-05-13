@@ -132,7 +132,7 @@ const { onFocusin, onKeydown } = useRovingTabindex({ wrap: true });
 .datepicker__range-dates {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.5em;
 
   .icon { opacity: 0.25; }
 }
@@ -143,17 +143,17 @@ const { onFocusin, onKeydown } = useRovingTabindex({ wrap: true });
 
 .datepicker__presets {
   min-height: 0;
-  border-right: var(--border-width, 1px) solid var(--color-border, #8884);
+  border-right: var(--border-width, 1px) solid var(--border-color, #8884);
   display: flex;
   flex-direction: column;
   gap: 1px;
   overflow: auto;
-  padding: 0.25rem;
+  padding: 0.25em;
   white-space: nowrap;
 
   .btn {
     justify-content: start;
-    gap: 0.5rem;
+    gap: 0.5em;
     text-transform: capitalize;
   }
 }

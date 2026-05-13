@@ -41,7 +41,8 @@ const hasBadge = computed(() => {
   --size: var(--avatar-size, 2rem);
   --radius: var(--avatar-radius, 15%);
   --color: var(--avatar-color, #8883);
-  --color-text: var(--avatar-color-text, #888);
+  --text-color: var(--avatar-text-color, #888);
+  --badge-color: var(--avatar-badge-color, #66b132);
 
   display: inline-block;
   height: var(--size);
@@ -64,7 +65,7 @@ const hasBadge = computed(() => {
     place-content: center;
     aspect-ratio: 1;
     background: var(--color);
-    color: var(--color-text);
+    color: var(--text-color);
     border-radius: var(--radius);
     font-size: calc(0.45 * var(--size));
     text-transform: uppercase;
@@ -82,11 +83,11 @@ const hasBadge = computed(() => {
       all: unset;
       display: block;
       padding: 0.25rem 0.35rem;
-      background: var(--color-badge, #66b132);
+      background: var(--badge-color);
       border-radius: 1rem;
       font-size: 0.5rem;
       color: #fff;
-      border: 1px solid var(--color-bg, #fff);
+      border: 1px solid var(--bg-color, #fff);
       line-height: 1;
       font-variant-numeric: tabular-nums;
 

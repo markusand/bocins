@@ -87,8 +87,9 @@ onUnmounted(() => {
 
 <style scoped>
 .hotkey {
-  --color: #888;
-  --color-active: #333;
+  --color: var(--hotkey-color, #888);
+  --active-color: var(--hotkey-active-color, #333);
+  --size: var(--hotkey-size, 0.75em);
 
   display: inline-flex;
   align-items: center;
@@ -100,7 +101,7 @@ onUnmounted(() => {
     align-items: center;
     justify-content: center;
     gap: 0.125em;
-    font-size: var(--size, 0.75em);
+    font-size: var(--size);
     background: color-mix(in srgb, currentcolor 10%, transparent);
     box-shadow: inset 0 0 0 1px color-mix(in srgb, currentcolor 10%, transparent);
     border-radius: 0.25em;
@@ -117,6 +118,6 @@ onUnmounted(() => {
     }
   }
 
-  &.hotkey--active { color: var(--color-active); }
+  &.hotkey--active { color: var(--active-color); }
 }
 </style>

@@ -51,6 +51,10 @@ const classes = computed(() => ['password', `password--${strength.value.level}`]
 
 <style scoped>
 .password {
+  --strong-color: var(--password-strong-color, #5aa45d);
+  --moderate-color: var(--password-moderate-color, #e2a140);
+  --low-color: var(--password-low-color, #ce4d44);
+
   position: relative;
 
   .icon {
@@ -62,16 +66,16 @@ const classes = computed(() => ['password', `password--${strength.value.level}`]
   &::after {
     content: '';
     position: absolute;
-    bottom: 0.25rem;
-    left: 0.25rem;
-    width: calc(v-bind('strength.points') * 1% - 0.5rem);
-    height: 0.125rem;
+    bottom: 0.25em;
+    left: 0.25em;
+    width: calc(v-bind('strength.points') * 1% - 0.5em);
+    height: 0.125em;
     transition: all 0.3s ease-in-out;
-    border-radius: 0.125rem;
+    border-radius: 0.125em;
   }
 
-  &.password--strong::after { background: #5aa45d; }
-  &.password--moderate::after { background: #e2a140; }
-  &.password--low::after { background: #ce4d44; }
+  &.password--strong::after { background: var(--strong-color); }
+  &.password--moderate::after { background: var(--moderate-color); }
+  &.password--low::after { background: var(--low-color); }
 }
 </style>

@@ -88,81 +88,85 @@ onUnmounted(() => clearInterval(running.value));
 
 <style scoped>
 .carousel {
+  --control-color: var(--carousel-control-color, #fff);
+  --control-size: var(--carousel-control-size, 0.5rem);
+  --control-spacing: var(--carousel-control-spacing, var(--control-size));
+
   position: relative;
-}
 
-.carousel__wrapper {
-  display: flex;
-  position: relative;
-  height: 100%;
-  width: 100%;
-  overflow: auto hidden;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  .carousel__wrapper {
+    display: flex;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: auto hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 
-  &::-webkit-scrollbar { display: none;}
-}
+    &::-webkit-scrollbar { display: none;}
+  }
 
-.carousel__slide {
-  scroll-snap-align: center;
-  flex: 0 0 100%;
-  position: relative;
-  z-index: 0;
-}
+  .carousel__slide {
+    scroll-snap-align: center;
+    flex: 0 0 100%;
+    position: relative;
+    z-index: 0;
+  }
 
-.carousel__controls {
-  position: absolute;
-  list-style: none;
-  padding: 0.75rem 1rem;
-  margin: 0;
-  display: flex;
-  gap: 0.5rem;
-  z-index: 1;
-}
+  .carousel__controls {
+    position: absolute;
+    list-style: none;
+    padding: calc(2 * var(--control-spacing));
+    margin: 0;
+    display: flex;
+    gap: var(--control-spacing);
+    z-index: 1;
+  }
 
-.carousel__controls--top-left { top: 0; }
-.carousel__controls--bottom-left { bottom: 0; }
+  .carousel__controls--top-left { top: 0; }
+  .carousel__controls--bottom-left { bottom: 0; }
 
-.carousel__controls--bottom {
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
+  .carousel__controls--bottom {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
-.carousel__controls--bottom-right {
-  bottom: 0;
-  right: 0;
-}
+  .carousel__controls--bottom-right {
+    bottom: 0;
+    right: 0;
+  }
 
-.carousel__controls--top-right {
-  top: 0;
-  right: 0;
-}
+  .carousel__controls--top-right {
+    top: 0;
+    right: 0;
+  }
 
-.carousel__controls--top {
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
+  .carousel__controls--top {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
-.carousel__control {
-  all: unset;
-  background: var(--control-color, #fff);
-  height: var(--control-size, 0.5rem);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  display: block;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  opacity: 0.75;
+  .carousel__control {
+    all: unset;
+    background: var(--control-color);
+    height: var(--control-size);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    display: block;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.75;
 
-  &:hover { transform: scale(1.25); }
-}
+    &:hover { transform: scale(1.25); }
+  }
 
-.carousel__control--active {
-  transform: scale(1.55);
-  opacity: 1;
-  cursor: unset;
+  .carousel__control--active {
+    transform: scale(1.55);
+    opacity: 1;
+    cursor: unset;
+  }
 }
 </style>

@@ -1,14 +1,14 @@
 :root {
-  --color-bg: #fff;
-  --color-text: #333;
-  --color-accent: #333;
-  --color-disabled: #89a8;
-  --color-error: #d43;
-  --color-border: #89a5;
+  --bg-color: #fff;
+  --text-color: #333;
+  --accent-color: #333;
+  --disabled-color: #89a8;
+  --error-color: crimson;
+  --border-color: #89a5;
   --border-width: 1px;
   --radius: 0.25rem;
   --shadow: 0 0 1rem 0.25rem #89a3;
-
+  
   font: 15px/1.2 system-ui, sans-serif; 
 }
 
@@ -16,7 +16,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  background: red;
+  background: crimson;
   color: white;
   padding: 0.125rem 0.35rem;
   border-radius: 50%;
@@ -25,7 +25,7 @@
   transform: translate(50%, 0);
 }
 
-.btn[delete] { --color: red; }
+.btn[delete] { --color: crimson; }
 
 .toolbar {
   display: flex;

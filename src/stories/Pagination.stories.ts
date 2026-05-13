@@ -66,7 +66,7 @@ export const DotPagination: Story = {
             border: 'none',
             padding: 0,
             cursor: 'pointer',
-            background: page - 1 === current ? 'var(--color-accent, #333)' : '#ccc',
+            background: page - 1 === current ? 'var(--accent-color, #333)' : '#ccc',
             transition: 'all 0.2s ease',
           }"
         />

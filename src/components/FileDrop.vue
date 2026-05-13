@@ -125,27 +125,27 @@ const remove = (file: File) => {
 <style scoped>
 
 .file-drop {
-  --color: var(--filedrop-color, #888);
-  --color-bg: color-mix(in srgb, var(--color) 2%, transparent);
-  --color-border: color-mix(in srgb, var(--color) 50%, transparent);
-  --color-text: var(--color);
+  --color: var(--file-drop-color, #888);
+  --bg-color: color-mix(in srgb, var(--color) 2%, transparent);
+  --border-color: color-mix(in srgb, var(--color) 50%, transparent);
+  --text-color: var(--color);
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  background: var(--color-bg);
-  border: var(--border-width, 1px) dashed var(--color-border);
-  color: var(--color-text);
-  border-radius: 0.25rem;
+  gap: 0.5em;
+  background: var(--bg-color);
+  border: var(--border-width, 1px) dashed var(--border-color);
+  color: var(--text-color);
+  border-radius: var(--file-drop-radius, var(--radius, 0.25rem));
   box-sizing: border-box;
   cursor: pointer;
 
   & > em {
     font-style: normal;
     font-size: 0.9em;
-    padding: 0 1rem;
+    padding: 0 1em;
   }
 
   input {
@@ -158,11 +158,11 @@ const remove = (file: File) => {
   }
 
   &:focus-within,
-  &.is-dragging { --color: var(--color-accent, #333); }
+  &.is-dragging { --color: var(--accent-color, #333); }
 
   .file-drop__list {
     margin: 0;
-    padding: 0.5rem 1rem;
+    padding: 0.5em 1em;
     list-style: none;
     max-height: 100%;
     max-width: 100%;
@@ -172,7 +172,7 @@ const remove = (file: File) => {
     li {
       display: flex;
       width: 100%;
-      gap: 0.5rem;
+      gap: 0.5em;
     }
   }
 
@@ -183,7 +183,7 @@ const remove = (file: File) => {
 
     & + button {
       all: unset;
-      color: var(--color-alert, red);
+      color: var(--error-color, crimson);
       cursor: pointer;
     }
   }
