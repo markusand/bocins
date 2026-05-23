@@ -25,7 +25,7 @@ When the user asks to build or add UI, implement it directly using Bocins compon
 
 **Display**: Avatar, AvatarGroup, Chip, Icon, Divider, ImageExpand, Carousel
 
-**Layout**: Tabs, TabView, Accordion, Collapser, Pagination, TreeList
+**Layout**: Tabs, TabView, Collapser, Pagination, TreeList
 
 **Overlays**: Modal, Dropdown, Popover, Tooltip
 
@@ -57,6 +57,7 @@ import { Avatar } from "/@/components"; // or "@/components", "~/components", et
 ```
 
 ### Props
+
 - `width`: `15` (rem) | `"200px"` | `"50%"`
 - `block`, `disabled`, `invalid`, `clearable`
 - Button variants: `ghost` | `flat` (boolean props)
@@ -66,6 +67,7 @@ import { Avatar } from "/@/components"; // or "@/components", "~/components", et
 ### Slots (Primary customization method)
 
 **Selector** (most complex):
+
 - `#selection="{ item }"` - Single selected item display
 - `#selections="{ items }"` - Multiple selected items display
 - `#option="{ option }"` - Dropdown option display
@@ -136,7 +138,7 @@ Extract to a custom reusable component when:
 <template>
   <form @submit.prevent="onSubmit">
     <UserSelector v-model="teamMembers" :users="availableUsers" />
-    <Button type="submit">Save Team</Button>
+    <button type="submit">Save Team</button>
   </form>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <details :class="classes" :open="isOpen" @toggle.stop="toggle">
+  <details :class="classes" :open :name @toggle.stop="toggle">
     <summary class="collapser__toggler">
       <div class="collapser__title">
         <slot name="toggler" :open="isOpen">
@@ -15,12 +15,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed, watchEffect, inject, useId, type Ref } from 'vue';
+import { ref, computed } from 'vue';
 import Icon from './Icon.vue';
 
 export type CollapserProps = {
   title?: string;
-  open?: boolean; 
+  open?: boolean;
   name?: string;
   disabled?: boolean;
 };
@@ -28,7 +28,6 @@ export type CollapserProps = {
 const props = withDefaults(defineProps<CollapserProps>(), {
   title: '',
   open: false,
-  name: () => useId(),
 });
 
 defineSlots<{
@@ -37,9 +36,9 @@ defineSlots<{
 }>();
 
 const emit = defineEmits<{
-  open: [name: string];
-  close: [name: string];
-  toggle: [name: string];
+  open: [];
+  close: [];
+  toggle: [open: boolean];
 }>();
 
 const isOpen = ref(props.open);
@@ -49,25 +48,11 @@ const classes = computed(() => ['collapser', {
 }]);
 
 const toggle = (event: Event) => {
-  const { open } = event.target as HTMLDetailsElement;
-  isOpen.value = open;
+  isOpen.value = (event.target as HTMLDetailsElement).open;
+  if (isOpen.value) emit('open');
+  else emit ('close');
+  emit('toggle', isOpen.value);
 };
-
-// Inject state from (possible) Accordion parent
-const accordion = inject<Ref<string> | null>('accordion', null);
-
-// Update current Collapser state from props or Accordion
-watchEffect(() => { isOpen.value = props.open || props.name === accordion?.value; });
-
-watch(isOpen, open => {
-  // Emit events
-  if (open) emit('open', props.name);
-  else emit('close', props.name);
-  emit('toggle', props.name);
-
-  // Update Accordion
-  if (accordion && open) accordion.value = props.name;
-});
 </script>
 
 <style scoped>

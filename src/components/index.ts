@@ -13,7 +13,6 @@ export { default as Carousel, type CarouselProps } from './Carousel.vue';
 export { default as ImageExpand, type ImageExpandProps } from './ImageExpand.vue';
 export { default as Dropdown, type DropdownProps } from './Dropdown.vue';
 export { default as ActionMenu, type Action, type ActionGroup, type ActionMenuProps } from './ActionMenu.vue';
-export { default as Accordion } from './Accordion.vue';
 export { default as Collapser, type CollapserProps } from './Collapser.vue';
 export { default as Tabs } from './Tabs.vue';
 export { default as TabView, type Tab } from './TabView.vue';
