@@ -41,6 +41,7 @@ const classes = computed(() => ['popover__content', `popover__content--${props.p
 <style scoped>
 .popover {
   --spacing: var(--popover-spacing, 0);
+  --timing: var(--popover-timing, 0.2s);
 
   position: relative;
   display: inline-block;
@@ -57,14 +58,31 @@ const classes = computed(() => ['popover__content', `popover__content--${props.p
   border-radius: var(--popover-radius, var(--radius, 0.25rem));
   box-shadow: 0 0 0 1px var(--border-color, #8882);
   display: none;
+  opacity: 0;
+  translate: var(--translate, 0);
   z-index: 2;
   position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+  transition:
+    opacity var(--timing) ease,
+    translate var(--timing) ease,
+    display var(--timing) allow-discrete;
 
-  &:hover { display: block; }
+  &:hover,
+  :focus > &,
+  :not([tabindex]):hover > & {
+    display: block;
+    opacity: 1;
+    translate: none;
+
+    @starting-style {
+      opacity: 0;
+      translate: var(--translate, 0);
+    }
+  }
 
   &::before, &::after {
     --color: var(--bg-color, #fff);
- 
+
     content: "";
     position: absolute;
     border: 0.5rem solid transparent;
@@ -78,10 +96,9 @@ const classes = computed(() => ['popover__content', `popover__content--${props.p
   }
 }
 
-:focus > .popover__content,
-:not([tabindex]):hover > .popover__content { display: block; }
-
 .popover__content--bottom {
+  --translate: 0 -0.35rem;
+
   top: anchor(bottom);
   left: anchor(center);
   margin: 0.5rem 0 0;
@@ -95,6 +112,8 @@ const classes = computed(() => ['popover__content', `popover__content--${props.p
 }
 
 .popover__content--top {
+  --translate: 0 0.35rem;
+
   bottom: anchor(top);
   left: anchor(center);
   margin: 0 0 0.5rem;
@@ -108,6 +127,8 @@ const classes = computed(() => ['popover__content', `popover__content--${props.p
 }
 
 .popover__content--left {
+  --translate: 0.35rem 0;
+
   right: anchor(left);
   top: anchor(center);
   margin: 0 0.5rem 0 0;
@@ -122,6 +143,8 @@ const classes = computed(() => ['popover__content', `popover__content--${props.p
 }
 
 .popover__content--right {
+  --translate: -0.35rem 0;
+
   left: anchor(right);
   top: anchor(center);
   margin: 0 0 0 0.5rem;
