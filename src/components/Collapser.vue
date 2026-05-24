@@ -1,16 +1,12 @@
 <template>
-  <details :class="classes" :open :name @toggle.stop="toggle">
-    <summary class="collapser__toggler">
-      <div class="collapser__title">
-        <slot name="toggler" :open="isOpen">
-          {{ title }}
-        </slot>
-      </div>
+  <details :class="classes" :name :open @toggle.stop="toggle">
+    <summary>
+      <slot name="toggler" :open="isOpen">
+        {{ title }}
+      </slot>
       <Icon src="chevron-down.svg" />
     </summary>
-    <div class="collapser__content">
-      <slot :open="isOpen" />
-    </div>
+    <slot :open="isOpen" />
   </details>
 </template>
 
@@ -59,31 +55,53 @@ const toggle = (event: Event) => {
 .collapser {
   --spacing: var(--collapser-spacing, 0.75rem);
   --separator-color: var(--collapser-separator-color, #8882);
+  --timing: var(--collapser-timing, 0.3s);
 
   padding: 0 0 0.1px;
   color: var(--text-color);
   background: var(--bg-color);
+  interpolate-size: allow-keywords;
 
   & + & { border-top: 1px solid var(--separator-color); }
 
-  .icon { --size: 1em; }
+  & > summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing);
+    padding: var(--spacing);
+    cursor: pointer;
+
+    &::-webkit-details-marker,
+    &::marker { display: none; }
+
+    .icon {
+      --size: 1em;
+
+      margin-left: auto;
+      transition: transform var(--timing) ease;
+    }
+  }
+
+  &::details-content {
+    block-size: 0;
+    overflow: hidden;
+    padding: 0 var(--spacing);
+    padding-bottom: 0;
+    transition:
+      padding-bottom var(--timing) ease,
+      block-size var(--timing) ease,
+      content-visibility var(--timing);
+    transition-behavior: allow-discrete;
+  }
+
+  &[open] {
+    & > summary > .icon { transform: rotate(180deg); }
+
+    &::details-content {
+      block-size: auto;
+      padding-bottom: var(--spacing);
+    }
+  }
 }
-
-.collapser__toggler {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing);
-  padding: var(--spacing);
-  cursor: pointer;
-
-  &::-webkit-details-marker,
-  &::marker { display: none; }
-}
-
-.collapser__title { flex: 1; }
-
-.collapser__content { margin: 0 var(--spacing) var(--spacing); }
-
-.collapser[open] > .collapser__toggler .icon { transform: rotate(180deg); }
 </style>
