@@ -7,7 +7,7 @@
       :style="size"
       @cancel="handleEscape"
       @close="close">
-      <slot name="close" :close="close">
+      <slot name="close" :close>
         <button
           v-if="closeable"
           type="button"
@@ -16,9 +16,7 @@
           &times;
         </button>
       </slot>
-      <section v-if="!!isOpen" class="modal__content">
-        <slot :close="close" />
-      </section>
+      <slot :close :open="isOpen" />
     </dialog>
   </Teleport>
   <slot name="toggler" :open :close :toggle />
@@ -40,7 +38,6 @@ export type ModalProps = {
 
 const props = withDefaults(defineProps<ModalProps>(), {
   to: 'body',
-  width: 20,
   height: 'content-fit',
 });
 
@@ -50,7 +47,7 @@ const emit = defineEmits<{
 }>();
 
 defineSlots<{
-  default?: (props: { close: Action }) => void;
+  default?: (props: { close: Action; open: boolean }) => void;
   close?: (props: { close: Action }) => void;
   toggler?: (props: { open: Action; close: Action; toggle: Action }) => void;
 }>();
@@ -90,42 +87,73 @@ const handleEscape = (event: Event) => {
 
 <style scoped>
 .modal {
-  --max-width: var(--modal-max-width, 90%);
-  --max-height: var(--modal-max-height, 80%);
+  --border: var(--modal-border, 1px solid var(--border-color, #8884));
+  --radius: var(--modal-radius, 0.25rem);
+  --max-width: var(--modal-max-width, calc(100% - 2rem));
+  --max-height: var(--modal-max-height, calc(100% - 2rem));
   --backdrop-color: var(--modal-backdrop-color, #0006);
+  --backdrop-filter: var(--modal-backdrop-filter, none);
+  --translate: var(--modal-in-translate, 0 25%);
+  --timing: var(--modal-timing, 0.3s);
 
   position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  margin: auto;
   z-index: 5;
-  margin: 0;
-  padding: 0;
   color: inherit;
-  border: none;
+  box-sizing: border-box;
+  border: var(--border);
+  border-radius: var(--radius);
   max-width: var(--max-width);
   max-height: var(--max-height);
-  overflow: visible;
+  outline: none;
+  opacity: 0;
+  translate: var(--translate);
+  interpolate-size: allow-keywords;
+  transition:
+    all var(--timing) ease,
+    display var(--timing) allow-discrete,
+    overlay var(--timing) allow-discrete;
 
-  &::backdrop { background: var(--backdrop-color); }
-}
+  &::backdrop {
+    opacity: 0;
+    background: var(--backdrop-color);
+    backdrop-filter: var(--backdrop-filter);
+    transition:
+      all var(--timing),
+      display var(--timing) allow-discrete,
+      overlay var(--timing) allow-discrete;
+  }
 
-.modal__close {
-  all: unset;
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0.125rem;
-  margin: 0.25rem 0.5rem;
-  font-size: 1.25rem;
-  cursor: pointer;
-  opacity: 0.5;
+  &[open] {
+    opacity: 1;
+    translate: none;
 
-  &:hover { opacity: 1; }
-}
+    &::backdrop { opacity: 1; }
+  }
 
-.modal__content {
-  height: 100%;
-  box-sizing: border-box;
+  @starting-style {
+    &[open] {
+      opacity: 0;
+      translate: var(--translate);
+
+      &::backdrop { opacity: 0; }
+    }
+  }
+
+  .modal__close {
+    all: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: fit-content;
+    padding: 0.125rem;
+    margin: 0.25rem 0.5rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+    opacity: 0.5;
+
+    &:hover { opacity: 1; }
+  }
 }
 </style>
