@@ -33,6 +33,16 @@
   gap: 0.5rem;
 }
 
+h2 {
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+#tab1, #tab2, #tab3, #tab4 {
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
 .action-menu-item {
   display:flex;
   justify-content:space-between;

@@ -13,6 +13,13 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    transition: {
+      control: 'select',
+      options: ['tab-slide-x', 'tab-slide-y', 'tab-fade'],
+      description: 'Name of the Vue transition applied to `TabView`. Three built-in transitions are provided: `tab-slide-x` (default, directional horizontal slide), `tab-slide-y` (new tab drops in from above), `tab-fade` (crossfade). Pass any custom transition name and define the corresponding CSS classes yourself.',
+    },
+  },
 } satisfies Meta<typeof Tabs>;
 
 export default meta;

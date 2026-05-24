@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs">
+  <div class="tabs" :style="{ '--tab-direction': direction }">
     <header class="tabs__header" @focusin="onFocusin" @keydown="onKeydown">
       <button
         v-for="tab in tabs"
@@ -15,20 +15,40 @@
         </slot>
       </button>
     </header>
-    <slot />
+    <div class="tabs__content">
+      <slot />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, provide, onMounted, type VNode } from 'vue';
+import { computed, watch, provide, ref, nextTick, onMounted, type VNode } from 'vue';
 import type { Tab } from './TabView.vue';
 import { useRovingTabindex } from '/@/utils';
 
 const { onFocusin, onKeydown } = useRovingTabindex({ wrap: true });
 
+export type TabsProps = {
+  transition?: string;
+};
+
+const props = defineProps<TabsProps>();
+
 const activePanel = defineModel<string>();
-const activate = (panel: string) => activePanel.value = panel;
+const direction = ref(1);
+
+const activate = (panel: string) => {
+  const currentIndex = tabs.value.findIndex(t => t.id === activePanel.value);
+  const nextIndex = tabs.value.findIndex(t => t.id === panel);
+  direction.value = nextIndex >= currentIndex ? 1 : -1;
+  activePanel.value = panel;
+};
+
 provide('active', activePanel);
+
+const transition = ref('');
+provide('transition', transition);
+watch(props, p => transition.value = p.transition || 'tab-slide-x');
 
 const slots = defineSlots<{
   default: () => VNode[],
@@ -49,7 +69,10 @@ const classes = (tab: Tab & { active: boolean }) => ['tabs__tab', {
   'is-disabled': tab.disabled,
 }];
 
-onMounted(() => !activePanel.value && activate(tabs.value[0]?.id));
+onMounted(() => {
+  if (!activePanel.value) activate(tabs.value[0]?.id);
+  nextTick(() => transition.value = props.transition ?? 'tab-slide-x');
+});
 </script>
 
 <style scoped>
@@ -81,6 +104,11 @@ onMounted(() => !activePanel.value && activate(tabs.value[0]?.id));
     &:hover { --text-color: var(--accent-color, #333) }
   }
   
+  .tabs__content {
+    position: relative;
+    overflow: hidden;
+  }
+
   .tabs__tab--active,
   .tabs__tab:focus {
     --text-color: var(--accent-color, #333);
