@@ -2,7 +2,7 @@
   <ul class="treelist" v-bind="!parent ? { onFocusin, onKeydown } : {}">
     <li v-for="item, i in schema" :key="i">
       <details v-if="childrenNode in item" :open>
-        <summary class="treelist__title">
+        <summary>
           <Icon src="chevron-right.svg" />
           <slot name="title" :parent :path="path(item)" :item>
             <slot :parent :path="path(item)" :item>
@@ -25,11 +25,9 @@
           </template>
         </TreeList>
       </details>
-      <div v-else class="treelist__node">
-        <slot :item :parent :path="path(item)">
-          {{ item[nameNode] }}
-        </slot>
-      </div>
+      <slot v-else :item :parent :path="path(item)">
+        {{ item[nameNode] }}
+      </slot>
     </li>
   </ul>
 </template>
@@ -75,35 +73,54 @@ const { onFocusin, onKeydown } = useRovingTabindex({
   --indent: var(--treelist-indent, 1.25rem);
   --spacing: var(--treelist-spacing, 0.35rem);
   --_radius: var(--treelist-radius, var(--radius, 0.25rem));
+  --timing: var(--treelist-timing, 0.3s);
 
   margin: 0;
   list-style: none;
   padding: 0;
 
   & & { margin-left: var(--indent); }
-
-  .icon {
-    --size: 1em;
-
-    margin-right: var(--spacing);
+  
+  details {
+    interpolate-size: allow-keywords;
+  
+    & > summary {
+      padding: var(--spacing);
+      display: flex;
+      align-items: center;
+      list-style: none;
+      outline: none;
+      cursor: pointer;
+      border-radius: var(--_radius);
+  
+      &::-webkit-details-marker,
+      &::marker { display: none; }
+  
+      &:focus { background: #8881; }
+  
+      .icon {
+        --size: 1em;
+  
+        margin-right: var(--spacing);
+        transition: transform var(--timing) ease;
+      }
+    }
+  
+    &::details-content {
+      block-size: 0;
+      overflow: hidden;
+      transition:
+        block-size var(--timing) ease,
+        content-visibility var(--timing);
+      transition-behavior: allow-discrete;
+    }
+  
+    &[open] {
+      & > summary .icon { transform: rotate(90deg); }
+  
+      &::details-content { block-size: auto; }
+    }
   }
-
 }
 
-[open] > .treelist__title .icon { transform: rotate(90deg); }
-
-.treelist__title {
-  padding: var(--spacing);
-  display: flex;
-  align-items: center;
-  list-style: none;
-  outline: none;
-  cursor: pointer;
-  border-radius: var(--_radius);
-
-  &::-webkit-details-marker,
-  &::marker { display: none; }
-
-  &:focus { background: #8881; }
-}
 </style>
