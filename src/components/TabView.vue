@@ -1,6 +1,11 @@
 <template>
   <Transition :name="transition">
-    <div v-if="id === active" :id class="tab-view">
+    <div
+      v-if="id === active"
+      :id
+      :aria-labelledby="`${id}-tab`"
+      class="tab-view"
+      role="tabpanel">
       <slot />
     </div>
   </Transition>

@@ -1,6 +1,6 @@
 <template>
   <div class="pagination" @focusin="onFocusin" @keydown="onKeydown">
-    <Button v-if="controls" v-bind="prev" @click.prevent="change(-1)">
+    <Button v-if="controls" v-bind="prev" aria-label="Previous page" @click.prevent="change(-1)">
       <Icon src="chevron-right.svg" />
     </Button>
     <!-- First page always visible -->
@@ -29,7 +29,7 @@
         {{ pages }}
       </ToggleButton>
     </slot>
-    <Button v-if="controls" v-bind="next" @click.prevent="change(1)">
+    <Button v-if="controls" v-bind="next" aria-label="Next page" @click.prevent="change(1)">
       <Icon src="chevron-right.svg" />
     </Button>
   </div>

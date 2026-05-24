@@ -1,11 +1,15 @@
 <template>
   <div class="tabs" :style="{ '--tab-direction': direction }">
-    <header class="tabs__header" @focusin="onFocusin" @keydown="onKeydown">
+    <header class="tabs__header" role="tablist" @focusin="onFocusin" @keydown="onKeydown">
       <button
         v-for="tab in tabs"
+        :id="`${tab.id}-tab`"
         :key="tab.id"
         :class="classes(tab)"
         :disabled="tab.disabled"
+        :aria-selected="tab.active"
+        :aria-controls="tab.id"
+        role="tab"
         type="button"
         @click.prevent="activate(tab.id)">
         <slot v-bind="tab" :name="tab.id">

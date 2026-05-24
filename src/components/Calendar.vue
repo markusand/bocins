@@ -1,15 +1,15 @@
 <template>
   <div :class="classes">
     <header>
-      <Button flat small even @click.prevent="month = month - 1">
+      <Button flat small even aria-label="Previous month" @click.prevent="month = month - 1">
         <Icon src="chevron-right.svg" />
       </Button>
       <Selector
-        v-model="month" 
+        v-model="month"
         :options="[...Array(12)].map((_, i) => i)"
         :formatter="i => months[i]" />
       <Selector v-model="year" :options="years" />
-      <Button flat small even @click.prevent="month = month + 1">
+      <Button flat small even aria-label="Next month" @click.prevent="month = month + 1">
         <Icon src="chevron-right.svg" />
       </Button>
     </header>

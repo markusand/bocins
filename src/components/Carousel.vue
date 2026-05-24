@@ -1,5 +1,5 @@
 <template>
-  <div class="carousel">
+  <div class="carousel" aria-roledescription="carousel">
     <div ref="wrapper" class="carousel__wrapper" tabindex="-1" @scrollend="updateActive">
       <div v-for="item, i in items" :key="i" class="carousel__slide">
         <slot :item />
@@ -16,6 +16,8 @@
             :goto="() => goto(i)">
             <button
               type="button"
+              :aria-label="`Slide ${i + 1}`"
+              :aria-current="i === active ? 'true' : undefined"
               :class="control(i)"
               @click.prevent="goto(i)" />
           </slot>

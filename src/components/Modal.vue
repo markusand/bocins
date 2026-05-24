@@ -12,6 +12,7 @@
           v-if="closeable"
           type="button"
           class="modal__close"
+          aria-label="Close"
           @click.stop="close">
           &times;
         </button>

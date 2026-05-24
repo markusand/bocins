@@ -1,6 +1,6 @@
 <template>
-  <ul class="treelist" v-bind="!parent ? { onFocusin, onKeydown } : {}">
-    <li v-for="item, i in schema" :key="i">
+  <ul class="treelist" :role="parent ? 'group' : 'tree'" v-bind="!parent ? { onFocusin, onKeydown } : {}">
+    <li v-for="item, i in schema" :key="i" role="treeitem">
       <details v-if="childrenNode in item" :open>
         <summary>
           <Icon src="chevron-right.svg" />

@@ -2,6 +2,8 @@
   <div
     :class="classes"
     :style
+    :aria-expanded="isOpen"
+    aria-haspopup="true"
     tabindex="0"
     @focusin="onFocus"
     @focusout="onFocus">

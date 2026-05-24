@@ -2,12 +2,12 @@
   <Dropdown class="action-menu" :disabled>
     <template #toggler>
       <slot name="toggler">
-        <Button flat even :disabled>
+        <Button flat even :disabled aria-label="Actions">
           <Icon src="ellipsis-vertical.svg" />
         </Button>
       </slot>
     </template>
-    <div class="is-panel" @focusin="onFocusin" @keydown="onKeydown">
+    <div class="is-panel" role="menu" @focusin="onFocusin" @keydown="onKeydown">
       <div v-for="group, i in actions" :key="group.name ?? i" class="action-menu__list">
         <span v-if="group.name" class="action-menu__group">{{ group.name }}</span>
         <slot v-for="action in group.actions" :key="action.id" :name="action.id" :action>
@@ -22,7 +22,7 @@
               <slot :name="subaction.id" :action="subaction" />
             </template>
           </ActionMenu>
-          <Button v-else flat v-bind="action.attrs" @click="action.onClick?.(item)">
+          <Button v-else flat role="menuitem" v-bind="action.attrs" @click="action.onClick?.(item)">
             <Icon v-if="action.icon" :src="action.icon" />
             <span class="action-menu__label">{{ action.label }}</span>
             <HotKey
