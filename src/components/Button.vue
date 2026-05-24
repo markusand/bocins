@@ -66,6 +66,7 @@ const width = computed(() => toWidth(props.width));
   box-sizing: border-box;
   line-height: 1;
   cursor: pointer;
+  transition: all 0.3s ease;
 
   /* States */
   &.btn--even { padding: var(--spacing); }

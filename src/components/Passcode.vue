@@ -89,7 +89,8 @@ const focusLast = (event: Event) => {
     color: var(--text-color, currentcolor);
     text-align: center;
     border-radius: var(--passcode-radius, var(--radius, 0.25em));
-
+    transition: all 0.3s ease;
+      
     &:not(:placeholder-shown),
     &:focus { --border-color: var(--_accent-color); }
 
@@ -99,5 +100,13 @@ const focusLast = (event: Event) => {
       outline: 0.125em solid color-mix(in srgb, var(--_accent-color) 10%, transparent);
     }
   }
+
+  &.is-invalid { animation: shake 0.4s ease; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
 }
 </style>

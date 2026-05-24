@@ -6,12 +6,14 @@
     @keydown.backspace="onBackspace">
     <template #prefix>
       <div v-if="items.length" class="chips-input__group">
-        <Chip
-          v-for="item in items"
-          :key="item"
-          :action="() => remove(item)">
-          {{ item }}
-        </Chip>
+        <TransitionGroup name="chip">
+          <Chip
+            v-for="item in items"
+            :key="item"
+            :action="() => remove(item)">
+            {{ item }}
+          </Chip>
+        </TransitionGroup>
       </div>
     </template>
   </Input>
@@ -76,5 +78,16 @@ const onBackspace = (event: Event) => {
 
   /* stylelint-disable-next-line no-descending-specificity */
   .chip { margin: 0; }
+}
+
+.chip-enter-active,
+.chip-leave-active {
+  transition: all 0.3s ease;
+}
+
+.chip-enter-from,
+.chip-leave-to {
+  opacity: 0;
+  transform: scale(0.8);
 }
 </style>

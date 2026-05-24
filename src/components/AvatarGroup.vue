@@ -33,7 +33,7 @@ const classes = computed(() => ['avatar-group', {
 
     &:not(:first-child) {
       margin-right: calc(-1 * var(--overlap, 0.35) * var(--size));
-      transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease;
     }
   }
 

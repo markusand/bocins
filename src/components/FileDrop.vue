@@ -129,6 +129,7 @@ const remove = (file: File) => {
   --bg-color: color-mix(in srgb, var(--color) 2%, transparent);
   --border-color: color-mix(in srgb, var(--color) 50%, transparent);
   --text-color: var(--color);
+  --timing: var(--file-drop-timing, 0.3s);
 
   display: flex;
   flex-direction: column;
@@ -141,6 +142,7 @@ const remove = (file: File) => {
   border-radius: var(--file-drop-radius, var(--radius, 0.25rem));
   box-sizing: border-box;
   cursor: pointer;
+  transition: all var(--timing) ease;
 
   & > em {
     font-style: normal;

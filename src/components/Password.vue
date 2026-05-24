@@ -70,7 +70,7 @@ const classes = computed(() => ['password', `password--${strength.value.level}`]
     left: 0.25em;
     width: calc(v-bind('strength.points') * 1% - 0.5em);
     height: 0.125em;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease;
     border-radius: 0.125em;
   }
 
