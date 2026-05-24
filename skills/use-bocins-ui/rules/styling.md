@@ -7,6 +7,30 @@
 3. **Logic-Driven UI:** Favor built-in props (`block`, `disabled`, `invalid`) and semantic variants (`ghost`, `flat`) over custom utility classes.
 4. **Theme SSOT:** Define global variables in `:root`, then map them to component variables, e.g., `--btn-color: var(--accent-color)`.
 
+## Global Design Tokens
+
+Set these on `:root` and every component responds automatically:
+
+| Token              | Used for                          |
+| ------------------ | --------------------------------- |
+| `--bg-color`       | Panel / input background          |
+| `--text-color`     | Text color                        |
+| `--border-color`   | Input / panel border              |
+| `--border-width`   | Input / panel border width        |
+| `--radius`         | Border radius fallback            |
+| `--accent-color`   | Focus, active, and hover state    |
+| `--disabled-color` | Disabled state                    |
+| `--error-color`    | Invalid / error state             |
+
+## Utility Classes
+
+Applied by components internally, also usable directly:
+
+- **`.is-panel`** — background + border + radius (uses global tokens)
+- **`.is-block`** — full-width (`width: 100%`)
+- **`.is-disabled`** — dimmed + `cursor: not-allowed`, sets `--disabled-color`
+- **`.is-invalid`** — red border/background/text, sets `--error-color`
+
 ## Theming
 
 Set CSS variables in `:root`. Always use internal component variables (like `--btn-color`) instead of direct CSS properties (like `background`).
@@ -53,7 +77,7 @@ Common theme vars:
 - **Icon**: `--icon-size`, `--icon-color`
 - **Input / Search / LongText / Stepper / Password**: respond to global tokens (see below)
 
-Refer to [bocins.netlify.app](https://bocins.netlify.app) or `docs/style-api.md` for the full variable list.
+Refer to the [Theming reference](https://bocins.netlify.app/?path=/docs/configuration-theming--docs) for the full variable list.
 
 ## Common Props
 

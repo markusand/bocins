@@ -82,6 +82,59 @@ These are non-exhaustive examples of how to compose Bocins. Do not force these s
 <Pagination v-model="page" :total="totalPages" />
 ```
 
+## Accordion (Collapser)
+
+Group with `name` so only one item is open at a time:
+
+```html
+<Collapser name="faq" title="What is this?">
+  <p>Answer one.</p>
+</Collapser>
+<Collapser name="faq" title="How does it work?">
+  <p>Answer two.</p>
+</Collapser>
+```
+
+## Popover / Tooltip
+
+```html
+<!-- Hover tooltip -->
+<Popover position="top">
+  <template #anchor><Icon src="info.svg" tabindex="0" /></template>
+  More information about this field.
+</Popover>
+
+<!-- Click-activated detail card -->
+<Popover click position="bottom" width="18rem">
+  <template #anchor>
+    <Avatar :src="user.avatar" tabindex="0" />
+  </template>
+  <div style="padding: 0.75rem">
+    <strong>{{ user.name }}</strong>
+    <p>{{ user.role }}</p>
+  </div>
+</Popover>
+```
+
+## TreeList Navigation
+
+```html
+<TreeList :schema="menu" name-node="label" children-node="children" :open="true">
+  <template #default="{ item, path }">
+    <RouterLink :to="item.href">{{ item.label }}</RouterLink>
+  </template>
+</TreeList>
+```
+
+## Keyboard Shortcut Hint
+
+```html
+<div style="display: flex; justify-content: space-between">
+  <span>Save</span>
+  <HotKey keys="ctrl+s" @press="save" />
+</div>
+```
+
 ## Troubleshooting
 
 - Icons not showing → Set `config.iconPath` before mount

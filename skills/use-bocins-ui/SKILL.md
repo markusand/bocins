@@ -23,7 +23,7 @@ When the user asks to build or add UI, implement it directly using Bocins compon
 
 **Actions**: Button, ButtonGroup, InputGroup, ActionMenu
 
-**Display**: Avatar, AvatarGroup, Chip, Icon, Divider, ImageExpand, Carousel
+**Display**: Avatar, AvatarGroup, Chip, Icon, HotKey, Divider, ImageExpand, Carousel
 
 **Layout**: Tabs, TabView, Collapser, Pagination, TreeList
 
@@ -78,7 +78,7 @@ import { Avatar } from "/@/components"; // or "@/components", "~/components", et
 
 ```html
 <!-- Selector with custom display -->
-<Selector v-model="user" :options="users">
+<Selector v-model="user" :options="users" :formatter="u => u.name">
   <template #selection="{ item: user }">
     <Avatar :src="user.avatar" /> {{ user.name }}
   </template>
@@ -91,6 +91,119 @@ import { Avatar } from "/@/components"; // or "@/components", "~/components", et
 <Input v-model="price">
   <template #prefix><Icon src="dollar.svg" /></template>
 </Input>
+```
+
+### Overlays
+
+**Modal** — wraps native `<dialog>`. Control via `#toggler` slot or `v-model:open`:
+
+```html
+<Modal closeable>
+  <template #toggler="{ open }">
+    <Button @click="open">Open</Button>
+  </template>
+  <template #default="{ close }">
+    <p>Dialog content</p>
+    <Button @click="close">Dismiss</Button>
+  </template>
+</Modal>
+
+<!-- Programmatic control -->
+<Modal v-model:open="isOpen">...</Modal>
+```
+
+Slots: `#toggler="{ open, close, toggle }"` · `#default="{ close, open }"` · `#close="{ close }"`
+Props: `closeable` · `plain` (non-modal, no backdrop) · `width` · `height` · `to` (teleport target)
+
+**Dropdown** — opens on focus, closes on focusout. Use `#toggler` to replace the default button:
+
+```html
+<!-- Default button toggle -->
+<Dropdown label="Options" icon="settings.svg">
+  <ActionMenu :items="actions" />
+</Dropdown>
+
+<!-- Custom toggle -->
+<Dropdown>
+  <template #toggler>
+    <Avatar :src="user.avatar" tabindex="0" />
+  </template>
+  <ActionMenu :items="userActions" />
+</Dropdown>
+```
+
+Props: `label` · `icon` · `top` · `right` · `block` · `disabled` · `width`
+
+**Popover** — hover/focus tooltip overlay using CSS anchor positioning:
+
+```html
+<!-- Hover to show (default) -->
+<Popover position="bottom">
+  <template #anchor><Button>Hover me</Button></template>
+  Tooltip content
+</Popover>
+
+<!-- Click/focus to show -->
+<Popover click position="right">
+  <template #anchor><Icon src="info.svg" tabindex="0" /></template>
+  More details here
+</Popover>
+```
+
+Slots: `#default` = popover content · `#anchor` = trigger element
+Props: `position` (`top` default | `bottom` | `left` | `right`) · `click` · `width`
+
+### Tabs
+
+`v-model` binds the active tab id. `transition` accepts `tab-slide-x` (default), `tab-fade`, or `tab-slide-y`:
+
+```html
+<Tabs v-model="activeTab" transition="tab-fade">
+  <TabView id="overview" label="Overview">...</TabView>
+  <TabView id="settings" label="Settings" :disabled="!canEdit">...</TabView>
+</Tabs>
+```
+
+Customize tab buttons with `#tab="{ id, label, active }"` (all tabs) or `#<id>` (per tab).
+
+### Collapser
+
+Set `name` to create an accordion — only one open at a time (native `<details name>`):
+
+```html
+<Collapser name="faq" title="What is Bocins?">A Vue 3 UI library.</Collapser>
+<Collapser name="faq" title="How to install?">npm i bocins</Collapser>
+```
+
+Custom header via `#toggler="{ open }"`. Emits `open`, `close`, `toggle`.
+
+### TreeList
+
+Required props: `schema` (array), `nameNode` (key for display), `childrenNode` (key for nested array). Use `#default` for leaf nodes, `#title` for branch nodes:
+
+```html
+<TreeList :schema="tree" name-node="label" children-node="children">
+  <template #default="{ item, path }">
+    <a :href="item.url">{{ item.label }}</a>
+  </template>
+</TreeList>
+```
+
+### HotKey
+
+`keys` is a `+`-joined string of modifier and key names. Listens globally on `document`. Emits `@press` / `@release`:
+
+```html
+<HotKey keys="ctrl+s" @press="save" />
+<HotKey keys="meta+shift+k" @press="openSearch" />
+```
+
+### Transfer
+
+`v-model` must always be `T[]` (the selected/right-hand items). Pool is derived automatically:
+
+```html
+<Transfer v-model="selected" :options="allItems" key-attr="id" :limit="5" />
 ```
 
 ### Component Extraction
