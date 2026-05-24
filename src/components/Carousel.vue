@@ -1,12 +1,12 @@
 <template>
   <div class="carousel">
-    <div ref="wrapper" class="carousel__wrapper" @scrollend="updateActive">
+    <div ref="wrapper" class="carousel__wrapper" tabindex="-1" @scrollend="updateActive">
       <div v-for="item, i in items" :key="i" class="carousel__slide">
         <slot :item />
       </div>
     </div>
     <slot v-if="controls" name="controls" :active="active" :goto="goto">
-      <ul :class="controls">
+      <ul :class="controls" @focusin="onFocusin" @keydown="onKeydown">
         <li v-for="item, i in items" :key="i">
           <slot
             name="control"
@@ -28,6 +28,7 @@
 <script setup lang="ts" generic="T">
 import { ref, computed, watch, onUnmounted } from 'vue';
 import type { MaybeReadonly } from '/@/types';
+import { useRovingTabindex } from '/@/utils';
 
 export type CarouselProps<T> = {
   items: MaybeReadonly<T[]>;
@@ -43,6 +44,8 @@ defineSlots<{
   control?: (props: { item: T, current: number, active: number, goto: () => void }) => void;
 }>();
 
+const { onFocusin, onKeydown } = useRovingTabindex({ wrap: true });
+
 const active = defineModel<number>({ default: 0 });
 
 const wrapper = ref<HTMLDivElement>();
@@ -51,14 +54,13 @@ const goto = (i: number) => { active.value = i; };
 
 const updateActive = () => {
   const { scrollLeft = 0, offsetWidth = 1 } = wrapper.value || {};
-  active.value = Math.floor(scrollLeft / offsetWidth);
+  active.value = Math.round(scrollLeft / offsetWidth);
 };
 
 watch(active, i => {
-  const { scrollX, scrollY } = window;
   const index = i % props.items.length;
-  wrapper.value?.children[index]?.scrollIntoView({ behavior: 'smooth' });
-  window.scroll(scrollX, scrollY);
+  const left = index * (wrapper.value?.offsetWidth ?? 0);
+  wrapper.value?.scrollTo({ left, behavior: 'smooth' });
 });
 
 const controls = computed(() => {
@@ -161,6 +163,10 @@ onUnmounted(() => clearInterval(running.value));
     opacity: 0.75;
 
     &:hover { transform: scale(1.25); }
+
+    &:focus-visible {
+      outline: 0.25rem solid color-mix(in srgb, var(--control-color) 50%, transparent);
+    }
   }
 
   .carousel__control--active {
