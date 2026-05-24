@@ -130,6 +130,7 @@ _Also responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-wi
 | ----------------------------- | ------------------- | --------- | ------------------------- |
 | `--collapser-spacing`         | `--spacing`         | `0.75rem` | Padding                   |
 | `--collapser-separator-color` | `--separator-color` | `#8882`   | Border between collapsers |
+| `--collapser-timing`          | `--timing`          | `0.3s`    | Expand/collapse animation |
 
 _Also responds to:_ `--bg-color`, `--text-color`
 
@@ -149,7 +150,12 @@ _Also responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-wi
 
 ## Dropdown
 
-No own vars. Uses Button vars for the default toggle button — see Button for styling.
+| Theme var              | Instance var  | Default       | Description                          |
+| ---------------------- | ------------- | ------------- | ------------------------------------ |
+| `--dropdown-timing`    | `--timing`    | `0.3s`        | Open/close animation duration        |
+| `--dropdown-translate` | `--translate` | `0 -0.35rem`  | Enter translate offset (bottom-open) |
+
+_Also responds to:_ `--btn-color`, `--btn-text-color`, `--btn-spacing`, `--btn-radius`, `--btn-border-width` (toggle button)
 
 ## FileDrop
 
@@ -157,6 +163,7 @@ No own vars. Uses Button vars for the default toggle button — see Button for s
 | -------------------- | -------------------- | --------- | ------------------------------------------------- |
 | `--file-drop-color`  | `--color`            | `#888`    | Base color (derives background, border, and text) |
 | `--file-drop-radius` | `--file-drop-radius` | `0.25rem` | Border radius                                     |
+| `--file-drop-timing` | `--timing`           | `0.3s`    | Hover/drag transition duration                    |
 
 _Also responds to:_ `--radius` (fallback for `--file-drop-radius`), `--border-width`, `--accent-color` (focus / drag active), `--error-color` (remove button)
 
@@ -208,9 +215,14 @@ _Responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-width`,
 
 | Theme var                | Instance var       | Default | Description            |
 | ------------------------ | ------------------ | ------- | ---------------------- |
-| `--modal-max-width`      | `--max-width`      | `90%`   | Maximum width          |
-| `--modal-max-height`     | `--max-height`     | `80%`   | Maximum height         |
-| `--modal-backdrop-color` | `--backdrop-color` | `#0006` | Backdrop overlay color |
+| `--modal-border`          | `--border`           | `1px solid #8884`      | Dialog border shorthand       |
+| `--modal-radius`          | `--radius`           | `0.25rem`              | Dialog border radius          |
+| `--modal-max-width`       | `--max-width`        | `calc(100% - 2rem)`    | Maximum width                 |
+| `--modal-max-height`      | `--max-height`       | `calc(100% - 2rem)`    | Maximum height                |
+| `--modal-backdrop-color`  | `--backdrop-color`   | `#0006`                | Backdrop overlay color        |
+| `--modal-backdrop-filter` | `--backdrop-filter`  | `none`                 | Backdrop CSS filter           |
+| `--modal-in-translate`    | `--translate`        | `0 25%`                | Enter animation translate     |
+| `--modal-timing`          | `--timing`           | `0.3s`                 | Open/close animation duration |
 
 _Also responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-width`, `--radius`
 
@@ -254,8 +266,9 @@ _Also responds to:_ `--border-color`, `--accent-color`, `--error-color`
 
 | Theme var           | Instance var | Default   | Description   |
 | ------------------- | ------------ | --------- | ------------- |
-| `--popover-radius`  | `--radius`   | `0.25rem` | Border radius |
-| `--popover-spacing` | `--spacing`  | `0`       | Inner spacing |
+| `--popover-radius`  | `--radius`   | `0.25rem` | Border radius                 |
+| `--popover-spacing` | `--spacing`  | `0`       | Inner spacing                 |
+| `--popover-timing`  | `--timing`   | `0.2s`    | Open/close animation duration |
 
 _Also responds to:_ `--bg-color`, `--text-color`, `--border-color`
 
@@ -298,8 +311,9 @@ _Responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-width`,
 
 | Theme var             | Instance var          | Default                    | Description            |
 | --------------------- | --------------------- | -------------------------- | ---------------------- |
-| `--tabs-spacing`      | `--spacing`           | `0.75rem`                  | Tab padding            |
-| `--tabs-border-color` | `--tabs-border-color` | `--border-color` / `#8883` | Header underline color |
+| `--tabs-spacing`      | `--spacing`           | `0.75rem`                  | Tab padding                    |
+| `--tabs-border-color` | `--tabs-border-color` | `--border-color` / `#8883` | Header underline color         |
+| `--tabs-timing`       | `--timing`            | `0.25s`                    | Tab view transition duration   |
 
 _Also responds to:_ `--border-color` (fallback for `--tabs-border-color`), `--accent-color` (active / hover tab)
 
@@ -344,6 +358,7 @@ _Also responds to:_ `--border-color` (fallback for `--toggler-color`), `--accent
 
 | Theme var            | Instance var | Default   | Description          |
 | -------------------- | ------------ | --------- | -------------------- |
-| `--treelist-indent`  | `--indent`   | `1.25rem` | Child nesting indent |
-| `--treelist-spacing` | `--spacing`  | `0.35rem` | Node padding         |
-| `--treelist-radius`  | `--radius`   | `0.25rem` | Node border radius   |
+| `--treelist-indent`  | `--indent`   | `1.25rem` | Child nesting indent      |
+| `--treelist-spacing` | `--spacing`  | `0.35rem` | Node padding              |
+| `--treelist-radius`  | `--radius`   | `0.25rem` | Node border radius        |
+| `--treelist-timing`  | `--timing`   | `0.3s`    | Expand/collapse animation |

@@ -40,7 +40,7 @@ import 'bocins/dist/index.css';
 @import 'bocins/dist/index.css';
 ```
 
-You can customize the theme using CSS custom properties and extending some base styles
+You can customize the theme using CSS custom properties and extending some base styles. See the full list of available custom properties in the [Theming reference](src/stories/Theming.mdx) or in the [Storybook docs](https://bocins.netlify.app/?path=/docs/configuration-theming--docs).
 
 ```css
 :root {
