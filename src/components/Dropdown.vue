@@ -11,7 +11,7 @@
         {{ label }}
       </Button>
     </slot>
-    <div v-if="isOpen" class="dropdown__overlay">
+    <div class="dropdown__overlay" :class="{ 'is-open': isOpen }">
       <slot />
     </div>
   </div>
@@ -78,6 +78,9 @@ const onFocus = (event: FocusEvent) => {
 
 <style scoped>
 .dropdown {
+  --timing: var(--dropdown-timing, 0.3s);
+  --translate: var(--dropdown-translate, 0 -0.35rem);
+
   display: inline-flex;
   flex-direction: column;
   outline: none;
@@ -93,15 +96,34 @@ const onFocus = (event: FocusEvent) => {
     max-width: var(--max-width, 100dvw);
     margin: 0.125rem 0;
     z-index: 2;
+    opacity: 0;
+    translate: var(--translate);
+    pointer-events: none;
+    transition: all var(--timing) ease;
+
+    &.is-open {
+      opacity: 1;
+      translate: none;
+      pointer-events: auto;
+
+      @starting-style {
+        opacity: 0;
+        translate: var(--translate);
+      }
+    }
   }
 }
 
 :disabled .dropdown__overlay,
-.is-disabled .dropdown__overlay { display: none; }
+.is-disabled .dropdown__overlay { pointer-events: none; }
 
-.dropdown--top > .dropdown__overlay {
-  bottom: anchor(top);
-  top: unset;
+.dropdown--top {
+  --translate: 0 0.35rem;
+
+  & > .dropdown__overlay {
+    bottom: anchor(top);
+    top: unset;
+  }
 }
 
 .dropdown--right > .dropdown__overlay {
