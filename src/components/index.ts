@@ -41,3 +41,4 @@ export { default as Pagination, type PaginationProps } from './Pagination.vue';
 export { default as Popover, type PopoverProps } from './Popover.vue';
 export { default as Tooltip, type TooltipProps } from './Tooltip.vue';
 export { default as HotKey, type HotKeyProps } from './HotKey.vue';
+export { default as Slider, type SliderProps } from './Slider.vue';

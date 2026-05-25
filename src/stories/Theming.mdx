@@ -297,6 +297,18 @@ No own vars. Extends Input.
 
 _Responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-width`, `--radius`, `--spacing`, `--accent-color` (focus), `--disabled-color`, `--error-color`
 
+## Slider
+
+| Theme var               | Instance var     | Default                           | Description               |
+| ----------------------- | ---------------- | --------------------------------- | ------------------------- |
+| `--slider-color`        | `--color`        | `--accent-color` / `currentcolor` | Fill and thumb border     |
+| `--slider-thumb-color`  | `--thumb-color`  | `#fff`                            | Thumb fill color          |
+| `--slider-track-color`  | `--track-color`  | `#8884`                           | Track background color    |
+| `--slider-thumb-size`   | `--thumb-size`   | `1rem`                            | Thumb diameter            |
+| `--slider-track-height` | `--track-height` | `0.25rem`                         | Track thickness           |
+
+_Also responds to:_ `--accent-color` (fallback for `--slider-color`), `--bg-color` (disabled track), `--error-color`
+
 ## Switch
 
 | Theme var              | Instance var    | Default    | Description          |

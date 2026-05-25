@@ -1,5 +1,6 @@
 export * from './svg-inline';
 export * from './dimensions';
+export * from './numbers';
 export * from './dates';
 export * from './use.searcher';
 export * from './use.files';
