@@ -20,7 +20,6 @@ const meta = {
       options: ['top', 'bottom', 'left', 'right'],
       control: { type: 'select' },
     },
-    click: { description: 'Show the tooltip on click instead of hover.' },
     width: {
       description: 'The width of the tooltip. Can be a number (in rem) or any string representing length and unit.',
       control: 'text',
@@ -29,8 +28,7 @@ const meta = {
   args: {
     text: 'Lorem ipsum dolor sit amet.',
     position: 'top',
-    click: false,
-    width: '12',
+    width: undefined,
   },
 } satisfies Meta<typeof Tooltip>;
 

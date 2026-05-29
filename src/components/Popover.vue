@@ -1,187 +1,164 @@
 <template>
-  <div class="popover" :tabindex="props.click ? -1 : undefined" :style="anchorStyles">
-    <div :class="classes" :style="width">
-      <slot />
-    </div>
-    <slot name="anchor" />
-  </div>
+  <Dropdown v-bind="props" :position>
+    <template #label>
+      <slot name="anchor" />
+    </template>
+    <template #default>
+      <div class="popover" :class="position">
+        <slot />
+      </div>
+    </template>
+  </Dropdown>
 </template>
 
 <script setup lang="ts">
-import { computed, useId, type CSSProperties } from 'vue';
-import { toWidth } from '../utils';
+import Dropdown, { type DropdownProps } from './Dropdown.vue';
 
-export type PopoverProps = {
-  position?: 'bottom' | 'top' | 'left' | 'right';
-  click?: boolean;
-  width?: string | number;
-};
+export type PopoverProps = Omit<DropdownProps, 'icon' | 'label'>;
 
-const props = withDefaults(defineProps<PopoverProps>(), {
-  position: 'top',
-  width: 'auto',
-});
+const props = defineProps<PopoverProps>();
 
 defineSlots<{
   default: () => void;
-  anchor: () => void
+  anchor: () => void;
 }>();
-
-const width = computed((): CSSProperties | null => toWidth(props.width));
-
-const anchorId = useId();
-const anchorStyles = computed(() => ({
-  '--anchor-name': `--popover-${anchorId}`,
-  '--position-anchor': `--popover-${anchorId}`,
-}));
-
-const classes = computed(() => ['popover__content', `popover__content--${props.position}`]);
 </script>
 
 <style scoped>
 .popover {
-  --spacing: var(--popover-spacing, 0);
+  --color: var(--popover-bg-color, var(--bg-color, #f00));
+  --text-color: var(--popover-text-color, currentcolor);
+  --border-color: var(--popover-border-color, #888);
   --timing: var(--popover-timing, 0.2s);
+  --arrow-offset: var(--popover-arrow-offset, 0.75rem);
 
   position: relative;
-  display: inline-block;
-  anchor-name: var(--anchor-name);
-  outline: 0;
-}
-
-.popover__content {
-  position: fixed;
-  position-anchor: var(--position-anchor);
-  background: var(--bg-color, #fff);
-  color: var(--text-color, currentcolor);
-  padding: var(--spacing);
+  background: var(--color);
+  color: var(--text-color);
+  padding: var(--popover-spacing, 0);
+  border: 1px solid var(--border-color);
   border-radius: var(--popover-radius, var(--radius, 0.25rem));
-  box-shadow: 0 0 0 1px var(--border-color, #8882);
-  display: none;
-  opacity: 0;
-  translate: var(--translate, 0);
-  z-index: 2;
-  position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-  transition:
-    opacity var(--timing) ease,
-    translate var(--timing) ease,
-    display var(--timing) allow-discrete;
-
-  &:hover,
-  :focus > &,
-  :not([tabindex]):hover > & {
-    display: block;
-    opacity: 1;
-    translate: none;
-
-    @starting-style {
-      opacity: 0;
-      translate: var(--translate, 0);
-    }
-  }
 
   &::before, &::after {
-    --color: var(--bg-color, #fff);
-
     content: "";
     position: absolute;
     border: 0.5rem solid transparent;
-    transform: translateX(-50%);
   }
 
-  &::before {
-    --color: var(--border-color, #8882);
+  &::before { border-width: calc(0.5rem + 1.5px); }
 
-    border-width: calc(0.5rem + 1.5px);
+  /* Top family: arrow at bottom edge, pointing down */
+  &:is(.top-left, .top-in-left, .top, .top-in-right, .top-right) {
+    margin-bottom: calc(0.5rem + var(--gap, 0rem));
+
+    &::before, &::after {
+      top: 100%;
+      left: 50%;
+      translate: -50% 0;
+      border-top-color: var(--color);
+    }
+
+    &::before { border-top-color: var(--border-color); }
   }
+
+  /* Bottom family: arrow at top edge, pointing up */
+  &:is(.bottom-right, .bottom-in-right, .bottom, .bottom-in-left, .bottom-left) {
+    margin-top: calc(0.5rem + var(--gap, 0rem));
+
+    &::before, &::after {
+      bottom: 100%;
+      left: 50%;
+      translate: -50% 0;
+      border-bottom-color: var(--color);
+    }
+
+    &::before { border-bottom-color: var(--border-color); }
+  }
+
+  /* Right family: arrow at left edge, pointing left */
+  &:is(.right-in-top, .right, .right-in-bottom) {
+    margin-left: calc(0.5rem + var(--gap, 0rem));
+
+    &::before, &::after {
+      right: 100%;
+      top: 50%;
+      translate: 0 -50%;
+      border-right-color: var(--color);
+    }
+
+    &::before { border-right-color: var(--border-color); }
+  }
+
+  /* Left family: arrow at right edge, pointing right */
+  &:is(.left-in-bottom, .left, .left-in-top) {
+    margin-right: calc(0.5rem + var(--gap, 0rem));
+
+    &::before, &::after {
+      left: 100%;
+      top: 50%;
+      translate: 0 -50%;
+      border-left-color: var(--color);
+    }
+
+    &::before { border-left-color: var(--border-color); }
+  }
+
+  /* Near-left edge (top/bottom families) */
+  &:is(.top-in-left, .bottom-in-left) {
+    &::before, &::after {
+      left: var(--arrow-offset);
+      translate: 0 0;
+    }
+
+    &::before { translate: -1.5px 0; }
+  }
+
+  /* Near-right edge (top/bottom families) */
+  &:is(.top-in-right, .bottom-in-right) {
+    &::before, &::after {
+      left: auto;
+      right: var(--arrow-offset);
+      translate: 0 0;
+    }
+
+    &::before { translate: 1.5px 0; }
+  }
+
+  /* Near-top edge (right/left families) */
+  &:is(.right-in-top, .left-in-top) {
+    &::before, &::after {
+      top: var(--arrow-offset);
+      translate: 0 0;
+    }
+
+    &::before { translate: 0 -1.5px; }
+  }
+
+  /* Near-bottom edge (right/left families) */
+  &:is(.right-in-bottom, .left-in-bottom) {
+    &::before, &::after {
+      top: auto;
+      bottom: var(--arrow-offset);
+      translate: 0 0;
+    }
+
+    &::before { translate: 0 1.5px; }
+  }
+
+  /* Corners: no arrow, sharp corner toward anchor */
+  &:is(.top-left, .top-right, .bottom-right, .bottom-left) {
+    margin: 0;
+    &::before, &::after { display: none; }
+  }
+
+  &.top-left { border-bottom-right-radius: 0; }
+  &.top-right { border-bottom-left-radius: 0; }
+  &.bottom-right { border-top-left-radius: 0; }
+  &.bottom-left { border-top-right-radius: 0; }
 }
 
-.popover__content--bottom {
-  --translate: 0 -0.35rem;
-
-  top: anchor(bottom);
-  left: anchor(center);
-  margin: 0.5rem 0 0;
-  transform: translateX(-50%);
-
-  &::before, &::after {
-    border-bottom-color: var(--color);
-    bottom: 100%;
-    left: 50%;
-  }
-}
-
-.popover__content--top {
-  --translate: 0 0.35rem;
-
-  bottom: anchor(top);
-  left: anchor(center);
-  margin: 0 0 0.5rem;
-  transform: translateX(-50%);
-
-  &::before, &::after {
-    border-top-color: var(--color);
-    top: 100%;
-    left: 50%;
-  }
-}
-
-.popover__content--left {
-  --translate: 0.35rem 0;
-
-  right: anchor(left);
-  top: anchor(center);
-  margin: 0 0.5rem 0 0;
-  transform: translateY(-50%);
-
-  &::before, &::after {
-    border-left-color: var(--color);
-    top: 50%;
-    left: 100%;
-    transform: translate(0, -50%);
-  }
-}
-
-.popover__content--right {
-  --translate: -0.35rem 0;
-
-  left: anchor(right);
-  top: anchor(center);
-  margin: 0 0 0 0.5rem;
-  transform: translateY(-50%);
-
-  &::before, &::after {
-    border-right-color: var(--color);
-    top: 50%;
-    right: 100%;
-    transform: translate(0, -50%);
-  }
-}
-
-/* Fallback for browsers without anchor positioning support */
-@supports not (anchor-name: --popover-anchor) {
-  .popover__content {
-    position: absolute;
-  }
-
-  .popover__content--bottom {
-    top: 100%;
-    left: 50%;
-  }
-
-  .popover__content--top {
-    bottom: 100%;
-    left: 50%;
-  }
-
-  .popover__content--left {
-    right: 100%;
-    top: 50%;
-  }
-
-  .popover__content--right {
-    left: 100%;
-    top: 50%;
-  }
+.toggler {
+  display: inline-block;
+  anchor-name: v-bind(anchor); /* stylelint-disable-line */
 }
 </style>

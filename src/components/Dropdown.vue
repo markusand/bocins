@@ -227,7 +227,6 @@ const onToggle = (event: ToggleEvent) => {
 .toggler {
   all: unset;
   display: inline-block;
-  vertical-align: middle;
   anchor-name: v-bind(anchor); /* stylelint-disable-line */
 
   button {

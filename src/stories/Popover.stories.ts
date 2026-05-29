@@ -17,11 +17,15 @@ const meta = {
   },
   argTypes: {
     position: {
-      description: 'The position of the popover relative to the anchor.',
-      options: ['top', 'bottom', 'left', 'right'],
+      description: 'The position of the dropdown relative to the toggler.',
       control: { type: 'select' },
+      options: [
+        'top-left', 'top-in-left', 'top', 'top-in-right', 'top-right',
+        'right-in-top', 'right', 'right-in-bottom',
+        'bottom-right', 'bottom-in-right', 'bottom', 'bottom-in-left', 'bottom-left',
+        'left-in-bottom', 'left', 'left-in-top',
+      ],
     },
-    click: { description: 'Show the popover on click instead of hover.' },
     width: {
       description: 'The width of the popover. Can be a number (in rem) or any string representing length and unit.',
       control: 'text',
@@ -29,8 +33,6 @@ const meta = {
   },
   args: {
     position: 'top',
-    click: false,
-    width: '15',
   },
 } satisfies Meta<typeof Popover>;
 
