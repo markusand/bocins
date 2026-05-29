@@ -2,7 +2,7 @@
   <Dropdown
     class="datepicker"
     v-bind="datepickerProps">
-    <template #toggler>
+    <template #label>
       <div :class="togglerClasses">
         <div v-if="isSelected(selected)" class="datepicker__selected">
           <slot v-if="Array.isArray(selected)" name="dates" :dates="selected">
@@ -63,16 +63,17 @@ export type DatePickerProps = {
   clearable?: boolean;
   invalid?: boolean;
   presets: boolean;
-} & Pick<DropdownProps, 'block' | 'width' | 'top' | 'right'>
-  & CalendarProps;
+  presets?: boolean;
+} & Omit<DropdownProps, 'icon' | 'label'> & CalendarProps;
 
 const props = withDefaults(defineProps<DatePickerProps>(), {
   placeholder: 'Select date',
+  lazy: true,
 });
 
 const datepickerProps = computed(() => {
-  const { disabled, block, width, top, right } = props;
-  return { disabled, block, width, top, right };
+  const { disabled, block, width, lazy } = props;
+  return { disabled, block, width, lazy };
 });
 
 const togglerClasses = computed(() => ['is-selector-toggler', {

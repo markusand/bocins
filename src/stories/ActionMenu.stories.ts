@@ -133,8 +133,8 @@ export const CustomToggler: Story = {
     components: { ActionMenu, Button, Icon },
     setup: () => ({ args }),
     template: `<ActionMenu v-bind="args">
-      <template #toggler>
-        <Button flat even>
+      <template #toggler="{ open }">
+        <Button flat even @click="open">
           <Icon src="ellipsis.svg" />
         </Button>
       </template>

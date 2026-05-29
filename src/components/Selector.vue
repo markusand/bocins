@@ -2,7 +2,7 @@
   <Dropdown
     class="selector"
     v-bind="selectorProps">
-    <template #toggler>
+    <template #label>
       <div :class="classes">
         <div v-if="isSelected(selected)" class="selector__selected">
           <slot v-if="Array.isArray(selected)" name="selections" :items="selected">
@@ -46,8 +46,7 @@ import Icon from './Icon.vue';
 export type SelectorProps<T> = {
   clearable?: boolean;
   placeholder?: string;
-} & Pick<DropdownProps, 'disabled' | 'block' | 'width' | 'top' | 'right'>
-  & ListBoxProps<T>;
+} & Omit<DropdownProps, 'icon' | 'label'> & ListBoxProps<T>;
 
 const props = withDefaults(defineProps<SelectorProps<T>>(), {
   formatter: String,
@@ -55,8 +54,8 @@ const props = withDefaults(defineProps<SelectorProps<T>>(), {
 });
 
 const selectorProps = computed(() => {
-  const { disabled, block, width, top, right } = props;
-  return { disabled, block, width, top, right };
+  const { disabled, block, width, lazy } = props;
+  return { disabled, block, width, lazy };
 });
 
 const classes = computed(() => ['is-selector-toggler', {

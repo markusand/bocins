@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { Dropdown, Button, Icon } from '/@/components';
+import UserProfile from './UserProfile.vue';
+import { users } from './assets/users';
 import './assets/styles.css';
 
 const meta = {
@@ -15,18 +17,16 @@ const meta = {
   },
   argTypes: {
     label: { description: 'The text to display on the toggler button.' },
-    top: { description: 'Align the dropdown menu to the top of the button.' },
-    right: { description: 'Align the dropdown menu to the right of the button.' },
     block: { description: 'Display the dropdown menu as a block full width element.' },
     disabled: { description: 'Disable the dropdown menu.' },
+    lazy: { description: 'Defer rendering slot content until the dropdown is first opened.' },
     toggler: { description: 'The toggler options' },
   },
   args: {
     label: '',
-    top: false,
-    right: false,
     block: false,
     disabled: false,
+    lazy: false,
   },
 } satisfies Meta<typeof Dropdown>;
 
@@ -49,8 +49,8 @@ export const CustomToggler: Story = {
     components: { Dropdown, Button, Icon },
     setup: () => ({ args }),
     template: `<Dropdown v-bind="args">
-      <template #toggler>
-        <Button even>
+      <template #toggler="{ open }">
+        <Button even @click="open">
           <Icon src="ellipsis.svg" />
         </Button>
       </template>
@@ -58,3 +58,17 @@ export const CustomToggler: Story = {
     </Dropdown>`,
   }),
 };
+
+export const CustomLabel: Story = {
+  render: args => ({
+    components: { Dropdown, Button, Icon, UserProfile },
+    setup: () => ({ args, user: users[0] }),
+    template: `<Dropdown v-bind="args">
+      <template #label>
+        <UserProfile :user />
+      </template>
+      Content
+    </Dropdown>`,
+  }),
+};
+

@@ -1,39 +1,41 @@
 <template>
-  <div
-    :class="classes"
-    :style
-    :aria-expanded="isOpen"
-    aria-haspopup="true"
-    tabindex="0"
-    @focusin="onFocus"
-    @focusout="onFocus">
-    <slot name="toggler">
-      <Button :even="!label" :disabled>
-        <Icon v-if="icon || !label" :src="icon" />
-        {{ label }}
-      </Button>
+  <div :class="togglerClasses" :style>
+    <slot name="toggler" :open :close>
+      <button :popovertarget="id" :disabled tabindex="0">
+        <slot name="label">
+          <Icon v-if="icon || !label" :src="icon" />
+          {{ label }}
+        </slot>
+      </button>
     </slot>
-    <div class="dropdown__overlay" :class="{ 'is-open': isOpen }">
-      <slot />
-    </div>
+  </div>
+  <div
+    v-if="!disabled"
+    :id
+    ref="dropdown"
+    class="dropdown"
+    popover=""
+    v-bind="$attrs"
+    @toggle="onToggle">
+    <slot v-if="!lazy || isOpen" :close />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, useId } from 'vue';
+import { ref, useId, useTemplateRef, computed } from 'vue';
 import Icon from './Icon.vue';
-import Button from './Button.vue';
 import { toWidth } from '/@/utils';
 
 export type DropdownProps = {
   icon?: string;
   label?: string;
-  top?: boolean;
-  right?: boolean;
   disabled?: boolean;
   block?: boolean;
   width?: number | string;
+  lazy?: boolean;
 };
+
+defineOptions({ inheritAttrs: false });
 
 const props = withDefaults(defineProps<DropdownProps>(), {
   icon: 'chevron-down.svg',
@@ -41,113 +43,81 @@ const props = withDefaults(defineProps<DropdownProps>(), {
 });
 
 defineSlots<{
-  default?: () => void;
-  toggler?: () => void;
+  default?: (props: { close: () => void }) => void;
+  toggler?: (props: { open: () => void, close: () => void }) => void;
+  label?: () => void;
 }>();
 
 const emit = defineEmits<{
+  toggle: [open: boolean];
   open: [];
   close: [];
 }>();
 
-const classes = computed(() => ['dropdown', {
-  'dropdown--top': props.top,
-  'dropdown--right': props.right,
-  'is-block': props.block,
-  'is-disabled': props.disabled,
-}]);
-
-const anchorId = useId();
-const style = computed(() => ({
-  ...toWidth(props.width),
-  '--anchor-name': `--dropdown-${anchorId}`,
-  '--position-anchor': `--dropdown-${anchorId}`,
-}));
+const id = useId();
+const anchor = `--dropdown-${id}`;
 
 const isOpen = ref(false);
 
-const onFocus = (event: FocusEvent) => {
-  if (props.disabled) return;
-  const current = event.currentTarget as HTMLElement;
-  const related = event.relatedTarget as HTMLElement;
-  if (!current?.contains(related)) {
-    isOpen.value = event.type === 'focusin';
-    if (isOpen.value) emit('open');
-    else emit('close');
-  }
+const dropdown = useTemplateRef('dropdown');
+const open = () => dropdown.value?.showPopover();
+const close = () => dropdown.value?.hidePopover();
+
+const togglerClasses = computed(() => ['toggler', {
+  'is-block': props.block,
+}]);
+
+const style = computed(() => toWidth(props.width));
+
+const onToggle = (event: ToggleEvent) => {
+  isOpen.value = event.newState === 'open';
+  if (isOpen.value) emit('open');
+  else emit('close');
+  emit('toggle', isOpen.value);
 };
 </script>
 
 <style scoped>
 .dropdown {
-  --timing: var(--dropdown-timing, 0.3s);
-  --translate: var(--dropdown-translate, 0 -0.35rem);
+  all: unset;
+  display: none;
+  position: absolute;
+  margin: 0.125rem 0;
+  position-anchor: v-bind(anchor); /* stylelint-disable-line */
+  top: anchor(bottom);
+  left: anchor(left);
+  position-try-fallbacks: --flip-y, --flip-x, --flip-both;
 
-  display: inline-flex;
-  flex-direction: column;
-  outline: none;
-  anchor-name: var(--anchor-name);
+  &:popover-open { display: block; }
+}
 
-  .dropdown__overlay {
-    position: absolute;
-    top: anchor(bottom);
-    left: anchor(left);
-    position-anchor: var(--position-anchor);
-    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-    min-width: anchor-size(width, 0);
-    max-width: var(--max-width, 100dvw);
-    margin: 0.125rem 0;
-    z-index: 2;
-    opacity: 0;
-    translate: var(--translate);
-    pointer-events: none;
-    transition: all var(--timing) ease;
+.modal .dropdown { position: fixed; } /* Fix for Firefox */
 
-    &.is-open {
-      opacity: 1;
-      translate: none;
-      pointer-events: auto;
+.toggler {
+  all: unset;
+  display: inline-block;
+  vertical-align: middle;
+  anchor-name: v-bind(anchor); /* stylelint-disable-line */
 
-      @starting-style {
-        opacity: 0;
-        translate: var(--translate);
-      }
-    }
+  button {
+    all: unset;
+    width: 100%;
+    cursor: pointer;
+    border-radius: var(--radius);
+
+    &:focus-visible { background: #8881; }
   }
 }
 
-:disabled .dropdown__overlay,
-.is-disabled .dropdown__overlay { pointer-events: none; }
-
-.dropdown--top {
-  --translate: 0 0.35rem;
-
-  & > .dropdown__overlay {
-    bottom: anchor(top);
-    top: unset;
-  }
+@position-try --flip-y {
+  inset: auto auto anchor(top) anchor(left);
 }
 
-.dropdown--right > .dropdown__overlay {
-  left: unset;
-  right: anchor(right);
+@position-try --flip-x {
+  inset: anchor(bottom) anchor(right) auto auto
 }
 
-@supports not (anchor-name: --position-anchor) {
-  .dropdown__overlay {
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
-
-  .dropdown--top > .dropdown__overlay {
-    bottom: 100%;
-    top: unset;
-  }
-
-  .dropdown--right > .dropdown__overlay {
-    left: unset;
-    right: 0;
-  }
+@position-try --flip-both {
+  inset: auto anchor(right) anchor(top) auto;
 }
 </style>

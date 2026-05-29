@@ -185,15 +185,14 @@ const select = (date: Date) => {
     align-items: center;
     justify-content: space-between;
 
-    .selector {
-      &:deep(.is-selector-toggler) {
-        --spacing: 0;
-        --border-width: 0;
-        --bg-color: none !important;
-      }
-      &:deep(.icon) { display: none; }
-    }
+    &:deep(.is-selector-toggler) {
+      --spacing: 0;
+      --border-width: 0;
+      --bg-color: none !important;
 
+      .icon { display: none; }
+    }
+    
     .btn:first-child .icon { transform: rotate(180deg); }
   }
 }

@@ -1,45 +1,57 @@
 <template>
-  <Dropdown class="action-menu" :disabled>
-    <template #toggler>
-      <slot name="toggler">
-        <Button flat even :disabled aria-label="Actions">
+  <Dropdown class="action-menu" :disabled :lazy>
+    <template #toggler="{ open }">
+      <slot name="toggler" :open>
+        <Button
+          flat
+          even
+          :disabled
+          aria-label="Actions"
+          @click="open">
           <Icon src="ellipsis-vertical.svg" />
         </Button>
       </slot>
     </template>
-    <div class="is-panel" role="menu" @focusin="onFocusin" @keydown="onKeydown">
-      <div v-for="group, i in actions" :key="group.name ?? i" class="action-menu__list">
-        <span v-if="group.name" class="action-menu__group">{{ group.name }}</span>
-        <slot v-for="action in group.actions" :key="action.id" :name="action.id" :action>
-          <ActionMenu v-if="action.groups" :item :actions="action.groups">
-            <template #toggler>
-              <Button flat v-bind="action.attrs" @click="action.onClick?.(item)">
-                <Icon v-if="action.icon" :src="action.icon" />
-                <span class="action-menu__label">{{ action.label }}</span>
-              </Button>
-            </template>
-            <template v-for="subaction in subactions(action)" #[subaction.id]>
-              <slot :name="subaction.id" :action="subaction" />
-            </template>
-          </ActionMenu>
-          <Button v-else flat role="menuitem" v-bind="action.attrs" @click="action.onClick?.(item)">
-            <Icon v-if="action.icon" :src="action.icon" />
-            <span class="action-menu__label">{{ action.label }}</span>
-            <HotKey
-              v-if="action.hotkey && action.onClick"
-              :keys="action.hotkey"
-              @press="action.onClick(item)" />
-          </Button>
-        </slot>
+    <template #default="{ close }">
+      <div class="is-panel" role="menu" @focusin="onFocusin" @keydown="onKeydown">
+        <div v-for="group, i in actions" :key="group.name ?? i" class="action-menu__list">
+          <span v-if="group.name" class="action-menu__group">{{ group.name }}</span>
+          <slot v-for="action in group.actions" :key="action.id" :name="action.id" :action>
+            <ActionMenu v-if="action.groups" :item :actions="action.groups" :lazy>
+              <template #toggler="{ open }">
+                <Button flat v-bind="action.attrs" block @click="open">
+                  <Icon v-if="action.icon" :src="action.icon" />
+                  <span class="action-menu__label">{{ action.label }}</span>
+                </Button>
+              </template>
+              <template v-for="subaction in subactions(action)" #[subaction.id]>
+                <slot :name="subaction.id" :action="subaction" />
+              </template>
+            </ActionMenu>
+            <Button
+              v-else
+              flat
+              role="menuitem"
+              v-bind="action.attrs"
+              @click="action.onClick?.(item); close()">
+              <Icon v-if="action.icon" :src="action.icon" />
+              <span class="action-menu__label">{{ action.label }}</span>
+              <HotKey
+                v-if="action.hotkey && action.onClick"
+                :keys="action.hotkey"
+                @press="action.onClick(item)" />
+            </Button>
+          </slot>
+        </div>
       </div>
-    </div>
+    </template>
   </Dropdown>
 </template>
 
 <script setup lang="ts" generic="T, K extends string = string">
 import type { MaybeReadonly } from '/@/types';
 import { useRovingTabindex } from '/@/utils';
-import Dropdown from './Dropdown.vue';
+import Dropdown, { type DropdownProps } from './Dropdown.vue';
 import Button from './Button.vue';
 import Icon from './Icon.vue';
 import HotKey from './HotKey.vue';
@@ -57,18 +69,19 @@ export type Action<T, K extends string = string> = {
 export type ActionGroup<T, K extends string = string> = {
   name?: string;
   actions: MaybeReadonly<Action<T, K>[]>;
-}
+};
 
 export type ActionMenuProps<T, K extends string> = {
   item: T,
   actions: MaybeReadonly<ActionGroup<T, K>[]>;
-  disabled?: boolean;
-};
+} & Omit<DropdownProps, 'icon' | 'label' | 'block' | 'width'>;
 
-defineProps<ActionMenuProps<T, K>>();
+withDefaults(defineProps<ActionMenuProps<T, K>>(), {
+  lazy: true,
+});
 
 defineSlots<{
-  toggler?: () => void;
+  toggler?: (props: { open: () => void }) => void;
 } & {
   [k in K]?: (props: { action: Action<T, k>, key?: k }) => void;
 }>();
@@ -125,7 +138,7 @@ const subactions = (action: Action<T, K>): Action<T, K>[] => {
       }
     }
 
-    .action-menu > .btn::after {
+    &:deep(.toggler .btn::after) {
       content: '';
       display: block;
       height: 0.25em;
@@ -137,10 +150,10 @@ const subactions = (action: Action<T, K>): Action<T, K>[] => {
       opacity: 0.75;
     }
 
-    &:deep(.dropdown__overlay) {
+    &:deep(.action-menu) {
       top: anchor(top);
       left: anchor(right);
-      margin: 0 var(--spacing);
+      margin: 0 calc(0.125rem + var(--spacing));
     }
   }
 }
