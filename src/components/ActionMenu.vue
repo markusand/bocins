@@ -1,5 +1,5 @@
 <template>
-  <Dropdown class="action-menu" :disabled :lazy>
+  <Dropdown class="action-menu" :disabled :lazy :position>
     <template #toggler="{ open }">
       <slot name="toggler" :open>
         <Button

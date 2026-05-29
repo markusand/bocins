@@ -71,8 +71,8 @@ const props = withDefaults(defineProps<DatePickerProps>(), {
 });
 
 const datepickerProps = computed(() => {
-  const { disabled, block, width, lazy } = props;
-  return { disabled, block, width, lazy };
+  const { disabled, block, width, lazy, position } = props;
+  return { disabled, block, width, lazy, position };
 });
 
 const togglerClasses = computed(() => ['is-selector-toggler', {

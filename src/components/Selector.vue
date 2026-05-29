@@ -54,8 +54,8 @@ const props = withDefaults(defineProps<SelectorProps<T>>(), {
 });
 
 const selectorProps = computed(() => {
-  const { disabled, block, width, lazy } = props;
-  return { disabled, block, width, lazy };
+  const { disabled, block, width, lazy, position } = props;
+  return { disabled, block, width, lazy, position };
 });
 
 const classes = computed(() => ['is-selector-toggler', {

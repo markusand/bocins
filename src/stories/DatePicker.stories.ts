@@ -16,6 +16,16 @@ const meta = {
     },
   },
   argTypes: {
+    position: {
+      description: 'The position of the dropdown relative to the toggler.',
+      control: { type: 'select' },
+      options: [
+        'top-left', 'top-in-left', 'top', 'top-in-right', 'top-right',
+        'right-in-top', 'right', 'right-in-bottom',
+        'bottom-right', 'bottom-in-right', 'bottom', 'bottom-in-left', 'bottom-left',
+        'left-in-bottom', 'left', 'left-in-top',
+      ],
+    },
     modelValue: { control: 'date' },
     notBefore: {
       description: 'The earliest date that can be selected.',
@@ -43,6 +53,7 @@ const meta = {
     presets: { description: 'Display a list of preset dates and ranges', control: 'boolean' },
   },
   args: {
+    position: undefined,
     locale: 'en',
     disabled: false,
     invalid: false,

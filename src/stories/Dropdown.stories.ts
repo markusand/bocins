@@ -16,6 +16,16 @@ const meta = {
     },
   },
   argTypes: {
+    position: {
+      description: 'The position of the dropdown relative to the toggler.',
+      control: { type: 'select' },
+      options: [
+        'top-left', 'top-in-left', 'top', 'top-in-right', 'top-right',
+        'right-in-top', 'right', 'right-in-bottom',
+        'bottom-right', 'bottom-in-right', 'bottom', 'bottom-in-left', 'bottom-left',
+        'left-in-bottom', 'left', 'left-in-top',
+      ],
+    },
     label: { description: 'The text to display on the toggler button.' },
     block: { description: 'Display the dropdown menu as a block full width element.' },
     disabled: { description: 'Disable the dropdown menu.' },
@@ -23,6 +33,7 @@ const meta = {
     toggler: { description: 'The toggler options' },
   },
   args: {
+    position: undefined,
     label: '',
     block: false,
     disabled: false,
@@ -38,9 +49,12 @@ export const Base: Story = {
   render: args => ({
     components: { Dropdown },
     setup: () => ({ args }),
-    template: `<Dropdown v-bind="args">
-      Content
-    </Dropdown>`,
+    template: `
+      <div style="text-align:center">
+      <Dropdown v-bind="args">
+        <div style="background:white;border:1px dotted #888; padding:1rem;">Content</div>
+      </Dropdown>
+    </div>`,
   }),
 };
 

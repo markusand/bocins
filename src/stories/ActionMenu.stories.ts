@@ -39,11 +39,22 @@ const meta = {
     item: { description: 'The item associated with this menu, passed to each action\'s `onClick` handler.' },
     actions: { description: 'Array of action groups to display.' },
     disabled: { description: 'Disable the menu' },
+    position: {
+      description: 'The position of the dropdown relative to the toggler.',
+      control: { type: 'select' },
+      options: [
+        'top-left', 'top-in-left', 'top', 'top-in-right', 'top-right',
+        'right-in-top', 'right', 'right-in-bottom',
+        'bottom-right', 'bottom-in-right', 'bottom', 'bottom-in-left', 'bottom-left',
+        'left-in-bottom', 'left', 'left-in-top',
+      ],
+    },
   },
   args: {
     item: user,
     actions,
     disabled: false,
+    position: undefined,
   },
 } satisfies Meta<typeof ActionMenu<User>>;
 

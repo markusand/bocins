@@ -19,6 +19,16 @@ const meta = {
     },
   },
   argTypes: {
+    position: {
+      description: 'The position of the dropdown relative to the toggler.',
+      control: { type: 'select' },
+      options: [
+        'top-left', 'top-in-left', 'top', 'top-in-right', 'top-right',
+        'right-in-top', 'right', 'right-in-bottom',
+        'bottom-right', 'bottom-in-right', 'bottom', 'bottom-in-left', 'bottom-left',
+        'left-in-bottom', 'left', 'left-in-top',
+      ],
+    },
     keyAttr: { description: 'Key to use to identify each item.' },
     clearable: { description: 'Enable the clear button.' },
     block: { description: 'Display as a block input.' },
@@ -45,6 +55,7 @@ const meta = {
   },
   // @ts-expect-error keyAttr is not infered from generic
   args: {
+    position: undefined,
     keyAttr: 'name',
     placeholder: 'Select...',
     clearable: true,
