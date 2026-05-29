@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { ButtonGroup, Button, Icon, Dropdown, ActionMenu } from '/@/components';
+import { ButtonGroup, Button, Icon, ActionMenu, Dropdown, Tooltip, Popover } from '/@/components';
 import './assets/styles.css';
 
 const meta = {
@@ -40,6 +40,37 @@ export const Base: Story = {
       <Button>Text</Button>
       <Button>Text</Button>
       <Button>Text</Button>
+    </ButtonGroup>`,
+  }),
+};
+
+export const WithOverlays: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Buttons wrapped in Tooltip or Popover components are styled correctly within a group.',
+      },
+    },
+  },
+  render: args => ({
+    components: { ButtonGroup, Button, Icon, Tooltip, Popover },
+    setup: () => ({ args }),
+    template: `<ButtonGroup v-bind="args">
+      <Tooltip text="Previous">
+        <Button even><Icon src="chevron-left.svg" /></Button>
+      </Tooltip>
+      <Tooltip text="Today">
+        <Button>Today</Button>
+      </Tooltip>
+      <Popover>
+        <template #anchor>
+          <Button even><Icon src="calendar.svg" /></Button>
+        </template>
+        Pick a date
+      </Popover>
+      <Tooltip text="Next">
+        <Button even><Icon src="chevron-right.svg" /></Button>
+      </Tooltip>
     </ButtonGroup>`,
   }),
 };

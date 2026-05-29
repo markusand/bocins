@@ -33,22 +33,27 @@ const width = computed(() => toWidth(props.width));
   display: inline-flex;
   vertical-align: middle;
 
-  &:deep(*) {
+  /* Not first */
+  &:deep(> :not(:first-child)) {
+    &, & > .btn, & > .input, & .is-selector-toggler {
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      margin-left: calc(-1 * var(--border-width));
+    }
+  }
+
+  /* Not last of types */  
+  &:deep(> :has(~ :is(.btn, .toggler, .input, .popover))) {
+    &, & > .btn, & > .input, & .is-selector-toggler {
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+  }
+
+  &:deep(> :is(.btn)) {
     flex: 1 1 auto !important;
+
     &:focus-within { z-index: 1; }
-  }
-
-  & > :not(:first-child) :not(.dropdown__overlay *, .popover__content *),
-  & > *:not(:first-child) {
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-    margin-left: calc(-1 * var(--border-width));
-  }
-
-  & > :not(:last-child) :not(.dropdown__overlay *, .popover__content *),
-  & > *:not(:last-child) {
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
   }
 }
 </style>
