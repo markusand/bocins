@@ -3,7 +3,7 @@
     class="datepicker"
     v-bind="datepickerProps">
     <template #label>
-      <span :class="togglerClasses">
+      <span :class="togglerClasses" :style="toWidth(props.width)">
         <span v-if="isSelected(selected)" class="datepicker__selected">
           <slot v-if="Array.isArray(selected)" name="dates" :dates="selected">
             <span class="datepicker__range-dates">
@@ -50,6 +50,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import Dropdown, { type DropdownProps } from './Dropdown.vue';
+import { toWidth } from '/@/utils';
 import Calendar, { type CalendarProps, type SelectedDate } from './Calendar.vue';
 import { asDay, addDays, weekStart, monthStart, yearStart, useRovingTabindex } from '/@/utils';
 import Button from './Button.vue';
@@ -71,8 +72,8 @@ const props = withDefaults(defineProps<DatePickerProps>(), {
 });
 
 const datepickerProps = computed(() => {
-  const { disabled, block, width, lazy, position } = props;
-  return { disabled, block, width, lazy, position };
+  const { disabled, block, lazy, position } = props;
+  return { disabled, block, lazy, position };
 });
 
 const togglerClasses = computed(() => ['is-selector-toggler', {

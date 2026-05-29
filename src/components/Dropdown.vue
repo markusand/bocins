@@ -15,7 +15,8 @@
     :id
     ref="dropdown"
     :class="dropdownClasses"
-    popover=""
+    :style="toWidth(width)"
+    popover
     v-bind="$attrs"
     @toggle="onToggle">
     <slot v-if="!lazy || isOpen" :close />
@@ -87,10 +88,7 @@ const CHEVRON_ROTATIONS: Record<string, string> = {
 
 const style = computed(() => {
   const direction = props.position?.split('-')[0] ?? 'bottom';
-  return {
-    ...toWidth(props.width),
-    '--chevron-rotate': CHEVRON_ROTATIONS[direction] ?? '0deg',
-  };
+  return { '--chevron-rotate': CHEVRON_ROTATIONS[direction] ?? '0deg' };
 });
 
 const onToggle = (event: ToggleEvent) => {

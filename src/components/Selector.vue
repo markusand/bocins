@@ -3,7 +3,7 @@
     class="selector"
     v-bind="selectorProps">
     <template #label>
-      <span :class="classes">
+      <span :class="classes" :style="toWidth(props.width)">
         <span v-if="isSelected(selected)" class="selector__selected">
           <slot v-if="Array.isArray(selected)" name="selections" :items="selected">
             {{ selected.map(formatter).join(', ') }}
@@ -42,6 +42,7 @@ import { computed } from 'vue';
 import Dropdown, { type DropdownProps } from './Dropdown.vue';
 import ListBox, { type ListBoxProps } from './ListBox.vue';
 import Icon from './Icon.vue';
+import { toWidth } from '/@/utils';
 
 export type SelectorProps<T> = {
   clearable?: boolean;
@@ -54,8 +55,8 @@ const props = withDefaults(defineProps<SelectorProps<T>>(), {
 });
 
 const selectorProps = computed(() => {
-  const { disabled, block, width, lazy, position } = props;
-  return { disabled, block, width, lazy, position };
+  const { disabled, block, lazy, position } = props;
+  return { disabled, block, lazy, position };
 });
 
 const classes = computed(() => ['is-selector-toggler', {
