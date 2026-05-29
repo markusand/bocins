@@ -2,7 +2,7 @@
   <div :class="togglerClasses" :style>
     <slot name="toggler" :open :close>
       <button :popovertarget="id" :disabled tabindex="0">
-        <slot name="label">
+        <slot name="label" :open :close>
           <Icon v-if="icon" :src="icon" />
           <Icon v-else src="chevron-down.svg" class="chevron" />
           {{ label }}
@@ -54,7 +54,7 @@ const props = withDefaults(defineProps<DropdownProps>(), {
 defineSlots<{
   default?: (props: { close: () => void }) => void;
   toggler?: (props: { open: () => void, close: () => void }) => void;
-  label?: () => void;
+  label?: (props: { open: () => void, close: () => void }) => void;
 }>();
 
 const emit = defineEmits<{

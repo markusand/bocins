@@ -1,11 +1,11 @@
 <template>
   <Dropdown v-bind="props" :position>
-    <template #label>
-      <slot name="anchor" />
+    <template #label="{ open, close }">
+      <slot name="anchor" :open :close />
     </template>
-    <template #default>
+    <template #default="{ close }">
       <div class="popover" :class="position">
-        <slot />
+        <slot :close />
       </div>
     </template>
   </Dropdown>
@@ -19,8 +19,8 @@ export type PopoverProps = Omit<DropdownProps, 'icon' | 'label'>;
 const props = defineProps<PopoverProps>();
 
 defineSlots<{
-  default: () => void;
-  anchor: () => void;
+  default: (props: { close: () => void }) => void;
+  anchor: (props: { open: () => void, close: () => void }) => void;
 }>();
 </script>
 
@@ -28,7 +28,7 @@ defineSlots<{
 .popover {
   --color: var(--popover-bg-color, var(--bg-color, #f00));
   --text-color: var(--popover-text-color, currentcolor);
-  --border-color: var(--popover-border-color, #888);
+  --border-color: var(--popover-border-color, #8884);
   --timing: var(--popover-timing, 0.2s);
   --arrow-offset: var(--popover-arrow-offset, 0.75rem);
 
