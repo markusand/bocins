@@ -156,9 +156,4 @@ defineSlots<{
   &.bottom-right { border-top-left-radius: 0; }
   &.bottom-left { border-top-right-radius: 0; }
 }
-
-.toggler {
-  display: inline-block;
-  anchor-name: v-bind(anchor); /* stylelint-disable-line */
-}
 </style>
