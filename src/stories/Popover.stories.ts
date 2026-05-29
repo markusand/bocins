@@ -47,13 +47,17 @@ export const Base: Story = {
       const user = users[0];
       return { args, user };
     },
-    template: `<p style="margin:3rem 0">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+    template: `<p>
+      Assigned to
       <Popover v-bind="args">
         <UserProfile :user="user" />
-        <template #anchor>LEANNE,</template>
+        <template #anchor>
+          <span style="border-bottom:1px dashed currentcolor;cursor:pointer">
+            {{ user.name }}
+          </span>
+        </template>
       </Popover>
-      sed do eiusmod tempor incididunt ut labore.
+      · Due Friday · 3 comments
     </p>`,
   }),
 };

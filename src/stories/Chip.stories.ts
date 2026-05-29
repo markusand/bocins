@@ -1,3 +1,4 @@
+import { ref } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { Chip, Icon } from '/@/components';
 import './assets/styles.css';
@@ -32,47 +33,76 @@ export const Colored: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Assign color to chips.',
+        story: 'Use <code>--chip-color</code> to tint chips with a custom color.',
+      },
+    },
+  },
+  render: () => ({
+    components: { Chip },
+    setup: () => ({
+      tags: [
+        { label: 'Vue', color: '#41b883' },
+        { label: 'TypeScript', color: '#3178c6' },
+        { label: 'Vite', color: '#bd34fe' },
+        { label: 'CSS', color: '#1572b6' },
+        { label: 'Node', color: '#417e38' },
+        { label: 'Rust', color: '#ce4a00' },
+      ],
+    }),
+    template: `<div class="toolbar">
+      <Chip
+        v-for="tag in tags"
+        :key="tag.label"
+        :text="tag.label"
+        :style="\`--chip-color:\${tag.color}\`" />
+    </div>`,
+  }),
+};
+
+export const Removable: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Pass an <code>action</code> function to show a remove button on each chip.',
       },
     },
   },
   render: () => ({
     components: { Chip },
     setup: () => {
-      const colors = ['red', 'blue', 'green'];
-      return { colors };
+      const skills = ref(['Figma', 'Wireframing', 'Prototyping', 'User Research', 'A/B Testing']);
+      return { skills };
     },
     template: `<div class="toolbar">
       <Chip
-        v-for="i in colors.length"
-        :key="i"
-        :text="colors[i-1]"
-        :style="\`--color:\${colors[i-1]}\`" />
+        v-for="skill in skills"
+        :key="skill"
+        :text="skill"
+        :action="() => skills.splice(skills.indexOf(skill), 1)" />
     </div>`,
   }),
 };
 
-export const ActionFunction: Story = {
+export const CustomAction: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Specify a function to be called when the action button is clicked.',
+        story: 'Replace the default × with a custom icon via the <code>#action</code> slot.',
       },
     },
   },
-  args: { action: console.log },
-};
-
-export const CustomAction: Story = {
-  args: { action: console.log },
-  render: args => ({
+  render: () => ({
     components: { Chip, Icon },
-    setup: () => ({ ...args }),
-    template: `<Chip :action="action">
-      <template #action>
-        <Icon src="arrow-right.svg" size="small" />
-      </template>
-      Content
-    </Chip>`,
+    setup: () => ({
+      tags: ref(['Design', 'Frontend', 'Backend']),
+    }),
+    template: `<div class="toolbar">
+      <Chip v-for="tag in tags" :key="tag" :action="() => tags.splice(tags.indexOf(tag), 1)">
+        {{ tag }}
+        <template #action>
+          <Icon src="trash.svg" />
+        </template>
+      </Chip>
+    </div>`,
   }),
 };

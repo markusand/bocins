@@ -46,7 +46,12 @@ export const Base: Story = {
   render: args => ({
     components: { Button, Icon },
     setup: () => ({ args }),
-    template: '<Button v-bind="args">Button</Button>',
+    template: `<div class="toolbar">
+      <Button v-bind="args">Save changes</Button>
+      <Button v-bind="args" ghost>Discard</Button>
+      <Button v-bind="args" flat>Cancel</Button>
+      <Button v-bind="args" delete>Delete</Button>
+    </div>`,
   }),
 };
 
@@ -54,17 +59,18 @@ export const WithIcon: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Display a button with only an icon.',
+        story: 'Pair an icon with a label for clearer affordance.',
       },
     },
   },
   render: args => ({
     components: { Button, Icon },
     setup: () => ({ args }),
-    template: `<Button>
-      <Icon src="feather.svg" />
-      Button
-    </Button>`,
+    template: `<div class="toolbar">
+      <Button v-bind="args"><Icon src="download.svg" /> Export</Button>
+      <Button v-bind="args" ghost><Icon src="share.svg" /> Share</Button>
+      <Button v-bind="args" flat><Icon src="pencil.svg" /> Edit</Button>
+    </div>`,
   }),
 };
 
@@ -72,16 +78,18 @@ export const OnlyIcon: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Display a button with only an icon.',
+        story: 'Use <code>even</code> for square icon-only buttons with balanced padding.',
       },
     },
   },
   render: args => ({
     components: { Button, Icon },
     setup: () => ({ args }),
-    template: `<Button even>
-      <Icon src="feather.svg" />
-    </Button>`,
+    template: `<div class="toolbar">
+      <Button v-bind="args" even><Icon src="settings.svg" /></Button>
+      <Button v-bind="args" even ghost><Icon src="bell.svg" /></Button>
+      <Button v-bind="args" even flat><Icon src="search.svg" /></Button>
+    </div>`,
   }),
 };
 
@@ -89,19 +97,17 @@ export const CustomColor: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Customize the button color using the `--btn-color` CSS custom property.',
+        story: 'Override the button color with the <code>--btn-color</code> CSS custom property.',
       },
     },
   },
   render: args => ({
-    components: { Button },
+    components: { Button, Icon },
     setup: () => ({ args }),
-    template: `
-      <Button v-bind="args" style="--btn-color: #e34">Button</Button>
-      &nbsp;
-      <Button v-bind="args" style="--btn-color: #e34" ghost>Button</Button>
-      &nbsp;
-      <Button v-bind="args" style="--btn-color: #e34" flat>Button</Button>
-    `,
+    template: `<div class="toolbar" style="--btn-color:#0ea5e9">
+      <Button v-bind="args"><Icon src="cloud.svg" /> Deploy</Button>
+      <Button v-bind="args" ghost><Icon src="cloud.svg" /> Deploy</Button>
+      <Button v-bind="args" flat><Icon src="cloud.svg" /> Deploy</Button>
+    </div>`,
   }),
 };

@@ -35,7 +35,7 @@ const meta = {
   args: {
     type: 'text',
     width: undefined,
-    placeholder: 'Input field',
+    placeholder: 'Full name',
     clearable: true,
     prefix: '',
     suffix: '',
@@ -65,20 +65,32 @@ export const Prefix: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Add content to the start (or end) of the input.',
+        story: 'Add content to the start or end of the input using the prefix/suffix slots.',
       },
     },
   },
-  args: { modelValue: '' },
+  args: { modelValue: '', placeholder: 'your-workspace' },
   render: args => ({
     components: { Input, Icon },
     setup: () => {
-      const input = ref(args.modelValue);
-      return { args, input };
+      const search = ref('');
+      const url = ref('');
+      const price = ref(0);
+      return { args, search, url, price };
     },
-    template: `<Input v-bind="args" v-model="input">
-      <template #prefix>
-        <Icon src="feather.svg" />
-      </template>`,
+    template: `<div class="toolbar">
+      <Input v-bind="args" v-model="search" placeholder="Search files...">
+        <template #prefix><Icon src="search.svg" /></template>
+      </Input>
+      <Input v-bind="args" v-model="url" placeholder="your-workspace" width="18">
+        <template #prefix>
+          <span style="opacity:0.75;font-size:0.75em">app.example.com/</span>
+        </template>
+      </Input>
+      <Input v-bind="args" v-model="price" placeholder="0.00" type="number">
+        <template #prefix>€</template>
+        <template #suffix>EUR</template>
+      </Input>
+    </div>`,
   }),
 };

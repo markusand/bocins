@@ -20,8 +20,8 @@ defineProps<{ user: User }>();
 <style scoped>
 .user-profile {
   display: flex;
-  gap: 0.5rem;
-  padding: 0.25rem;
+  gap: 0.35rem;
+  padding: 0.35rem;
   flex: 1;
 
   .details {
@@ -32,6 +32,7 @@ defineProps<{ user: User }>();
       color: #888;
       font-size: 0.8rem;
       font-style: normal;
+      line-height: 1;
     }
   }
 }

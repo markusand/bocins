@@ -38,6 +38,7 @@ const meta = {
     block: false,
     disabled: false,
     lazy: false,
+    width: undefined,
   },
 } satisfies Meta<typeof Dropdown>;
 
@@ -46,15 +47,21 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Base: Story = {
+  args: { label: 'View' },
   render: args => ({
-    components: { Dropdown },
+    components: { Dropdown, Button, Icon },
     setup: () => ({ args }),
     template: `
       <div style="text-align:center">
-      <Dropdown v-bind="args">
-        <div style="background:white;border:1px dotted #888; padding:1rem;">Content</div>
-      </Dropdown>
-    </div>`,
+        <Dropdown v-bind="args">
+          <div class="panel"">
+            <Button flat block><Icon src="layout-grid.svg" /> Grid</Button>
+            <Button flat block><Icon src="list.svg" /> List</Button>
+            <Button flat block><Icon src="table.svg" /> Table</Button>
+            <Button flat block><Icon src="calendar.svg" /> Calendar</Button>
+          </div>
+        </Dropdown>
+      </div>`,
   }),
 };
 
@@ -65,10 +72,15 @@ export const CustomToggler: Story = {
     template: `<Dropdown v-bind="args">
       <template #toggler="{ open }">
         <Button even @click="open">
-          <Icon src="ellipsis.svg" />
+          <Icon src="ellipsis-vertical.svg" />
         </Button>
       </template>
-      Content
+      <div class="panel">
+        <Button flat block><Icon src="pencil.svg" /> Rename</Button>
+        <Button flat block><Icon src="copy.svg" /> Duplicate</Button>
+        <Button flat block><Icon src="share.svg" /> Share</Button>
+        <Button flat block delete><Icon src="trash.svg" /> Delete</Button>
+      </div>
     </Dropdown>`,
   }),
 };
@@ -81,7 +93,12 @@ export const CustomLabel: Story = {
       <template #label>
         <UserProfile :user />
       </template>
-      Content
+      <div class="panel">
+        <Button flat block><Icon src="user.svg" /> Profile</Button>
+        <Button flat block><Icon src="settings.svg" /> Settings</Button>
+        <Button flat block><Icon src="bell.svg" /> Notifications</Button>
+        <Button flat block delete><Icon src="log-out.svg" /> Sign out</Button>
+      </div>
     </Dropdown>`,
   }),
 };

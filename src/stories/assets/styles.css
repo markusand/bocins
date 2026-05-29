@@ -31,11 +31,39 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-wrap: wrap;
+
+  &.right { justify-content: end; }
+}
+
+.form {
+  display: grid;
+  gap: 0.75rem;
+
+  .label {
+    display: grid;
+    color: #888;
+    gap: 0.25rem;
+  }
+}
+
+.panel {
+  padding: 0.25rem;
+  background: #fff;
+  border: 1px solid #8884;
+  border-radius: 0.25rem;
+  width: 9rem;
+  
+  button { justify-content: left !important; }
 }
 
 h2 {
   font-size: 1.25rem;
   margin: 0.5rem 0;
+}
+
+h3 {
+  margin: 0 0 0.5rem;
 }
 
 #tab1, #tab2, #tab3, #tab4 {

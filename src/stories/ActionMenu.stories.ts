@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ActionMenu, type ActionGroup } from '/@/components';
-import { Button, Icon, Switch } from '/@/components';
+import { Button, Icon, Modal, Switch } from '/@/components';
 import './assets/styles.css';
 
 type User = { name: string; role: string };
@@ -120,6 +120,20 @@ export const SubMenu: Story = {
                     label: 'Slack',
                     onClick: console.log,
                   },
+                  {
+                    id: 'share-social',
+                    label: 'Social',
+                    icon: 'share-2.svg',
+                    groups: [
+                      {
+                        actions: [
+                          { id: 'share-twitter', icon: 'https://raw.githubusercontent.com/CLorant/readme-social-icons/refs/heads/main/medium/dark/twitter.svg', label: 'Twitter', onClick: console.log },
+                          { id: 'share-fb', icon: 'https://raw.githubusercontent.com/CLorant/readme-social-icons/refs/heads/main/medium/dark/facebook.svg', label: 'Facebook', onClick: console.log },
+                          { id: 'share-linkedin', icon: 'https://raw.githubusercontent.com/CLorant/readme-social-icons/refs/heads/main/medium/dark/linkedin.svg', label: 'LinkedIn', onClick: console.log },
+                        ],
+                      },
+                    ],
+                  },
                   { id: 'share-link', icon: 'link.svg', label: 'Copy link', onClick: console.log },
                 ],
               },
@@ -152,6 +166,39 @@ export const CustomToggler: Story = {
     </ActionMenu>`,
   }),
 };
+
+export const DeleteConfirmation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Override the delete action slot to require confirmation via a modal before executing.',
+      },
+    },
+  },
+  args: { lazy: false, item: user, actions },
+  render: args => ({
+    components: { ActionMenu, Button, Modal },
+    setup: () => ({ args }),
+    template: `<ActionMenu v-bind="args">
+      <template #delete="{ action }">
+        <Modal width="16" to="body">
+          <template #toggler="{ open }">
+            <Button flat block delete @click="open">{{ action.label }}</Button>
+          </template>
+          <template #default="{ close }">
+            <h3 style="margin: 0 0 0.5rem">Delete {{ args.item.name }}?</h3>
+            <p style="margin: 0 0 1rem; opacity: 0.6">This action cannot be undone.</p>
+            <div style="display: flex; gap: 0.5rem; justify-content: flex-end">
+              <Button flat @click="close">Cancel</Button>
+              <Button delete @click="action.onClick?.(args.item); close()">Delete</Button>
+            </div>
+          </template>
+        </Modal>
+      </template>
+    </ActionMenu>`,
+  }),
+};
+
 
 export const CustomAction: Story = {
   parameters: {

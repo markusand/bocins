@@ -17,8 +17,13 @@ const meta = {
     text: { description: 'The text to display in the tooltip.' },
     position: {
       description: 'The position of the popover relative to the anchor.',
-      options: ['top', 'bottom', 'left', 'right'],
       control: { type: 'select' },
+      options: [
+        'top-left', 'top-in-left', 'top', 'top-in-right', 'top-right',
+        'right-in-top', 'right', 'right-in-bottom',
+        'bottom-right', 'bottom-in-right', 'bottom', 'bottom-in-left', 'bottom-left',
+        'left-in-bottom', 'left', 'left-in-top',
+      ],
     },
     width: {
       description: 'The width of the tooltip. Can be a number (in rem) or any string representing length and unit.',
@@ -26,7 +31,7 @@ const meta = {
     },
   },
   args: {
-    text: 'Lorem ipsum dolor sit amet.',
+    text: 'Bold (⌘B)',
     position: 'top',
     width: undefined,
   },
@@ -37,31 +42,25 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Base: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use the content slot to render rich tooltip content.',
+      },
+    },
+  },
   render: args => ({
     components: { Tooltip },
     setup: () => ({ args }),
-    template: `<p style="margin:5rem 0">
-      Lorem ipusm dolor sit
-      <Tooltip v-bind="args">amet</Tooltip>
-      consectetur adipisicing elit.
-    </p>`,
-  }),
-};
-
-export const WithSlot: Story = {
-  render: args => ({
-    components: { Tooltip },
-    setup: () => ({ args }),
-    template: `<p style="margin:5rem 0">
-      Lorem ipusm dolor sit
+    template: `<div>
       <Tooltip v-bind="args">
         <template #content>
-          <h3>Tooltip title</h3>
-          <p>Lorem ipsum dolor sit amet</p>
+          <strong>Pro plan</strong>
+          <p>Unlimited projects, custom domains,<br>and priority support.</p>
         </template>
-        amet
+        <span style="border-bottom:1px dashed currentcolor; cursor:help">Pro</span>
       </Tooltip>
-      consectetur adipisicing elit.
-    </p>`,
+      plan members can invite up to 50 collaborators.
+    </div>`,
   }),
 };
