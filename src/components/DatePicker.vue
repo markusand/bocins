@@ -62,7 +62,6 @@ export type DatePickerProps = {
   placeholder?: string;
   clearable?: boolean;
   invalid?: boolean;
-  presets: boolean;
   presets?: boolean;
 } & Omit<DropdownProps, 'icon' | 'label'> & CalendarProps;
 
