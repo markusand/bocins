@@ -3,28 +3,28 @@
     class="datepicker"
     v-bind="datepickerProps">
     <template #label>
-      <div :class="togglerClasses">
-        <div v-if="isSelected(selected)" class="datepicker__selected">
+      <span :class="togglerClasses">
+        <span v-if="isSelected(selected)" class="datepicker__selected">
           <slot v-if="Array.isArray(selected)" name="dates" :dates="selected">
-            <div class="datepicker__range-dates">
+            <span class="datepicker__range-dates">
               <span>{{ formatter?.(selected[0]) ?? selected[0] }}</span>
               <Icon src="arrow-right.svg" />
               <span>{{ formatter?.(selected[1]) ?? selected[1] }}</span>
-            </div>
+            </span>
           </slot>
           <slot v-else name="date" :date="selected">
             {{ formatter?.(selected) || selected }}
           </slot>
-        </div>
-        <div v-else class="placeholder">
+        </span>
+        <span v-else class="placeholder">
           <slot name="placeholder">{{ placeholder }}</slot>
-        </div>
+        </span>
         <Icon
           v-if="clearable && isSelected(selected)"
           src="x.svg"
           @click.prevent="clear" />
         <Icon v-else src="chevron-down.svg" />
-      </div>
+      </span>
     </template>
     <div class="is-panel">
       <div

@@ -3,8 +3,8 @@
     class="selector"
     v-bind="selectorProps">
     <template #label>
-      <div :class="classes">
-        <div v-if="isSelected(selected)" class="selector__selected">
+      <span :class="classes">
+        <span v-if="isSelected(selected)" class="selector__selected">
           <slot v-if="Array.isArray(selected)" name="selections" :items="selected">
             {{ selected.map(formatter).join(', ') }}
           </slot>
@@ -13,16 +13,16 @@
               {{ formatter?.(selected) || selected }}
             </slot>
           </slot>
-        </div>
-        <div v-else class="placeholder">
+        </span>
+        <span v-else class="placeholder">
           <slot name="placeholder">{{ placeholder }}</slot>
-        </div>
+        </span>
         <Icon
           v-if="clearable && isSelected(selected)"
           src="x.svg"
           @click.stop="clear" />
         <Icon v-else src="chevron-down.svg" />
-      </div>
+      </span>
     </template>
     <ListBox v-model="selected" v-bind="props" width="auto">
       <template #default="{ option }">
