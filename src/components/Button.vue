@@ -60,7 +60,7 @@ const width = computed(() => toWidth(props.width));
   padding: var(--spacing) calc(1.25 * var(--spacing));
   gap: var(--spacing);
   background: var(--_color-state);
-  border: var(--border-width) solid var(--_color-state);
+  box-shadow: inset 0 0 0 var(--border-width) var(--_color-state);
   color: var(--text-color);
   border-radius: var(--_radius);
   box-sizing: border-box;
@@ -95,7 +95,7 @@ const width = computed(() => toWidth(props.width));
 
   &.btn--flat {
     background: transparent;
-    border-color: transparent;
+    box-shadow: none;
     color: var(--_color-state);
 
     &:not(:disabled):is(:hover, :focus) {
