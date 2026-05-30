@@ -31,12 +31,14 @@ export type SliderProps = {
   invalid?: boolean;
   block?: boolean;
   width?: number | string;
+  inset?: boolean;
 };
 
 const props = withDefaults(defineProps<SliderProps>(), {
   min: 0,
   max: 100,
   step: 1,
+  inset: false,
 });
 
 const model = defineModel<number | [number, number]>();
@@ -59,6 +61,7 @@ const classes = computed(() => ['slider', {
   'is-invalid': props.invalid,
   'is-block': props.block,
   'slider--range': isRange(model.value),
+  'slider--inset': props.inset,
 }]);
 
 const attrs = computed(() => {
@@ -97,36 +100,58 @@ const onInput = (index: 0 | 1, event: Event) => {
 
 <style scoped>
 .slider {
+  --width: var(--slider-width, 10rem);
   --color: var(--slider-color, var(--accent-color, currentcolor));
+  --radius: var(--slider-radius, var(--thumb-size));
   --track-color: var(--slider-track-color, #8884);
-  --thumb-size: var(--slider-thumb-size, 1rem);
-  --thumb-color: var(--slider-thumb-color, #fff);
   --track-height: var(--slider-track-height, 0.25rem);
-  --_focus-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--color) 25%, transparent);
+  --thumb-size: var(--slider-thumb-size, 1rem);
+  --thumb-width: var(--thumb-size);
+  --thumb-height: var(--thumb-size);
+  --thumb-color: var(--slider-thumb-color, #fff);
+  --thumb-border: var(--slider-thumb-border, 1px solid #8888);
+  --focus-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--color) 25%, transparent);
 
   position: relative;
   display: inline-flex;
   align-items: center;
-  height: var(--thumb-size);
-  width: 10rem;
+  height: max(var(--track-height), var(--thumb-height));
+  width: var(--width);
   vertical-align: middle;
 
-  &::before {
+  &::before,
+  &::after {
     content: '';
     position: absolute;
     height: var(--track-height);
-    width: 100%;
-    border-radius: var(--track-height);
+    left: calc(var(--thumb-width) / 2);
+    right: calc(var(--thumb-width) / 2);
+    border-radius: var(--radius);
     pointer-events: none;
+    background: var(--track-color);
+    z-index: 0;
+  }
+
+  &::after {
     background: linear-gradient(
       to right,
-      var(--track-color) 0%,
-      var(--track-color) calc(1% * var(--_low, 0)),
-      var(--color) calc(1% * var(--_low, 0)),
-      var(--color) calc(1% * var(--_high, 0)),
-      var(--track-color) calc(1% * var(--_high, 0)),
-      var(--track-color) 100%
+      transparent 0%,
+      transparent var(--_min, calc(1% * var(--_low, 0))),
+      var(--color) var(--_min, calc(1% * var(--_low, 0))),
+      var(--color) var(--_max, calc(1% * var(--_high, 0))),
+      transparent var(--_max, calc(1% * var(--_high, 0))),
+      transparent 100%
     );
+  }
+
+  &.slider--inset::before, &.slider--inset::after { inset-inline: 0; }
+
+  &.slider--inset::after {
+    --_max: calc(1% * var(--_high, 0) - (var(--_high, 0) - 50) / 100 * var(--thumb-width));
+  }
+
+  &.slider--range.slider--inset::after {
+    --_min: calc(1% * var(--_low, 0) - (var(--_low, 0) - 50) / 100 * var(--thumb-width)); 
   }
 
   input[type="range"] {
@@ -136,9 +161,10 @@ const onInput = (index: 0 | 1, event: Event) => {
     background: transparent;
     margin: 0;
     padding: 0;
-    height: var(--thumb-size);
+    height: var(--thumb-width);
     cursor: pointer;
     outline: none;
+    z-index: 1;
 
     &::-webkit-slider-runnable-track {
       background: transparent;
@@ -151,27 +177,29 @@ const onInput = (index: 0 | 1, event: Event) => {
 
     &::-webkit-slider-thumb {
       appearance: none;
-      width: var(--thumb-size);
-      height: var(--thumb-size);
+      width: var(--thumb-width);
+      height: var(--thumb-height);
       background: var(--thumb-color);
-      border: 1px solid var(--color);
-      border-radius: 50%;
-      box-sizing: border-box;
+      border: var(--thumb-border);
+      border-radius: var(--radius);
+      background-clip: content-box;
       cursor: pointer;
     }
 
     &::-moz-range-thumb {
-      width: var(--thumb-size);
-      height: var(--thumb-size);
+      width: var(--thumb-width);
+      height: var(--thumb-height);
       background: var(--thumb-color);
-      border-radius: 50%;
-      box-sizing: border-box;
+      border: var(--thumb-border);
+      border-radius: var(--radius);
       cursor: pointer;
+      background-clip: content-box;
+      z-index: 1;
     }
     
     &:focus-visible {
-      &::-webkit-slider-thumb { box-shadow: var(--_focus-shadow); }
-      &::-moz-range-thumb { box-shadow: var(--_focus-shadow); }
+      &::-webkit-slider-thumb { box-shadow: var(--focus-shadow); }
+      &::-moz-range-thumb { box-shadow: var(--focus-shadow); }
     }
   }
 

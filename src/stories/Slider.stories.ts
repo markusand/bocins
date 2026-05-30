@@ -23,6 +23,7 @@ const meta = {
     invalid: { description: 'Mark the slider as invalid.' },
     block: { description: 'Display the slider as a full-width block element.' },
     width: { description: 'Width of the slider. Number (rem) or CSS length string.', control: 'text' },
+    inset: { description: 'Constrain thumbs within the track bounds.' },
   },
   args: {
     min: 0,
@@ -31,6 +32,7 @@ const meta = {
     disabled: false,
     invalid: false,
     block: false,
+    inset: false,
   },
 } satisfies Meta<typeof Slider>;
 
@@ -68,21 +70,35 @@ export const Range: Story = {
   }),
 };
 
-export const CustomColor: Story = {
+export const CustomStyle: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Override the fill and thumb color with `--slider-color`.',
+        story: 'Customize the slider appearance using CSS custom properties',
       },
+    },
+  },
+  args: {
+    inset: true,
+    gap: 10,
+    style: {
+      '--radius': '0.25rem',
+      '--color': '#ca452a',
+      '--track-color': '#8882',
+      '--track-height': '1.25rem',
+      '--thumb-color': '#fff',
+      '--thumb-border': '0.25rem solid var(--color)',
+      '--thumb-height': '0.75rem',
+      '--thumb-width': '0.25rem',
     },
   },
   render: args => ({
     components: { Slider },
     setup: () => {
-      const value = ref(60);
+      const value = ref([30, 70]);
       return { args, value };
     },
-    template: '<Slider v-bind="args" v-model="value" style="--slider-color:#39f" />',
+    template: '<Slider v-bind="args" v-model="value" />',
   }),
 };
 

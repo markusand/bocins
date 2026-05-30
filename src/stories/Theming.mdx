@@ -309,13 +309,16 @@ _Responds to:_ `--bg-color`, `--text-color`, `--border-color`, `--border-width`,
 
 ## Slider
 
-| Theme var               | Instance var     | Default                           | Description               |
-| ----------------------- | ---------------- | --------------------------------- | ------------------------- |
-| `--slider-color`        | `--color`        | `--accent-color` / `currentcolor` | Fill and thumb border     |
-| `--slider-thumb-color`  | `--thumb-color`  | `#fff`                            | Thumb fill color          |
-| `--slider-track-color`  | `--track-color`  | `#8884`                           | Track background color    |
-| `--slider-thumb-size`   | `--thumb-size`   | `1rem`                            | Thumb diameter            |
-| `--slider-track-height` | `--track-height` | `0.25rem`                         | Track thickness           |
+| Theme var                | Instance var     | Default                           | Description                  |
+| ------------------------ | ---------------- | --------------------------------- | ---------------------------- |
+| `--slider-color`         | `--color`        | `--accent-color` / `currentcolor` | Track fill color and focus ring |
+| `--slider-thumb-color`   | `--thumb-color`  | `#fff`                            | Thumb fill color             |
+| `--slider-thumb-border`  | `--thumb-border` | `1px solid #8888`                 | Thumb border shorthand       |
+| `--slider-track-color`   | `--track-color`  | `#8884`                           | Track background color       |
+| `--slider-thumb-size`    | `--thumb-size`   | `1rem`                            | Thumb diameter               |
+| `--slider-track-height`  | `--track-height` | `0.25rem`                         | Track thickness              |
+| `--slider-radius`        | `--radius`       | `= --thumb-size`                  | Thumb and track border radius |
+| `--slider-width`         | `--width`        | `10rem`                           | Default slider width         |
 
 _Also responds to:_ `--accent-color` (fallback for `--slider-color`), `--bg-color` (disabled track), `--error-color`
 
