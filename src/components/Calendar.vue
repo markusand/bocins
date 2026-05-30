@@ -231,7 +231,7 @@ const select = (date: Date) => {
     padding: calc(0.5 * var(--spacing));
     box-sizing: border-box;
     
-    &:is(:hover, :focus) {
+    &:is(:hover, :focus-visible) {
       background: color-mix(in srgb, var(--selected-color) 10%, transparent);
       border-radius: var(--_radius);
     }

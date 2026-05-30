@@ -85,13 +85,13 @@ watch(rating, value => value && emit('rate', value));
       }
     }
 
-    input:focus:deep(+ .icon svg) {
+    input:focus-visible:deep(+ .icon svg) {
       stroke: color-mix(in srgb, var(--color) 50%, #fff);
     }
   }
 
   /* stylelint-disable-next-line no-descending-specificity */
-  input:focus,
+  input:focus-visible,
   &:not(:disabled) > label:hover input { transform: none; }
 
   &:has(:checked) :not(label:has(:checked) ~ label) {

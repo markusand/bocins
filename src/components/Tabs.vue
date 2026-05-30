@@ -114,7 +114,7 @@ onMounted(() => {
   }
 
   .tabs__tab--active,
-  .tabs__tab:focus {
+  .tabs__tab:focus-visible {
     --text-color: var(--accent-color, #333);
   
     &::after {

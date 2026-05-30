@@ -61,7 +61,7 @@ const decrease = (step = +props.step) => increase(-1 * step);
     border-radius: 0.125rem;
     display: flex;
 
-    &:focus { background: #8882; }
+    &:focus-visible { background: #8882; }
 
     &[disabled] {
       cursor: not-allowed;

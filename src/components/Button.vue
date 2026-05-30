@@ -87,7 +87,7 @@ const width = computed(() => toWidth(props.width));
     background: none;
     color: var(--_color-state);
 
-    &:not(:disabled):is(:hover, &:focus) {
+    &:not(:disabled):is(:hover, :focus-visible) {
       background: var(--_color-state);
       color: var(--text-color);
     }
@@ -98,7 +98,7 @@ const width = computed(() => toWidth(props.width));
     box-shadow: none;
     color: var(--_color-state);
 
-    &:not(:disabled):is(:hover, :focus) {
+    &:not(:disabled):is(:hover, :focus-visible) {
       background: color-mix(in srgb, var(--color) 5%, transparent);
     }
   }
@@ -115,5 +115,5 @@ const width = computed(() => toWidth(props.width));
   color: var(--disabled-color, #8886) !important;
 }
 
-.btn:not(:disabled):is(:hover, :focus) { --_color-state: var(--_hover-color); }
+.btn:not(:disabled):is(:hover, :focus-visible) { --_color-state: var(--_hover-color); }
 </style>

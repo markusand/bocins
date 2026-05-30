@@ -106,7 +106,7 @@ const classes = computed(() => ['listbox', 'is-panel', {
   &:hover { background: color-mix(in srgb, var(--_color) 10%, transparent); }
 }
 
-:focus + .listbox__option {
+:focus-visible + .listbox__option {
   background: color-mix(in srgb, var(--_color) 10%, transparent);
 }
 

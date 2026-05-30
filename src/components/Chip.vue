@@ -55,6 +55,6 @@ defineSlots<{
   line-height: 1;
 
   &:hover,
-  &:focus { background: var(--_shade-color); }
+  &:focus-visible { background: var(--_shade-color); }
 }
 </style>

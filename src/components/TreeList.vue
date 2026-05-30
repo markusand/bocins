@@ -96,7 +96,7 @@ const { onFocusin, onKeydown } = useRovingTabindex({
       &::-webkit-details-marker,
       &::marker { display: none; }
   
-      &:focus { background: #8881; }
+      &:focus-visible { background: #8881; }
   
       .icon {
         --size: 1em;
