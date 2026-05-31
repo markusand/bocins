@@ -95,7 +95,7 @@ const classes = computed(() => ['listbox', 'is-panel', {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 
-    &:focus-within { --border-color: var(--border-color); }
+    &:focus-within { --border-color: inherit; }
   }
 }
 
