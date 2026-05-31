@@ -106,10 +106,10 @@
 
 .invalid:not(:focus-within) .is-input,
 .is-input.invalid:not(:focus-within),
-.is-input:not(:focus-within):has(:invalid),
+.is-input:not(:focus-within):has(:user-invalid),
 .invalid:not(:focus-within) .is-selector-toggler,
 .is-selector-toggler.invalid:not(:focus-within),
-.is-selector-toggler:not(:focus-within):has(:invalid),
+.is-selector-toggler:not(:focus-within):has(:user-invalid),
 .is-selector-toggler[class*="--invalid"] {
   --border-color: var(--error-color, crimson) !important;
   --text-color: var(--error-color, crimson) !important;
