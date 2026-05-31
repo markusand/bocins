@@ -42,21 +42,21 @@ const onChange = (event: Event) => {
 
 <style scoped>
 .switch {
-	--size: var(--switch-size, 1.25rem);
-	--spacing: var(--switch-spacing, 0.125rem);
+  --size: var(--switch-size, 1.25rem);
+  --spacing: var(--switch-spacing, 0.125rem);
   --on-color: var(--switch-on-color, #7c7);
   --off-color: var(--switch-off-color, #8884);
   --thumb-color: var(--switch-thumb-color, #fff);
 
-	display: inline-flex;
-	flex-shrink: 0;
-	height: var(--size);
-	border-radius: var(--size);
-	vertical-align: middle;
-	box-sizing: border-box;
-	cursor: pointer;
-	aspect-ratio: 2 / 1;
-	overflow: hidden;
+  display: inline-flex;
+  flex-shrink: 0;
+  height: var(--size);
+  border-radius: var(--size);
+  vertical-align: middle;
+  box-sizing: border-box;
+  cursor: pointer;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
   background: var(--off-color);
 
   &:has(:checked) { background: var(--on-color); }
