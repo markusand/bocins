@@ -3,6 +3,16 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { Input, Icon } from '/@/components';
 import './assets/styles.css';
 
+type InputStoryArgs = InstanceType<typeof Input>['$props'] & {
+  type?: string;
+  placeholder?: string;
+  autocomplete?: string;
+  required?: boolean;
+  readonly?: boolean;
+  name?: string;
+  inputmode?: 'none' | 'text' | 'numeric' | 'decimal' | 'tel' | 'email' | 'url' | 'search';
+};
+
 const meta = {
   title: 'Input',
   component: Input,
@@ -15,12 +25,6 @@ const meta = {
     },
   },
   argTypes: {
-    type: {
-      description: 'The type of input content.',
-      control: 'select',
-      options: ['text', 'color', 'password', 'datetime-local', 'email', 'month', 'number', 'search', 'tel', 'time', 'url', 'week'],
-    },
-    placeholder: { description: 'The placeholder text to display when the input is empty.' },
     clearable: { description: 'Enable the clear button.' },
     prefix: { description: 'The prefix text to display before the input.' },
     suffix: { description: 'The suffix text to display after the input.' },
@@ -30,6 +34,41 @@ const meta = {
     width: {
       description: 'The width of the input. Can be a number (in rem) or any string representing length and unit.',
       control: 'text',
+    },
+    // Native attributes — documented but not in InputProps
+    type: {
+      description: 'The type of input content.',
+      control: 'select',
+      options: ['text', 'color', 'password', 'datetime-local', 'email', 'month', 'number', 'search', 'tel', 'time', 'url', 'week'],
+      table: { category: 'Native' },
+    },
+    placeholder: {
+      description: 'Placeholder text shown when the input is empty.',
+      table: { category: 'Native' },
+    },
+    autocomplete: {
+      description: 'Browser autocomplete hint (e.g. "off", "email", "current-password").',
+      table: { category: 'Native' },
+    },
+    required: {
+      control: 'boolean',
+      description: 'Mark the field as required for native form validation.',
+      table: { category: 'Native' },
+    },
+    readonly: {
+      control: 'boolean',
+      description: 'Make the input read-only — focusable and copyable but not editable.',
+      table: { category: 'Native' },
+    },
+    name: {
+      description: 'Field name used during form submission.',
+      table: { category: 'Native' },
+    },
+    inputmode: {
+      control: 'select',
+      options: ['none', 'text', 'numeric', 'decimal', 'tel', 'email', 'url', 'search'],
+      description: 'Hint for the virtual keyboard on mobile devices.',
+      table: { category: 'Native' },
     },
   },
   args: {
@@ -42,12 +81,17 @@ const meta = {
     disabled: false,
     invalid: false,
     block: false,
+    autocomplete: undefined,
+    required: false,
+    readonly: false,
+    name: '',
+    inputmode: undefined,
   },
-} satisfies Meta<typeof Input>;
+} satisfies Meta<InputStoryArgs>;
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<InputStoryArgs>;
 
 export const Base: Story = {
   args: { modelValue: '' },
