@@ -111,7 +111,7 @@ const isInvalid = (date: Date): boolean => {
   return isBefore(date, notBefore)
     || isAfter(date, notAfter)
     || excluded.some(match)
-    || (allowed ? !allowed.some(match) : false);
+    || !!allowed && !allowed.some(match);
 };
 
 const days = computed(() => {
