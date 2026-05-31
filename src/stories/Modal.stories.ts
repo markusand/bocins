@@ -130,7 +130,7 @@ export const Nested: Story = {
   },
   args: { width: '20' },
   render: args => ({
-    components: { Modal, Button },
+    components: { Modal, Button, Input },
     setup: () => ({ args }),
     template: `<Modal v-bind="args">
       <template #toggler="{ open }">
@@ -141,7 +141,7 @@ export const Nested: Story = {
         <form class="form">
           <label class="label">
             New owner email
-            <Input placeholder="colleague@company.com" />
+            <Input placeholder="colleague@company.com" block />
           </label>
           <div class="toolbar right">
             <Button flat @click="close">Cancel</Button>
@@ -173,6 +173,7 @@ export const ExternalControl: Story = {
       },
     },
   },
+  args: { plain: true },
   render: args => ({
     components: { Modal, Button },
     setup: () => ({ args, isOpen: ref(false) }),
