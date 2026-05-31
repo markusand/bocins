@@ -50,9 +50,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import Dropdown, { type DropdownProps } from './Dropdown.vue';
-import { toWidth } from '/@/utils';
 import Calendar, { type CalendarProps, type SelectedDate } from './Calendar.vue';
-import { asDay, addDays, weekStart, monthStart, yearStart, useRovingTabindex } from '/@/utils';
+import { asDay, addDays, weekStart, monthStart, yearStart, useRovingTabindex, toWidth } from '/@/utils';
 import Button from './Button.vue';
 import Icon from './Icon.vue';
 
