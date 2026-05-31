@@ -4,8 +4,9 @@
       v-model="text"
       v-bind="props"
       :style="dimensions"
-      :maxlength="maxLength"
+      :placeholder
       :disabled
+      :maxlength="maxLength"
       @keydown.tab="handleTab" />
     <span v-if="maxLength" class="longtext__counter">
       {{ text.length }} / {{ maxLength }}
