@@ -47,7 +47,7 @@ const classes = computed(() => ['collapser', {
 const toggle = (event: Event) => {
   isOpen.value = (event.target as HTMLDetailsElement).open;
   if (isOpen.value) emit('open');
-  else emit ('close');
+  else emit('close');
   emit('toggle', isOpen.value);
 };
 </script>
