@@ -6,8 +6,8 @@
     :autocomplete="autocomplete ? 'current-password' : 'new-password'"
     :class="classes">
     <template #suffix>
-      <Icon v-if="revealed" src="eye.svg" @click.prevent="toggle" />
-      <Icon v-else src="eye-off.svg" @click.prevent="toggle" />
+      <Icon v-if="revealed" src="eye.svg" @click.stop="toggle" />
+      <Icon v-else src="eye-off.svg" @click.stop="toggle" />
     </template>
   </Input>
 </template>

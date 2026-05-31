@@ -1,8 +1,8 @@
 <template>
-  <div :class="classes" :style @click.prevent="onClick">
+  <div :class="classes" :style @click.stop="onClick">
     <slot name="prefix">{{ prefix }}</slot>
     <input v-model="value" v-bind="inputAttrs" :disabled>
-    <Icon v-if="clearable && value" src="x.svg" @click.prevent="clear" />
+    <Icon v-if="clearable && value" src="x.svg" @click.stop="clear" />
     <slot name="suffix">{{ suffix }}</slot>
   </div>
 </template>

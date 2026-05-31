@@ -6,12 +6,12 @@
     type="number"
     class="stepper">
     <template #prefix>
-      <button type="button" :disabled="isMin" aria-label="Decrease" @click.prevent="decrease()">
+      <button type="button" :disabled="isMin" aria-label="Decrease" @click.stop="decrease()">
         <Icon src="minus.svg" />
       </button>
     </template>
     <template #suffix>
-      <button type="button" :disabled="isMax" aria-label="Increase" @click.prevent="increase()">
+      <button type="button" :disabled="isMax" aria-label="Increase" @click.stop="increase()">
         <Icon src="plus.svg" />
       </button>
     </template>

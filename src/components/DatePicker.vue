@@ -22,7 +22,7 @@
         <Icon
           v-if="clearable && isSelected(selected)"
           src="x.svg"
-          @click.prevent="clear" />
+          @click.stop="clear" />
         <Icon v-else src="chevron-down.svg" />
       </span>
     </template>
@@ -34,7 +34,7 @@
         @keydown="onKeydown">
         <slot name="presets" :select>
           <template v-for="dates, name in presets" :key="name">
-            <Button sm flat @click="select(dates)">{{ name }}</Button>
+            <Button sm flat @click.stop="select(dates)">{{ name }}</Button>
           </template>
         </slot>
       </div>

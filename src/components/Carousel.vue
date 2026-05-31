@@ -19,7 +19,7 @@
               :aria-label="`Slide ${i + 1}`"
               :aria-current="i === active ? 'true' : undefined"
               :class="control(i)"
-              @click.prevent="goto(i)" />
+              @click.stop="goto(i)" />
           </slot>
         </li>
       </ul>

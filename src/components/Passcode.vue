@@ -1,5 +1,5 @@
 <template>
-  <fieldset :class="classes" :disabled @click.prevent="focusLast">
+  <fieldset :class="classes" :disabled @click.stop="focusLast">
     <input
       v-for="i in length"
       :key="i"

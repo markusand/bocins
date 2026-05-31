@@ -7,7 +7,7 @@
           even
           :disabled
           aria-label="Actions"
-          @click="open">
+          @click.stop="open">
           <Icon src="ellipsis-vertical.svg" />
         </Button>
       </slot>
@@ -19,7 +19,7 @@
           <slot v-for="action in group.actions" :key="action.id" :name="action.id" :action>
             <ActionMenu v-if="action.groups" :item :actions="action.groups" :lazy>
               <template #toggler="{ open }">
-                <Button flat v-bind="action.attrs" block @click="open">
+                <Button flat v-bind="action.attrs" block @click.stop="open">
                   <Icon v-if="action.icon" :src="action.icon" />
                   <span class="action-menu__label">{{ action.label }}</span>
                 </Button>
@@ -35,7 +35,7 @@
                 flat
                 role="menuitem"
                 v-bind="action.attrs"
-                @click="action.onClick?.(item); close()">
+                @click.stop="action.onClick?.(item); close()">
                 <Icon v-if="action.icon" :src="action.icon" />
                 <span class="action-menu__label">{{ action.label }}</span>
                 <HotKey

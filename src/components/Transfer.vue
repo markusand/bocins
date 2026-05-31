@@ -6,24 +6,24 @@
       </template>
     </ListBox>
     <div class="transfer__controls">
-      <Button :disabled="!isAddable(pool)" even @click.prevent="addItems()">
+      <Button :disabled="!isAddable(pool)" even @click.stop="addItems()">
         <Icon src="chevrons-right.svg" />
       </Button>
-      <Button :disabled="!isAddable(toAdd)" even @click.prevent="addItems(toAdd)">
+      <Button :disabled="!isAddable(toAdd)" even @click.stop="addItems(toAdd)">
         <Icon src="chevron-right.svg" />
       </Button>
       <Button
         class="transfer__remove"
         :disabled="!isRemoveable(toRemove)"
         even
-        @click.prevent="removeItems(toRemove)">
+        @click.stop="removeItems(toRemove)">
         <Icon src="chevron-right.svg" />
       </Button>
       <Button
         class="transfer__remove"
         :disabled="!isRemoveable(selected)"
         even
-        @click.prevent="removeItems()">
+        @click.stop="removeItems()">
         <Icon src="chevrons-right.svg" />
       </Button>
     </div>

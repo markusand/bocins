@@ -1,5 +1,5 @@
 <template>
-  <Button :class="classes" v-bind="props" @click.prevent.stop="toggle">
+  <Button :class="classes" v-bind="props" @click.stop="toggle">
     <slot />
   </Button>
 </template>

@@ -1,10 +1,10 @@
 <template>
   <figure class="image-expand" :style>
     <img :src="thumbnail || src" :alt>
-    <Button class="image-expand__toggle" even @click="open">
+    <Button class="image-expand__toggle" even @click.stop="open">
       <Icon src="expand.svg" />
     </Button>
-    <dialog ref="dialog" @click.self="close" @cancel.prevent="close">
+    <dialog ref="dialog" @click.self="close" @cancel.stop="close">
       <img :src :alt>
       <div class="image-expand__controls">
         <slot name="controls" />

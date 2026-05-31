@@ -11,7 +11,7 @@
         :aria-controls="tab.id"
         role="tab"
         type="button"
-        @click.prevent="activate(tab.id)">
+        @click.stop="activate(tab.id)">
         <slot v-bind="tab" :name="tab.id">
           <slot v-bind="tab" name="tab">
             {{ tab.label ?? tab.id }}

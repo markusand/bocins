@@ -53,8 +53,8 @@ export const Base: Story = {
             <LongText placeholder="What is this project about?" block />
           </label>
           <div class="toolbar right">
-            <Button flat @click.prevent="close">Cancel</Button>
-            <Button @click.prevent="close">Create project</Button>
+            <Button flat @click.stop="close">Cancel</Button>
+            <Button @click.stop="close">Create project</Button>
           </div>
         </form>
       </template>

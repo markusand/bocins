@@ -5,7 +5,7 @@
       v-if="action"
       type="button"
       class="chip__action"
-      @click.prevent="action">
+      @click.stop="action">
       <slot name="action">&times;</slot>
     </button>
   </span>
