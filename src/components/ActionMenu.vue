@@ -25,22 +25,25 @@
                 </Button>
               </template>
               <template v-for="subaction in subactions(action)" #[subaction.id]>
-                <slot :name="subaction.id" :action="subaction" />
+                <slot :name="subaction.id" :action="subaction">
+                  <slot :action="subaction" />
+                </slot>
               </template>
             </ActionMenu>
-            <Button
-              v-else
-              flat
-              role="menuitem"
-              v-bind="action.attrs"
-              @click="action.onClick?.(item); close()">
-              <Icon v-if="action.icon" :src="action.icon" />
-              <span class="action-menu__label">{{ action.label }}</span>
-              <HotKey
-                v-if="action.hotkey && action.onClick"
-                :keys="action.hotkey"
-                @press="action.onClick(item)" />
-            </Button>
+            <slot v-else :action>
+              <Button
+                flat
+                role="menuitem"
+                v-bind="action.attrs"
+                @click="action.onClick?.(item); close()">
+                <Icon v-if="action.icon" :src="action.icon" />
+                <span class="action-menu__label">{{ action.label }}</span>
+                <HotKey
+                  v-if="action.hotkey && action.onClick"
+                  :keys="action.hotkey"
+                  @press="action.onClick(item)" />
+              </Button>
+            </slot>
           </slot>
         </div>
       </div>
@@ -82,6 +85,7 @@ withDefaults(defineProps<ActionMenuProps<T, K>>(), {
 
 defineSlots<{
   toggler?: (props: { open: () => void }) => void;
+  default?: (props: { action: Action<T, K> }) => void;
 } & {
   [k in K]?: (props: { action: Action<T, k>, key?: k }) => void;
 }>();
