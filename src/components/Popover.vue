@@ -26,7 +26,7 @@ defineSlots<{
 
 <style scoped>
 .popover {
-  --color: var(--popover-bg-color, var(--bg-color, #f00));
+  --color: var(--popover-bg-color, var(--bg-color, #fff));
   --text-color: var(--popover-text-color, currentcolor);
   --border-color: var(--popover-border-color, #8884);
   --timing: var(--popover-timing, 0.2s);
