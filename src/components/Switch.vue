@@ -34,7 +34,7 @@ const type = computed(() => {
 const onChange = (event: Event) => {
   const { checked } = event.target as HTMLInputElement;
   const value = props.value
-    ? checked ? props.value : undefined
+    ? (checked ? props.value : undefined)
     : selected.value ?? checked;
   emit('toggle', value);
 };
