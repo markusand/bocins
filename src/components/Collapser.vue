@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import Icon from './Icon.vue';
 
 export type CollapserProps = {
@@ -38,6 +38,7 @@ const emit = defineEmits<{
 }>();
 
 const isOpen = ref(props.open);
+watch(() => props.open, open => { isOpen.value = open; });
 
 const classes = computed(() => ['collapser', {
   'is-disabled': props.disabled,
