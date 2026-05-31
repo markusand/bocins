@@ -43,7 +43,10 @@ watch(input, text => {
   } 
 });
 
-const remove = (item: string) => items.value.splice(items.value.indexOf(item), 1);
+const remove = (item: string) => {
+  const i = items.value.indexOf(item);
+  if (i >= 0) items.value.splice(i, 1);
+};
 
 const onBackspace = (event: Event) => {
   const { value } = event.target as HTMLInputElement;
