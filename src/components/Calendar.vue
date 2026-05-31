@@ -2,7 +2,7 @@
   <div :class="classes">
     <header>
       <Button flat small even aria-label="Previous month" @click.prevent="month = month - 1">
-        <Icon src="chevron-right.svg" />
+        <Icon src="chevron-left.svg" />
       </Button>
       <Selector
         v-model="month"
@@ -192,8 +192,6 @@ const select = (date: Date) => {
 
       .icon { display: none; }
     }
-    
-    .btn:first-child .icon { transform: rotate(180deg); }
   }
 }
 
