@@ -61,11 +61,11 @@ body {
   color: var(--text-color);
 }
 
-.btn[alert] { --color: var(--error-color); }
+.btn[delete] { --color: var(--error-color); }
 
 .switch {
-  --color-on: lightgreen;
-  --color-off: var(--error-color);
+  --on-color: lightgreen;
+  --off-color: var(--error-color);
 }
 ```
 

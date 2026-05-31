@@ -14,7 +14,7 @@ These are non-exhaustive examples of how to compose Bocins. Do not force these s
   <template #default="{ close }">
     <p><Icon src="alert.svg" /> Are you sure?</p>
     <footer>
-      <Button alert @click="deleteItem();close()">Delete</Button>
+      <Button delete @click="deleteItem();close()">Delete</Button>
       <Button ghost @click="close">Cancel</Button>
     </footer>
   </template>

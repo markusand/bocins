@@ -115,7 +115,7 @@ import { Avatar } from "/@/components"; // or "@/components", "~/components", et
 Slots: `#toggler="{ open, close, toggle }"` · `#default="{ close, open }"` · `#close="{ close }"`
 Props: `closeable` · `plain` (non-modal, no backdrop) · `width` · `height` · `to` (teleport target)
 
-**Dropdown** — opens on focus, closes on focusout. Use `#toggler` to replace the default button:
+**Dropdown** — uses the Popover API; opens/closes on click of the toggle button. Use `#toggler` to replace the default button:
 
 ```html
 <!-- Default button toggle -->
@@ -132,7 +132,7 @@ Props: `closeable` · `plain` (non-modal, no backdrop) · `width` · `height` ·
 </Dropdown>
 ```
 
-Props: `label` · `icon` · `top` · `right` · `block` · `disabled` · `width`
+Props: `label` · `icon` · `position` · `block` · `disabled` · `width` · `lazy`
 
 **Popover** — hover/focus tooltip overlay using CSS anchor positioning:
 
