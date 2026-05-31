@@ -50,7 +50,7 @@ const width = computed(() => toWidth(props.width));
   --border-width: var(--btn-border-width, 1px);
   --_radius: var(--btn-radius, var(--radius, 0.25em));
   --_hover-color: color-mix(in srgb, var(--color) 90%, #000);
-  --_color-state: var(--color);
+  --color-state: var(--color);
 
   all: unset;
   display: inline-flex;
@@ -59,8 +59,8 @@ const width = computed(() => toWidth(props.width));
   vertical-align: middle;
   padding: var(--spacing) calc(1.25 * var(--spacing));
   gap: var(--spacing);
-  background: var(--_color-state);
-  box-shadow: inset 0 0 0 var(--border-width) var(--_color-state);
+  background: var(--color-state);
+  box-shadow: inset 0 0 0 var(--border-width) var(--color-state);
   color: var(--text-color);
   border-radius: var(--_radius);
   box-sizing: border-box;
@@ -85,10 +85,10 @@ const width = computed(() => toWidth(props.width));
 
   &.btn--ghost {
     background: none;
-    color: var(--_color-state);
+    color: var(--color-state);
 
     &:not(:disabled):is(:hover, :focus-visible) {
-      background: var(--_color-state);
+      background: var(--color-state);
       color: var(--text-color);
     }
   }
@@ -96,7 +96,7 @@ const width = computed(() => toWidth(props.width));
   &.btn--flat {
     background: transparent;
     box-shadow: none;
-    color: var(--_color-state);
+    color: var(--color-state);
 
     &:not(:disabled):is(:hover, :focus-visible) {
       background: color-mix(in srgb, var(--color) 5%, transparent);
@@ -109,11 +109,11 @@ const width = computed(() => toWidth(props.width));
 .btn:disabled,
 :disabled .btn,
 .is-disabled .btn {
-  --_color-state: color-mix(in srgb, var(--disabled-color, #8886) 10%, transparent) !important;
+  --color-state: color-mix(in srgb, var(--disabled-color, #8886) 10%, transparent) !important;
   
   cursor: not-allowed !important;
   color: var(--disabled-color, #8886) !important;
 }
 
-.btn:not(:disabled):is(:hover, :focus-visible) { --_color-state: var(--_hover-color); }
+.btn:not(:disabled):is(:hover, :focus-visible) { --color-state: var(--_hover-color); }
 </style>

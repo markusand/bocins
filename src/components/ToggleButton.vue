@@ -52,7 +52,7 @@ const toggle = () => {
   --active-color: var(--toggle-btn-active-color, color-mix(in srgb, var(--color) 75%, #000));
 
   &.toggle-button--active {
-    --_color-state: var(--active-color) !important;
+    --color-state: var(--active-color) !important;
   }
 }
 </style>
