@@ -19,7 +19,7 @@ export type HotKeyProps = {
 
 const props = defineProps<HotKeyProps>();
 
-const isMac = navigator.platform.toUpperCase().includes('MAC');
+const isMac = (navigator.userAgentData?.platform ?? navigator.userAgent ?? navigator.platform).toUpperCase().includes('MAC');
 
 const ICONS: Record<string, string> = {
   tab: 'arrow-right-to-line',
