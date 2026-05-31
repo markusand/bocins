@@ -3,7 +3,7 @@
     <dialog
       ref="modal"
       class="modal is-panel"
-      v-bind="props"
+      v-bind="$attrs"
       :style="size"
       @cancel="handleEscape"
       @close="close">
