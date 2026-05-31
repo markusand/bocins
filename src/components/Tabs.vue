@@ -52,7 +52,7 @@ provide('active', activePanel);
 
 const transition = ref('');
 provide('transition', transition);
-watch(props, p => transition.value = p.transition || 'tab-slide-x');
+watch(() => props.transition, t => transition.value = t || 'tab-slide-x');
 
 const slots = defineSlots<{
   default: () => VNode[],
