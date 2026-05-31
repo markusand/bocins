@@ -95,7 +95,7 @@ watch(rating, value => value && emit('rate', value));
   &:not(:disabled) > label:hover input { transform: none; }
 
   &:has(:checked) :not(label:has(:checked) ~ label) {
-    input { transform: scale(0) !important; }
+    input { transform: scale(0); }
     &:deep(.icon) { transform: none; }
   }
 
@@ -103,7 +103,7 @@ watch(rating, value => value && emit('rate', value));
     --color: #8886;
   
     opacity: 0.5;
-    cursor: not-allowed !important;
+    cursor: not-allowed;
   }
 }
 

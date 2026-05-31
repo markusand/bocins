@@ -111,8 +111,8 @@ const width = computed(() => toWidth(props.width));
 .is-disabled .btn {
   --color-state: color-mix(in srgb, var(--disabled-color, #8886) 10%, transparent) !important;
   
-  cursor: not-allowed !important;
-  color: var(--disabled-color, #8886) !important;
+  cursor: not-allowed;
+  color: var(--disabled-color, #8886);
 }
 
 .btn:not(:disabled):is(:hover, :focus-visible) { --color-state: var(--_hover-color); }
