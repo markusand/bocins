@@ -43,3 +43,4 @@ export { default as Tooltip, type TooltipProps } from './Tooltip.vue';
 export { default as HotKey, type HotKeyProps } from './HotKey.vue';
 export { default as Slider, type SliderProps } from './Slider.vue';
 export { default as Progress, type ProgressProps } from './Progress.vue';
+export { default as PullTo } from './PullTo.vue';
