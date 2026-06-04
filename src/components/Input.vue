@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" :style @click.stop="onClick">
+  <div :class="classes" :style>
     <slot name="prefix">{{ prefix }}</slot>
     <input v-model="value" v-bind="inputAttrs" :disabled>
     <Icon v-if="clearable && value" src="x.svg" @click.stop="clear" />
@@ -55,11 +55,6 @@ const style = computed((): CSSProperties | null => ({
   ...(allAttrs.style as CSSProperties),
   ...toWidth(props.width),
 }));
-
-const onClick = (event: Event) => {
-  const target = event.currentTarget as HTMLDivElement;
-  target.querySelector('input')?.focus();
-};
 </script>
 
 <style scoped>
