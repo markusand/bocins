@@ -89,6 +89,7 @@ const handleEscape = (event: Event) => {
 <style scoped>
 .modal {
   --border: var(--modal-border, 1px solid var(--border-color, #8884));
+  --padding: var(--modal-padding, 0.75rem);
   --radius: var(--modal-radius, 0.25rem);
   --max-width: var(--modal-max-width, calc(100% - 2rem));
   --max-height: var(--modal-max-height, calc(100% - 2rem));
@@ -109,6 +110,7 @@ const handleEscape = (event: Event) => {
   max-height: var(--max-height);
   outline: none;
   opacity: 0;
+  padding: var(--padding);
   translate: var(--translate);
   interpolate-size: allow-keywords;
   transition:
