@@ -71,7 +71,6 @@ const classes = computed(() => ['listbox', 'is-panel', {
 
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   
   .picker {
     --spacing: 1px;
@@ -81,6 +80,7 @@ const classes = computed(() => ['listbox', 'is-panel', {
     padding: 0.25em;
     overflow: auto;
     max-height: var(--max-height);
+    contain: layout;
 
     &:deep(input) {
       opacity: 0;
