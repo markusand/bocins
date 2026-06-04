@@ -62,3 +62,21 @@ export const Base: Story = {
     template: '<LongText v-bind="args" v-model="text" />',
   }),
 };
+
+export const WithChange: Story = {
+  args: { maxLength: 100 },
+  render: args => ({
+    components: { LongText },
+    setup: () => {
+      const lastChanged = ref('');
+      const onChange = (value: string) => {
+        lastChanged.value = value ? new Date().toLocaleTimeString() : '';
+      };
+      return { args, lastChanged, onChange };
+    },
+    template: `<div>
+      <LongText v-bind="args" @change="onChange" />
+      <p v-if="lastChanged">Last changed: {{ lastChanged }}</p>
+    </div>`,
+  }),
+};

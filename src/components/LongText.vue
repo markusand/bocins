@@ -7,9 +7,10 @@
       :placeholder
       :disabled
       :maxlength="maxLength"
+      @change="onChange"
       @keydown.tab="handleTab" />
     <span v-if="maxLength" class="longtext__counter">
-      {{ text.length }} / {{ maxLength }}
+      {{ text?.length ?? '0' }} / {{ maxLength }}
     </span>
   </div>
 </template>
@@ -36,7 +37,16 @@ const props = withDefaults(defineProps<LongTextProps>(), {
   placeholder: '',
 });
 
-const text = defineModel<string>({ required: true });
+const text = defineModel<string>();
+
+const emit = defineEmits<{
+  change: [text: string];
+}>();
+
+const onChange = (event: Event) => {
+  const { value } = event.target as HTMLTextAreaElement;
+  emit('change', value);
+};
 
 const handleTab = (event: KeyboardEvent) => {
   if (!props.indentable) return;
