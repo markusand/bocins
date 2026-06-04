@@ -66,7 +66,7 @@ const classes = computed(() => ['listbox', 'is-panel', {
 
 <style scoped>
 .listbox {
-  --_color: var(--listbox-color, var(--color, var(--accent-color, #333)));
+  --color: var(--listbox-color, var(--accent-color, #333));
   --max-height: var(--listbox-max-height, 10rem);
 
   display: flex;
@@ -103,15 +103,15 @@ const classes = computed(() => ['listbox', 'is-panel', {
   flex: 1;
   border-radius: 0.25rem;
 
-  &:hover { background: color-mix(in srgb, var(--_color) 10%, transparent); }
+  &:hover { background: color-mix(in srgb, var(--color) 10%, transparent); }
 }
 
 :focus-visible + .listbox__option {
-  background: color-mix(in srgb, var(--_color) 10%, transparent);
+  background: color-mix(in srgb, var(--color) 10%, transparent);
 }
 
 :checked + .listbox__option {
-  background: var(--_color);
+  background: var(--color);
   color: #fff;
 }
 
