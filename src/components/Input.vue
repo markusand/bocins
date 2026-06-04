@@ -1,7 +1,7 @@
 <template>
   <div :class="classes" :style>
     <slot name="prefix">{{ prefix }}</slot>
-    <input v-model="value" v-bind="inputAttrs" :disabled>
+    <input v-model="value" v-bind="inputAttrs" :disabled :placeholder>
     <Icon v-if="clearable && value" src="x.svg" @click.stop="clear" />
     <slot name="suffix">{{ suffix }}</slot>
   </div>
@@ -14,6 +14,7 @@ import Icon from './Icon.vue';
 
 export type InputProps = {
   width?: number | string;
+  placeholder?: string;
   clearable?: boolean;
   prefix?: string;
   suffix?: string;
