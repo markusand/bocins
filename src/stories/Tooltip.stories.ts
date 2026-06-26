@@ -55,8 +55,8 @@ export const Base: Story = {
     template: `<div>
       <Tooltip v-bind="args">
         <template #content>
-          <strong>Pro plan</strong>
-          <p>Unlimited projects, custom domains,<br>and priority support.</p>
+          <h3>Pro plan</h3>
+          Unlimited projects, custom domains,<br>and priority support.
         </template>
         <span style="border-bottom:1px dashed currentcolor; cursor:help">Pro</span>
       </Tooltip>
