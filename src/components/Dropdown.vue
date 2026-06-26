@@ -110,6 +110,7 @@ const onToggle = (event: ToggleEvent) => {
   inset: var(--position);
   margin: var(--margin);
   position-try-fallbacks: var(--fallback);
+  translate: var(--translate);
 
   &:popover-open { display: block; }
 
@@ -142,8 +143,7 @@ const onToggle = (event: ToggleEvent) => {
   }
 
   &.dropdown--top {
-    translate: -50% 0;
-
+    --translate: -50% 0;
     --position: auto auto anchor(top) anchor(center);
     --margin: var(--gap) 0;
     --fallback: --bottom, --top-in-left, --bottom-in-left;
@@ -163,8 +163,7 @@ const onToggle = (event: ToggleEvent) => {
   }
 
   &.dropdown--right {
-    translate: 0 -50%;
-
+    --translate: 0 -50%;
     --position: anchor(center) auto auto anchor(right);
     --margin: 0 var(--gap);
     --fallback: --left, --right-in-top, --left-in-top;
@@ -184,8 +183,7 @@ const onToggle = (event: ToggleEvent) => {
   }
 
   &.dropdown--bottom {
-    translate: -50% 0;
-
+    --translate: -50% 0;
     --position: anchor(bottom) auto auto anchor(center);
     --margin: var(--gap) 0;
     --fallback: --top, --bottom-in-left, --top-in-left;
@@ -205,8 +203,7 @@ const onToggle = (event: ToggleEvent) => {
   }
 
   &.dropdown--left {
-    translate: 0 -50%;
-
+    --translate: 0 -50%;
     --position: anchor(center) anchor(left) auto auto;
     --margin: 0 var(--gap);
     --fallback: --right, --left-in-top, --right-in-top;
@@ -218,7 +215,6 @@ const onToggle = (event: ToggleEvent) => {
     --fallback: --right-in-top, --left-in-bottom, --right-in-bottom;
   }
 }
-
 
 .modal .dropdown { position: fixed; } /* Fix for Firefox */
 
