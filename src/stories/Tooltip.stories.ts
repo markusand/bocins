@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { Tooltip } from '/@/components';
+import { Tooltip, Button } from '/@/components';
 import './assets/styles.css';
 
 const meta = {
@@ -29,11 +29,15 @@ const meta = {
       description: 'The width of the tooltip. Can be a number (in rem) or any string representing length and unit.',
       control: 'text',
     },
+    hoverable: {
+      description: 'Open the popover on hover instead of click.',
+    },
   },
   args: {
     text: 'Bold (⌘B)',
     position: 'top',
     width: undefined,
+    hoverable: false,
   },
 } satisfies Meta<typeof Tooltip>;
 
@@ -64,3 +68,19 @@ export const Base: Story = {
     </div>`,
   }),
 };
+
+export const WithButton: Story = {
+  render: args => ({
+    components: { Tooltip, Button },
+    setup: () => ({ args }),
+    template: `<div class="toolbar">
+      <Tooltip position="top" text="Discard changes" hoverable>
+        <Button flat>Cancel</Button>
+      </Tooltip>
+      <Tooltip position="top" text="Save changes" hoverable>
+        <Button>Save</Button>
+      </Tooltip>
+    </div>`,
+  }),
+};
+

@@ -30,9 +30,13 @@ const meta = {
       description: 'The width of the popover. Can be a number (in rem) or any string representing length and unit.',
       control: 'text',
     },
+    hoverable: {
+      description: 'Open the popover on hover instead of click.',
+    },
   },
   args: {
     position: 'top',
+    hoverable: false,
   },
 } satisfies Meta<typeof Popover>;
 

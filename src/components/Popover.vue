@@ -1,7 +1,12 @@
 <template>
   <Dropdown v-bind="props" :position>
     <template #label="{ open, close }">
-      <slot name="anchor" :open :close />
+      <div
+        class="anchor"
+        @mouseenter="hoverable ? open() : undefined"
+        @mouseleave="hoverable ? close() : undefined">
+        <slot name="anchor" :open :close />
+      </div>
     </template>
     <template #default="{ close }">
       <div class="popover" :class="position">
@@ -14,7 +19,9 @@
 <script setup lang="ts">
 import Dropdown, { type DropdownProps } from './Dropdown.vue';
 
-export type PopoverProps = Omit<DropdownProps, 'icon' | 'label'>;
+export type PopoverProps = {
+  hoverable?: boolean;
+} & Omit<DropdownProps, 'icon' | 'label'>;
 
 const props = defineProps<PopoverProps>();
 
