@@ -39,13 +39,16 @@ const classes = computed(() => ['progress', {
 .progress {
   --color: var(--progress-color, var(--accent-color, #333));
   --track-color: var(--progress-track-color, #8884);
-  --height: var(--progress-height, 0.375rem);
-
+  --size: var(--progress-size, auto);
+  --height: var(--progress-height, 0.5rem);
+  --radius: var(--progress-radius, var(--height));
+  
   position: relative;
   display: block;
   height: var(--height);
+  width: var(--size);
   background: var(--track-color);
-  border-radius: var(--height);
+  border-radius: var(--radius);
   overflow: hidden;
 
   &::after {
@@ -57,6 +60,8 @@ const classes = computed(() => ['progress', {
     width: var(--_fill, 0%);
     background: var(--color);
     border-radius: inherit;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     transition: width 0.3s ease;
   }
 
@@ -68,8 +73,8 @@ const classes = computed(() => ['progress', {
 }
 
 .progress--circular {
-  --size: var(--progress-size, 3rem);
-  --thickness: var(--progress-thickness, 0.25rem);
+  --size: var(--progress-size, 5rem);
+  --thickness: var(--progress-thickness, 0.5rem);
 
   display: inline-block;
   width: var(--size);
