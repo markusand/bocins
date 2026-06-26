@@ -53,6 +53,11 @@ const toggle = () => {
 
   &.toggle-button--active {
     --color-state: var(--active-color) !important;
+
+    &.btn--ghost {
+      background: var(--color-state);
+      color: var(--text-color);
+    }
   }
 }
 </style>
