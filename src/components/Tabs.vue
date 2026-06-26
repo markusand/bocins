@@ -92,6 +92,12 @@ onMounted(() => {
     border-bottom: 1px solid var(--tabs-border-color, var(--border-color, #8883));
     margin-bottom: var(--spacing);
     align-items: flex-end;
+    overflow: auto clip;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
   
   .tabs__tab {
@@ -116,16 +122,8 @@ onMounted(() => {
   .tabs__tab--active,
   .tabs__tab:focus-visible {
     --text-color: var(--accent-color, #333);
-  
-    &::after {
-      content: '';
-      background: currentcolor;
-      height: 2px;
-      width: 100%;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-    }
+
+    box-shadow: inset 0 -0.25rem 0 0 currentcolor;
   }
 }
 </style>
