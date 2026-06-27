@@ -102,13 +102,13 @@ const onToggle = (event: ToggleEvent) => {
 <style scoped>
 .dropdown {
   --gap: var(--dropdown-margin, 0.125rem);
+  --translate: var(--dropdown-translate, 0 0.125rem);
 
   all: unset;
   display: none;
   position: absolute;
   position-anchor: v-bind(anchor); /* stylelint-disable-line */
   inset: var(--position);
-  margin: var(--margin);
   position-try-fallbacks: var(--fallback);
   translate: var(--translate);
 
