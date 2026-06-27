@@ -91,11 +91,11 @@ const handleEscape = (event: Event) => {
   --border: var(--modal-border, 1px solid var(--border-color, #8884));
   --padding: var(--modal-padding, 0.75rem);
   --radius: var(--modal-radius, 0.25rem);
-  --max-width: var(--modal-max-width, calc(100% - 2rem));
-  --max-height: var(--modal-max-height, calc(100% - 2rem));
+  --max-width: var(--modal-max-width, calc(100dvw - 2rem));
+  --max-height: var(--modal-max-height, calc(100dvh - 2rem));
   --backdrop-color: var(--modal-backdrop-color, #0006);
   --backdrop-filter: var(--modal-backdrop-filter, none);
-  --translate: var(--modal-in-translate, 0 25%);
+  --translate: var(--modal-in-translate, 0 2rem);
   --timing: var(--modal-timing, 0.3s);
 
   position: fixed;
