@@ -1,7 +1,7 @@
 <template>
   <div :class="togglerClasses" :style>
     <slot name="toggler" :open :close>
-      <button :popovertarget="id" :disabled tabindex="0">
+      <button type="button" :popovertarget="id" :disabled tabindex="0">
         <slot name="label" :open :close>
           <Icon v-if="icon" :src="icon" />
           <Icon v-else src="chevron-down.svg" class="chevron" />
