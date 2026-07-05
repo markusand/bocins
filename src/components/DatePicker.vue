@@ -4,7 +4,7 @@
       <span :class="togglerClasses" :style="toWidth(props.width)">
         <span v-if="isSelected(selected)" class="selected">
           <slot v-if="Array.isArray(selected)" name="dates" :dates="selected">
-            <span class="datepicker__range-dates">
+            <span class="range-dates">
               <span>{{ formatter?.(selected[0]) ?? selected[0] }}</span>
               <Icon src="arrow-right.svg" />
               <span>{{ formatter?.(selected[1]) ?? selected[1] }}</span>
@@ -27,7 +27,7 @@
     <div class="is-panel">
       <div
         v-if="presets || slots.presets"
-        class="datepicker__presets"
+        class="presets"
         @focusin="onFocusin"
         @keydown="onKeydown">
         <slot name="presets" :select>
@@ -123,7 +123,7 @@ const { onFocusin, onKeydown } = useRovingTabindex({ wrap: true });
 </script>
 
 <style scoped>
-.datepicker__range-dates {
+.range-dates {
   display: flex;
   align-items: center;
   gap: 0.5em;
@@ -133,22 +133,22 @@ const { onFocusin, onKeydown } = useRovingTabindex({ wrap: true });
 
 .is-panel {
   display: flex;
-}
 
-.datepicker__presets {
-  min-height: 0;
-  border-right: var(--border-width, 1px) solid var(--border-color, #8884);
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  overflow: auto;
-  padding: 0.25em;
-  white-space: nowrap;
+  .presets {
+    min-height: 0;
+    border-right: var(--border-width, 1px) solid var(--border-color, #8884);
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    overflow: auto;
+    padding: 0.25em;
+    white-space: nowrap;
 
-  .btn {
-    justify-content: start;
-    gap: 0.5em;
-    text-transform: capitalize;
+    .btn {
+      justify-content: start;
+      gap: 0.5em;
+      text-transform: capitalize;
+    }
   }
 }
 </style>
