@@ -37,11 +37,11 @@
   opacity: 0.5 !important;
 }
 
-.is-input,
-.is-selector-toggler {
+.is-input {
   --spacing: 0.5rem;
   --border-width: 1px;
 
+  display: flex;
   align-items: center;
   vertical-align: middle;
   gap: var(--spacing);
@@ -55,29 +55,15 @@
   text-align: left;
 
   .icon {
+    --size: 1em !important;
+
     cursor: pointer;
     display: inline-block;
   }
-}
 
-.is-input {
-  display: inline-flex;
-
-  .icon { --size: 1rem; }
-}
-
-.is-selector-toggler {
-  display: flex;
   cursor: pointer;
 
   .placeholder { opacity: 1; }
-
-  .icon { --size: 1em !important; }
-
-  .icon:last-child {
-    flex: 0 !important;
-    margin-left: auto !important;
-  }
 
   .selected,
   .placeholder {

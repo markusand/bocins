@@ -195,7 +195,7 @@ const select = (date: Date) => {
     align-items: center;
     justify-content: space-between;
 
-    &:deep(.is-selector-toggler) {
+    &:deep(.is-input) {
       --spacing: 0;
       --border-width: 0;
       --bg-color: none !important;

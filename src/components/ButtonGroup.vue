@@ -35,7 +35,7 @@ const width = computed(() => toWidth(props.width));
 
   /* Not first */
   &:deep(> :not(:first-child)) {
-    &, & > .btn, & > .input, & .is-selector-toggler {
+    &, & > .btn, & > .input, & .is-input {
       border-top-left-radius: 0 !important;
       border-bottom-left-radius: 0 !important;
       margin-left: calc(-1 * var(--border-width));
@@ -43,8 +43,8 @@ const width = computed(() => toWidth(props.width));
   }
 
   /* Not last of types */  
-  &:deep(> :has(~ :is(.btn, .toggler, .input, .popover))) {
-    &, & > .btn, & > .input, & .is-selector-toggler {
+  &:deep(> :has(~ :is(.btn, .input))) {
+    &, & > .btn, & > .input, & .is-input {
       border-top-right-radius: 0 !important;
       border-bottom-right-radius: 0 !important;
     }

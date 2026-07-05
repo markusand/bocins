@@ -1,10 +1,8 @@
 <template>
-  <Dropdown
-    class="datepicker"
-    v-bind="datepickerProps">
+  <Dropdown class="datepicker" v-bind="props">
     <template #label>
       <span :class="togglerClasses" :style="toWidth(props.width)">
-        <span v-if="isSelected(selected)" class="datepicker__selected">
+        <span v-if="isSelected(selected)" class="selected">
           <slot v-if="Array.isArray(selected)" name="dates" :dates="selected">
             <span class="datepicker__range-dates">
               <span>{{ formatter?.(selected[0]) ?? selected[0] }}</span>
@@ -68,14 +66,10 @@ export type DatePickerProps = {
 const props = withDefaults(defineProps<DatePickerProps>(), {
   placeholder: 'Select date',
   lazy: true,
+  position: 'bottom-start',
 });
 
-const datepickerProps = computed(() => {
-  const { disabled, block, lazy, position } = props;
-  return { disabled, block, lazy, position };
-});
-
-const togglerClasses = computed(() => ['is-selector-toggler', {
+const togglerClasses = computed(() => ['is-input', {
   'is-invalid': props.invalid,
   'is-disabled': props.disabled,
 }]);

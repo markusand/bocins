@@ -1,10 +1,8 @@
 <template>
-  <Dropdown
-    class="selector"
-    v-bind="selectorProps">
+  <Dropdown class="selector" :style v-bind="props">
     <template #label>
       <span :class="classes" :style="toWidth(props.width)">
-        <span v-if="isSelected(selected)" class="selector__selected">
+        <span v-if="isSelected(selected)" class="selected">
           <slot v-if="Array.isArray(selected)" name="selections" :items="selected">
             {{ selected.map(formatter).join(', ') }}
           </slot>
@@ -24,7 +22,7 @@
         <Icon v-else src="chevron-down.svg" />
       </span>
     </template>
-    <ListBox v-model="selected" v-bind="props" width="auto">
+    <ListBox v-model="selected" v-bind="props">
       <template #default="{ option }">
         <slot name="option" :option>
           <slot :item="option" />
@@ -52,17 +50,8 @@ export type SelectorProps<T> = {
 const props = withDefaults(defineProps<SelectorProps<T>>(), {
   formatter: String,
   placeholder: 'Select',
+  position: 'bottom-start',
 });
-
-const selectorProps = computed(() => {
-  const { disabled, block, lazy, position } = props;
-  return { disabled, block, lazy, position };
-});
-
-const classes = computed(() => ['is-selector-toggler', {
-  'is-invalid': props.invalid,
-  'is-disabled': props.disabled,
-}]);
 
 defineSlots<{
   default?: (props: { item: T }) => void;
@@ -82,14 +71,13 @@ const isSelected = (item: T | T[] | undefined): item is T | T[] => {
 const clear = () => {
   selected.value = Array.isArray(selected.value) ? [] : undefined;
 };
-</script>
 
-<style scoped>
-.selector {
-  .listbox {
-    display: flex;
-    min-width: 100%;
-    width: fit-content;
-  }
-}
-</style>
+const classes = computed(() => ['is-input', {
+  'is-invalid': props.invalid,
+  'is-disabled': props.disabled,
+}]);
+
+const style = {
+  '--dropdown-gap': 'var(--selector-gap, 0.125rem)',
+};
+</script>

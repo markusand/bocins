@@ -19,10 +19,10 @@ const meta = {
       description: 'The position of the popover relative to the anchor.',
       control: { type: 'select' },
       options: [
-        'top-left', 'top-in-left', 'top', 'top-in-right', 'top-right',
-        'right-in-top', 'right', 'right-in-bottom',
-        'bottom-right', 'bottom-in-right', 'bottom', 'bottom-in-left', 'bottom-left',
-        'left-in-bottom', 'left', 'left-in-top',
+        'top-left', 'top-start', 'top', 'top-end', 'top-right',
+        'left', 'left-start', 'left-end',
+        'right', 'right-start', 'right-end',
+        'bottom-left', 'bottom-start', 'bottom', 'bottom-end', 'bottom-right',
       ],
     },
     width: {
