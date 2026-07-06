@@ -1,5 +1,5 @@
 <template>
-  <Dropdown v-bind="props" :position>
+  <Dropdown v-bind="props" :position :style>
     <template #label="{ open, close }">
       <div
         class="anchor"
@@ -9,7 +9,7 @@
       </div>
     </template>
     <template #default="{ close }">
-      <div class="popover" :class="position">
+      <div class="popover">
         <slot :close />
       </div>
     </template>
@@ -17,150 +17,93 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import Dropdown, { type DropdownProps } from './Dropdown.vue';
 
 export type PopoverProps = {
   hoverable?: boolean;
 } & Omit<DropdownProps, 'icon' | 'label'>;
 
-const props = defineProps<PopoverProps>();
+const props = withDefaults(defineProps<PopoverProps>(), {
+  position: 'top',
+});
 
 defineSlots<{
   default: (props: { close: () => void }) => void;
   anchor: (props: { open: () => void, close: () => void }) => void;
 }>();
+
+const style = computed(() => ({
+  '--bg': 'var(--popover-bg, #333)',
+  '--gap': 'var(--popover-gap, 0.25rem)',
+  '--direction': props.position.replace(/-.*/, ''),
+}));
 </script>
 
 <style scoped>
 .popover {
-  --color: var(--popover-bg-color, var(--bg-color, #fff));
-  --text-color: var(--popover-text-color, currentcolor);
-  --border-color: var(--popover-border-color, #8884);
-  --timing: var(--popover-timing, 0.2s);
-  --arrow-offset: var(--popover-arrow-offset, 0.75rem);
+  --bg-color: var(--popover-bg-color, #fff);
+  --text-color: var(--popover-text-color, inherit);
+  --spacing: var(--popover-spacing, 0);
+  --border: var(--popover-border, 1px solid #8888);
+  --radius: var(--popover-radius, 0.25rem);
 
-  position: relative;
-  background: var(--color);
+  background: var(--bg-color);
   color: var(--text-color);
-  padding: var(--popover-spacing, 0);
-  border: 1px solid var(--border-color);
-  border-radius: var(--popover-radius, var(--radius, 0.25rem));
+  border: var(--border);
+  box-sizing: border-box;
+  border-radius: var(--radius);
+  padding: var(--spacing);
+  margin: var(--gap, 0);
 
-  &::before, &::after {
-    content: "";
-    position: absolute;
-    border: 0.5rem solid transparent;
-  }
-
-  &::before { border-width: calc(0.5rem + 1.5px); }
-
-  /* Top family: arrow at bottom edge, pointing down */
-  &:is(.top-left, .top-in-left, .top, .top-in-right, .top-right) {
-    margin-bottom: calc(0.5rem + var(--gap, 0rem));
-
-    &::before, &::after {
-      top: 100%;
-      left: 50%;
-      translate: -50% 0;
-      border-top-color: var(--color);
+  &::before {
+    content: '';
+    width: calc(2 * var(--gap));
+    aspect-ratio: 1;
+    background: var(--bg-color);
+    border: var(--border);
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    inset: auto;
+    position: fixed;
+    position-anchor: var(--anchor);
+    position-area: var(--direction, bottom);
+    margin: var(--gap, 0);
+    
+    @container style(--direction: left) {
+      rotate: -45deg;
+      
+      @container anchored(fallback: flip-inline) {
+        position-area: right;
+        rotate: 134deg;
+      }
     }
 
-    &::before { border-top-color: var(--border-color); }
-  }
+    @container style(--direction: right) {
+      rotate: 135deg;
 
-  /* Bottom family: arrow at top edge, pointing up */
-  &:is(.bottom-right, .bottom-in-right, .bottom, .bottom-in-left, .bottom-left) {
-    margin-top: calc(0.5rem + var(--gap, 0rem));
-
-    &::before, &::after {
-      bottom: 100%;
-      left: 50%;
-      translate: -50% 0;
-      border-bottom-color: var(--color);
+      @container anchored(fallback: flip-inline) {
+        position-area: left;
+        rotate: -45deg;
+      }
     }
 
-    &::before { border-bottom-color: var(--border-color); }
-  }
-
-  /* Right family: arrow at left edge, pointing left */
-  &:is(.right-in-top, .right, .right-in-bottom) {
-    margin-left: calc(0.5rem + var(--gap, 0rem));
-
-    &::before, &::after {
-      right: 100%;
-      top: 50%;
-      translate: 0 -50%;
-      border-right-color: var(--color);
+    @container style(--direction: top) {
+      rotate: 45deg;
+    
+      @container anchored(fallback: flip-block) {
+        position-area: bottom;
+        rotate: 225deg;
+      }
     }
 
-    &::before { border-right-color: var(--border-color); }
-  }
+    @container style(--direction: bottom) {
+      rotate: 225deg;
 
-  /* Left family: arrow at right edge, pointing right */
-  &:is(.left-in-bottom, .left, .left-in-top) {
-    margin-right: calc(0.5rem + var(--gap, 0rem));
-
-    &::before, &::after {
-      left: 100%;
-      top: 50%;
-      translate: 0 -50%;
-      border-left-color: var(--color);
+      @container anchored(fallback: flip-block) {
+        position-area: top;
+        rotate: 45deg;
+      }
     }
-
-    &::before { border-left-color: var(--border-color); }
   }
-
-  /* Near-left edge (top/bottom families) */
-  &:is(.top-in-left, .bottom-in-left) {
-    &::before, &::after {
-      left: var(--arrow-offset);
-      translate: 0 0;
-    }
-
-    &::before { translate: -1.5px 0; }
-  }
-
-  /* Near-right edge (top/bottom families) */
-  &:is(.top-in-right, .bottom-in-right) {
-    &::before, &::after {
-      left: auto;
-      right: var(--arrow-offset);
-      translate: 0 0;
-    }
-
-    &::before { translate: 1.5px 0; }
-  }
-
-  /* Near-top edge (right/left families) */
-  &:is(.right-in-top, .left-in-top) {
-    &::before, &::after {
-      top: var(--arrow-offset);
-      translate: 0 0;
-    }
-
-    &::before { translate: 0 -1.5px; }
-  }
-
-  /* Near-bottom edge (right/left families) */
-  &:is(.right-in-bottom, .left-in-bottom) {
-    &::before, &::after {
-      top: auto;
-      bottom: var(--arrow-offset);
-      translate: 0 0;
-    }
-
-    &::before { translate: 0 1.5px; }
-  }
-
-  /* Corners: no arrow, sharp corner toward anchor */
-  &:is(.top-left, .top-right, .bottom-right, .bottom-left) {
-    margin: 0;
-    &::before, &::after { display: none; }
-  }
-
-  &.top-left { border-bottom-right-radius: 0; }
-  &.top-right { border-bottom-left-radius: 0; }
-  &.bottom-right { border-top-left-radius: 0; }
-  &.bottom-left { border-top-right-radius: 0; }
 }
 </style>

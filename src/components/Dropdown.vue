@@ -41,6 +41,7 @@ export type DropdownProps = {
   block?: boolean;
   width?: number | string;
   lazy?: boolean;
+  arrow?: boolean;
   position?: DropdownPosition;
 };
 
@@ -115,16 +116,19 @@ const onToggle = (event: ToggleEvent) => {
 .dropdown {
   --gap: var(--dropdown-gap, 0.25rem);
   --timing: var(--dropdown-timing, 0.2s);
+  --anchor: v-bind(anchor);
 
   border: none;
   background: none;
   padding: 0;
   inset: auto;
   position: fixed;
-  position-anchor: v-bind(anchor); /* stylelint-disable-line */
+  position-anchor: var(--anchor);
   position-area: var(--position, bottom);
   position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
   min-inline-size: anchor-size(inline);
+  overflow: visible;
+  container-type: anchored; /* stylelint-disable-line */
 
   /* Transition */
   display: none;

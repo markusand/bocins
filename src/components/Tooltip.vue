@@ -25,7 +25,9 @@ defineSlots<{
 const style = {
   '--popover-bg-color': 'var(--tooltip-bg-color, #333)',
   '--popover-text-color': 'var(--tooltip-text-color, #fff)',
-  '--popover-border-color': 'transparent',
+  '--popover-border': 'none',
+  '--popover-gap': 'var(--tooltip-gap, 0.25rem)',
+  '--popover-radius': 'var(--tooltip-radius, 0.25rem)',
   '--popover-spacing': 'var(--tooltip-spacing, 0.5rem 0.75rem)',
 };
 </script>
