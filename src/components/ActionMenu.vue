@@ -1,5 +1,5 @@
 <template>
-  <Dropdown class="action-menu" :disabled :lazy :position>
+  <Dropdown :disabled :lazy :position>
     <template #toggler="{ open }">
       <slot name="toggler" :open>
         <Button
@@ -13,7 +13,7 @@
       </slot>
     </template>
     <template #default="{ close }">
-      <div class="is-panel" role="menu" @focusin="onFocusin" @keydown="onKeydown">
+      <div class="action-menu is-panel" role="menu" @focusin="onFocusin" @keydown="onKeydown">
         <div v-for="group, i in actions" :key="group.name ?? i" class="action-menu__list">
           <span v-if="group.name" class="action-menu__group">{{ group.name }}</span>
           <slot v-for="action in group.actions" :key="action.id" :name="action.id" :action>
@@ -81,6 +81,7 @@ export type ActionMenuProps<T, K extends string> = {
 
 withDefaults(defineProps<ActionMenuProps<T, K>>(), {
   lazy: true,
+  position: 'bottom-start',
 });
 
 defineSlots<{
@@ -153,10 +154,9 @@ const subactions = (action: Action<T, K>): Action<T, K>[] => {
       margin-left: auto;
       opacity: 0.75;
     }
-
-    &:deep(.action-menu) {
-      top: anchor(top);
-      left: anchor(right);
+    
+    &:deep(.dropdown) {
+      position-area: span-block-end inline-end;
       margin: 0 calc(0.125rem + var(--spacing));
     }
   }
