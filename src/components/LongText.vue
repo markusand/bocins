@@ -53,9 +53,11 @@ const handleTab = (event: KeyboardEvent) => {
   event.preventDefault();
   const target = event.target as HTMLTextAreaElement;
   const { selectionStart, selectionEnd, value } = target;
-  target.value = `${value.substring(0, selectionStart)}\t${value.substring(selectionEnd)}`;
+  const updated = `${value.substring(0, selectionStart)}\t${value.substring(selectionEnd)}`;
+  target.value = updated;
   target.selectionStart = selectionStart + 1;
   target.selectionEnd = selectionEnd + 1;
+  text.value = updated;
 };
 
 const dimensions = computed(() => {
