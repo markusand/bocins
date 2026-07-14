@@ -34,7 +34,6 @@ defineSlots<{
 }>();
 
 const style = computed(() => ({
-  '--bg': 'var(--popover-bg, #333)',
   '--gap': 'var(--popover-gap, 0.25rem)',
   '--direction': props.position.replace(/-.*/, ''),
 }));
