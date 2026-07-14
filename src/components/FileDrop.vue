@@ -69,6 +69,7 @@ const onError = (code: string, file?: File) => {
 
 const { files, addFiles, removeFile } = useFiles(props, onError);
 watch(files, value => model.value = value);
+watch(model, value => { if (value) files.value = value; });
 
 const size = computed(() => ({
   ...toWidth(props.width),
