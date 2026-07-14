@@ -125,7 +125,7 @@ export const CustomPresets: Story = {
       const today = new Date();
       const presets = {
         '2002': [new Date(2002, 0, 1), new Date(2003, 0, 0)],
-        'Last 30 days': [addDays(today, 29), today],
+        'Last 30 days': [addDays(today, -29), today],
         'Last 7 days': [addDays(today, -6), today],
         'Next 7 days': [today, addDays(today, 6)],
         'Next 30 days': [today, addDays(today, 29)],
