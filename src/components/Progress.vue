@@ -15,7 +15,7 @@ import { percent } from '/@/utils';
 export type ProgressProps = {
   value?: number | string;
   max?: number | string;
-  circular?: boolean;
+  ring?: boolean;
 };
 
 const props = withDefaults(defineProps<ProgressProps>(), {
@@ -30,7 +30,7 @@ const style = computed((): CSSProperties => {
 });
 
 const classes = computed(() => ['progress', {
-  'progress--circular': props.circular,
+  'progress--ring': props.ring,
   'progress--indeterminate': props.value == null,
 }]);
 </script>
@@ -72,7 +72,7 @@ const classes = computed(() => ['progress', {
   }
 }
 
-.progress--circular {
+.progress--ring {
   --size: var(--progress-size, 5rem);
   --thickness: var(--progress-thickness, 0.5rem);
 

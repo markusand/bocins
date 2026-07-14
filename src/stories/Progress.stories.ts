@@ -9,19 +9,19 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Visualize the completion status of a task, linearly or as a circular ring.',
+        component: 'Visualize the completion status of a task, linearly or as a ring.',
       },
     },
   },
   argTypes: {
     value: { description: 'Current value. Omit for indeterminate state.', control: 'number' },
     max: { description: 'Maximum value.', control: 'number' },
-    circular: { description: 'Display as a circular ring instead of a linear bar.' },
+    ring: { description: 'Display as a ring instead of a linear bar.' },
   },
   args: {
     value: 65,
     max: 100,
-    circular: false,
+    ring: false,
   },
 } satisfies Meta<typeof Progress>;
 
@@ -37,11 +37,11 @@ export const Linear: Story = {
   }),
 };
 
-export const Circular: Story = {
+export const Ring: Story = {
   render: args => ({
     components: { Progress },
     setup: () => ({ args }),
-    template: '<Progress v-bind="args" circular />',
+    template: '<Progress v-bind="args" ring />',
   }),
 };
 
