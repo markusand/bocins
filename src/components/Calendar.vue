@@ -179,14 +179,15 @@ const select = (date: Date) => {
   --spacing: var(--calendar-spacing, 0.5rem);
   --selected-color: var(--calendar-selected-color, #333);
   --selected-text-color: var(--calendar-selected-text-color, #fff);
-  --text-color: currentcolor;
-  --_radius: var(--calendar-radius, var(--radius, 0.25rem));
+  --text-color: var(--calendar-text-color, currentcolor);
+  --bg-color: var(--calendar-bg-color, #fff);
+  --radius: var(--calendar-radius, 0.25rem);
 
   display: inline-flex;
   flex-direction: column;
   gap: var(--spacing);
   padding: var(--spacing);
-  border-radius: var(--_radius);
+  border-radius: var(--radius);
   background: var(--bg-color);
   color: var(--text-color);
 
@@ -198,7 +199,7 @@ const select = (date: Date) => {
     &:deep(.is-input) {
       --spacing: 0;
       --border-width: 0;
-      --bg-color: none !important;
+      --bg-color: var(--calendar-bg-color);
 
       .icon { display: none; }
     }
@@ -235,13 +236,13 @@ const select = (date: Date) => {
     place-items: center;
     cursor: pointer;
     color: inherit;
-    border-radius: var(--_radius);
+    border-radius: var(--radius);
     padding: calc(0.5 * var(--spacing));
     box-sizing: border-box;
     
     &:is(:hover, :focus-visible) {
       background: color-mix(in srgb, var(--selected-color) 10%, transparent);
-      border-radius: var(--_radius);
+      border-radius: var(--radius);
     }
   }
 }
@@ -266,16 +267,16 @@ const select = (date: Date) => {
 .calendar__day:nth-child(7n + 1),
 .calendar__day:not(.is-disabled) + .is-disabled,
 .is-disabled + .calendar__day:not(.is-disabled) {
-  border-top-left-radius: var(--_radius);
-  border-bottom-left-radius: var(--_radius);
+  border-top-left-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
 }
 
 .calendar__day--end,
 .calendar__day:nth-child(7n),
 .is-disabled:has(+ .calendar__day:not(.is-disabled)),
 .calendar__day:not(.is-disabled):has(+ .is-disabled) {
-  border-top-right-radius: var(--_radius);
-  border-bottom-right-radius: var(--_radius);
+  border-top-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
 }
 
 .calendar__day--off { opacity: 0.25; }

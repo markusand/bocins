@@ -88,7 +88,7 @@ const handleEscape = (event: Event) => {
 
 <style scoped>
 .modal {
-  --border: var(--modal-border, 1px solid var(--border-color, #8884));
+  --border: var(--modal-border, 1px solid #8884);
   --padding: var(--modal-padding, 0.75rem);
   --radius: var(--modal-radius, 0.25rem);
   --max-width: var(--modal-max-width, calc(100dvw - 2rem));

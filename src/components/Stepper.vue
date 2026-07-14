@@ -69,6 +69,6 @@ const decrease = (step = +props.step) => increase(-1 * step);
     }
   }
 
-  .icon { --size: 1em; }
+  .icon { --icon-size: 1em; }
 }
 </style>

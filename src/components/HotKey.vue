@@ -112,8 +112,8 @@ onUnmounted(() => {
     text-transform: capitalize;
 
     .icon {
-      --size: 1em;
-    
+      --icon-size: 1em;
+
       display: block;
     }
   }

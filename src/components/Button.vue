@@ -48,8 +48,8 @@ const width = computed(() => toWidth(props.width));
   --color: var(--btn-color, #333);
   --text-color: var(--btn-text-color, #fff);
   --border-width: var(--btn-border-width, 1px);
-  --_radius: var(--btn-radius, var(--radius, 0.25em));
-  --_hover-color: color-mix(in srgb, var(--color) 90%, #000);
+  --radius: var(--btn-radius, 0.25em);
+  --hover-color: color-mix(in srgb, var(--color) 90%, #000);
   --color-state: var(--color);
 
   all: unset;
@@ -62,7 +62,7 @@ const width = computed(() => toWidth(props.width));
   background: var(--color-state);
   box-shadow: inset 0 0 0 var(--border-width) var(--color-state);
   color: var(--text-color);
-  border-radius: var(--_radius);
+  border-radius: var(--radius);
   box-sizing: border-box;
   line-height: 1;
   cursor: pointer;
@@ -103,7 +103,7 @@ const width = computed(() => toWidth(props.width));
     }
   }
 
-  &:deep(.icon) { --size: 1em; }
+  &:deep(.icon) { --icon-size: 1em; }
 }
 
 .btn:disabled,
@@ -115,5 +115,5 @@ const width = computed(() => toWidth(props.width));
   color: var(--disabled-color, #8886);
 }
 
-.btn:not(:disabled):is(:hover, :focus-visible) { --color-state: var(--_hover-color); }
+.btn:not(:disabled):is(:hover, :focus-visible) { --color-state: var(--hover-color); }
 </style>

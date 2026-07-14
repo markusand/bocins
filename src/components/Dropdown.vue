@@ -162,9 +162,6 @@ const onToggle = (event: ToggleEvent) => {
     all: unset;
     width: 100%;
     cursor: pointer;
-    border-radius: var(--radius);
-
-    &:focus-visible { background: #8881; }
   }
 }
 </style>

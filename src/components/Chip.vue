@@ -29,7 +29,7 @@ defineSlots<{
 .chip {
   --color: var(--chip-color, #888);
   --opacity: var(--chip-opacity, 5%);
-  --_shade-color: color-mix(in srgb, var(--color) var(--opacity), transparent);
+  --shade-color: color-mix(in srgb, var(--color) var(--opacity), transparent);
   --size: var(--chip-size, 0.8em);
   --border: var(--chip-border, inset 0 0 0 1px color-mix(in srgb, var(--color) 10%, transparent));
 
@@ -39,7 +39,7 @@ defineSlots<{
   vertical-align: middle;
   padding: 0.4em 0.6em;
   border-radius: var(--chip-radius, var(--radius, 0.25em));
-  background: var(--_shade-color);
+  background: var(--shade-color);
   color: var(--color);
   font-size: var(--size);
   white-space: nowrap;
@@ -55,6 +55,6 @@ defineSlots<{
   line-height: 1;
 
   &:hover,
-  &:focus-visible { background: var(--_shade-color); }
+  &:focus-visible { background: var(--shade-color); }
 }
 </style>

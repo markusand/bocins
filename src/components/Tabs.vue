@@ -83,7 +83,7 @@ onMounted(() => {
 
 .tabs {
   --spacing: var(--tabs-spacing, 0.75rem);
-
+  
   .tabs__header {
     padding: 0;
     margin: 0;
@@ -113,7 +113,7 @@ onMounted(() => {
   
     &:hover { --text-color: var(--accent-color, #333) }
   }
-  
+
   .tabs__content {
     position: relative;
     overflow: hidden;

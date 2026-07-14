@@ -57,6 +57,8 @@ const toggle = (event: Event) => {
   --spacing: var(--collapser-spacing, 0.75rem);
   --separator-color: var(--collapser-separator-color, #8882);
   --timing: var(--collapser-timing, 0.3s);
+  --text-color: var(--collapser-text-color, inherit);
+  --bg-color: var(--collapser-bg-color, transparent);
 
   padding: 0 0 0.1px;
   color: var(--text-color);
@@ -77,7 +79,7 @@ const toggle = (event: Event) => {
     &::marker { display: none; }
 
     .icon {
-      --size: 1em;
+      --icon-size: 1em;
 
       margin-left: auto;
       transition: transform var(--timing) ease;

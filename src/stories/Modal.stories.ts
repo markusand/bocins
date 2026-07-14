@@ -250,3 +250,31 @@ export const WithDropdowns: Story = {
     </Modal>`,
   }),
 };
+
+export const WithStyledBackdrop: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'The modal has a styled backdrop.',
+      },
+    },
+  },
+  args: {
+    closeable: true,
+    width: '18',
+    style: {
+      '--backdrop-color': '#f001',
+      '--backdrop-filter': 'blur(10px)',
+    },
+  },
+  render: args => ({
+    components: { Modal, Button },
+    setup: () => ({ args }),
+    template: `<Modal v-bind="args">
+      <template #toggler="{ open }">
+        <Button @click="open">Open</Button>
+      </template>
+      Yeah!
+    </Modal>`,
+  }),
+};

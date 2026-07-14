@@ -83,8 +83,8 @@ const removeItems = (items: T[] = selected.value) => {
 
 <style scoped>
 .transfer {
-  --btn-color: var(--transfer-color, #333);
-  --listbox-color: var(--transfer-color, #333);
+  --btn-color: var(--transfer-color, var(--accent-color, #333));
+  --listbox-color: var(--btn-color);
 
   display: flex;
   gap: 0.5rem;

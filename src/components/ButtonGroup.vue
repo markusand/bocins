@@ -33,6 +33,8 @@ const width = computed(() => toWidth(props.width));
   display: inline-flex;
   vertical-align: middle;
 
+  & > * { z-index: 0; }
+
   /* Not first */
   &:deep(> :not(:first-child)) {
     &, & > .btn, & > .input, & .is-input {

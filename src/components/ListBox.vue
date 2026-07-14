@@ -68,12 +68,13 @@ const classes = computed(() => ['listbox', 'is-panel', {
 .listbox {
   --color: var(--listbox-color, var(--accent-color, #333));
   --max-height: var(--listbox-max-height, 10rem);
+  --border-color: var(--listbox-border-color, #8886);
 
   display: flex;
   flex-direction: column;
   
   .picker {
-    --spacing: 1px;
+    --spacing: var(--listbox-spacing, 1px);
 
     flex: 1;
     flex-flow: column nowrap;

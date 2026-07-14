@@ -78,6 +78,8 @@ const classes = computed(() => ['longtext', 'is-input', {
 
 <style scoped>
 .longtext {
+  --spacing: var(--longtext-spacing, 0.5rem);
+
   display: inline-block;
   padding: 0;
   position: relative;
@@ -91,7 +93,6 @@ const classes = computed(() => ['longtext', 'is-input', {
     min-height: calc(1em + 2 * var(--spacing));
     white-space: pre-wrap;
   }
-
 }
 
 .longtext__counter {

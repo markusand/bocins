@@ -104,12 +104,14 @@ const subactions = (action: Action<T, K>): Action<T, K>[] => {
 
 <style scoped>
 .action-menu {
-  .action-menu__list {
-    --spacing: var(--action-menu-spacing, 0.25em);
-    --min-width: var(--action-menu-min-width, 7rem);
-    --max-width: var(--action-menu-max-width, 12rem);
-    --btn-color: var(--text-color);
+  --text-color: var(--action-menu-text-color, inherit);
+  --border: var(--action-menu-border, 1px solid #8884);
+  --spacing: var(--action-menu-spacing, 0.25em);
+  --min-width: var(--action-menu-min-width, 7rem);
+  --max-width: var(--action-menu-max-width, 12rem);
+  --btn-color: var(--text-color);
 
+  .action-menu__list {
     display: flex;
     flex-direction: column;
     gap: 1px;
@@ -118,7 +120,7 @@ const subactions = (action: Action<T, K>): Action<T, K>[] => {
     min-width: var(--min-width);
     max-width: var(--max-width);
 
-    &:not(:first-child) { border-top: 1px solid var(--border-color, #8886); }
+    &:not(:first-child) { border-top: var(--border); }
 
     .action-menu__group {
       padding: calc(2 * var(--spacing)) calc(2 * var(--spacing)) var(--spacing);
@@ -148,13 +150,13 @@ const subactions = (action: Action<T, K>): Action<T, K>[] => {
       display: block;
       height: 0.25em;
       width: 0.25em;
-      border: 1px solid color-mix(in srgb, currentcolor 50%, transparent);
+      border: 1px solid currentcolor;
       border-width: 0 1px 1px 0;
       transform: rotate(-45deg);
       margin-left: auto;
       opacity: 0.75;
     }
-    
+
     &:deep(.dropdown) {
       position-area: span-block-end inline-end;
       margin: 0 calc(0.125rem + var(--spacing));

@@ -40,6 +40,7 @@ watch(rating, value => value && emit('rate', value));
 .rating {
   --size: var(--rating-size, 1.25rem);
   --color: var(--rating-color, #fdcf10);
+  --inactive: var(--rating-inactive, #8886);
 
   padding: 0;
   border: 0;
@@ -63,7 +64,7 @@ watch(rating, value => value && emit('rate', value));
       width: 0.5em;
       aspect-ratio: 1;
       margin: 0.25em;
-      background: #8886;
+      background: var(--inactive);
       border-radius: 50%;
       transform: scale(0.6);
       transition: all 0.3s ease;
@@ -72,7 +73,7 @@ watch(rating, value => value && emit('rate', value));
     }
 
     &:deep(.icon) {
-      --size: 1em;
+      --icon-size: 1em;
 
       position: absolute;
       top: 0;

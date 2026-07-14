@@ -23,13 +23,14 @@ const classes = computed(() => ['avatar-group', {
 <style scoped>
 .avatar-group {
   --overlap: var(--avatar-group-overlap, 0.35);
+  --outline: var(--avatar-group-outline, 2px solid #fff);
 
   display: inline-flex;
   flex-direction: row-reverse;
   vertical-align: middle;
 
   &:deep(.avatar) {
-    outline: 2px solid var(--bg-color, #fff);
+    outline: var(--outline);
 
     &:not(:first-child) {
       margin-right: calc(-1 * var(--overlap, 0.35) * var(--size));

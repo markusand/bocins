@@ -126,10 +126,11 @@ const remove = (file: File) => {
 
 .file-drop {
   --color: var(--file-drop-color, #888);
-  --bg-color: color-mix(in srgb, var(--color) 2%, transparent);
-  --border-color: color-mix(in srgb, var(--color) 50%, transparent);
-  --text-color: var(--color);
+  --bg-color: color-mix(in srgb, var(--color) 3%, transparent);
+  --border: var(--file-drop-border, 1px dashed color-mix(in srgb, var(--color) 25%, transparent));
+  --radius: var(--file-drop-radius, 0.25rem);
   --timing: var(--file-drop-timing, 0.3s);
+  --active-color: var(--file-drop-active-color, var(--accent-color, #333));
 
   display: flex;
   flex-direction: column;
@@ -137,9 +138,9 @@ const remove = (file: File) => {
   justify-content: center;
   gap: 0.5em;
   background: var(--bg-color);
-  border: var(--border-width, 1px) dashed var(--border-color);
-  color: var(--text-color);
-  border-radius: var(--file-drop-radius, var(--radius, 0.25rem));
+  border: var(--border);
+  color: var(--color);
+  border-radius: var(--radius);
   box-sizing: border-box;
   cursor: pointer;
   transition: all var(--timing) ease;
@@ -160,7 +161,7 @@ const remove = (file: File) => {
   }
 
   &:focus-within,
-  &.is-dragging { --color: var(--accent-color, #333); }
+  &.is-dragging { --color: var(--active-color); }
 
   .file-drop__list {
     margin: 0;

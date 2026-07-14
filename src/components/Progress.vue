@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<ProgressProps>(), {
 const style = computed((): CSSProperties => {
   const fill = percent(+(props.value || 0), 0, +props.max);
   return {
-    '--_fill': `${fill}%`,
+    '--fill': `${fill}%`,
   };
 });
 
@@ -57,7 +57,7 @@ const classes = computed(() => ['progress', {
     left: 0;
     top: 0;
     height: 100%;
-    width: var(--_fill, 0%);
+    width: var(--fill, 0%);
     background: var(--color);
     border-radius: inherit;
     border-top-right-radius: 0;
@@ -82,8 +82,8 @@ const classes = computed(() => ['progress', {
   border-radius: 50%;
   overflow: visible;
   background: conic-gradient(
-    var(--color) var(--_fill, 0%),
-    var(--track-color) var(--_fill, 0%)
+    var(--color) var(--fill, 0%),
+    var(--track-color) var(--fill, 0%)
   );
   mask: radial-gradient(
     farthest-side,

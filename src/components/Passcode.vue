@@ -71,7 +71,9 @@ const focusLast = (event: Event) => {
 .passcode {
   --size: var(--passcode-size, 2rem);
   --gap: var(--passcode-gap, 0.5em);
-  --_accent-color: var(--accent-color, #333);
+  --bg-color: var(--passcode-bg-color, none);
+  --text-color: var(--passcode-text-color, currentcolor);
+  --border: var(--passcode-border, 1px solid #8886);
 
   display: inline-flex;
   gap: var(--gap);
@@ -84,21 +86,15 @@ const focusLast = (event: Event) => {
     font-size: var(--size);
     width: 1em;
     height: 1.5em;
-    background: var(--bg-color, none);
-    box-shadow:  0 0 0 var(--border-width, 1px) var(--border-color, #8886);
-    color: var(--text-color, currentcolor);
+    background: var(--bg-color);
+    border: var(--border);
+    color: var(--text-color);
     text-align: center;
     border-radius: var(--passcode-radius, var(--radius, 0.25em));
     transition: all 0.3s ease;
       
     &:not(:placeholder-shown),
-    &:focus { --border-color: var(--_accent-color); }
-
-    &:focus {
-      --text-color: var(--_accent-color);
-  
-      outline: 0.125em solid color-mix(in srgb, var(--_accent-color) 10%, transparent);
-    }
+    &:focus { border-color: var(--accent-color, #333); }
   }
 
   &.is-invalid { animation: shake 0.4s ease; }

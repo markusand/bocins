@@ -113,7 +113,7 @@ const { onFocusin, onKeydown } = useRovingTabindex({ wrap: false });
     color: var(--separator-color);
   }
 
-  .btn:not(.btn--flat) { --color: var(--accent-color, #333); }
+  .btn:not(.btn--flat) { --color: var(--pagination-color, var(--accent-color, #333)); }
 }
 
 .pagination__prev .icon { transform: rotate(180deg); }

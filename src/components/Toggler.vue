@@ -43,6 +43,7 @@ const checkiconurl = `url('data:image/svg+xml,${encodeURIComponent(checkSvg)}')`
 <style scoped>
 .toggler {
   --color: var(--toggler-color, #8888);
+  --size: var(--toggler-size, 0.75em);
   --scale: var(--toggler-scale, 0.5);
 
   display: inline-flex;
@@ -58,9 +59,9 @@ const checkiconurl = `url('data:image/svg+xml,${encodeURIComponent(checkSvg)}')`
     all: unset;
     appearance:none;
     display: block;
-    height: var(--size, 0.75em);
-    width: var(--size, 0.75em);
-    flex: 0 0 var(--size, 0.75em);
+    height: var(--size);
+    width: var(--size);
+    flex: 0 0 var(--size);
     border-radius: 20%;
     transform: scale(var(--scale));
     background: var(--color);
@@ -88,6 +89,6 @@ const checkiconurl = `url('data:image/svg+xml,${encodeURIComponent(checkSvg)}')`
     }
   }
 
-  &:has(:checked) { --color: var(--accent-color, #333); }
+  &:has(:checked) { --color: var(--toggler-active-color, var(--accent-color, #333)); }
 }
 </style>

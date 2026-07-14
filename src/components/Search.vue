@@ -24,7 +24,7 @@ const search = defineModel<string>({ required: true });
 </script>
 
 <style scoped>
-.search .icon { --size: 1em; }
+.search .icon { --icon-size: 1em; }
 
 /* Hide browser's built-in search clear button (Chrome, Safari, Edge) */
 .search ::-webkit-search-cancel-button,

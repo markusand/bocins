@@ -72,7 +72,7 @@ const { onFocusin, onKeydown } = useRovingTabindex({
 .treelist {
   --indent: var(--treelist-indent, 1.25rem);
   --spacing: var(--treelist-spacing, 0.35rem);
-  --_radius: var(--treelist-radius, var(--radius, 0.25rem));
+  --radius: var(--treelist-radius, 0.25rem);
   --timing: var(--treelist-timing, 0.3s);
 
   margin: 0;
@@ -91,7 +91,7 @@ const { onFocusin, onKeydown } = useRovingTabindex({
       list-style: none;
       outline: none;
       cursor: pointer;
-      border-radius: var(--_radius);
+      border-radius: var(--radius);
   
       &::-webkit-details-marker,
       &::marker { display: none; }
@@ -99,8 +99,8 @@ const { onFocusin, onKeydown } = useRovingTabindex({
       &:focus-visible { background: #8881; }
   
       .icon {
-        --size: 1em;
-  
+        --icon-size: 1em;
+
         margin-right: var(--spacing);
         transition: transform var(--timing) ease;
       }

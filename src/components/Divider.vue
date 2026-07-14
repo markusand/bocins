@@ -20,7 +20,8 @@ defineSlots<{
 .divider {
   --color: var(--divider-color, #8888);
   --margin: var(--divider-margin, 2rem);
-  --line-opacity: var(--divider-line-opacity, 75%);
+  --width: var(--divider-width, 1px);
+  --opacity: var(--divider-opacity, 75%);
 
   display: flex;
   align-items: center;
@@ -31,7 +32,7 @@ defineSlots<{
   &::after {
     content: "";
     flex: 1;
-    border-top: 1px solid color-mix(in srgb, currentcolor var(--line-opacity), transparent);
+    border-top: var(--width) solid color-mix(in srgb, currentcolor var(--opacity), transparent);
     margin: 0 0.5rem;
   }
 

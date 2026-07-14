@@ -15,7 +15,7 @@
 .is-panel {
   background: var(--bg-color, #fff);
   color: var(--text-color, #333);
-  border: var(--border-width, 1px) solid var(--border-color, #8884);
+  border: var(--border, 1px solid #8884);
   border-radius: var(--radius, 0.25rem);
 }
 
@@ -38,8 +38,9 @@
 }
 
 .is-input {
-  --spacing: 0.5rem;
-  --border-width: 1px;
+  --spacing: var(--input-spacing, 0.5rem);
+  --border-width: var(--input-border-width, 1px);
+  --bg-color: var(--input-bg-color, #fff);
 
   display: flex;
   align-items: center;
@@ -47,7 +48,7 @@
   gap: var(--spacing);
   padding: 0 var(--spacing);
   min-height: calc(1em + 2 * var(--spacing));
-  background: var(--bg-color, #fff);
+  background: var(--bg-color);
   color: var(--text-color, currentcolor);
   box-sizing: border-box;
   border: var(--border-width) solid var(--border-color, #8886);
@@ -75,12 +76,15 @@
 }
 
 .is-input:focus-within,
-:focus-within > .is-selector-toggler { --border-color: var(--accent-color, #333); }
+.toggler:focus-within,
+.toggler:has(.is-input):has(+ :popover-open) {
+  --border-color: var(--accent-color, #333);
+
+  z-index: 1 !important;
+}
 
 .is-disabled .is-input,
-:disabled .is-input,
-.is-disabled .is-selector-toggler,
-:disabled .is-selector-toggler {
+:disabled .is-input {
   --bg-color: color-mix(in srgb, var(--disabled-color, #8886) 10%, transparent) !important;
   --text-color: var(--disabled-color, #8886) !important;
   --border-width: 0 !important;
@@ -92,12 +96,9 @@
 
 .invalid:not(:focus-within) .is-input,
 .is-input.invalid:not(:focus-within),
-.is-input:not(:focus-within):has(:user-invalid),
-.invalid:not(:focus-within) .is-selector-toggler,
-.is-selector-toggler.invalid:not(:focus-within),
-.is-selector-toggler:not(:focus-within):has(:user-invalid),
-.is-selector-toggler[class*="--invalid"] {
-  --border-color: var(--error-color, crimson) !important;
-  --text-color: var(--error-color, crimson) !important;
-  --bg-color: color-mix(in srgb, var(--error-color, crimson) 5%, transparent) !important;
+.is-input:not(:focus-within):has(:user-invalid) {
+  --color: var(--error-color, crimson);
+  --border-color: var(--color) !important;
+  --text-color: var(--color) !important;
+  --bg-color: color-mix(in srgb, var(--color) 5%, transparent) !important;
 }

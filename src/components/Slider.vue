@@ -215,7 +215,7 @@ const onInput = (index: 0 | 1, event: Event) => {
   }
 
   &.is-disabled {
-    --track-color: var(--bg-color);
+    --track-color: var(--slider-disabled-track-color, var(--bg-color, #8882));
 
     input::-webkit-slider-thumb { display: none; }
     input::-moz-range-thumb { display: none; }

@@ -58,7 +58,7 @@ const classes = computed(() => ['password', `password--${strength.value.level}`]
   position: relative;
 
   .icon {
-    --size: 1em;
+    --icon-size: 1em;
 
     cursor: pointer;
   }

@@ -132,11 +132,13 @@ const { onFocusin, onKeydown } = useRovingTabindex({ wrap: true });
 }
 
 .is-panel {
+  --border: var(--date-picker-border, 1px solid #8884);
+  
   display: flex;
 
   .presets {
     min-height: 0;
-    border-right: var(--border-width, 1px) solid var(--border-color, #8884);
+    border-right: var(--border);
     display: flex;
     flex-direction: column;
     gap: 1px;
