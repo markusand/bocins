@@ -45,6 +45,18 @@ export const Base: Story = {
   }),
 };
 
+export const Ghost: Story = {
+  render: args => ({
+    components: { ButtonGroup, Button },
+    setup: () => ({ args }),
+    template: `<ButtonGroup v-bind="args">
+      <Button ghost>Day</Button>
+      <Button ghost>Week</Button>
+      <Button ghost>Month</Button>
+    </ButtonGroup>`,
+  }),
+};
+
 export const WithDropdowns: Story = {
   render: args => ({
     components: { ButtonGroup, Button, Icon, ActionMenu },
