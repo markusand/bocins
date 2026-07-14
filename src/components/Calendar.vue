@@ -3,7 +3,6 @@
     <header>
       <Button
         flat
-        small
         even
         aria-label="Previous month"
         @click.stop="month = month - 1">
@@ -16,7 +15,6 @@
       <Selector v-model="year" :options="years" />
       <Button
         flat
-        small
         even
         aria-label="Next month"
         @click.stop="month = month + 1">
