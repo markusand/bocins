@@ -116,11 +116,6 @@ const classes = computed(() => ['listbox', 'is-panel', {
   color: #fff;
 }
 
-.listbox--invalid :checked + .listbox__option {
-  background: var(--error-color, crimson);
-  color: #fff;
-}
-
 .listbox__label { padding: 0.35rem 0.5rem; }
 
 .listbox__empty {
