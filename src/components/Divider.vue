@@ -1,5 +1,5 @@
 <template>
-  <div class="divider">
+  <div class="divider" role="separator">
     <slot>{{ label }}</slot>
   </div>
 </template>

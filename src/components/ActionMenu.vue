@@ -19,7 +19,13 @@
           <slot v-for="action in group.actions" :key="action.id" :name="action.id" :action>
             <ActionMenu v-if="action.groups" :item :actions="action.groups" :lazy>
               <template #toggler="{ open }">
-                <Button flat v-bind="action.attrs" block @click.stop="open">
+                <Button
+                  block
+                  flat
+                  role="menuitem"
+                  aria-haspopup="menu"
+                  v-bind="action.attrs"
+                  @click.stop="open">
                   <Icon v-if="action.icon" :src="action.icon" />
                   <span class="action-menu__label">{{ action.label }}</span>
                 </Button>

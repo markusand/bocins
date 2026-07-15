@@ -1,5 +1,5 @@
 <template>
-  <div class="pagination" @focusin="onFocusin" @keydown="onKeydown">
+  <div class="pagination" role="navigation" @focusin="onFocusin" @keydown="onKeydown">
     <Button v-if="controls" v-bind="prev" aria-label="Previous page" @click.stop="change(-1)">
       <Icon src="chevron-right.svg" />
     </Button>

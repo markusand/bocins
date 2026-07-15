@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes">
+  <div :class="classes" role="listbox">
     <header v-if="props.search">
       <Search
         v-model="searchBy"
@@ -14,7 +14,7 @@
       :options
       :disabled>
       <template #default="{ option }">
-        <div class="listbox__option">
+        <div class="listbox__option" role="option">
           <slot :option>
             <div class="listbox__label">
               {{ formatter?.(option) || option }}

@@ -2,6 +2,7 @@
   <label class="switch">
     <input
       v-model="selected"
+      role="switch"
       :disabled
       :value
       :type

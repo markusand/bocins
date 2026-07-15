@@ -1,5 +1,10 @@
 <template>
-  <fieldset class="rating" :disabled @focusin="onFocusin" @keydown="onKeydown">
+  <fieldset
+    class="rating"
+    role="radiogroup"
+    :disabled
+    @focusin="onFocusin"
+    @keydown="onKeydown">
     <label v-for="i in +max" :key="i">
       <input v-model="rating" :value="i" type="radio">
       <slot><Icon src="star.svg" /></slot>
