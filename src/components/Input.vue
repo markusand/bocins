@@ -1,7 +1,12 @@
 <template>
   <div :class="classes" :style>
     <slot name="prefix">{{ prefix }}</slot>
-    <input v-model="value" v-bind="inputAttrs" :disabled :placeholder>
+    <input
+      v-model="value"
+      v-bind="inputAttrs"
+      :disabled
+      :placeholder
+      :aria-invalid="invalid || undefined">
     <Icon v-if="clearable && value" src="x.svg" @click.stop="clear" />
     <slot name="suffix">{{ suffix }}</slot>
   </div>

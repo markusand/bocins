@@ -6,7 +6,7 @@
           <slot v-if="Array.isArray(selected)" name="dates" :dates="selected">
             <span class="range-dates">
               <span>{{ formatter?.(selected[0]) ?? selected[0] }}</span>
-              <Icon src="arrow-right.svg" />
+              <slot name="separator"><Icon src="arrow-right.svg" /></slot>
               <span>{{ formatter?.(selected[1]) ?? selected[1] }}</span>
             </span>
           </slot>
@@ -17,10 +17,13 @@
         <span v-else class="placeholder">
           <slot name="placeholder">{{ placeholder }}</slot>
         </span>
-        <Icon
+        <button
           v-if="clearable && isSelected(selected)"
-          src="x.svg"
-          @click.stop="clear" />
+          type="button"
+          aria-label="Clear"
+          @click.stop="clear">
+          <Icon src="x.svg" />
+        </button>
         <Icon v-else src="chevron-down.svg" />
       </span>
     </template>
@@ -129,6 +132,14 @@ const { onFocusin, onKeydown } = useRovingTabindex({ wrap: true });
   gap: 0.5em;
 
   .icon { opacity: 0.25; }
+}
+
+.is-input {
+  button {
+    all: unset;
+    display: flex;
+    cursor: pointer;
+  }
 }
 
 .is-panel {

@@ -7,9 +7,10 @@
       :placeholder
       :disabled
       :maxlength="maxLength"
+      :aria-invalid="invalid || undefined"
       @change="onChange"
       @keydown.tab="handleTab" />
-    <span v-if="maxLength" class="longtext__counter">
+    <span v-if="maxLength" class="longtext__counter" role="status">
       {{ text?.length ?? '0' }} / {{ maxLength }}
     </span>
   </div>

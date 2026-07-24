@@ -1,5 +1,10 @@
 <template>
-  <fieldset :class="classes" :disabled aria-label="Passcode" @click.stop="focusLast">
+  <fieldset
+    :class="classes"
+    :disabled
+    :aria-invalid="invalid || undefined"
+    aria-label="Passcode"
+    @click.stop="focusLast">
     <input
       v-for="i in length"
       :key="i"

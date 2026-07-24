@@ -6,8 +6,9 @@
     :autocomplete="autocomplete ? 'current-password' : 'new-password'"
     :class="classes">
     <template #suffix>
-      <Icon v-if="revealed" src="eye.svg" @click.stop="toggle" />
-      <Icon v-else src="eye-off.svg" @click.stop="toggle" />
+      <button type="button" aria-label="Toggle visibility" @click.stop="toggle">
+        <Icon :src="revealed ? 'eye.svg' : 'eye-off.svg'" />
+      </button>
     </template>
   </Input>
 </template>
@@ -57,11 +58,13 @@ const classes = computed(() => ['password', `password--${strength.value.level}`]
 
   position: relative;
 
-  .icon {
-    --icon-size: 1em;
-
+  button {
+    all: unset;
+    display: flex;
     cursor: pointer;
   }
+
+  .icon { --icon-size: 1em; }
 
   &::after {
     content: '';

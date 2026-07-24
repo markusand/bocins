@@ -5,7 +5,8 @@
       :type="group ? 'radio' : 'checkbox'"
       :name="group"
       :value
-      :disabled>
+      :disabled
+      :aria-invalid="invalid || undefined">
     <slot>{{ label }}</slot>
   </label>
 </template>
