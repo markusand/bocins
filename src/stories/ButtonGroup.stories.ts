@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { ButtonGroup, Button, Icon, ActionMenu, Tooltip, Popover } from '/@/components';
+import { ButtonGroup, Button, Icon, ActionMenu } from '/@/components';
 import './assets/styles.css';
 
 const meta = {

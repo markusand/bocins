@@ -75,9 +75,19 @@ export const CustomControls: Story = {
       </template>
       <template #controls="{ active, goto }">
         <div style="display:flex;align-items:center;justify-content:center;gap:1rem;padding:0.5rem">
-          <button type="button" :disabled="active === 0" @click.stop="goto(active - 1)">&#8592;</button>
+          <button
+            type="button"
+            :disabled="active === 0"
+            @click.stop="goto(active - 1)">
+            &#8592;
+          </button>
           <span>{{ active + 1 }} / {{ args.items.length }}</span>
-          <button type="button" :disabled="active === args.items.length - 1" @click.stop="goto(active + 1)">&#8594;</button>
+          <button
+            type="button"
+            :disabled="active === args.items.length - 1"
+            @click.stop="goto(active + 1)">
+            &#8594;
+          </button>
         </div>
       </template>
     </Carousel>`,
