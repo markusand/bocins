@@ -13,7 +13,7 @@ export default defineConfig({
     vue({ script: { defineModel: true } }),
     dts({
       insertTypesEntry: true,
-      exclude: ['src/stories/**/*'],
+      exclude: ['src/stories/**/*', 'src/**/*.test.ts'],
     }),
   ],
   build: {

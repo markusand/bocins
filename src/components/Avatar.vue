@@ -4,7 +4,7 @@
     <div v-else class="avatar__initials" role="img" :aria-label="name">
       {{ initials }}
     </div>
-    <div v-if="hasBadge" class="avatar__badge">
+    <div v-if="hasBadge" class="avatar__badge" role="status">
       <slot name="badge">
         <div class="badge">
           {{ typeof badge === 'boolean' ? '' : badge }}

@@ -1,5 +1,10 @@
 <template>
-  <div :class="classes" :style role="slider" @click.stop="onTrackClick">
+  <div
+    :class="classes"
+    :style
+    role="slider"
+    :aria-disabled="disabled || undefined"
+    @click.stop="onTrackClick">
     <input
       v-if="isRange(model)"
       type="range"
