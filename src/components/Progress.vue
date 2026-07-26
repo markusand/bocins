@@ -23,9 +23,16 @@ const props = withDefaults(defineProps<ProgressProps>(), {
 });
 
 const style = computed((): CSSProperties => {
-  const fill = percent(+(props.value || 0), 0, +props.max);
+  if (props.value == null) return {};
+  const fill = percent(+props.value, 0, +props.max);
+  const colorVar = fill >= 100 ? '--progress-color-complete'
+    : fill >= 66 ? '--progress-color-high'
+    : fill >= 33 ? '--progress-color-mid'
+    : '--progress-color-low';
+  const fallback = 'var(--progress-color, var(--accent-color, #333))';
   return {
     '--fill': `${fill}%`,
+    '--color': `var(${colorVar}, ${fallback})`,
   };
 });
 
@@ -37,6 +44,7 @@ const classes = computed(() => ['progress', {
 
 <style scoped>
 .progress {
+  /* ponytail: fallback, overridden by inline style when value is set */
   --color: var(--progress-color, var(--accent-color, #333));
   --track-color: var(--progress-track-color, #8884);
   --size: var(--progress-size, auto);

@@ -25,4 +25,29 @@ describe('Progress', () => {
     render(Progress, { props: { value: 75, ring: true } });
     expect(screen.getByRole('progressbar').classList).toContain('progress--ring');
   });
+
+  it('should set --fill based on value/max ratio', () => {
+    render(Progress, { props: { value: 25, max: 50 } });
+    const style = screen.getByRole('progressbar').getAttribute('style')!;
+    expect(style).toContain('--fill: 50%');
+  });
+
+  it('should not set inline style for indeterminate state', () => {
+    render(Progress);
+    expect(screen.getByRole('progressbar').getAttribute('style')).toBeNull();
+  });
+
+  it.each([
+    [0, '--progress-color-low'],
+    [32, '--progress-color-low'],
+    [33, '--progress-color-mid'],
+    [65, '--progress-color-mid'],
+    [66, '--progress-color-high'],
+    [99, '--progress-color-high'],
+    [100, '--progress-color-complete'],
+  ])('should apply %i%% → %s', (value, expectedVar) => {
+    render(Progress, { props: { value } });
+    const style = screen.getByRole('progressbar').getAttribute('style')!;
+    expect(style).toContain(expectedVar);
+  });
 });
