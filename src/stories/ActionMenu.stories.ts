@@ -175,7 +175,7 @@ export const DeleteConfirmation: Story = {
       },
     },
   },
-  args: { lazy: false, item: user, actions },
+  args: { item: user, actions },
   render: args => ({
     components: { ActionMenu, Button, Modal },
     setup: () => ({ args }),

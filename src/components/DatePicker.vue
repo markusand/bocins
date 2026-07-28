@@ -68,7 +68,6 @@ export type DatePickerProps = {
 
 const props = withDefaults(defineProps<DatePickerProps>(), {
   placeholder: 'Select date',
-  lazy: true,
   position: 'bottom-start',
 });
 

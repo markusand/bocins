@@ -37,7 +37,7 @@ const meta = {
     label: '',
     block: false,
     disabled: false,
-    lazy: false,
+    lazy: undefined,
     width: undefined,
   },
 } satisfies Meta<typeof Dropdown>;

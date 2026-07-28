@@ -13,7 +13,7 @@ beforeAll(() => {
 describe('Popover', () => {
 	it('should render slots', () => {
 		render(Popover, {
-			props: { lazy: false },
+			props: {},
 			slots: { anchor: 'Hover me', default: 'Content' },
 		});
 		expect(screen.getByText('Hover me')).toBeInTheDocument();

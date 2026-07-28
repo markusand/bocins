@@ -58,7 +58,7 @@ describe('DatePicker', () => {
 	});
 
 	it('should render preset buttons when presets enabled', () => {
-		render(DatePicker, { props: { modelValue: undefined, presets: true, lazy: false } });
+		render(DatePicker, { props: { modelValue: undefined, presets: true } });
 		expect(screen.getByText('today')).toBeInTheDocument();
 		expect(screen.getByText('yesterday')).toBeInTheDocument();
 		expect(screen.getByText('WTD')).toBeInTheDocument();

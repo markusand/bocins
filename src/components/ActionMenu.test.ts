@@ -19,7 +19,7 @@ const actions = [
   },
 ];
 
-const props = { item: { id: 1 }, actions, lazy: false };
+const props = { item: { id: 1 }, actions };
 
 describe('ActionMenu', () => {
   it('should render toggler button', () => {
@@ -71,7 +71,7 @@ describe('ActionMenu', () => {
         }],
       }],
     }];
-    render(ActionMenu, { props: { item: { id: 1 }, actions: nestedActions, lazy: false } });
+    render(ActionMenu, { props: { item: { id: 1 }, actions: nestedActions } });
     expect(screen.getByText('Move to')).toBeInTheDocument();
     expect(screen.getByRole('menuitem', { name: /Move to/ })).toHaveAttribute('aria-haspopup', 'menu');
     expect(screen.getByText('Archive')).toBeInTheDocument();

@@ -10,7 +10,7 @@ beforeAll(() => {
 describe('Tooltip', () => {
 	it('should render text prop as content', () => {
 		render(Tooltip, {
-			props: { text: 'Help text', lazy: false },
+			props: { text: 'Help text' },
 			slots: { default: 'Info' },
 		});
 		expect(screen.getByText('Help text')).toBeInTheDocument();
@@ -18,7 +18,7 @@ describe('Tooltip', () => {
 
 	it('should render content slot over text prop', () => {
 		render(Tooltip, {
-			props: { text: 'Fallback', lazy: false },
+			props: { text: 'Fallback' },
 			slots: { content: 'Custom content', default: 'Trigger' },
 		});
 		expect(screen.getByText('Custom content')).toBeInTheDocument();

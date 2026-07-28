@@ -86,7 +86,6 @@ export type ActionMenuProps<T, K extends string> = {
 } & Omit<DropdownProps, 'icon' | 'label' | 'block' | 'width'>;
 
 withDefaults(defineProps<ActionMenuProps<T, K>>(), {
-  lazy: true,
   position: 'bottom-start',
 });
 
