@@ -24,7 +24,7 @@
                   flat
                   role="menuitem"
                   aria-haspopup="menu"
-                  v-bind="action.attrs"
+                  v-bind="resolveAttrs(action, item)"
                   @click.stop="open">
                   <Icon v-if="action.icon" :src="action.icon" />
                   <span class="action-menu__label">{{ action.label }}</span>
@@ -40,7 +40,7 @@
               <Button
                 flat
                 role="menuitem"
-                v-bind="action.attrs"
+                v-bind="resolveAttrs(action, item)"
                 @click.stop="action.onClick?.(item); close()">
                 <Icon v-if="action.icon" :src="action.icon" />
                 <span class="action-menu__label">{{ action.label }}</span>
@@ -65,11 +65,13 @@ import Button from './Button.vue';
 import Icon from './Icon.vue';
 import HotKey from './HotKey.vue';
 
+export type Attrs = Record<string, string | number | boolean>;
+
 export type Action<T, K extends string = string> = {
   id: K;
   label: string;
   icon?: string;
-  attrs?: Record<string, string | number | boolean>;
+  attrs?: Attrs | ((item: T) => Attrs);
   hotkey?: string;
   onClick?: (item: T) => void;
   groups?: ActionGroup<T, K>[];
@@ -97,6 +99,10 @@ defineSlots<{
 }>();
 
 const { onFocusin, onKeydown } = useRovingTabindex({ selector: 'button, input', wrap: true });
+
+const resolveAttrs = (action: Action<T, K>, item: T) => {
+  return typeof action.attrs === 'function' ? action.attrs(item) : action.attrs;
+};
 
 const subactions = (action: Action<T, K>): Action<T, K>[] => {
   if (!action.groups) return [];

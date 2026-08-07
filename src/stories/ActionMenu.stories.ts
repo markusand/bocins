@@ -200,6 +200,34 @@ export const DeleteConfirmation: Story = {
 };
 
 
+export const DynamicAttrs: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Action `attrs` can be a function receiving the item, useful for conditional attributes like `disabled`.',
+      },
+    },
+  },
+  args: {
+    item: user,
+    actions: [
+      {
+        actions: [
+          { id: 'copy', label: 'Copy', icon: 'copy.svg', onClick: console.log },
+          { id: 'download', label: 'Download', icon: 'download.svg', onClick: console.log },
+          {
+            id: 'delete',
+            label: 'Delete',
+            icon: 'trash.svg',
+            attrs: (user: User) => ({ delete: true, disabled: user.role !== 'admin' }),
+            onClick: console.log,
+          },
+        ],
+      },
+    ],
+  },
+};
+
 export const CustomAction: Story = {
   parameters: {
     docs: {

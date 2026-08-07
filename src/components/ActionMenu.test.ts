@@ -78,6 +78,46 @@ describe('ActionMenu', () => {
     expect(screen.getByText('Trash')).toBeInTheDocument();
   });
 
+  it('should apply static attrs to action button', () => {
+    const actionsWithAttrs = [{
+      actions: [
+        { id: 'link', label: 'Link', attrs: { disabled: true, 'data-kind': 'primary' } },
+      ],
+    }];
+    render(ActionMenu, { props: { item: { id: 1 }, actions: actionsWithAttrs } });
+    const button = screen.getByText('Link').closest('button');
+    expect(button).toBeDisabled();
+    expect(button).toHaveAttribute('data-kind', 'primary');
+  });
+
+  it('should apply function attrs receiving the item', () => {
+    const actionsWithFnAttrs = [{
+      actions: [
+        {
+          id: 'remove',
+          label: 'Remove',
+          attrs: (item: { role: string }) => ({ disabled: item.role !== 'admin' }),
+        },
+      ],
+    }];
+    render(ActionMenu, { props: { item: { role: 'viewer' }, actions: actionsWithFnAttrs } });
+    expect(screen.getByText('Remove').closest('button')).toBeDisabled();
+  });
+
+  it('should not disable when function attrs resolves to enabled', () => {
+    const actionsWithFnAttrs = [{
+      actions: [
+        {
+          id: 'remove',
+          label: 'Remove',
+          attrs: (item: { role: string }) => ({ disabled: item.role !== 'admin' }),
+        },
+      ],
+    }];
+    render(ActionMenu, { props: { item: { role: 'admin' }, actions: actionsWithFnAttrs } });
+    expect(screen.getByText('Remove').closest('button')).not.toBeDisabled();
+  });
+
   it('should disable toggler when disabled', () => {
     render(ActionMenu, { props: { ...props, disabled: true } });
     expect(screen.getByLabelText('Actions')).toBeDisabled();
