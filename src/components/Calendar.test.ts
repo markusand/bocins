@@ -92,13 +92,13 @@ describe('Calendar', () => {
     const { emitted } = render(Calendar, {
       props: { modelValue: [undefined, undefined] as [Date | undefined, Date | undefined] },
     });
-    await userEvent.click(screen.getByText('5'));
-    await userEvent.click(screen.getByText('10'));
+    await userEvent.click(screen.getByText('15'));
+    await userEvent.click(screen.getByText('20'));
     const data = emitted().select as Date[][][];
     expect(data).toHaveLength(2);
-    expect(data[0][0][1].getDate()).toBe(5);
-    expect(data[1][0][0].getDate()).toBe(5);
-    expect(data[1][0][1].getDate()).toBe(10);
+    expect(data[0][0][1].getDate()).toBe(15);
+    expect(data[1][0][0].getDate()).toBe(15);
+    expect(data[1][0][1].getDate()).toBe(20);
   });
 
   it('should change month with arrow buttons', async () => {
