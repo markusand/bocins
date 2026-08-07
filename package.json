@@ -43,6 +43,7 @@
     "@storybook/addon-links": "^10.1.11",
     "@storybook/vue3-vite": "^10.1.11",
     "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/user-event": "^14.6.3",
     "@testing-library/vue": "^8.1.0",
     "@types/node": "^25.0.3",
     "@vitejs/plugin-vue": "^6.0.3",
