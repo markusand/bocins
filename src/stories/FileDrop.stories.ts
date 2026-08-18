@@ -60,6 +60,30 @@ export const Base: Story = {
   }),
 };
 
+export const CustomDragSlot: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use the `dragging` slot prop to customize the default slot content while a file is being dragged over.',
+      },
+    },
+  },
+  args: { modelValue: undefined },
+  render: args => ({
+    components: { FileDrop, Icon },
+    setup: () => {
+      const files = ref(args.modelValue);
+      return { args, files };
+    },
+    template: `<FileDrop v-bind="args" v-model="files" @error="console.log">
+      <template #default="{ dragging }">
+        <Icon :src="dragging ? 'cloud-upload.svg' : 'upload.svg'" size="medium" />
+        {{ dragging ? 'Release to upload' : 'Click or drop files' }}
+      </template>
+    </FileDrop>`,
+  }),
+};
+
 export const ImagePreview: Story = {
   parameters: {
     docs: {
@@ -80,8 +104,8 @@ export const ImagePreview: Story = {
       <template #file="{ file, remove }">
         <ImageExpand :src="toImage(file)" :alt="file.name">
           <template #controls>
-            <Button even @click.prevent="remove(file)">
-              <Icon src="/@/stories/assets/trash.svg" />
+            <Button even @click.stop="remove(file)">
+              <Icon src="trash.svg" />
             </Button">
           </template>
         </ImageExpand>

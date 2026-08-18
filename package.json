@@ -14,11 +14,11 @@
   },
   "scripts": {
     "lint": "eslint src && stylelint 'src/**/*.{vue,css}'",
-    "build": "vite build",
+    "build": "vitest --run && vite build",
     "prepare": "npm run build",
     "dev": "storybook dev -p 6006",
     "build:stories": "storybook build",
-    "postinstall": "if [ \"$STORYBOOK\" = \"true\" ]; then exit 0; fi; node dist/postinstall.cjs"
+    "test": "vitest"
   },
   "keywords": [
     "vue",
@@ -39,8 +39,12 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.3",
     "@eslint/js": "^9.39.2",
+    "@storybook/addon-docs": "^10.1.11",
     "@storybook/addon-links": "^10.1.11",
     "@storybook/vue3-vite": "^10.1.11",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/user-event": "^14.6.3",
+    "@testing-library/vue": "^8.1.0",
     "@types/node": "^25.0.3",
     "@vitejs/plugin-vue": "^6.0.3",
     "@vue/eslint-config-typescript": "^14.6.0",
@@ -48,16 +52,19 @@
     "eslint": "^9.39.2",
     "eslint-plugin-storybook": "^10.1.11",
     "eslint-plugin-vue": "^10.6.2",
-    "stylelint-config-standard": "^37.0.0",
+    "happy-dom": "^20.1.0",
+    "lefthook": "^2.1.10",
+    "remark-gfm": "^4.0.1",
     "storybook": "^10.1.11",
     "stylelint": "^16.26.1",
     "stylelint-config-html": "^1.1.0",
+    "stylelint-config-standard": "^37.0.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.51.0",
     "vite": "^7.3.0",
     "vite-plugin-dts": "^4.5.4",
-    "vue": "^3.5.26",
-    "@storybook/addon-docs": "^10.1.11"
+    "vitest": "^4.0.16",
+    "vue": "^3.5.26"
   },
   "peerDependencies": {
     "vue": "^3.3.0"

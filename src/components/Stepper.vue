@@ -6,13 +6,13 @@
     type="number"
     class="stepper">
     <template #prefix>
-      <button type="button" :disabled="isMin" @click.prevent="decrease()">
-        <Icon :src="`${config.iconPath}/minus.svg`" />
+      <button type="button" :disabled="isMin" aria-label="Decrease" @click.stop="decrease()">
+        <Icon src="minus.svg" />
       </button>
     </template>
     <template #suffix>
-      <button type="button" :disabled="isMax" @click.prevent="increase()">
-        <Icon :src="`${config.iconPath}/plus.svg`" />
+      <button type="button" :disabled="isMax" aria-label="Increase" @click.stop="increase()">
+        <Icon src="plus.svg" />
       </button>
     </template>
   </Input>
@@ -20,7 +20,6 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { config } from '/@/config';
 import Input, { type InputProps } from './Input.vue';
 import Icon from './Icon.vue';
 
@@ -46,8 +45,7 @@ const isMin = computed(() => value.value != null && value.value <= +props.min);
 const isMax = computed(() => value.value != null && value.value >= +props.max); 
 
 const increase = (step = +props.step) => {
-  const { min, max } = props;
-  value.value = Math.max(+min, Math.min(+max, (value.value || 0) + step));
+  value.value = Math.max(+props.min, Math.min(+props.max, (value.value || 0) + step));
 };
 
 const decrease = (step = +props.step) => increase(-1 * step);
@@ -63,7 +61,7 @@ const decrease = (step = +props.step) => increase(-1 * step);
     border-radius: 0.125rem;
     display: flex;
 
-    &:focus { background: #8882; }
+    &:focus-visible { background: #8882; }
 
     &[disabled] {
       cursor: not-allowed;
@@ -71,6 +69,6 @@ const decrease = (step = +props.step) => increase(-1 * step);
     }
   }
 
-  .icon { --size: 1em; }
+  .icon { --icon-size: 1em; }
 }
 </style>

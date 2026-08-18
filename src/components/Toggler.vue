@@ -1,22 +1,24 @@
 <template>
-  <label class="toggler" :class="modifiers">
+  <label :class="classes">
     <input
       v-model="selected"
-      :value="props.value"
-      :type="props.radio ? 'radio' : 'checkbox'"
-      :disabled="props.disabled">
-    <slot>{{ props.label }}</slot>
+      :type="group ? 'radio' : 'checkbox'"
+      :name="group"
+      :value
+      :disabled
+      :aria-invalid="invalid || undefined">
+    <slot>{{ label }}</slot>
   </label>
 </template>
 
 <script setup lang="ts" generic="T">
 import { computed } from 'vue';
-import { config } from '/@/config';
+import checkSvg from '/@/assets/check.svg?raw';
 
 export type TogglerProps<T> = {
   label?: string;
   value?: T;
-  radio?: boolean;
+  group?: string;
   invalid?: boolean;
   disabled?: boolean;
   block?: boolean;
@@ -30,26 +32,20 @@ defineSlots<{
 
 const selected = defineModel<T | T[] | undefined>({ required: true });
 
-const modifiers = computed(() => {
-  const { invalid, block, disabled } = props;
-  return {
-    'toggler--invalid': invalid,
-    'toggler--block': block,
-    'is-disabled': disabled,
-    'is-block': block,
-  };
-});
+const classes = computed(() => ['toggler', {
+  'is-invalid': props.invalid,
+  'is-disabled': props.disabled,
+  'is-block': props.block,
+}]);
 
-const checkIconUrl = computed(() => `url(${config.iconPath}/check.svg)`);
+const checkiconurl = `url('data:image/svg+xml,${encodeURIComponent(checkSvg)}')`;
 </script>
 
 <style scoped>
-
-/* stylelint-disable no-descending-specificity */
-
-.toggler { 
-  --color-bg: var(--toggler-color, var(--color-border, #888));
-  --scaledown: var(--toggle-scale, 0.5);
+.toggler {
+  --color: var(--toggler-color, #8888);
+  --size: var(--toggler-size, 0.75em);
+  --scale: var(--toggler-scale, 0.5);
 
   display: inline-flex;
   align-items: center;
@@ -57,45 +53,43 @@ const checkIconUrl = computed(() => `url(${config.iconPath}/check.svg)`);
   cursor: pointer;
   transition: all 0.3s ease;
 
+  input[type="radio"] { border-radius: 50% !important; }
+
   input[type="checkbox"],
   input[type="radio"] {
     all: unset;
     appearance:none;
     display: block;
-    height: var(--size, 0.75em);
-    width: var(--size, 0.75em);
-    flex: 0 0 var(--size, 0.75em);
+    height: var(--size);
+    width: var(--size);
+    flex: 0 0 var(--size);
     border-radius: 20%;
-    transform: scale(var(--scaledown));
-    background: var(--color-bg);
+    transform: scale(var(--scale));
+    background: var(--color);
     border: 1px solid transparent;
     transition: all 0.3s ease;
     cursor: pointer;
 
     &:checked {
-      /* stylelint-disable value-keyword-case */
       background:
-        var(--color-bg)
-        v-bind(checkIconUrl)
+        var(--color)
+        v-bind(checkiconurl)
         no-repeat
         center center
         !important;
-      /* stylelint-enable value-keyword-case */
       transform: none;
     }
   }
 
-  input[type="radio"] { border-radius: 50%; }
-
-  &:hover input:not(:disabled) {
-    transform: none;
-    background: none;
-    border-color: var(--color-bg);
+  &:focus-within,
+  &:hover {
+    input:not(:disabled) {
+      transform: none;
+      background: none;
+      border-color: var(--color);
+    }
   }
 
-  &:has(:checked) { --color-bg: var(--color-accent, #333); }
-
+  &:has(:checked) { --color: var(--toggler-active-color, var(--accent-color, #333)); }
 }
-
-.toggler--invalid { --color-bg: var(--color-error, red); }
 </style>

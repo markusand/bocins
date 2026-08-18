@@ -1,27 +1,33 @@
 <template>
-  <Popover class="tooltip" v-bind="props">
-    <slot name="content">{{ props.text }}</slot>
-    <template #anchor><slot /></template>
+  <Popover v-bind="props" :style="style">
+    <slot name="content">{{ text }}</slot>
+    <template #anchor>
+      <slot><Icon src="info.svg" /></slot>
+    </template>
   </Popover>
 </template>
 
 <script setup lang="ts">
 import Popover, { type PopoverProps } from './Popover.vue';
+import Icon from './Icon.vue';
 
-const props = defineProps<{
+export type TooltipProps = {
   text?: string;
-} & PopoverProps>();
+} & PopoverProps;
+
+const props = defineProps<TooltipProps>();
 
 defineSlots<{
   default: () => void;
-  content: () => void;
+  content?: () => void;
 }>();
-</script>
 
-<style scoped>
-.tooltip {
-  --color-bg: var(--tooltip-color, #333);
-  --color-text: var(--tooltip-text-color, #fff);
-  --spacing: var(--tooltip-spacing, 0.5rem 0.75rem);
-}
-</style>
+const style = {
+  '--popover-bg-color': 'var(--tooltip-bg-color, #333)',
+  '--popover-text-color': 'var(--tooltip-text-color, #fff)',
+  '--popover-border': 'none',
+  '--popover-gap': 'var(--tooltip-gap, 0.25rem)',
+  '--popover-radius': 'var(--tooltip-radius, 0.25rem)',
+  '--popover-spacing': 'var(--tooltip-spacing, 0.5rem 0.75rem)',
+};
+</script>

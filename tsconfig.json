@@ -21,6 +21,7 @@
     "lib": [
       "esnext",
       "dom",
+      "dom.iterable"
     ]
   },
   "include": [
@@ -28,6 +29,7 @@
     "src/**/*.ts",
     "src/**/*.vue",
     "vite.config.*",
+    "vitest.config.*"
   ],
   "exclude": [
     "node_modules",

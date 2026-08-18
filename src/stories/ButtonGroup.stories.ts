@@ -1,5 +1,6 @@
+import { ref } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { ButtonGroup, Button, Dropdown, ContextualMenu } from '/@/components';
+import { ButtonGroup, Button, Icon, ActionMenu } from '/@/components';
 import './assets/styles.css';
 
 const meta = {
@@ -14,11 +15,6 @@ const meta = {
     },
   },
   argTypes: {
-    variant: {
-      description: 'The variant to use for the button.',
-      control: 'radio',
-      options: [undefined, 'ghost', 'flat'],
-    },
     width: {
       description: 'The width of the button group. Can be a number (in rem) or any string representing length and unit.',
       control: 'text',
@@ -27,7 +23,6 @@ const meta = {
     disabled: { description: 'Disable the buttons.' },
   },
   args: {
-    variant: undefined,
     block: false,
     disabled: false,
     width: '',
@@ -43,34 +38,54 @@ export const Base: Story = {
     components: { ButtonGroup, Button },
     setup: () => ({ args }),
     template: `<ButtonGroup v-bind="args">
-      <Button>Text</Button>
-      <Button>Text</Button>
-      <Button>Text</Button>
+      <Button>Day</Button>
+      <Button>Week</Button>
+      <Button>Month</Button>
+    </ButtonGroup>`,
+  }),
+};
+
+export const Ghost: Story = {
+  render: args => ({
+    components: { ButtonGroup, Button },
+    setup: () => ({ args }),
+    template: `<ButtonGroup v-bind="args">
+      <Button ghost>Day</Button>
+      <Button ghost>Week</Button>
+      <Button ghost>Month</Button>
     </ButtonGroup>`,
   }),
 };
 
 export const WithDropdowns: Story = {
   render: args => ({
-    components: { ButtonGroup, Button, Dropdown, ContextualMenu },
-    setup: () => ({
-      args,
-      actions: [{
+    components: { ButtonGroup, Button, Icon, ActionMenu },
+    setup: () => {
+      const current = ref({ label: 'Publish', icon: 'send.svg', onClick: console.log });
+      const actions = [{
         actions: [
-          { id: 'edit', label: 'Edit', onClick: () => {} },
-          { id: 'duplicate', label: 'Duplicate', onClick: () => {} },
-          { id: 'archive', label: 'Archive', onClick: () => {} },
+          { id: 'publish', label: 'Publish', icon: 'send.svg', onClick: () => { current.value = { label: 'Publish', icon: 'send.svg', onClick: console.log }; } },
+          { id: 'schedule', label: 'Schedule', icon: 'calendar.svg', onClick: () => { current.value = { label: 'Schedule', icon: 'calendar.svg', onClick: console.log }; } },
+          { id: 'draft', label: 'Draft', icon: 'file.svg', onClick: () => { current.value = { label: 'Draft', icon: 'file.svg', onClick: console.log }; } },
         ],
-      }],
-    }),
+      }, {
+        actions: [
+          { id: 'discard', label: 'Discard', icon: 'trash.svg', attrs: { delete: true }, onClick: console.log },
+        ],
+      }];
+      return { args, actions, current };
+    },
     template: `<ButtonGroup v-bind="args">
-      <Button>Action</Button>
-      <Dropdown label="More">
-        <Button block>Edit</Button>
-        <Button block>Duplicate</Button>
-        <Button block>Archive</Button>
-      </Dropdown>
-      <ContextualMenu :item="{}" :actions="actions" />
+      <Button @click="console.log">
+        <Icon :src="current.icon" />{{ current.label }}
+      </Button>
+      <ActionMenu :item="{}" :actions="actions">
+        <template #toggler="{ open }">
+          <Button even @click="open">
+            <Icon src="chevron-down.svg" />
+          </Button>
+        </template>
+      </ActionMenu>
     </ButtonGroup>`,
   }),
 };

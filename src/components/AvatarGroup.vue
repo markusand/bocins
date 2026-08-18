@@ -1,5 +1,5 @@
 <template>
-  <span class="avatar-group" :class="modifiers">
+  <span :class="classes">
     <slot />
   </span>
 </template>
@@ -15,28 +15,30 @@ const props = defineProps<AvatarGroupProps>();
 
 defineSlots<{ default: () => void; }>();
 
-const modifiers = computed(() => ({
+const classes = computed(() => ['avatar-group', {
   'avatar-group--stacked': props.stacked,
-}));
+}]);
 </script>
 
 <style scoped>
 .avatar-group {
+  --overlap: var(--avatar-group-overlap, 0.35);
+  --outline: var(--avatar-group-outline, 2px solid #fff);
+
   display: inline-flex;
   flex-direction: row-reverse;
   vertical-align: middle;
 
-  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
   &:deep(.avatar) {
-    outline: 2px solid var(--color-bg, #fff);
+    outline: var(--outline);
 
     &:not(:first-child) {
       margin-right: calc(-1 * var(--overlap, 0.35) * var(--size));
-      transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease;
     }
   }
 
-  .avatar-group--stacked {
+  &.avatar-group--stacked {
     --overlap: 0.8;
     &:hover { --overlap: -0.125; }
   }

@@ -1,16 +1,16 @@
 <template>
-  <label :class="['file-drop', modifiers]" :style="size" v-on="onDragDrop">
+  <label :class="classes" :style="size" v-on="onDragDrop">
     <input v-bind="input" type="file" @change="onChange">
-    <slot v-if="!files.length">
-      <Icon :src="`${config.iconPath}/plus.svg`" size="medium" />
-      <em>{{ props.label || 'Click or Drop files' }}</em>
+    <slot v-if="!files.length" :dragging="state === 'dragging'">
+      <Icon src="upload.svg" size="medium" />
+      <em>{{ label }}</em>
     </slot>
     <slot v-else name="files" :files="files" :remove="remove">
       <ul class="file-drop__list">
         <li v-for="file in files" :key="file.name">
           <slot name="file" :file="file" :remove="remove">
             <span class="file-drop__file-name">{{ file.name }}</span>
-            <button type="button" @click.prevent="remove(file)">&times;</button>
+            <button type="button" @click.stop="remove(file)">&times;</button>
           </slot>
         </li>
       </ul>
@@ -20,12 +20,10 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
-import { config } from '/@/config';
 import { toWidth, toHeight, useFiles } from '/@/utils';
 import Icon from './Icon.vue';
 
-type FileDropProps = {
-  modelValue?: File[];
+export type FileDropProps = {
   formats?: string;
   capture?: boolean | 'user' | 'environment';
   multiple?: boolean | number;
@@ -37,10 +35,14 @@ type FileDropProps = {
   block?: boolean;
 };
 
-const props = defineProps<FileDropProps>();
+const props = withDefaults(defineProps<FileDropProps>(), {
+  label: 'Click or Drop files',
+  multiple: false,
+  width: 10,
+  height: 7,
+});
 
 const emit = defineEmits<{
-  'update:modelValue': [files: File[]],
   dragover: [event: DragEvent],
   dragleave: [event: DragEvent],
   drop: [files: File[], event: DragEvent],
@@ -50,36 +52,35 @@ const emit = defineEmits<{
 }>();
 
 defineSlots<{
-  default?: () => void;
-  files: (props: { files: File[], remove: (file: File) => void }) => void,
+  default?: (props: { dragging: boolean }) => void;
+  files?: (props: { files: File[], remove: (file: File) => void }) => void,
   file?: (props: { file: File, remove: (file: File) => void }) => void
 }>();
 
-const state = ref<'hover' | 'invalid'>();
+const model = defineModel<File[]>();
+
+const state = ref<'dragging' | 'invalid'>();
 
 const onError = (code: string, file?: File) => {
   state.value = 'invalid';
   setTimeout(() => { state.value = undefined; }, 1000);
   emit('error', new Error(code), file);
 };
+
 const { files, addFiles, removeFile } = useFiles(props, onError);
-watch(files, value => emit('update:modelValue', value));
+watch(files, value => model.value = value);
+watch(model, value => { if (value) files.value = value; });
 
 const size = computed(() => ({
-  ...toWidth(props.width ?? 10),
-  ...toHeight(props.height ?? 7),
+  ...toWidth(props.width),
+  ...toHeight(props.height),
 }));
 
-const modifiers = computed(() => {
-  const { block, disabled } = props;
-  return {
-    [`file-drop--${state.value}`]: state.value,
-    'file-drop--disabled': disabled,
-    'file-drop--block': block,
-    'is-disabled': disabled,
-    'is-block': block,
-  };
-});
+const classes = computed(() => ['file-drop', {
+  [`is-${state.value}`]: !!state.value,
+  'is-disabled': props.disabled,
+  'is-block': props.block,
+}]);
 
 const input = computed(() => {
   const { multiple, formats: accept, capture, disabled } = props;
@@ -90,7 +91,7 @@ const onDragDrop = {
   dragover: (event: DragEvent) => {
     event.preventDefault();
     if (props.disabled) return;
-    state.value = 'hover';
+    state.value = 'dragging';
     emit('dragover', event);
   },
   dragleave: (event: DragEvent) => {
@@ -125,60 +126,70 @@ const remove = (file: File) => {
 <style scoped>
 
 .file-drop {
-  --color: var(--filedrop-color, #888);
-  --color-bg: color-mix(in srgb, var(--color) 5%, transparent);
-  --color-border: color-mix(in srgb, var(--color) 50%, transparent);
-  --color-text: var(--color);
+  --color: var(--file-drop-color, #888);
+  --bg-color: color-mix(in srgb, var(--color) 3%, transparent);
+  --border: var(--file-drop-border, 1px dashed color-mix(in srgb, var(--color) 25%, transparent));
+  --radius: var(--file-drop-radius, 0.25rem);
+  --timing: var(--file-drop-timing, 0.3s);
+  --active-color: var(--file-drop-active-color, var(--accent-color, #333));
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  background: var(--color-bg);
-  border: var(--border-width, 1px) dashed var(--color-border);
-  color: var(--color-text);
-  border-radius: 0.25rem;
+  gap: 0.5em;
+  background: var(--bg-color);
+  border: var(--border);
+  color: var(--color);
+  border-radius: var(--radius);
   box-sizing: border-box;
   cursor: pointer;
+  transition: all var(--timing) ease;
 
   & > em {
     font-style: normal;
     font-size: 0.9em;
-    padding: 0 1rem;
+    padding: 0 1em;
   }
 
-  input { display: none; }
-}
-
-.file-drop--hover { --color: var(--color-accent, #333); }
-.file-drop--invalid { --color: var(--color-error, red); }
-
-.file-drop__list {
-  margin: 0;
-  padding: 0.5rem 1rem;
-  list-style: none;
-  max-height: 100%;
-  max-width: 100%;
-  overflow: auto;
-  box-sizing: border-box;
-
-  li {
-    display: flex;
-    width: 100%;
-    gap: 0.5rem;
-  }
-}
-
-.file-drop__file-name {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  & + button {
+  input {
     all: unset;
-    color: var(--color-alert, red);
-    cursor: pointer;
+    height: 0;
+    width: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  &:focus-within,
+  &.is-dragging { --color: var(--active-color); }
+
+  .file-drop__list {
+    margin: 0;
+    padding: 0.5em 1em;
+    list-style: none;
+    max-height: 100%;
+    max-width: 100%;
+    overflow: auto;
+    box-sizing: border-box;
+
+    li {
+      display: flex;
+      width: 100%;
+      gap: 0.5em;
+    }
+  }
+
+  .file-drop__file-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    & + button {
+      all: unset;
+      color: var(--error-color, crimson);
+      cursor: pointer;
+    }
   }
 }
 </style>

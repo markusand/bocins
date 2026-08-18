@@ -16,7 +16,7 @@ const meta = {
   },
   argTypes: {
     label: { description: 'The text to display on the button.' },
-    radio: { description: 'Allow only selection of a single option.' },
+    group: { description: 'Name to group toggler with (making a radio).' },
     invalid: { description: 'Set state to invalid.' },
     disabled: { description: 'Disable the button.' },
     block: { description: 'Display as a block input.' },
@@ -24,7 +24,7 @@ const meta = {
   },
   args: {
     label: 'Toggler',
-    radio: false,
+    group: undefined,
     invalid: false,
     disabled: false,
     block: false,
@@ -57,7 +57,7 @@ export const Radio: Story = {
   },
   args: {
     modelValue: false,
-    radio: true,
+    group: 'mygroup',
   },
   render: args => ({
     components: { Toggler },

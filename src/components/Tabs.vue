@@ -1,90 +1,129 @@
-
 <template>
-  <div class="tabs">
-    <header class="tabs__header">
+  <div class="tabs" :style="{ '--tab-direction': direction }">
+    <header class="tabs__header" role="tablist" @focusin="onFocusin" @keydown="onKeydown">
       <button
-        v-for="{ id, label, active, disabled } in tabs"
-        :key="id"
-        :disabled="disabled"
-        :class="['tabs__tab', { 'tabs__tab--active': active, 'is-disabled': disabled }]"
+        v-for="tab in tabs"
+        :id="`${tab.id}-tab`"
+        :key="tab.id"
+        :class="classes(tab)"
+        :disabled="tab.disabled"
+        :aria-selected="tab.active"
+        :aria-controls="tab.id"
+        role="tab"
         type="button"
-        @click.prevent="activate(id)">
-        <slot v-bind="{ label, active }" :name="id">
-          <slot v-bind="{ id, label, active }" name="tab">
-            {{ label ?? id }}
+        @click.stop="activate(tab.id)">
+        <slot v-bind="tab" :name="tab.id">
+          <slot v-bind="tab" name="tab">
+            {{ tab.label ?? tab.id }}
           </slot>
         </slot>
       </button>
     </header>
-    <slot />
+    <div class="tabs__content">
+      <slot />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, provide, onMounted, type VNode } from 'vue';
+import { computed, watch, provide, ref, nextTick, onMounted, type VNode } from 'vue';
 import type { Tab } from './TabView.vue';
+import { useRovingTabindex } from '/@/utils';
+
+const { onFocusin, onKeydown } = useRovingTabindex({ wrap: true });
+
+export type TabsProps = {
+  transition?: string;
+};
+
+const props = defineProps<TabsProps>();
 
 const activePanel = defineModel<string>();
-const activate = (panel: string) => activePanel.value = panel;
+const direction = ref(1);
+
+const activate = (panel: string) => {
+  const currentIndex = tabs.value.findIndex(t => t.id === activePanel.value);
+  const nextIndex = tabs.value.findIndex(t => t.id === panel);
+  direction.value = nextIndex >= currentIndex ? 1 : -1;
+  activePanel.value = panel;
+};
+
 provide('active', activePanel);
+
+const transition = ref('');
+provide('transition', transition);
+watch(() => props.transition, t => transition.value = t || 'tab-slide-x');
 
 const slots = defineSlots<{
   default: () => VNode[],
-  tab: (props: { id: string, label?: string, active: boolean }) => void
+  tab?: (props: { id: string, label?: string, active: boolean }) => void
 } & { [key: string]: (props: { label?: string, active: boolean }) => void }>();
 
 const tabs = computed(() => slots.default()
   // @ts-expect-error TS does not know __name property in type
   .filter(node => node.type.__name === 'TabView')
   .map(({ props }) => {
-    return { ...props, active: props?.id === activePanel.value };
+    const active = props?.id === activePanel.value;
+    const disabled = props?.disabled != null && props.disabled !== false;
+    return { ...props, active, disabled };
   }) as (Tab & { active: boolean })[]);
 
-onMounted(() => !activePanel.value && activate(tabs.value[0]?.id));
+const classes = (tab: Tab & { active: boolean }) => ['tabs__tab', {
+  'tabs__tab--active': tab.active,
+  'is-disabled': tab.disabled,
+}];
+
+onMounted(() => {
+  if (!activePanel.value) activate(tabs.value[0]?.id);
+  nextTick(() => transition.value = props.transition ?? 'tab-slide-x');
+});
 </script>
 
 <style scoped>
 
 .tabs {
   --spacing: var(--tabs-spacing, 0.75rem);
-}
+  
+  .tabs__header {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    border-bottom: 1px solid var(--tabs-border-color, var(--border-color, #8883));
+    margin-bottom: var(--spacing);
+    align-items: flex-end;
+    overflow: auto clip;
+    scrollbar-width: none;
 
-.tabs__header {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  display: flex;
-  border-bottom: 1px solid var(--tabs-color-border, var(--color-border, #8883));
-  margin-bottom: var(--spacing);
-  gap: calc(2 * var(--spacing));
-  align-items: flex-end;
-}
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  
+  .tabs__tab {
+    --text-color: color-mix(in srgb, currentcolor 75%, transparent);
+  
+    all: unset;
+    padding: var(--spacing);
+    color: var(--text-color);
+    margin-bottom: -1px;
+    position: relative;
+    cursor: pointer;
+    white-space: nowrap;
+  
+    &:hover { --text-color: var(--accent-color, #333) }
+  }
 
-.tabs__tab {
-  --color-text: color-mix(in srgb, currentcolor 75%, transparent);
+  .tabs__content {
+    position: relative;
+    overflow: hidden;
+  }
 
-  all: unset;
-  padding: var(--spacing) 0;
-  color: var(--color-text);
-  margin-bottom: -1px;
-  position: relative;
-  cursor: pointer;
-  white-space: nowrap;
+  .tabs__tab--active,
+  .tabs__tab:focus-visible {
+    --text-color: var(--accent-color, #333);
 
-  &:hover { --color-text: var(--color-accent, #333); }
-}
-
-.tabs__tab--active {
-  --color-text: var(--color-accent, #333);
-
-  &::after {
-    content: '';
-    background: currentcolor;
-    height: 2px;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    box-shadow: inset 0 -0.25rem 0 0 currentcolor;
   }
 }
 </style>

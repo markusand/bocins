@@ -17,20 +17,26 @@ const meta = {
   },
   argTypes: {
     position: {
-      description: 'The position of the popover relative to the anchor.',
-      options: ['top', 'bottom', 'left', 'right'],
+      description: 'The position of the dropdown relative to the toggler.',
       control: { type: 'select' },
+      options: [
+        'top-left', 'top-start', 'top', 'top-end', 'top-right',
+        'left', 'left-start', 'left-end',
+        'right', 'right-start', 'right-end',
+        'bottom-left', 'bottom-start', 'bottom', 'bottom-end', 'bottom-right',
+      ],
     },
-    click: { description: 'Show the popover on click instead of hover.' },
     width: {
       description: 'The width of the popover. Can be a number (in rem) or any string representing length and unit.',
       control: 'text',
     },
+    hoverable: {
+      description: 'Open the popover on hover instead of click.',
+    },
   },
   args: {
     position: 'top',
-    click: false,
-    width: '15',
+    hoverable: false,
   },
 } satisfies Meta<typeof Popover>;
 
@@ -45,13 +51,17 @@ export const Base: Story = {
       const user = users[0];
       return { args, user };
     },
-    template: `<p style="margin:3rem 0">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+    template: `<p>
+      Assigned to
       <Popover v-bind="args">
         <UserProfile :user="user" />
-        <template #anchor>LEANNE,</template>
+        <template #anchor>
+          <span style="border-bottom:1px dashed currentcolor;cursor:pointer">
+            {{ user.name }}
+          </span>
+        </template>
       </Popover>
-      sed do eiusmod tempor incididunt ut labore.
+      · Due Friday · 3 comments
     </p>`,
   }),
 };

@@ -1,23 +1,27 @@
 <template>
-  <div class="divider">
-    <slot>{{ props.label }}</slot>
+  <div class="divider" role="separator">
+    <slot>{{ label }}</slot>
   </div>
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
+export type DividerProps = {
   label?: string;
-}>();
+};
+
+defineProps<DividerProps>();
 
 defineSlots<{
-  default: () => void;
+  default?: () => void;
 }>();
 </script>
 
 <style scoped>
 .divider {
-  --color: var(--color-border, #8888);
+  --color: var(--divider-color, #8888);
   --margin: var(--divider-margin, 2rem);
+  --width: var(--divider-width, 1px);
+  --opacity: var(--divider-opacity, 75%);
 
   display: flex;
   align-items: center;
@@ -28,7 +32,7 @@ defineSlots<{
   &::after {
     content: "";
     flex: 1;
-    border-top: 1px solid currentcolor;
+    border-top: var(--width) solid color-mix(in srgb, currentcolor var(--opacity), transparent);
     margin: 0 0.5rem;
   }
 

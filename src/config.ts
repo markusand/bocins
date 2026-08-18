@@ -1,3 +1,3 @@
 export const config = {
-  iconPath: '/icons',
+  iconPath: 'https://raw.githubusercontent.com/lucide-icons/lucide/refs/heads/main/icons',
 };

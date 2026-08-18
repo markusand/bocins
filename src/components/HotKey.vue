@@ -1,8 +1,8 @@
 <template>
-  <div :class="['hotkey', { active }]">
+  <div :class="classes">
     <kbd v-for="key in combo" :key>
-      <Icon v-if="ICONS[key]" :src="`/icons/${ICONS[key]}.svg`" />
-      <small v-else-if="key === 'escape'" class="small">ESC</small>
+      <Icon v-if="ICONS[key]" :src="`${ICONS[key]}.svg`" />
+      <small v-else-if="key === 'escape'">ESC</small>
       <span v-else>{{ key }}</span>
     </kbd>
   </div>
@@ -12,12 +12,14 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import Icon from './Icon.vue';
 
-const props = defineProps<{
+export type HotKeyProps = {
   keys: string;
   disabled?: boolean;
-}>();
+};
 
-const isMac = navigator.platform.toUpperCase().includes('MAC');
+const props = defineProps<HotKeyProps>();
+
+const isMac = (navigator.userAgentData?.platform ?? navigator.userAgent ?? navigator.platform).toUpperCase().includes('MAC');
 
 const ICONS: Record<string, string> = {
   tab: 'arrow-right-to-line',
@@ -25,6 +27,10 @@ const ICONS: Record<string, string> = {
   enter: 'corner-down-left',
   shift: 'arrow-big-up',
   meta: 'layout-grid',
+  arrowdown: 'arrow-down',
+  arrowup: 'arrow-up',
+  arrowleft: 'arrow-left',
+  arrowright: 'arrow-right',
   ...(isMac && {
     ctrl: 'chevron-up',
     meta: 'command',
@@ -39,6 +45,10 @@ const emit = defineEmits<{
 
 const active = ref(false);
 const combo = computed(() => props.keys.split('+').map(key => key.trim().toLocaleLowerCase()));
+
+const classes = computed(() => ['hotkey', {
+  'hotkey--active': active.value,
+}]);
 
 const onKeydown = (event: KeyboardEvent) => {
   if (props.disabled) return;
@@ -62,7 +72,7 @@ const onKeyup = (event: KeyboardEvent) => {
     emit('release');
     active.value = false;
   }
-}
+};
 
 onMounted(() => {
   document.addEventListener('keydown', onKeydown);
@@ -77,8 +87,9 @@ onUnmounted(() => {
 
 <style scoped>
 .hotkey {
-  --color: #888;
-  --color-active: #333;
+  --color: var(--hotkey-color, #888);
+  --active-color: var(--hotkey-active-color, #333);
+  --size: var(--hotkey-size, 0.75em);
 
   display: inline-flex;
   align-items: center;
@@ -90,7 +101,7 @@ onUnmounted(() => {
     align-items: center;
     justify-content: center;
     gap: 0.125em;
-    font-size: 0.75em;
+    font-size: var(--size);
     background: color-mix(in srgb, currentcolor 10%, transparent);
     box-shadow: inset 0 0 0 1px color-mix(in srgb, currentcolor 10%, transparent);
     border-radius: 0.25em;
@@ -100,9 +111,13 @@ onUnmounted(() => {
     box-sizing: border-box;
     text-transform: capitalize;
 
-    .icon { --size: 1em; display: block; }
+    .icon {
+      --icon-size: 1em;
+
+      display: block;
+    }
   }
 
-  &.active { color: var(--color-active); }
+  &.hotkey--active { color: var(--active-color); }
 }
 </style>

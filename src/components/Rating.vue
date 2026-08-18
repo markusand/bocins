@@ -1,26 +1,39 @@
 <template>
-  <fieldset class="rating" :disabled="props.disabled">
-    <label v-for="i in +props.max" :key="i">
-      <input v-model="rating" :value="+props.max + 1 - i" type="radio">
-      <slot><Icon :src="`${config.iconPath}/star.svg`" /></slot>
+  <fieldset
+    class="rating"
+    role="radiogroup"
+    :disabled
+    @focusin="onFocusin"
+    @keydown="onKeydown">
+    <label v-for="i in +max" :key="i">
+      <input v-model="rating" :value="i" type="radio">
+      <slot><Icon src="star.svg" /></slot>
     </label>
   </fieldset>
 </template>
 
 <script setup lang="ts">
 import { watch } from 'vue';
-import { config } from '/@/config';
 import Icon from './Icon.vue';
+import { useRovingTabindex } from '/@/utils';
 
-const props = withDefaults(defineProps<{
+const { onFocusin, onKeydown } = useRovingTabindex({ selector: 'input' });
+
+export type RatingProps = {
   max?: number | string;
   disabled?: boolean;
-}>(), {
+};
+
+withDefaults(defineProps<RatingProps>(), {
   max: 5,
 });
 
 const emit = defineEmits<{
   rate: [rating: number];
+}>();
+
+defineSlots<{
+  default?: () => void;
 }>();
 
 const rating = defineModel<number | undefined>({ required: false, default: 0 });
@@ -32,13 +45,13 @@ watch(rating, value => value && emit('rate', value));
 .rating {
   --size: var(--rating-size, 1.25rem);
   --color: var(--rating-color, #fdcf10);
+  --inactive: var(--rating-inactive, #8886);
 
   padding: 0;
   border: 0;
   margin: 0;
   display: inline-flex;
   gap: 0.25em;
-  flex-direction: row-reverse;
   align-items: center;
   vertical-align: middle;
   font-size: var(--size);
@@ -56,31 +69,39 @@ watch(rating, value => value && emit('rate', value));
       width: 0.5em;
       aspect-ratio: 1;
       margin: 0.25em;
-      background: #8886;
+      background: var(--inactive);
       border-radius: 50%;
       transform: scale(0.6);
       transition: all 0.3s ease;
       cursor: inherit;
+      outline: none;
     }
 
-    /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
     &:deep(.icon) {
-      --size: 1em;
+      --icon-size: 1em;
 
       position: absolute;
       top: 0;
       transform: scale(0);
       transition: all 0.3s ease;
+
+      svg { 
+        fill: var(--color);
+        stroke: none;
+      }
+    }
+
+    input:focus-visible:deep(+ .icon svg) {
+      stroke: color-mix(in srgb, var(--color) 50%, #fff);
     }
   }
 
+  /* stylelint-disable-next-line no-descending-specificity */
+  input:focus-visible,
   &:not(:disabled) > label:hover input { transform: none; }
 
-  label:has(:checked),
-  label:has(:checked) ~ label {
-    /* stylelint-disable-next-line no-descending-specificity */
+  &:has(:checked) :not(label:has(:checked) ~ label) {
     input { transform: scale(0); }
-    /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
     &:deep(.icon) { transform: none; }
   }
 
@@ -88,7 +109,7 @@ watch(rating, value => value && emit('rate', value));
     --color: #8886;
   
     opacity: 0.5;
-    cursor: not-allowed !important;
+    cursor: not-allowed;
   }
 }
 

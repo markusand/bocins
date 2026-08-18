@@ -1,25 +1,27 @@
 <template>
   <fieldset
-    :class="['passcode', { invalid }]"
-    :disabled="props.disabled"
-    @click.prevent="focusLast">
+    :class="classes"
+    :disabled
+    :aria-invalid="invalid || undefined"
+    aria-label="Passcode"
+    @click.stop="focusLast">
     <input
-      v-for="i in props.length"
+      v-for="i in length"
       :key="i"
       v-model="passcode[i - 1]"
-      :class="{ 'is-invalid': props.invalid, 'is-disabled': props.disabled }"
+      class="is-input"
       type="password"
       maxlength="1"
       placeholder=" "
       autocomplete="off"
-      :inputmode="props.numeric ? 'numeric' : 'text'"
+      :inputmode="numeric ? 'numeric' : 'text'"
       @input="next"
       @keydown.backspace="prev">
   </fieldset>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 export type PasscodeProps = {
   length: number;
@@ -34,6 +36,10 @@ const emit = defineEmits<{
   change: [passcode: string];
   fill: [passcode: string];
 }>();
+
+const classes = computed(() => ['passcode', {
+  'is-invalid': props.invalid,
+}]);
 
 const passcode = ref<string[]>(Array(props.length).fill(''));
 
@@ -67,12 +73,15 @@ const focusLast = (event: Event) => {
 </script>
 
 <style scoped>
-
 .passcode {
-  --size: 2rem;
+  --size: var(--passcode-size, 2rem);
+  --gap: var(--passcode-gap, 0.5em);
+  --bg-color: var(--passcode-bg-color, none);
+  --text-color: var(--passcode-text-color, currentcolor);
+  --border: var(--passcode-border, 1px solid #8886);
 
   display: inline-flex;
-  gap: 0.5em;
+  gap: var(--gap);
   border: none;
   padding: 0;
   margin: 0;
@@ -82,21 +91,23 @@ const focusLast = (event: Event) => {
     font-size: var(--size);
     width: 1em;
     height: 1.5em;
-    background: var(--color-bg, none);
-    box-shadow:  0 0 0 var(--border-width, 1px) var(--color-border, #8886);
-    color: var(--color-text, currentcolor);
+    background: var(--bg-color);
+    border: var(--border);
+    color: var(--text-color);
     text-align: center;
-    border-radius: var(--radius, 0.125em);
-
+    border-radius: var(--passcode-radius, var(--radius, 0.25em));
+    transition: all 0.3s ease;
+      
     &:not(:placeholder-shown),
-    &:focus { --color-border: var(--color-accent, #333); }
-
-    &:focus {
-      --color-text: var(--color-accent, #333);
-  
-      outline: 0.125em solid color-mix(in srgb, var(--color-accent, #333) 10%, transparent);
-    }
+    &:focus { border-color: var(--accent-color, #333); }
   }
 
+  &.is-invalid { animation: shake 0.4s ease; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
 }
 </style>

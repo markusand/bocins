@@ -1,107 +1,110 @@
 <template>
-  <details class="collapser" :open="isOpen" @toggle.stop="toggle">
-    <summary class="collapser__toggler">
-      <div class="collapser__title">
-        <slot name="toggler" :open="hasBeenOpen">
-          {{ props.title }}
-        </slot>
-      </div>
-      <Icon :src="`${config.iconPath}/chevron-down.svg`" />
+  <details :class="classes" :name :open @toggle.stop="toggle">
+    <summary>
+      <slot name="toggler" :open="isOpen">
+        {{ title }}
+      </slot>
+      <Icon src="chevron-down.svg" />
     </summary>
-    <div class="collapser__content">
-      <slot :open="hasBeenOpen" />
-    </div>
+    <slot :open="isOpen" />
   </details>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, inject, type Ref } from 'vue';
-import { config } from '/@/config';
+import { ref, computed, watch } from 'vue';
 import Icon from './Icon.vue';
 
 export type CollapserProps = {
   title?: string;
-  open?: boolean; 
+  open?: boolean;
   name?: string;
+  disabled?: boolean;
 };
 
 const props = withDefaults(defineProps<CollapserProps>(), {
   title: '',
   open: false,
-  name: () => Math.random().toString(36).slice(2),
 });
 
 defineSlots<{
-  toggler: (props: { open: boolean }) => void;
+  toggler?: (props: { open: boolean }) => void;
   default: (props: { open: boolean }) => void;
 }>();
 
 const emit = defineEmits<{
-  open: [name: string];
-  close: [name: string];
-  toggle: [name: string];
+  open: [];
+  close: [];
+  toggle: [open: boolean];
 }>();
 
-const accordion = inject<{
-  active: Ref<string | undefined>,
-  activate: (nam?: string) => void,
-} | null>('accordion', null);
+const isOpen = ref(props.open);
+watch(() => props.open, open => { isOpen.value = open; });
 
-const hasBeenOpen = ref(props.open); // Triggered programmatically
-const isOpen = computed(() => props.open || accordion?.active.value === props.name); // Triggered automatically
+const classes = computed(() => ['collapser', {
+  'is-disabled': props.disabled,
+}]);
 
 const toggle = (event: Event) => {
-  const { open } = event.target as HTMLDetailsElement;
-  if (open) {
-    accordion?.activate(props.name);
-    emit('open', props.name);
-  } else {
-    if (accordion?.active.value === props.name) accordion.activate();
-    emit('close', props.name);
-  }
-  hasBeenOpen.value = open;
-  emit('toggle', props.name);
+  isOpen.value = (event.target as HTMLDetailsElement).open;
+  if (isOpen.value) emit('open');
+  else emit('close');
+  emit('toggle', isOpen.value);
 };
 </script>
 
 <style scoped>
 .collapser {
-  --color: var(--collapser-color, transparent);
-  --border: var(--collapser-border, none);
-  --radius: var(--collapser-radius, 0.25rem);
   --spacing: var(--collapser-spacing, 0.75rem);
+  --separator-color: var(--collapser-separator-color, #8882);
+  --timing: var(--collapser-timing, 0.3s);
+  --text-color: var(--collapser-text-color, inherit);
+  --bg-color: var(--collapser-bg-color, transparent);
 
   padding: 0 0 0.1px;
+  color: var(--text-color);
+  background: var(--bg-color);
+  interpolate-size: allow-keywords;
 
-  & + & { border-top: 1px solid #8882; }
+  & + & { border-top: 1px solid var(--separator-color); }
 
-  .icon { --size: 1em; }
+  & > summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing);
+    padding: var(--spacing);
+    cursor: pointer;
 
-  &[disabled="true"] {
-    cursor: not-allowed;
+    &::-webkit-details-marker,
+    &::marker { display: none; }
 
-    summary {
-      pointer-events: none;
-      opacity: 0.5;
+    .icon {
+      --icon-size: 1em;
+
+      margin-left: auto;
+      transition: transform var(--timing) ease;
+    }
+  }
+
+  &::details-content {
+    block-size: 0;
+    overflow: hidden;
+    padding: 0 var(--spacing);
+    padding-bottom: 0;
+    transition:
+      padding-bottom var(--timing) ease,
+      block-size var(--timing) ease,
+      content-visibility var(--timing);
+    transition-behavior: allow-discrete;
+  }
+
+  &[open] {
+    & > summary > .icon { transform: rotate(180deg); }
+
+    &::details-content {
+      block-size: auto;
+      padding-bottom: var(--spacing);
     }
   }
 }
-
-.collapser__toggler {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing);
-  padding: var(--spacing);
-  cursor: pointer;
-
-  &::-webkit-details-marker,
-  &::marker { display: none; }
-}
-
-.collapser__title { flex: 1; }
-
-.collapser__content { margin: 0 var(--spacing) var(--spacing); }
-
-.collapser[open] > .collapser__toggler .icon { transform: rotate(180deg); }
 </style>

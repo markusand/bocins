@@ -1,8 +1,5 @@
 <template>
-  <Button
-    :class="['toggle-button', { active }]"
-    v-bind="props"
-    @click.prevent.stop="toggle">
+  <Button :class="classes" v-bind="props" :aria-pressed="active" @click.stop="toggle">
     <slot />
   </Button>
 </template>
@@ -25,13 +22,16 @@ defineSlots<{
   default: () => void;
 }>();
 
-const active = computed(() => (
-  typeof selected.value === 'boolean'
-    ? selected.value
-    : Array.isArray(selected.value)
-      ? props.value && selected.value.includes(props.value)
-      : selected.value === props.value
-));
+const active = computed(() => typeof selected.value === 'boolean'
+  ? selected.value
+  : Array.isArray(selected.value)
+    ? props.value && selected.value.includes(props.value)
+    : selected.value === props.value,
+);
+
+const classes = computed(() => ['toggle-button', {
+  'toggle-button--active': active.value,
+}]);
 
 const toggle = () => {
   selected.value = typeof selected.value === 'boolean'
@@ -45,3 +45,18 @@ const toggle = () => {
         : props.value;
 };
 </script>
+
+<style scoped>
+.toggle-button {
+  --active-color: var(--toggle-btn-active-color, color-mix(in srgb, var(--color) 75%, #000));
+
+  &.toggle-button--active {
+    --color-state: var(--active-color) !important;
+
+    &.btn--ghost {
+      background: var(--color-state);
+      color: var(--text-color);
+    }
+  }
+}
+</style>

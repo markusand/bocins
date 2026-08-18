@@ -1,133 +1,172 @@
 <template>
-  <div class="dropdown" :class="modifiers" :style="styles" @click.stop>
-    <div class="dropdown__toggler" tabindex="0">
-      <slot name="toggler">
-        <Button
-          v-bind="props.toggler"
-          :even="!props.label"
-          :disabled="props.disabled"
-          block>
-          {{ props.label }}
-          <Icon :src="`${config.iconPath}/chevron-down.svg`" />
-        </Button>
-      </slot>
-    </div>
-    <div v-if="!props.disabled" class="dropdown__content" tabindex="-1">
-      <slot />
-    </div>
+  <div :class="togglerClasses">
+    <slot name="toggler" :open :close>
+      <button
+        :popovertarget="id"
+        :aria-expanded="isOpen"
+        :disabled
+        type="button"
+        tabindex="0">
+        <slot name="label" :open :close>
+          <Icon v-if="icon" :src="icon" />
+          <Icon v-else src="chevron-down.svg" class="chevron" />
+          {{ label }}
+        </slot>
+      </button>
+    </slot>
+  </div>
+  <div
+    v-if="!disabled"
+    :id
+    ref="dropdown"
+    class="dropdown"
+    :style
+    popover
+    v-bind="$attrs"
+    @toggle="onToggle">
+    <slot v-if="!lazy || isOpen" :close />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, useId } from 'vue';
-import { config } from '/@/config';
+import { ref, useId, useTemplateRef, computed } from 'vue';
 import Icon from './Icon.vue';
-import Button, { type ButtonProps } from './Button.vue';
 import { toWidth } from '/@/utils';
 
+export type DropdownPosition =
+  | 'top-left' | 'top-start' | 'top' | 'top-end' | 'top-right'
+  | 'left' | 'left-start' | 'left-end'
+  | 'right' | 'right-start' | 'right-end'
+  | 'bottom-left' | 'bottom-start' | 'bottom' | 'bottom-end' | 'bottom-right';
+
 export type DropdownProps = {
+  icon?: string;
   label?: string;
-  top?: boolean;
-  right?: boolean;
   disabled?: boolean;
   block?: boolean;
   width?: number | string;
-  toggler?: Omit<ButtonProps, 'block' | 'width' | 'disabled'>;
+  lazy?: boolean;
+  arrow?: boolean;
+  position?: DropdownPosition;
 };
 
-const props = defineProps<DropdownProps>();
+const POSITIONS: Record<DropdownPosition, string> = {
+  'top-left': 'block-start inline-start',
+  'top-right': 'block-start inline-end',
+  'bottom-start': 'block-end span-inline-end',
+  'bottom': 'block-end span-all',
+  'bottom-end': 'block-end span-inline-start',
+  'bottom-left': 'block-end inline-start',
+  'bottom-right': 'block-end inline-end',
+  'top-start': 'block-start span-inline-end',
+  'top': 'block-start span-all',
+  'top-end': 'block-start span-inline-start',
+  'right-start': 'inline-end span-block-end',
+  'right': 'inline-end span-all',
+  'right-end': 'inline-end span-block-start',
+  'left-start': 'inline-start span-block-end',
+  'left': 'inline-start span-all',
+  'left-end': 'inline-start span-block-start',
+};
+
+defineOptions({ inheritAttrs: false });
+
+const props = withDefaults(defineProps<DropdownProps>(), {
+  label: '',
+  position: 'bottom',
+});
 
 defineSlots<{
-  default?: () => void;
-  toggler?: () => void;
+  default?: (props: { close: () => void }) => void;
+  toggler?: (props: { open: () => void, close: () => void }) => void;
+  label?: (props: { open: () => void, close: () => void }) => void;
 }>();
 
-const modifiers = computed(() => {
-  const { disabled, top, right, block } = props;
-  return {
-    'dropdown--top': top,
-    'dropdown--right': right,
-    'dropdown--block': block,
-    'dropdown--disabled': disabled,
-    'is-block': block,
-  };
-});
+const emit = defineEmits<{
+  toggle: [open: boolean];
+  open: [];
+  close: [];
+}>();
 
-const styles = computed(() => {
-  const anchorId = useId();
-  return {
-    ...toWidth(props.width),
-    '--anchor-name': `--dropdown-${anchorId}`,
-    '--position-anchor': `--dropdown-${anchorId}`,
-  };
-});
+const id = useId();
+const anchor = `--dropdown-${id}`;
+
+const isOpen = ref(false);
+
+const dropdown = useTemplateRef('dropdown');
+const open = () => dropdown.value?.showPopover();
+const close = () => dropdown.value?.hidePopover();
+
+const togglerClasses = computed(() => ['toggler', {
+  'is-block': props.block,
+  'is-open': isOpen.value,
+}]);
+
+const style = computed(() => ({
+  ...toWidth(props.width),
+  '--position': POSITIONS[props.position],
+  '--gap-x': /left|right/.test(props.position) ? 'var(--gap, 0)' : 0,
+  '--gap-y': /top|bottom/.test(props.position) ? 'var(--gap, 0)' : 0,
+}));
+
+const onToggle = (event: ToggleEvent) => {
+  isOpen.value = event.newState === 'open';
+  if (isOpen.value) emit('open');
+  else emit('close');
+  emit('toggle', isOpen.value);
+};
 </script>
 
 <style scoped>
-
 .dropdown {
-  display: inline-block;
-  position: relative;
-  vertical-align: middle;
-  overflow: visible;
-  box-sizing: border-box;
-  anchor-name: var(--anchor-name);
+  --gap: var(--dropdown-gap, 0.25rem);
+  --timing: var(--dropdown-timing, 0.2s);
+  --anchor: v-bind(anchor);
 
-  .icon { --size: 1em; }
-}
-
-.dropdown__content {
-  display: none;
+  border: none;
+  background: none;
+  padding: 0;
+  inset: auto;
   position: fixed;
-  position-anchor: var(--position-anchor);
-  top: anchor(bottom);
-  left: anchor(left);
+  position-anchor: var(--anchor);
+  position-area: var(--position, bottom);
   position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-  z-index: 2;
-  box-sizing: border-box;
-  margin: 0.125rem 0;
-  width: fit-content;
-}
+  min-inline-size: anchor-size(inline);
+  overflow: visible;
+  container-type: anchored; /* stylelint-disable-line */
 
-.dropdown--top > .dropdown__content {
-  bottom: anchor(top);
-  top: unset;
-}
+  /* Transition */
+  display: none;
+  margin: 0;
+  opacity: 0;
+  transition:
+    all var(--timing) linear,
+    display var(--timing) allow-discrete,
+    overlay var(--timing) allow-discrete;
 
-.dropdown--right > .dropdown__content {
-  left: unset;
-  right: anchor(right);
-}
-
-/* Fallback for browsers without anchor positioning support */
-@supports not (anchor-name: --dropdown-anchor) {
-  .dropdown__content {
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
-
-  .dropdown--top > .dropdown__content {
-    bottom: 100%;
-    top: unset;
-  }
-
-  .dropdown--right > .dropdown__content {
-    left: unset;
-    right: 0;
+  &:popover-open {
+    display: block;
+    opacity: 1;
+    margin: var(--gap-y) var(--gap-x);
+    
+    @starting-style {
+      opacity: 0;
+      margin: 0;
+    }
   }
 }
 
-.dropdown__content:hover,
-.dropdown__content:focus,
-.dropdown__content:focus-within,
-.dropdown__toggler:focus-within + .dropdown__content { display: block; }
+.modal .dropdown { position: fixed; } /* Fix for Firefox */
 
-.dropdown--disabled,
-:disabled .dropdown,
-[class*="--disabled"] .dropdown {
-  cursor: not-allowed;
+.toggler {
+  all: unset;
+  display: inline-block;
+  anchor-name: v-bind(anchor); /* stylelint-disable-line */
 
-  & * { pointer-events: none; }
+  button {
+    all: unset;
+    width: 100%;
+    cursor: pointer;
+  }
 }
 </style>

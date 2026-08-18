@@ -1,9 +1,5 @@
 <template>
-  <fieldset
-    class="btn-group"
-    :class="modifiers"
-    :style="width"
-    :disabled="props.disabled">
+  <fieldset :class="classes" :style="width" :disabled>
     <slot />
   </fieldset>
 </template>
@@ -13,7 +9,7 @@ import { computed } from 'vue';
 import type { ButtonProps } from './Button.vue';
 import { toWidth } from '/@/utils';
 
-export type ButtonGroupProps = Pick<ButtonProps, 'variant' | 'block' | 'width' | 'disabled'>;
+export type ButtonGroupProps = Pick<ButtonProps, 'block' | 'width' | 'disabled'>;
 
 const props = defineProps<ButtonGroupProps>();
 
@@ -21,20 +17,14 @@ defineSlots<{
   default: () => void;
 }>();
 
-const modifiers = computed(() => {
-  const { variant, block } = props;
-  return {
-    [`btn-group--${variant}`]: !!variant,
-    'btn-group--block': block,
-    'is-block': block,
-  };
-});
+const classes = computed(() => ['btn-group', {
+  'is-block': props.block,
+}]);
 
 const width = computed(() => toWidth(props.width));
 </script>
 
 <style scoped>
-
 .btn-group,
 .input-group {
   padding: 0;
@@ -43,31 +33,29 @@ const width = computed(() => toWidth(props.width));
   display: inline-flex;
   vertical-align: middle;
 
-  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
-  &:deep(*) {
+  & > * { z-index: 0; }
+
+  /* Not first */
+  &:deep(> :not(:first-child)) {
+    &, & > .btn, & > .input, & .is-input {
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      margin-left: calc(-1 * var(--border-width));
+    }
+  }
+
+  /* Not last of types */  
+  &:deep(> :has(~ :is(.btn, .input))) {
+    &, & > .btn, & > .input, & .is-input {
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+  }
+
+  &:deep(> :is(.btn)) {
     flex: 1 1 auto !important;
+
     &:focus-within { z-index: 1; }
-  };
-
-  & > :not(:first-child) :not(.dropdown__content *, .popover__content *),
-  & > *:not(:first-child) {
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-    margin-left: calc(-1 * var(--border-width));
   }
-
-  & > :not(:last-child) :not(.dropdown__content *, .popover__content *),
-  & > *:not(:last-child) {
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-  }
-}
-
-.btn-group--block,
-.input-group--block {
-  display: flex;
-
-  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
-  &:deep(> *) { flex: 1; }
 }
 </style>

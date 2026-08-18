@@ -22,7 +22,7 @@ const meta = {
     },
   },
   args: {
-    src: '/@/stories/assets/feather.svg',
+    src: 'feather.svg',
     size: undefined,
   },
 } satisfies Meta<typeof Icon>;

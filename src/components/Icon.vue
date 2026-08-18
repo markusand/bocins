@@ -1,11 +1,13 @@
 <template>
-  <picture :class="['icon', props.size || '']">
-    <img v-svg-inline :src="props.src">
-  </picture> 
+  <span :class="classes">
+    <img v-svg-inline :src>
+  </span>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { vSvgInline } from '/@/utils';
+import { config } from '/@/config';
 
 export type IconProps = {
   src: string;
@@ -13,6 +15,14 @@ export type IconProps = {
 };
 
 const props = defineProps<IconProps>();
+
+const src = computed(() => (
+  /^(https?:)?\//.test(props.src)
+    ? props.src
+    : `${config.iconPath}/${props.src}`
+));
+
+const classes = computed(() => ['icon', props.size && `icon--${props.size}`]);
 </script>
 
 <style scoped>
@@ -34,8 +44,8 @@ const props = defineProps<IconProps>();
     color: var(--color);
   }
 
-  &.small { --size: 1rem; }
-  &.medium { --size: 1.5rem; }
-  &.large { --size: 2rem; }
+  &.icon--small { --size: 1rem; }
+  &.icon--medium { --size: 1.5rem; }
+  &.icon--large { --size: 2rem; }
 }
 </style>

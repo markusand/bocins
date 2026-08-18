@@ -84,3 +84,21 @@ export const MultipleSelections: Story = {
     </div>`,
   }),
 };
+
+export const TriggerEvent: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Trigger an event instead of being binded to a value',
+      },
+    },
+  },
+  render: args => ({
+    components: { Switch },
+    setup: () => {
+      const onSwitch = (active: boolean) => alert(active);
+      return { args, onSwitch };
+    },
+    template: '<Switch @toggle="onSwitch" />',
+  }),
+};

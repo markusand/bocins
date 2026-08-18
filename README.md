@@ -19,9 +19,7 @@ Install the library
 npm i bocins
 ```
 
-Default icons are copied from `/node_modules/bocins/dist/icons` to `/public/icons/`. Replace them to use your own icons. Existing icons won't be replaced.
-
-To load icons from a custom path (e.g., a CDN), configure the icon path **before** importing components:
+By default, Lucide icons are used. To load icons from a custom path (e.g., a CDN), configure the icon path **before** importing components:
 
 ```ts
 // main.ts
@@ -42,7 +40,7 @@ import 'bocins/dist/index.css';
 @import 'bocins/dist/index.css';
 ```
 
-You can customize the theme using CSS custom properties and extending some base styles
+You can customize the theme using CSS custom properties and extending some base styles. See the full list of available custom properties in the [Theming reference](src/stories/Theming.mdx) or in the [Storybook docs](https://bocins.netlify.app/?path=/docs/configuration-theming--docs).
 
 ```css
 :root {
@@ -51,23 +49,23 @@ You can customize the theme using CSS custom properties and extending some base 
 
   color-scheme: light dark;
 
-  --color-bg: light-dark(#f8f8f8, #333);
-  --color-text: light-dark(#333, #efefec);
-  --color-error: #d33;
-  --color-accent: #39f;
-  --btn-color: var(--color-accent);
+  --bg-color: light-dark(#f8f8f8, #333);
+  --text-color: light-dark(#333, #efefec);
+  --error-color: #d33;
+  --accent-color: #39f;
+  --btn-color: var(--accent-color);
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
-.btn[alert] { --color: var(--color-error); }
+.btn[delete] { --color: var(--error-color); }
 
 .switch {
-  --color-on: lightgreen;
-  --color-off: var(--color-error);
+  --on-color: lightgreen;
+  --off-color: var(--error-color);
 }
 ```
 

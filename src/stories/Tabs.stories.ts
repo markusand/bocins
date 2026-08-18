@@ -13,6 +13,13 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    transition: {
+      control: 'select',
+      options: ['tab-slide-x', 'tab-slide-y', 'tab-fade'],
+      description: 'Name of the Vue transition applied to `TabView`. Three built-in transitions are provided: `tab-slide-x` (default, directional horizontal slide), `tab-slide-y` (new tab drops in from above), `tab-fade` (crossfade). Pass any custom transition name and define the corresponding CSS classes yourself.',
+    },
+  },
 } satisfies Meta<typeof Tabs>;
 
 export default meta;
@@ -44,9 +51,9 @@ export const CustomTabs: Story = {
     components: { Tabs, TabView, Icon },
     setup: () => {
       const tabs = {
-        drafts: { icon: '/@/stories/assets/feather.svg' },
-        archive: { icon: '/@/stories/assets/archive.svg', badge: 3 },
-        downloads: { icon: '/@/stories/assets/download.svg' },
+        drafts: { icon: 'feather.svg' },
+        archive: { icon: 'archive.svg', badge: 3 },
+        downloads: { icon: 'download.svg' },
       };
       return { args, tabs };
     },
@@ -59,7 +66,7 @@ export const CustomTabs: Story = {
         </span>
       </template>
       <template #trash="{ label }">
-        <Icon src="/@/stories/assets/trash.svg" style="--color:red" />
+        <Icon src="trash-2.svg" style="--color:red" />
       </template>
       <TabView id="drafts" label="Drafts"><h2>Drafts</h2></TabView>
       <TabView id="archive" label="Archive"><h2>Archive</h2></TabView>

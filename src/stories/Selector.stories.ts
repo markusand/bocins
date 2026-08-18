@@ -19,14 +19,22 @@ const meta = {
     },
   },
   argTypes: {
+    position: {
+      description: 'The position of the dropdown relative to the toggler.',
+      control: { type: 'select' },
+      options: [
+        'top-left', 'top-start', 'top', 'top-end', 'top-right',
+        'left', 'left-start', 'left-end',
+        'right', 'right-start', 'right-end',
+        'bottom-left', 'bottom-start', 'bottom', 'bottom-end', 'bottom-right',
+      ],
+    },
     keyAttr: { description: 'Key to use to identify each item.' },
     clearable: { description: 'Enable the clear button.' },
     block: { description: 'Display as a block input.' },
     disabled: { description: 'Disable the input.' },
     invalid: { description: 'Set state to invalid.' },
     placeholder: { description: 'The text to display when the input is empty.' },
-    top: { description: 'Display the dropdown menu above the input.' },
-    right: { description: 'Display the dropdown menu anchored to the right of the input.' },
     searchText: { description: 'Text to display on the search input.' },
     emptyText: { description: 'Text to display when the search results are empty.' },
     options: { description: 'List of options to display.' },
@@ -47,11 +55,10 @@ const meta = {
   },
   // @ts-expect-error keyAttr is not infered from generic
   args: {
+    position: undefined,
     keyAttr: 'name',
     placeholder: 'Select...',
     clearable: true,
-    top: false,
-    right: false,
     width: undefined,
     block: false,
     formatter: formatters[1],

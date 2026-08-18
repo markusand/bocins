@@ -1,152 +1,108 @@
 <template>
-  <div class="popover" :tabindex="props.click ? -1 : undefined" :style="anchorStyles">
-    <div
-      :class="['popover__content', `popover__content--${props.position || 'top'}`]"
-      :style="width">
-      <slot />
-    </div>
-    <slot name="anchor" />
-  </div>
+  <Dropdown v-bind="props" :position :style>
+    <template #label="{ open, close }">
+      <div
+        class="anchor"
+        @mouseenter="hoverable ? open() : undefined"
+        @mouseleave="hoverable ? close() : undefined">
+        <slot name="anchor" :open :close />
+      </div>
+    </template>
+    <template #default="{ close }">
+      <div class="popover">
+        <slot :close />
+      </div>
+    </template>
+  </Dropdown>
 </template>
 
 <script setup lang="ts">
-import { computed, useId } from 'vue';
-import { toWidth } from '../utils';
+import { computed } from 'vue';
+import Dropdown, { type DropdownProps } from './Dropdown.vue';
 
 export type PopoverProps = {
-  position?: 'bottom' | 'top' | 'left' | 'right';
-  click?: boolean;
-  width?: string | number;
-};
+  hoverable?: boolean;
+} & Omit<DropdownProps, 'icon' | 'label'>;
 
-const props = defineProps<PopoverProps>();
+const props = withDefaults(defineProps<PopoverProps>(), {
+  position: 'top',
+});
 
 defineSlots<{
-  default: () => void;
-  anchor: () => void
+  default: (props: { close: () => void }) => void;
+  anchor: (props: { open: () => void, close: () => void }) => void;
 }>();
 
-const width = computed(() => toWidth(props.width ?? 'auto'));
-
-const anchorStyles = computed(() => {
-  const anchorId = useId();
-  return {
-    '--anchor-name': `--popover-${anchorId}`,
-    '--position-anchor': `--popover-${anchorId}`,
-  };
-});
+const style = computed(() => ({
+  '--gap': 'var(--popover-gap, 0.25rem)',
+  '--direction': props.position.replace(/-.*/, ''),
+}));
 </script>
 
 <style scoped>
 .popover {
-  position: relative;
-  display: inline-block;
-  anchor-name: var(--anchor-name);
-}
+  --bg-color: var(--popover-bg-color, #fff);
+  --text-color: var(--popover-text-color, inherit);
+  --spacing: var(--popover-spacing, 0);
+  --border: var(--popover-border, 1px solid #8888);
+  --radius: var(--popover-radius, 0.25rem);
 
-.popover__content {
-  position: fixed;
-  position-anchor: var(--position-anchor);
-  background: var(--color-bg, #fff);
-  color: var(--color-text, currentcolor);
-  padding: var(--spacing, 0);
-  border-radius: 0.25rem;
-  box-shadow: var(--shadow, 0 0 1rem 0.25rem #8882);
-  display: none;
-  z-index: 2;
-  position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-
-  &:hover { display: block; }
+  background: var(--bg-color);
+  color: var(--text-color);
+  border: var(--border);
+  box-sizing: border-box;
+  border-radius: var(--radius);
+  padding: var(--spacing);
+  margin: var(--gap, 0);
 
   &::before {
-    content: "";
-    position: absolute;
-    border: 0.5rem solid transparent;
-    transform: translateX(-50%);
-  }
-}
+    content: '';
+    width: calc(2 * var(--gap));
+    aspect-ratio: 1;
+    background: var(--bg-color);
+    border: var(--border);
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    inset: auto;
+    position: fixed;
+    position-anchor: var(--anchor);
+    position-area: var(--direction, bottom);
+    margin: var(--gap, 0);
+    
+    @container style(--direction: left) {
+      rotate: -45deg;
+      
+      @container anchored(fallback: flip-inline) {
+        position-area: right;
+        rotate: 134deg;
+      }
+    }
 
-:focus > .popover__content,
-:not([tabindex]):hover > .popover__content { display: block; }
+    @container style(--direction: right) {
+      rotate: 135deg;
 
-.popover__content--bottom {
-  top: anchor(bottom);
-  left: anchor(center);
-  margin: 0.5rem 0 0;
-  transform: translateX(-50%);
+      @container anchored(fallback: flip-inline) {
+        position-area: left;
+        rotate: -45deg;
+      }
+    }
 
-  &::before {
-    border-bottom-color: var(--color-bg, #fff);
-    bottom: 100%;
-    left: 50%;
-  }
-}
+    @container style(--direction: top) {
+      rotate: 45deg;
+    
+      @container anchored(fallback: flip-block) {
+        position-area: bottom;
+        rotate: 225deg;
+      }
+    }
 
-.popover__content--top {
-  bottom: anchor(top);
-  left: anchor(center);
-  margin: 0 0 0.5rem;
-  transform: translateX(-50%);
+    @container style(--direction: bottom) {
+      rotate: 225deg;
 
-  &::before {
-    border-top-color: var(--color-bg, #fff);
-    top: 100%;
-    left: 50%;
-  }
-}
-
-.popover__content--left {
-  right: anchor(left);
-  top: anchor(center);
-  margin: 0 0.5rem 0 0;
-  transform: translateY(-50%);
-
-  &::before {
-    border-left-color: var(--color-bg, #fff);
-    top: 50%;
-    left: 100%;
-    transform: translate(0, -50%);
-  }
-}
-
-.popover__content--right {
-  left: anchor(right);
-  top: anchor(center);
-  margin: 0 0 0 0.5rem;
-  transform: translateY(-50%);
-
-  &::before {
-    border-right-color: var(--color-bg, #fff);
-    top: 50%;
-    right: 100%;
-    transform: translate(0, -50%);
-  }
-}
-
-/* Fallback for browsers without anchor positioning support */
-@supports not (anchor-name: --popover-anchor) {
-  .popover__content {
-    position: absolute;
-  }
-
-  .popover__content--bottom {
-    top: 100%;
-    left: 50%;
-  }
-
-  .popover__content--top {
-    bottom: 100%;
-    left: 50%;
-  }
-
-  .popover__content--left {
-    right: 100%;
-    top: 50%;
-  }
-
-  .popover__content--right {
-    left: 100%;
-    top: 50%;
+      @container anchored(fallback: flip-block) {
+        position-area: top;
+        rotate: 45deg;
+      }
+    }
   }
 }
 </style>

@@ -1,14 +1,14 @@
 :root {
-  --color-bg: #fff;
-  --color-text: #333;
-  --color-accent: #333;
-  --color-disabled: #89a8;
-  --color-error: #d43;
-  --color-border: #89a5;
+  --bg-color: #fff;
+  --text-color: #333;
+  --accent-color: #333;
+  --disabled-color: #89a8;
+  --error-color: crimson;
+  --border-color: #89a5;
   --border-width: 1px;
   --radius: 0.25rem;
   --shadow: 0 0 1rem 0.25rem #89a3;
-
+  
   font: 15px/1.2 system-ui, sans-serif; 
 }
 
@@ -16,7 +16,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  background: red;
+  background: crimson;
   color: white;
   padding: 0.125rem 0.35rem;
   border-radius: 50%;
@@ -25,4 +25,59 @@
   transform: translate(50%, 0);
 }
 
-.btn[delete] { --color: red; }
+.btn[delete] { --color: crimson; }
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+
+  &.right { justify-content: end; }
+}
+
+.form {
+  display: grid;
+  gap: 0.75rem;
+
+  .label {
+    display: grid;
+    color: #888;
+    gap: 0.25rem;
+  }
+}
+
+.panel {
+  padding: 0.25rem;
+  background: #fff;
+  border: 1px solid #8884;
+  border-radius: 0.25rem;
+  width: 9rem;
+  
+  button { justify-content: left !important; }
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+h3 {
+  margin: 0 0 0.5rem;
+}
+
+#tab1, #tab2, #tab3, #tab4 {
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.action-menu-item {
+  display:flex;
+  justify-content:space-between;
+  padding:0.5rem 0.75rem;
+  border-radius: var(--radius);
+
+  &:focus-within {
+    background: #8881;
+  }
+}

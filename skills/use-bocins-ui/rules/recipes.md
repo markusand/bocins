@@ -12,10 +12,10 @@ These are non-exhaustive examples of how to compose Bocins. Do not force these s
     <Button @click="open">Delete</Button>
   </template>
   <template #default="{ close }">
-    <p><Icon src="/icons/alert.svg" /> Are you sure?</p>
+    <p><Icon src="alert.svg" /> Are you sure?</p>
     <footer>
-      <Button alert @click="deleteItem();close()">Delete</Button>
-      <Button variant="ghost" @click="close">Cancel</Button>
+      <Button delete @click="deleteItem();close()">Delete</Button>
+      <Button ghost @click="close">Cancel</Button>
     </footer>
   </template>
 </Modal>
@@ -30,7 +30,7 @@ These are non-exhaustive examples of how to compose Bocins. Do not force these s
     <td><Avatar :src="user.avatar" /></td>
     <td>{{ user.name }}</td>
     <td><Chip>{{ user.status }}</Chip></td>
-    <td><ContextualMenu :item="user" :items="actions" /></td>
+    <td><ActionMenu :item="user" :items="actions" /></td>
   </tr>
 </table>
 <Pagination v-model="page" :total="totalPages" />
@@ -60,7 +60,7 @@ These are non-exhaustive examples of how to compose Bocins. Do not force these s
 <FileDrop @change="onDrop">
   <div v-for="file in previews" class="preview">
     <img :src="file.url" />
-    <Button @click="remove(file)"><Icon src="/icons/x.svg" /></Button>
+    <Button @click="remove(file)"><Icon src="x.svg" /></Button>
   </div>
 </FileDrop>
 ```
@@ -80,6 +80,59 @@ These are non-exhaustive examples of how to compose Bocins. Do not force these s
   </article>
 </div>
 <Pagination v-model="page" :total="totalPages" />
+```
+
+## Accordion (Collapser)
+
+Group with `name` so only one item is open at a time:
+
+```html
+<Collapser name="faq" title="What is this?">
+  <p>Answer one.</p>
+</Collapser>
+<Collapser name="faq" title="How does it work?">
+  <p>Answer two.</p>
+</Collapser>
+```
+
+## Popover / Tooltip
+
+```html
+<!-- Hover tooltip -->
+<Popover position="top">
+  <template #anchor><Icon src="info.svg" tabindex="0" /></template>
+  More information about this field.
+</Popover>
+
+<!-- Click-activated detail card -->
+<Popover click position="bottom" width="18rem">
+  <template #anchor>
+    <Avatar :src="user.avatar" tabindex="0" />
+  </template>
+  <div style="padding: 0.75rem">
+    <strong>{{ user.name }}</strong>
+    <p>{{ user.role }}</p>
+  </div>
+</Popover>
+```
+
+## TreeList Navigation
+
+```html
+<TreeList :schema="menu" name-node="label" children-node="children" :open="true">
+  <template #default="{ item, path }">
+    <RouterLink :to="item.href">{{ item.label }}</RouterLink>
+  </template>
+</TreeList>
+```
+
+## Keyboard Shortcut Hint
+
+```html
+<div style="display: flex; justify-content: space-between">
+  <span>Save</span>
+  <HotKey keys="ctrl+s" @press="save" />
+</div>
 ```
 
 ## Troubleshooting

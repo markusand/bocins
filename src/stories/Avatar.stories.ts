@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { Avatar } from '/@/components';
+import { Avatar, Icon } from '/@/components';
 import './assets/styles.css';
 
 const meta = {
@@ -65,4 +65,26 @@ export const NumberBadge: Story = {
       },
     },
   },
+};
+
+export const CustomBadge: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Display a custom badge on the avatar.',
+      },
+    },
+  },
+  args: {
+    style: '--icon-color:#66b132;',
+  },
+  render: args => ({
+    components: { Avatar, Icon },
+    setup: () => ({ args }),
+    template: `<Avatar v-bind="args">
+      <template #badge>
+        <Icon src="badge-check.svg" />
+      </template>
+    </Avatar>`,
+  }),
 };

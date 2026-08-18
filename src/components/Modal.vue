@@ -1,78 +1,78 @@
 <template>
-  <Teleport :to="props.to ?? 'body'">
+  <Teleport :to>
     <dialog
       ref="modal"
       class="modal is-panel"
-      v-bind="props"
+      v-bind="$attrs"
       :style="size"
       @cancel="handleEscape"
       @close="close">
-      <slot name="close" :close="close">
+      <slot name="close" :close>
         <button
-          v-if="props.closeable"
+          v-if="closeable"
           type="button"
           class="modal__close"
+          aria-label="Close"
           @click.stop="close">
           &times;
         </button>
       </slot>
-      <section v-if="!!isOpen" class="modal__content">
-        <slot :close="close" />
-      </section>
+      <slot :close :open="isOpen" />
     </dialog>
   </Teleport>
   <slot name="toggler" :open :close :toggle />
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { toWidth, toHeight } from '/@/utils';
 
 type Action = () => void;
 
 export type ModalProps = {
   to?: string;
-  open?: boolean;
   closeable?: boolean;
   width?: number | string;
   height?: number | string;
   plain?: boolean;
 };
 
-const props = defineProps<ModalProps>();
+const props = withDefaults(defineProps<ModalProps>(), {
+  to: 'body',
+  height: 'content-fit',
+});
 
 const emit = defineEmits<{
-  'update:open': [isOpen: boolean];
   open: [];
   close: [];
 }>();
 
 defineSlots<{
-  default?: (props: { close: Action }) => void;
+  default?: (props: { close: Action; open: boolean }) => void;
   close?: (props: { close: Action }) => void;
   toggler?: (props: { open: Action; close: Action; toggle: Action }) => void;
 }>();
 
 const modal = ref<HTMLDialogElement>();
-const isOpen = ref(props.open ?? false);
+const isOpen = defineModel<boolean>('open', { default: false });
 
 const size = computed(() => ({
-  ...toWidth(props.width ?? 20),
-  ...toHeight(props.height ?? 'content-fit'),
+  ...toWidth(props.width),
+  ...toHeight(props.height),
 }));
 
-watch(() => props.open, open => { isOpen.value = open; });
 watch(isOpen, open => {
   if (open) {
-    if (props.plain) modal.value?.show();
-    else modal.value?.showModal();
+    if (!modal.value?.open) {
+      if (props.plain) modal.value?.show();
+      else modal.value?.showModal();
+    }
     emit('open');
   } else {
     modal.value?.close();
     emit('close');
   }
-  emit('update:open', open);
-});
+}, { immediate: true, flush: 'post' });
 
 const open = () => { isOpen.value = true; };
 const close = () => { isOpen.value = false; };
@@ -84,44 +84,79 @@ const handleEscape = (event: Event) => {
     event.stopPropagation();
   }
 };
-
-onMounted(() => props.open && open());
 </script>
 
 <style scoped>
 .modal {
+  --border: var(--modal-border, 1px solid #8884);
+  --padding: var(--modal-padding, 0.75rem);
+  --radius: var(--modal-radius, 0.25rem);
+  --max-width: var(--modal-max-width, calc(100dvw - 2rem));
+  --max-height: var(--modal-max-height, calc(100dvh - 2rem));
+  --backdrop-color: var(--modal-backdrop-color, #0006);
+  --backdrop-filter: var(--modal-backdrop-filter, none);
+  --translate: var(--modal-in-translate, 0 2rem);
+  --timing: var(--modal-timing, 0.3s);
+
   position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  margin: auto;
   z-index: 5;
-  margin: 0;
-  padding: 0;
   color: inherit;
-  border: none;
-  max-width: 90%;
-  max-height: 80%;
-  overflow: visible;
-
-  &::backdrop { background: var(--color-fade, #0006); }
-}
-
-.modal__close {
-  all: unset;
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0.125rem;
-  margin: 0.25rem 0.5rem;
-  font-size: 1.25rem;
-  cursor: pointer;
-  opacity: 0.5;
-
-  &:hover { opacity: 1; }
-}
-
-.modal__content {
-  height: 100%;
   box-sizing: border-box;
+  border: var(--border);
+  border-radius: var(--radius);
+  max-width: var(--max-width);
+  max-height: var(--max-height);
+  outline: none;
+  opacity: 0;
+  padding: var(--padding);
+  translate: var(--translate);
+  interpolate-size: allow-keywords;
+  transition:
+    all var(--timing) ease,
+    display var(--timing) allow-discrete,
+    overlay var(--timing) allow-discrete;
+
+  &::backdrop {
+    opacity: 0;
+    background: var(--backdrop-color);
+    backdrop-filter: var(--backdrop-filter);
+    transition:
+      all var(--timing),
+      display var(--timing) allow-discrete,
+      overlay var(--timing) allow-discrete;
+  }
+
+  &[open] {
+    opacity: 1;
+    translate: none;
+
+    &::backdrop { opacity: 1; }
+  }
+
+  @starting-style {
+    &[open] {
+      opacity: 0;
+      translate: var(--translate);
+
+      &::backdrop { opacity: 0; }
+    }
+  }
+
+  .modal__close {
+    all: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: fit-content;
+    padding: 0.125rem;
+    margin: 0.25rem 0.5rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+    opacity: 0.5;
+
+    &:hover { opacity: 1; }
+  }
 }
 </style>

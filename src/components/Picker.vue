@@ -1,21 +1,28 @@
 <template>
-  <fieldset class="picker" :disabled="props.disabled">
+  <fieldset
+    class="picker"
+    tabindex="-1"
+    :disabled
+    @keydown="onKeydown"
+    @focusin="onFocusin">
     <Toggler
-      v-for="option, i in props.options"
-      :key="props.keyAttr ? option[props.keyAttr] as string : i"
+      v-for="option, i in options"
+      :key="keyAttr ? option[keyAttr] as string : i"
       v-model="selected"
       :value="option"
-      :invalid="props.invalid"
-      :radio="!Array.isArray(selected)">
+      :group="!Array.isArray(selected) ? groupName : undefined"
+      :invalid>
       <slot :option>
-        {{ props.formatter?.(option) || option }}
+        {{ formatter?.(option) || option }}
       </slot>
     </Toggler>
   </fieldset>
 </template>
 
 <script setup lang="ts" generic="T">
+import { useId } from 'vue';
 import Toggler from './Toggler.vue';
+import { useRovingTabindex } from '/@/utils';
 import type { KeyOfAttribute, MaybeReadonly } from '/@/types';
 
 export type PickerProps<T> = {
@@ -29,13 +36,16 @@ export type PickerProps<T> = {
   disabled?: boolean;
 };
 
-const props = defineProps<PickerProps<T>>();
+defineProps<PickerProps<T>>();
 
 defineSlots<{
   default?: (props: { option: T }) => void;
 }>();
 
 const selected = defineModel<T | T[] | undefined>({ required: true });
+const groupName = useId();
+
+const { onFocusin, onKeydown } = useRovingTabindex({ selector: 'input', wrap: true });
 </script>
 
 <style scoped>

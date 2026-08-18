@@ -1,103 +1,66 @@
 <template>
-  <div
-    class="input is-input"
-    :class="modifiers"
-    :style="width"
-    @click.prevent="onClick">
-    <slot name="prefix">{{ props.prefix }}</slot>
+  <div :class="classes" :style>
+    <slot name="prefix">{{ prefix }}</slot>
     <input
       v-model="value"
-      :placeholder="props.placeholder"
-      :type="props.type ?? 'text'"
-      :autocomplete="props.autocomplete"
-      :disabled="props.disabled"
-      @input="emit('input', $event)"
-      @change="emit('change', $event)"
-      @focus="emit('focus', $event)"
-      @blur="emit('blur', $event)"
-      @keydown="emit('keydown', $event)"
-      @keyup="emit('keyup', $event)"
-      @paste="emit('paste', $event)"
-      @copy="emit('copy', $event)">
-    <Icon
-      v-if="props.clearable && value"
-      :src="`${config.iconPath}/close.svg`"
-      @click.prevent="clear" />
-    <slot name="suffix">{{ props.suffix }}</slot>
+      v-bind="inputAttrs"
+      :disabled
+      :placeholder
+      :aria-invalid="invalid || undefined">
+    <Icon v-if="clearable && value" src="x.svg" @click.stop="clear" />
+    <slot name="suffix">{{ suffix }}</slot>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, useAttrs, type CSSProperties } from 'vue';
 import { toWidth } from '/@/utils';
-import { config } from '/@/config';
 import Icon from './Icon.vue';
 
-export type InputType =
-  | 'text'
-  | 'color'
-  | 'password'
-  | 'datetime-local'
-  | 'email'
-  | 'month'
-  | 'number'
-  | 'search'
-  | 'tel'
-  | 'time'
-  | 'url'
-  | 'week';
-
 export type InputProps = {
-  type?: InputType;
   width?: number | string;
   placeholder?: string;
   clearable?: boolean;
   prefix?: string;
   suffix?: string;
-  autocomplete?: string;
   disabled?: boolean;
   invalid?: boolean;
   block?: boolean;
 };
 
-const props = defineProps<InputProps>();
+defineOptions({ inheritAttrs: false });
+const props = withDefaults(defineProps<InputProps>(), {
+  width: 10,
+});
 
 defineSlots<{
-  prefix: () => void;
-  suffix: () => void;
+  prefix?: () => void;
+  suffix?: () => void;
 }>();
 
-const emit = defineEmits<{
-  change: [event: Event];
-  input: [event: Event];
-  focus: [event: FocusEvent];
-  blur: [event: FocusEvent];
-  keydown: [event: KeyboardEvent];
-  keyup: [event: KeyboardEvent];
-  paste: [event: ClipboardEvent];
-  copy: [envent: ClipboardEvent];
-}>();
+// defineEmits not needed as already binded by inputAttrs
 
 const value = defineModel<string | number | undefined>({ required: true });
 
 const clear = () => { value.value = ''; };
 
-const modifiers = computed(() => {
-  const { disabled, invalid, block } = props;
-  return {
-    'input--disabled': disabled,
-    'input--invalid': invalid,
-    'input--block': block,
-    'is-block': block,
-  };
+const allAttrs = useAttrs();
+const inputAttrs = computed(() => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { class: _, style: __, ...rest } = allAttrs;
+  return rest;
 });
 
-const width = computed(() => toWidth(props.width ?? 10));
+const classes = computed(() => ['input', 'is-input', allAttrs.class, {
+  'is-disabled': props.disabled,
+  'is-invalid': props.invalid,
+  'is-block': props.block,
+}]);
 
-const onClick = (event: Event) => {
-  const target = event.currentTarget as HTMLDivElement;
-  target.querySelector('input')?.focus();
-};
+const style = computed((): CSSProperties | null => ({
+  ...(allAttrs.style as CSSProperties),
+  ...toWidth(props.width),
+}));
 </script>
 
 <style scoped>
@@ -126,7 +89,6 @@ const onClick = (event: Event) => {
     }
   }
 
-  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
   &:deep(.icon) { --size: 1em }
 }
 </style>

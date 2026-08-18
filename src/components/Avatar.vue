@@ -1,13 +1,17 @@
 <template>
-  <picture class="avatar">
-    <img v-if="src" :src :alt="props.name">
-    <div v-else class="avatar__initials">{{ initials }}</div>
-    <div v-if="props.badge || props.badge === 0 || slots.badge" class="avatar__badge">
+  <div class="avatar">
+    <img v-if="src" :src :alt="name">
+    <div v-else class="avatar__initials" role="img" :aria-label="name">
+      {{ initials }}
+    </div>
+    <div v-if="hasBadge" class="avatar__badge" role="status">
       <slot name="badge">
-        {{ typeof props.badge === 'boolean' ? '' : props.badge }}
+        <div class="badge">
+          {{ typeof badge === 'boolean' ? '' : badge }}
+        </div>
       </slot>
     </div>
-  </picture>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -26,6 +30,10 @@ const slots = defineSlots<{
 }>();
 
 const initials = computed(() => props.name.split(' ').slice(0, 2).map(str => str.charAt(0)).join(''));
+const hasBadge = computed(() => {
+  const { badge } = props;
+  return (badge !== undefined && badge !== false) || !!slots.badge;
+});
 </script>
 
 <style scoped>
@@ -33,7 +41,9 @@ const initials = computed(() => props.name.split(' ').slice(0, 2).map(str => str
   --size: var(--avatar-size, 2rem);
   --radius: var(--avatar-radius, 15%);
   --color: var(--avatar-color, #8883);
-  --color-text: var(--avatar-color-text, #888);
+  --text-color: var(--avatar-text-color, #888);
+  --badge-color: var(--avatar-badge-color, #66b132);
+  --badge-outline: var(--avatar-badge-outline, 2px solid #fff);
 
   display: inline-block;
   height: var(--size);
@@ -56,29 +66,34 @@ const initials = computed(() => props.name.split(' ').slice(0, 2).map(str => str
     place-content: center;
     aspect-ratio: 1;
     background: var(--color);
-    color: var(--color-text);
+    color: var(--text-color);
     border-radius: var(--radius);
-    font-size: calc(0.45 * var(--size));
+    font-size: calc(0.4 * var(--size));
     text-transform: uppercase;
     font-family: sans-serif;
   }
 
   .avatar__badge {
-    display: inline-block;
+    display: block;
     position: absolute;
     top: 0;
     right: 0;
-    padding: 0.25rem 0.35rem;
-    background: var(--color-badge, #66b132);
     transform: translate(50%, -50%);
-    border-radius: 1rem;
-    font-size: 0.5rem;
-    color: #fff;
-    border: 1px solid var(--color-bg, #fff);
-    line-height: 1;
-    font-family: monospace;
 
-    &:empty { padding: 0.25rem; }
+    .badge {
+      all: unset;
+      display: block;
+      padding: 0.25rem 0.35rem;
+      background: var(--badge-color);
+      border-radius: 1rem;
+      font-size: 0.5rem;
+      color: #fff;
+      outline: var(--badge-outline);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+
+      &:empty { padding: 0.25rem; }
+    }
   }
 }
 </style>

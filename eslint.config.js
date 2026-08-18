@@ -25,6 +25,7 @@ export default [
       },
     },
     rules: {
+      semi: ['error', 'always'],
       'max-len': ['error', {
         code: 100,
         ignoreTrailingComments: true,
@@ -49,6 +50,7 @@ export default [
       }],
       'vue/singleline-html-element-content-newline': 'off',
       'vue/no-dupe-keys': 'off',
+      'vue/require-default-prop': 'off',
     },
   },
   {

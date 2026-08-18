@@ -3,18 +3,18 @@
     v-model="value"
     v-bind="props"
     :type
-    :autocomplete="props.autocomplete ? 'current-password' : 'new-password'"
-    :class="['password', strength.level]">
+    :autocomplete="autocomplete ? 'current-password' : 'new-password'"
+    :class="classes">
     <template #suffix>
-      <Icon v-if="revealed" :src="`${config.iconPath}/eye.svg`" @click.prevent="toggle" />
-      <Icon v-else :src="`${config.iconPath}/eye-off.svg`" @click.prevent="toggle" />
+      <button type="button" aria-label="Toggle visibility" @click.stop="toggle">
+        <Icon :src="revealed ? 'eye.svg' : 'eye-off.svg'" />
+      </button>
     </template>
   </Input>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { config } from '/@/config';
 import Input, { type InputProps } from './Input.vue';
 import Icon from './Icon.vue';
 
@@ -47,31 +47,38 @@ const strength = computed(() => {
   return { points, level };
 });
 
+const classes = computed(() => ['password', `password--${strength.value.level}`]);
 </script>
 
 <style scoped>
 .password {
+  --strong-color: var(--password-strong-color, #5aa45d);
+  --moderate-color: var(--password-moderate-color, #e2a140);
+  --low-color: var(--password-low-color, #ce4d44);
+
   position: relative;
 
-  .icon {
-    --size: 1em;
-
+  button {
+    all: unset;
+    display: flex;
     cursor: pointer;
   }
+
+  .icon { --icon-size: 1em; }
 
   &::after {
     content: '';
     position: absolute;
-    bottom: 0.25rem;
-    left: 0.25rem;
-    width: calc(v-bind('strength.points') * 1% - 0.5rem);
-    height: 0.125rem;
-    transition: all 0.3s ease-in-out;
-    border-radius: 0.125rem;
+    bottom: 0.25em;
+    left: 0.25em;
+    width: calc(v-bind('strength.points') * 1% - 0.5em);
+    height: 0.125em;
+    transition: all 0.3s ease;
+    border-radius: 0.125em;
   }
 
-  &.strong::after { background: #5aa45d; }
-  &.moderate::after { background: #e2a140; }
-  &.low::after { background: #ce4d44; }
+  &.password--strong::after { background: var(--strong-color); }
+  &.password--moderate::after { background: var(--moderate-color); }
+  &.password--low::after { background: var(--low-color); }
 }
 </style>

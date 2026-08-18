@@ -20,6 +20,18 @@ Always use v-model. Direct :value and @input bindings are strictly forbidden for
 <Input :value="text" @input="..." />
 ```
 
+## Transfer (dual-list multi-select)
+
+Use when users need to move items between two lists. `v-model` binds the selected (right-hand) items:
+
+```html
+<Transfer v-model="assigned" :options="allUsers" key-attr="id" :limit="10">
+  <template #default="{ option: user }">
+    <Avatar :src="user.avatar" /> {{ user.name }}
+  </template>
+</Transfer>
+```
+
 ## Validation Pattern
 
 Use a library or composable to handle validation and bind it to `invalid` prop.

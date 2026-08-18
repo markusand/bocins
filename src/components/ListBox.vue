@@ -1,23 +1,23 @@
 <template>
-  <div class="listbox is-panel" :class="modifiers">
+  <div :class="classes" role="listbox">
     <header v-if="props.search">
       <Search
         v-model="searchBy"
-        :placeholder="props.searchText"
+        :placeholder="searchText"
         clearable
         block />
     </header>
     <Picker
       v-if="options.length"
       v-model="selected"
-      :key-attr="props.keyAttr"
+      :key-attr="keyAttr"
       :options
-      :disabled="props.disabled">
+      :disabled>
       <template #default="{ option }">
-        <div class="listbox__option">
+        <div class="listbox__option" role="option">
           <slot :option>
             <div class="listbox__label">
-              {{ props.formatter?.(option) || option }}
+              {{ formatter?.(option) || option }}
             </div>
           </slot>
         </div>
@@ -25,7 +25,7 @@
     </Picker>
     <slot v-else name="empty">
       <div class="listbox__empty">
-        {{ props.emptyText || 'No options available' }}
+        {{ emptyText }}
       </div>
     </slot>
   </div>
@@ -43,10 +43,13 @@ export type ListBoxProps<T> = {
   emptyText?: string;
 } & Omit<PickerProps<T>, 'columns'>;
 
-const props = defineProps<ListBoxProps<T>>();
+const props = withDefaults(defineProps<ListBoxProps<T>>(), {
+  searchText: 'Search',
+  emptyText: 'No options available',
+});
 
 defineSlots<{
-  default: (props: { option: T }) => void;
+  default?: (props: { option: T }) => void;
   empty?: () => void;
 }>();
 
@@ -55,45 +58,46 @@ const selected = defineModel<T | T[] | undefined>({ required: true });
 const { searchBy, search } = useSearcher<T>(toRef(() => props.search));
 const options = search(toRef(() => props.options));
 
-const modifiers = computed(() => {
-  const { disabled, invalid } = props;
-  return {
-    'listbox--disabled': disabled,
-    'listbox--invalid': invalid,
-    'is-disabled': disabled,
-    'is-invalid': invalid,
-  };
-});
+const classes = computed(() => ['listbox', 'is-panel', {
+  'is-disabled': props.disabled,
+  'is-invalid': props.invalid,
+}]);
 </script>
 
 <style scoped>
 .listbox {
-  --color: var(--color-accent, #333);
+  --color: var(--listbox-color, var(--accent-color, #333));
+  --max-height: var(--listbox-max-height, 10rem);
+  --border-color: var(--listbox-border-color, #8886);
 
   display: flex;
   flex-direction: column;
-
+  
   .picker {
-    --spacing: 1px;
+    --spacing: var(--listbox-spacing, 1px);
 
     flex: 1;
     flex-flow: column nowrap;
-    padding: 0.25rem;
-    border-radius: 0.25rem;
+    padding: 0.25em;
     overflow: auto;
-    max-height: 10rem; 
+    max-height: var(--max-height);
+    contain: layout;
 
-    /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
-    &:deep(input) { display: none; }
+    &:deep(input) {
+      opacity: 0;
+      position: absolute;
+      pointer-events: none;
+    }
   }
 
   .search {
+    border-inline-width: 0;
+    border-top-width: 0;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 
-    &:focus-within { --color-border: var(--color-border); }
+    &:focus-within { --border-color: inherit; }
   }
-
 }
 
 .listbox__option {
@@ -103,13 +107,12 @@ const modifiers = computed(() => {
   &:hover { background: color-mix(in srgb, var(--color) 10%, transparent); }
 }
 
-:checked + .listbox__option {
-  background: var(--color);
-  color: var(--color-text-accent, #fff);
+:focus-visible + .listbox__option {
+  background: color-mix(in srgb, var(--color) 10%, transparent);
 }
 
-.listbox--invalid :checked + .listbox__option {
-  background: var(--color-error, red);
+:checked + .listbox__option {
+  background: var(--color);
   color: #fff;
 }
 
@@ -120,9 +123,5 @@ const modifiers = computed(() => {
   text-align:center;
   opacity: 0.25;
   margin: auto;
-}
-
-.listbox--disabled :checked + .listbox__option {
-  background: color-mix(in srgb, var(--color) 25%, transparent);
 }
 </style>

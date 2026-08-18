@@ -6,25 +6,25 @@
       </template>
     </ListBox>
     <div class="transfer__controls">
-      <Button :disabled="!isAddable(pool)" even @click.prevent="addItems()">
-        <Icon :src="`${config.iconPath}/chevrons-right.svg`" />
+      <Button :disabled="!isAddable(pool)" even @click.stop="addItems()">
+        <Icon src="chevrons-right.svg" />
       </Button>
-      <Button :disabled="!isAddable(toAdd)" even @click.prevent="addItems(toAdd)">
-        <Icon :src="`${config.iconPath}/chevron-right.svg`" />
+      <Button :disabled="!isAddable(toAdd)" even @click.stop="addItems(toAdd)">
+        <Icon src="chevron-right.svg" />
       </Button>
       <Button
         class="transfer__remove"
         :disabled="!isRemoveable(toRemove)"
         even
-        @click.prevent="removeItems(toRemove)">
-        <Icon :src="`${config.iconPath}/chevron-right.svg`" />
+        @click.stop="removeItems(toRemove)">
+        <Icon src="chevron-right.svg" />
       </Button>
       <Button
         class="transfer__remove"
         :disabled="!isRemoveable(selected)"
         even
-        @click.prevent="removeItems()">
-        <Icon :src="`${config.iconPath}/chevrons-right.svg`" />
+        @click.stop="removeItems()">
+        <Icon src="chevrons-right.svg" />
       </Button>
     </div>
     <ListBox v-bind="props" v-model="toRemove" :options="selected">
@@ -36,8 +36,7 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { ref, computed, type Ref } from 'vue';
-import { config } from '/@/config';
+import { ref, computed, type Ref, type CSSProperties } from 'vue';
 import ListBox, { type ListBoxProps } from './ListBox.vue';
 import Button from './Button.vue';
 import Icon from './Icon.vue';
@@ -54,7 +53,7 @@ defineSlots<{
   default?: (props: { option: T }) => void;
 }>();
 
-const width = computed(() => toWidth(props.width));
+const width = computed((): CSSProperties | null => toWidth(props.width));
 
 const selected = defineModel<T[]>({ required: true });
 const toRemove = ref<T[]>([]) as Ref<T[]>;
@@ -84,8 +83,9 @@ const removeItems = (items: T[] = selected.value) => {
 
 <style scoped>
 .transfer {
-  --btn-color: var(--color, #333);
-  
+  --btn-color: var(--transfer-color, var(--accent-color, #333));
+  --listbox-color: var(--btn-color);
+
   display: flex;
   gap: 0.5rem;
   min-width: 15rem;

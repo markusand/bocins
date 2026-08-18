@@ -1,7 +1,7 @@
 <template>
-  <div class="pagination">
-    <Button v-if="props.controls" v-bind="prev" @click.prevent="change(-1)">
-      <Icon :src="`${config.iconPath}/chevron-right.svg`" />
+  <div class="pagination" role="navigation" @focusin="onFocusin" @keydown="onKeydown">
+    <Button v-if="controls" v-bind="prev" aria-label="Previous page" @click.stop="change(-1)">
+      <Icon src="chevron-right.svg" />
     </Button>
     <!-- First page always visible -->
     <slot :page="1" :go-to="goTo">
@@ -10,7 +10,9 @@
       </ToggleButton>
     </slot>
     <!-- Separator if first page not in range -->
-    <em v-if="range.base > 1">...</em>
+    <em v-if="range.base > 1">
+      <slot name="separator">&middot;&middot;&middot;</slot>
+    </em>
     <!-- Range pages -->
     <slot v-for="page in range.length" :page="range.base + page" :go-to="goTo">
       <ToggleButton v-model="selected" v-bind="button(range.base + page)">
@@ -18,22 +20,24 @@
       </ToggleButton>
     </slot>
     <!-- Separator if last page not in range -->
-    <em v-if="range.base + range.length < props.pages - 1">...</em>
+    <em v-if="range.base + range.length < pages - 1">
+      <slot name="separator">&middot;&middot;&middot;</slot>
+    </em>
     <!-- Last page always visible -->
-    <slot :page="props.pages" :go-to="goTo">
-      <ToggleButton v-model="selected" v-bind="button(props.pages)">
-        {{ props.pages }}
+    <slot :page="pages" :go-to="goTo">
+      <ToggleButton v-model="selected" v-bind="button(pages)">
+        {{ pages }}
       </ToggleButton>
     </slot>
-    <Button v-if="props.controls" v-bind="next" @click.prevent="change(1)">
-      <Icon :src="`${config.iconPath}/chevron-right.svg`" />
+    <Button v-if="controls" v-bind="next" aria-label="Next page" @click.stop="change(1)">
+      <Icon src="chevron-right.svg" />
     </Button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { config } from '/@/config';
+import { useRovingTabindex } from '/@/utils';
 import Button from './Button.vue';
 import Icon from './Icon.vue';
 import ToggleButton from './ToggleButton.vue';
@@ -45,20 +49,18 @@ export type PaginationProps = {
   controls?: boolean;
 };
 
-const props = withDefaults(defineProps<PaginationProps>(), {
-  truncate: 5,
-});
+const props = defineProps<PaginationProps>();
 
 const selected = defineModel<number>({ default: 0 });
 
 defineSlots<{
-  default: (props: { page: number, goTo: (page: number) => void }) => void;
+  default?: (props: { page: number, goTo: (page: number) => void }) => void;
+  separator?: () => void;
 }>();
 
 const range = computed(() => {
-  const { pages, truncate } = props;
-  const length = Math.min(truncate, pages);
-  const max = Math.max(1, pages - length - 1);
+  const length = Math.min(props.truncate ?? Infinity, props.pages - 2);
+  const max = Math.max(1, props.pages - length - 1);
   const min = Math.max(1, selected.value - Math.floor(length / 2));
   const base = Math.min(max, min);
   return { base, length };
@@ -66,7 +68,7 @@ const range = computed(() => {
 
 const button = (page: number) => ({
   value: page - 1,
-  variant: page - 1 === selected.value ? undefined : 'flat' as const,
+  flat: page - 1 !== selected.value,
   even: page > 9,
   disabled: props.disabled,
   required: true,
@@ -75,14 +77,14 @@ const button = (page: number) => ({
 const prev = computed(() => ({
   class: 'pagination__prev',
   disabled: props.disabled || selected.value === 0,
-  variant: 'flat' as const,
+  flat: true,
   even: true,
 }));
 
 const next = computed(() => ({
   class: 'pagination__next',
   disabled: props.disabled || selected.value === props.pages - 1,
-  variant: 'flat' as const,
+  flat: true,
   even: true,
 }));
 
@@ -91,10 +93,14 @@ const goTo = (page: number) => {
 };
 
 const change = (num: number) => goTo(selected.value + num + 1);
+
+const { onFocusin, onKeydown } = useRovingTabindex({ wrap: false });
 </script>
 
 <style scoped>
 .pagination {
+  --separator-color: var(--pagination-separator-color, #8888);
+
   display: inline-flex;
   align-items: center;
   list-style: none;
@@ -104,11 +110,10 @@ const change = (num: number) => goTo(selected.value + num + 1);
   em {
     display: block;
     padding-right: 0.125rem;
-    color: #8888;
+    color: var(--separator-color);
   }
 
-  .btn:not(.btn--flat) { --color: var(--color-accent, #333); }
-
+  .btn:not(.btn--flat) { --color: var(--pagination-color, var(--accent-color, #333)); }
 }
 
 .pagination__prev .icon { transform: rotate(180deg); }

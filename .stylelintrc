@@ -4,6 +4,8 @@
     "stylelint-config-html/vue"
   ],
   "rules": {
-    "selector-class-pattern": null
+    "selector-class-pattern": null,
+    "selector-pseudo-class-no-unknown": [true, { "ignorePseudoClasses": ["deep"] }],
+    "custom-property-pattern": "^_?[a-z][a-z0-9]*(-[a-z0-9]+)*$"
   }
 }

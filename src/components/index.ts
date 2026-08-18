@@ -9,16 +9,10 @@ export { default as Button, type ButtonProps } from './Button.vue';
 export { default as ButtonGroup, type ButtonGroupProps } from './ButtonGroup.vue';
 export { default as Chip, type ChipProps } from './Chip.vue';
 export { default as Divider } from './Divider.vue';
-export { default as Carousel } from './Carousel.vue';
-export { default as ImageExpand } from './ImageExpand.vue';
-export { default as Dropdown } from './Dropdown.vue';
-export {
-  default as ContextualMenu,
-  type ContextualMenuProps,
-  type ContextualMenuActions,
-  type ContextualMenuAction,
-} from './ContextualMenu.vue';
-export { default as Accordion } from './Accordion.vue';
+export { default as Carousel, type CarouselProps } from './Carousel.vue';
+export { default as ImageExpand, type ImageExpandProps } from './ImageExpand.vue';
+export { default as Dropdown, type DropdownProps } from './Dropdown.vue';
+export { default as ActionMenu, type Action, type ActionGroup, type ActionMenuProps } from './ActionMenu.vue';
 export { default as Collapser, type CollapserProps } from './Collapser.vue';
 export { default as Tabs } from './Tabs.vue';
 export { default as TabView, type Tab } from './TabView.vue';
@@ -28,8 +22,8 @@ export { default as Stepper, type StepperProps } from './Stepper.vue';
 export { default as Search, type SearchProps } from './Search.vue';
 export { default as LongText, type LongTextProps } from './LongText.vue';
 export { default as ChipsInput, type ChipsInputProps } from './ChipsInput.vue';
-export { default as Rating } from './Rating.vue';
-export { default as Switch } from './Switch.vue';
+export { default as Rating, type RatingProps } from './Rating.vue';
+export { default as Switch, type SwitchProps } from './Switch.vue';
 export { default as ToggleButton, type ToggleButtonProps } from './ToggleButton.vue';
 export { default as Toggler, type TogglerProps } from './Toggler.vue';
 export { default as Picker, type PickerProps } from './Picker.vue';
@@ -38,12 +32,15 @@ export { default as Transfer, type TransferProps } from './Transfer.vue';
 export { default as Selector, type SelectorProps } from './Selector.vue';
 export { default as Calendar, type CalendarProps, type SelectedDate } from './Calendar.vue';
 export { default as DatePicker, type DatePickerProps } from './DatePicker.vue';
-export { default as InputGroup } from './ButtonGroup.vue';
-export { default as FileDrop } from './FileDrop.vue';
-export { default as Modal } from './Modal.vue';
-export { default as TreeList } from './TreeList.vue';
+export { default as InputGroup, type ButtonGroupProps as InputGroupProps } from './ButtonGroup.vue';
+export { default as FileDrop, type FileDropProps } from './FileDrop.vue';
+export { default as Modal, type ModalProps } from './Modal.vue';
+export { default as TreeList, type TreeListProps } from './TreeList.vue';
 export { default as Passcode, type PasscodeProps } from './Passcode.vue';
 export { default as Pagination, type PaginationProps } from './Pagination.vue';
-export { default as Popover } from './Popover.vue';
-export { default as Tooltip } from './Tooltip.vue';
-export { default as HotKey } from './HotKey.vue';
+export { default as Popover, type PopoverProps } from './Popover.vue';
+export { default as Tooltip, type TooltipProps } from './Tooltip.vue';
+export { default as HotKey, type HotKeyProps } from './HotKey.vue';
+export { default as Slider, type SliderProps } from './Slider.vue';
+export { default as Progress, type ProgressProps } from './Progress.vue';
+export { default as PullTo } from './PullTo.vue';

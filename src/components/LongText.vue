@@ -1,14 +1,17 @@
 <template>
-  <div :class="['longtext', 'is-input', modifiers]">
+  <div :class="classes">
     <textarea
       v-model="text"
       v-bind="props"
       :style="dimensions"
-      :maxlength="props.maxLength"
-      :disabled="props.disabled"
+      :placeholder
+      :disabled
+      :maxlength="maxLength"
+      :aria-invalid="invalid || undefined"
+      @change="onChange"
       @keydown.tab="handleTab" />
-    <span v-if="props.maxLength" class="longtext__counter">
-      {{ text.length }} / {{ props.maxLength }}
+    <span v-if="maxLength" class="longtext__counter" role="status">
+      {{ text?.length ?? '0' }} / {{ maxLength }}
     </span>
   </div>
 </template>
@@ -30,22 +33,32 @@ export type LongTextProps = {
 };
 
 const props = withDefaults(defineProps<LongTextProps>(), {
-  maxLength: undefined,
   width: 20,
   height: 5,
   placeholder: '',
 });
 
-const text = defineModel<string>({ required: true });
+const text = defineModel<string>();
+
+const emit = defineEmits<{
+  change: [text: string];
+}>();
+
+const onChange = (event: Event) => {
+  const { value } = event.target as HTMLTextAreaElement;
+  emit('change', value);
+};
 
 const handleTab = (event: KeyboardEvent) => {
   if (!props.indentable) return;
   event.preventDefault();
   const target = event.target as HTMLTextAreaElement;
   const { selectionStart, selectionEnd, value } = target;
-  target.value = `${value.substring(0, selectionStart)}\t${value.substring(selectionEnd)}`;
+  const updated = `${value.substring(0, selectionStart)}\t${value.substring(selectionEnd)}`;
+  target.value = updated;
   target.selectionStart = selectionStart + 1;
   target.selectionEnd = selectionEnd + 1;
+  text.value = updated;
 };
 
 const dimensions = computed(() => {
@@ -59,19 +72,17 @@ const dimensions = computed(() => {
   };
 });
 
-const modifiers = computed(() => {
-  const { block, disabled, invalid } = props;
-  return {
-    'longtext--block': block,
-    'longtext--disabled': disabled,
-    'longtext--invalid': invalid,
-    'is-block': block,
-  };
-});
+const classes = computed(() => ['longtext', 'is-input', {
+  'is-disabled': props.disabled,
+  'is-invalid': props.invalid,
+  'is-block': props.block,
+}]);
 </script>
 
 <style scoped>
 .longtext {
+  --spacing: var(--longtext-spacing, 0.5rem);
+
   display: inline-block;
   padding: 0;
   position: relative;
@@ -85,7 +96,6 @@ const modifiers = computed(() => {
     min-height: calc(1em + 2 * var(--spacing));
     white-space: pre-wrap;
   }
-
 }
 
 .longtext__counter {
