@@ -135,17 +135,23 @@ const onToggle = (event: ToggleEvent) => {
   overflow: visible;
   container-type: anchored; /* stylelint-disable-line */
 
-  /* Transition */
-  display: none;
+  /* Transition — visibility for cross-browser support,
+     overlay for top-layer exit where allow-discrete works */
+
+  pointer-events: none;
+  display: block;
+  visibility: hidden;
   margin: 0;
   opacity: 0;
   transition:
-    all var(--timing) linear,
-    display var(--timing) allow-discrete,
+    opacity var(--timing) linear,
+    margin var(--timing) linear,
+    visibility var(--timing) linear,
     overlay var(--timing) allow-discrete;
 
   &:popover-open {
-    display: block;
+    pointer-events: auto;
+    visibility: visible;
     opacity: 1;
     margin: var(--gap-y) var(--gap-x);
     
