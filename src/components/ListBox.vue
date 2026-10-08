@@ -113,7 +113,7 @@ const classes = computed(() => ['listbox', 'is-panel', {
 
 :checked + .listbox__option {
   background: var(--color);
-  color: #fff;
+  color: var(--text-color-checked, contrast-color(var(--color)));
 }
 
 .listbox__label { padding: 0.35rem 0.5rem; }
